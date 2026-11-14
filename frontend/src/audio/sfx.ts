@@ -23,6 +23,9 @@ let ctx: AudioContext | null = null;
 let master: GainNode | null = null;
 let noise: AudioBuffer | null = null;
 let enabled = true;
+/** Narration en cours : les effets baissent pour laisser la voix nette. */
+let ducked = false;
+const level = () => (enabled ? (ducked ? 0.16 : 0.55) : 0);
 
 function audio(): AudioContext | null {
   if (!ctx) {
@@ -30,7 +33,7 @@ function audio(): AudioContext | null {
     if (!AC) return null;
     ctx = new AC();
     master = ctx.createGain();
-    master.gain.value = enabled ? 0.55 : 0;
+    master.gain.value = level();
     master.connect(ctx.destination);
     // Bruit blanc (2 s, en boucle) : base des grondements, du sable et des réacteurs.
     noise = ctx.createBuffer(1, ctx.sampleRate * 2, ctx.sampleRate);
@@ -49,7 +52,13 @@ export function unlockSfx() {
 /** Coupe ou rétablit tous les effets. */
 export function setSfxEnabled(on: boolean) {
   enabled = on;
-  if (master && ctx) master.gain.setTargetAtTime(on ? 0.55 : 0, ctx.currentTime, 0.05);
+  if (master && ctx) master.gain.setTargetAtTime(level(), ctx.currentTime, 0.05);
+}
+
+/** Baisse les effets pendant la narration (et les remonte ensuite). */
+export function duckSfx(on: boolean) {
+  ducked = on;
+  if (master && ctx) master.gain.setTargetAtTime(level(), ctx.currentTime, on ? 0.15 : 0.6);
 }
 
 function noiseSource(a: AudioContext) {

@@ -78,7 +78,13 @@ export function expeditionField(body: SurfaceBody, sites: Site[]): HeightField {
       const base =
         body === 'moon'
           ? fbm(x * 0.012, z * 0.012, 4) * 6 + craters(x, z, 34, 11) * 2.2 + craters(x, z, 90, 5) * 4 + craters(x, z, 13, 21) * 0.7 + fbm(x * 0.2, z * 0.2, 2) * 0.25
-          : fbm(x * 0.008, z * 0.008, 4) * 9 + Math.sin(x * 0.05 + fbm(x * 0.02, z * 0.02) * 4) * 0.8 + craters(x, z, 120, 3) * 3;
+          : fbm(x * 0.008, z * 0.008, 4) * 9 +
+            Math.sin(x * 0.05 + fbm(x * 0.02, z * 0.02) * 4) * 0.8 + // rides de sable
+            craters(x, z, 120, 3) * 4 +
+            craters(x, z, 42, 13) * 2.6 +
+            craters(x, z, 15, 29) * 1.1 + // petits trous d'impact
+            fbm(x * 0.17, z * 0.17, 3) * 0.55 + // sol rocailleux
+            fbm(x * 0.6, z * 0.6, 2) * 0.08;
       return base * (0.25 + 0.75 * flat(x, z)) + edge;
     },
   };

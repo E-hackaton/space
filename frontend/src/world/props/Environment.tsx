@@ -159,3 +159,60 @@ export function ShipCamera({ at, ship, animate }: { at: [number, number, number]
   });
   return null;
 }
+
+/**
+ * Débris et cailloux : des milliers de petites pierres décoratives (une seule géométrie instanciée),
+ * trop petites pour gêner le rover. Elles donnent au sol son aspect caillouteux réel.
+ */
+export function Pebbles({ field, color, count = 2500, seed = 5, minSize = 0.06, maxSize = 0.4, avoid = [] as [number, number, number][] }: { field: HeightField; color: string; count?: number; seed?: number; minSize?: number; maxSize?: number; avoid?: [number, number, number][] }) {
+  const geometry = useMemo(() => {
+    const g = new THREE.IcosahedronGeometry(1, 1);
+    const pos = g.attributes.position as THREE.BufferAttribute;
+    const v = new THREE.Vector3();
+    for (let i = 0; i < pos.count; i++) {
+      v.fromBufferAttribute(pos, i);
+      v.multiplyScalar(0.7 + valueNoise(v.x * 2.3 + seed, v.y * 2.1 + v.z * 1.9) * 0.6);
+      pos.setXYZ(i, v.x, v.y * 0.6, v.z);
+    }
+    g.computeVertexNormals();
+    return g;
+  }, [seed]);
+  const matrices = useMemo(() => {
+    let s = seed * 7919 + 13;
+    const rnd = () => ((s = (s * 9301 + 49297) % 233280) / 233280);
+    const out: THREE.Matrix4[] = [];
+    const m = new THREE.Matrix4();
+    const q = new THREE.Quaternion();
+    const e = new THREE.Euler();
+    let guard = 0;
+    while (out.length < count && guard++ < count * 4) {
+      // groupés en traînées (éjectas autour des cratères), pas uniformes
+      const cx = (rnd() * 2 - 1) * field.half * 0.95;
+      const cz = (rnd() * 2 - 1) * field.half * 0.95;
+      const n = 1 + Math.floor(rnd() * 6);
+      for (let k = 0; k < n && out.length < count; k++) {
+        const x = cx + (rnd() - 0.5) * 4;
+        const z = cz + (rnd() - 0.5) * 4;
+        if (avoid.some(([ax, az, r]) => Math.hypot(x - ax, z - az) < r)) continue;
+        const sc = minSize + Math.pow(rnd(), 2.5) * (maxSize - minSize);
+        e.set(rnd() * 3, rnd() * 3, rnd() * 3);
+        q.setFromEuler(e);
+        m.compose(new THREE.Vector3(x, field.heightAt(x, z) + sc * 0.1, z), q, new THREE.Vector3(sc, sc, sc));
+        out.push(m.clone());
+      }
+    }
+    return out;
+  }, [field, count, seed, minSize, maxSize, avoid]);
+  return (
+    <instancedMesh
+      ref={(r) => {
+        if (!r) return;
+        matrices.forEach((mm, i) => r.setMatrixAt(i, mm));
+        r.instanceMatrix.needsUpdate = true;
+      }}
+      args={[geometry, undefined, matrices.length]}
+      receiveShadow
+      material={smooth(color, { rough: 0.95 })}
+    />
+  );
+}

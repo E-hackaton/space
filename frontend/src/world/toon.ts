@@ -33,6 +33,6 @@ export function toon(color: string, opts: { emissive?: string; flat?: boolean } 
 /** Palettes des mondes : couleurs logiques (Mars rouille, Lune grise, Terre verte). */
 export const PALETTES = {
   earth: { sky: '#1b1f4a', fog: '#2b2f66', ground: ['#3d8a45', '#56a64f', '#78c05c'], sand: '#e8c98a', water: '#2f7fd1', rock: '#8b8f99' },
-  mars: { sky: '#d9a066', fog: '#d39a63', ground: ['#9c4a2a', '#b95d32', '#d07a45'], rock: '#7a3a22', track: '#6b2e18' },
+  mars: { sky: '#d9a066', fog: '#d39a63', ground: ['#74321a', '#b4582f', '#dd9058'], rock: '#7a3a22', track: '#6b2e18' },
   moon: { sky: '#05060d', fog: '#05060d', ground: ['#5d6066', '#7a7e85', '#979ba2'], rock: '#4d5157', track: '#3f4247' },
 } as const;

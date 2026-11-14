@@ -4,7 +4,7 @@ import { AdaptiveDpr, Html, PerformanceMonitor, Sparkles, Stars, useTexture } fr
 import * as THREE from 'three';
 import { Player, player, type Obstacle } from '../../world/Player';
 import { TerrainMesh } from '../../world/TerrainMesh';
-import { Rocks, SkyDome, SunLight, scatterRocks, corridor } from '../../world/props/Environment';
+import { Pebbles, Rocks, SkyDome, SunLight, scatterRocks, corridor } from '../../world/props/Environment';
 import { DustTrail } from '../../world/props/DustTrail';
 import { Look } from '../../world/Look';
 import { PALETTES } from '../../world/toon';
@@ -124,7 +124,7 @@ export default function ExpeditionGround({ body, sites, start, startHeading, ani
   const pal = PALETTES[body];
   const rocks = useMemo(
     () =>
-      scatterRocks(field, body === 'moon' ? 420 : 520, body === 'moon' ? 9 : 4, [
+      scatterRocks(field, body === 'moon' ? 420 : 900, body === 'moon' ? 9 : 4, [
         ...sites.map((s) => [s.x, s.z, 18] as [number, number, number]),
         [start[0], start[1], 12],
         ...sites.flatMap((s, i) => (i ? corridor([sites[i - 1].x, sites[i - 1].z], [s.x, s.z], 7) : [])),
@@ -172,8 +172,9 @@ export default function ExpeditionGround({ body, sites, start, startHeading, ani
       )}
       <Look tint={body === 'moon' ? '#ffffff' : '#ffd9b0'} ground={body === 'moon' ? '#3a3c42' : '#6a3420'} bloom={0.55} effects={shadows} />
 
-      <TerrainMesh field={field} colors={pal.ground} segments={240} />
+      <TerrainMesh field={field} colors={pal.ground} segments={360} />
       <Rocks rocks={rocks} color={pal.rock} seed={body === 'moon' ? 9 : 4} />
+      <Pebbles field={field} color={pal.rock} count={body === 'moon' ? 6000 : 8000} seed={body === 'moon' ? 3 : 8} minSize={0.15} maxSize={1.1} avoid={sites.map((s) => [s.x, s.z, 8] as [number, number, number])} />
       {body === 'moon' ? (
         <DustTrail field={field} color="#f4f6fb" gravity={1.62} drag={0} active={!story} />
       ) : (

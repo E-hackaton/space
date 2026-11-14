@@ -51,7 +51,7 @@ export function siteField(data: SiteData): HeightField & { alt0: number; toWorld
       const mx = x * SITE_SCALE + cx;
       const mz = z * SITE_SCALE + cz;
       const real = (sample(mx, mz) - alt0) / SITE_SCALE;
-      const detail = fbm(x * 0.05, z * 0.05) * 1.2 + fbm(x * 0.3, z * 0.3, 2) * 0.12 + craters(x, z, 36, 3) * 0.6;
+      const detail = fbm(x * 0.05, z * 0.05) * 1.2 + fbm(x * 0.3, z * 0.3, 2) * 0.22 + craters(x, z, 36, 3) * 0.9 + craters(x, z, 13, 17) * 0.55 + craters(x, z, 6, 31) * 0.25;
       return real + detail;
     },
   };

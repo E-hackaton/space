@@ -4,7 +4,7 @@ import * as THREE from 'three';
 import { Sparkles } from '@react-three/drei';
 import { Player, player, type Obstacle } from '../Player';
 import { ToonLander } from '../props/Vehicles';
-import { Rocks, ShipCamera, SkyDome, SunLight, scatterRocks } from '../props/Environment';
+import { Pebbles, Rocks, ShipCamera, SkyDome, SunLight, scatterRocks } from '../props/Environment';
 import { DustTrail } from '../props/DustTrail';
 import { Flights, Traverse, machinePositions, replay } from '../Replay';
 import { TerrainMesh } from '../TerrainMesh';
@@ -78,7 +78,7 @@ function MarsSite({ data, site, animate }: { data: SiteData; site: 'jezero' | 'g
   const start = useMemo<[number, number]>(() => [landing[0] - 6, landing[2] + 4], [landing]);
 
   const rocks = useMemo(
-    () => scatterRocks(field, 520, site === 'gale' ? 5 : 2, [[landing[0], landing[2], 10], [start[0], start[1], 5]]),
+    () => scatterRocks(field, 850, site === 'gale' ? 5 : 2, [[landing[0], landing[2], 10], [start[0], start[1], 5]]),
     [field, site, landing, start],
   );
   // Ordre important : [atterrisseur, rovers (positions mises à jour par Traverse), rochers].
@@ -130,6 +130,7 @@ function MarsSite({ data, site, animate }: { data: SiteData; site: 'jezero' | 'g
       {/* Poussière en suspension qui suit le joueur */}
       <DustMotes animate={animate} />
       <Rocks rocks={rocks} color={PALETTES.mars.rock} seed={site === 'gale' ? 5 : 2} />
+      <Pebbles field={field} color={PALETTES.mars.rock} count={6000} minSize={0.12} maxSize={0.9} seed={site === 'gale' ? 6 : 9} />
       {/* Poussière des roues : l'air martien, très léger, la freine un peu (pesanteur 3,71 m/s²). */}
       <DustTrail field={field} color="#c98a5a" gravity={3.71} drag={0.8} active={phase === 'drive'} />
 
