@@ -174,13 +174,77 @@ class Equipment(models.Model):
             raise ValidationError(errors)
 
 
-class StoryChapter(models.Model):
-    """Un chapitre de l'histoire d'un héros, raconté à la première personne."""
+class VoicedContent(models.Model):
+    """
+    Contenu lu à voix haute : un fichier audio par langue, généré par ElevenLabs.
+
+    L'empreinte (hash) mémorise le texte et la voix qui ont produit l'audio. La commande
+    `generate_voices` ne régénère que ce qui a changé, ce qui économise le quota ElevenLabs.
+    """
+
+    LANGUAGES = ("fr", "en")
+
+    audio_fr = models.FileField("voix (FR)", upload_to="voices/", blank=True)
+    audio_en = models.FileField("voix (EN)", upload_to="voices/", blank=True)
+    audio_fr_hash = models.CharField(max_length=64, blank=True, editable=False)
+    audio_en_hash = models.CharField(max_length=64, blank=True, editable=False)
+
+    class Meta:
+        abstract = True
+
+    def spoken_text(self, language: str) -> str:
+        """Texte à lire dans la langue demandée, ou chaîne vide s'il n'est pas traduit."""
+        raise NotImplementedError
+
+    def voice_role(self) -> str:
+        """« guide » (voix de Sankofa) ou « machine » (voix des héros)."""
+        raise NotImplementedError
+
+    def audio_slug(self) -> str:
+        """Préfixe lisible du nom de fichier audio."""
+        raise NotImplementedError
+
+
+class StoryChapter(VoicedContent):
+    """
+    Une étape datée de la mission d'un héros, racontée à la première personne.
+
+    Elle pilote aussi la visite 3D : `focus` indique la pièce de la machine que la caméra montre.
+    """
+
+    class DatePrecision(models.TextChoices):
+        DAY = "day", "Jour"
+        MONTH = "month", "Mois"
+        YEAR = "year", "Année"
+
+    class Focus(models.TextChoices):
+        OVERVIEW = "overview", "Vue d'ensemble"
+        BODY = "body", "Corps"
+        WHEELS = "wheels", "Roues"
+        ARM = "arm", "Bras robotique"
+        MAST = "mast", "Mât et caméras"
+        PANELS = "panels", "Panneaux solaires"
+        LEGS = "legs", "Pieds d'atterrissage"
+        ROTOR = "rotor", "Pales"
+        ANTENNA = "antenna", "Antenne"
+        MIRROR = "mirror", "Miroirs"
+        ENGINE = "engine", "Moteur"
 
     equipment = models.ForeignKey(
         Equipment, on_delete=models.CASCADE, related_name="chapters", verbose_name="héros"
     )
     order = models.PositiveSmallIntegerField("ordre", default=0)
+    date = models.DateField("date de l'étape", null=True, blank=True)
+    date_precision = models.CharField(
+        "précision de la date",
+        max_length=5,
+        choices=DatePrecision.choices,
+        default=DatePrecision.DAY,
+        help_text="Pour afficher « 2004 » ou « juin 2018 » quand le jour exact n'a pas de sens.",
+    )
+    focus = models.CharField(
+        "pièce montrée en 3D", max_length=10, choices=Focus.choices, default=Focus.OVERVIEW
+    )
     title_fr = models.CharField("titre (FR)", max_length=120)
     title_en = models.CharField("titre (EN)", max_length=120, blank=True)
     body_fr = models.TextField("texte (FR)")
@@ -188,14 +252,50 @@ class StoryChapter(models.Model):
 
     class Meta:
         ordering = ["equipment", "order"]
-        verbose_name = "chapitre"
-        verbose_name_plural = "chapitres"
+        verbose_name = "étape de mission"
+        verbose_name_plural = "étapes de mission"
         constraints = [
             models.UniqueConstraint(fields=["equipment", "order"], name="unique_chapter_order"),
         ]
 
     def __str__(self) -> str:
         return f"{self.equipment.name} · {self.order}. {self.title_fr}"
+
+    def spoken_text(self, language: str) -> str:
+        title, body = getattr(self, f"title_{language}"), getattr(self, f"body_{language}")
+        return f"{title}. {body}" if title and body else ""
+
+    def voice_role(self) -> str:
+        return "machine"
+
+    def audio_slug(self) -> str:
+        return f"{self.equipment.slug}-{self.order}"
+
+
+class GuideStep(VoicedContent):
+    """Une étape de la visite d'accueil, dite par Sankofa (2 phrases maximum)."""
+
+    key = models.SlugField("identifiant", unique=True, help_text="Ex. « welcome », « how-it-works ».")
+    order = models.PositiveSmallIntegerField("ordre", default=0)
+    text_fr = models.TextField("texte (FR)")
+    text_en = models.TextField("texte (EN)", blank=True)
+
+    class Meta:
+        ordering = ["order"]
+        verbose_name = "étape du guide"
+        verbose_name_plural = "étapes du guide"
+
+    def __str__(self) -> str:
+        return f"{self.order}. {self.key}"
+
+    def spoken_text(self, language: str) -> str:
+        return getattr(self, f"text_{language}")
+
+    def voice_role(self) -> str:
+        return "guide"
+
+    def audio_slug(self) -> str:
+        return f"guide-{self.key}"
 
 
 class QuizQuestion(models.Model):

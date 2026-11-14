@@ -7,7 +7,7 @@ grâce aux formulaires en ligne (inlines).
 
 from django.contrib import admin
 
-from .models import CelestialBody, Equipment, QuizQuestion, Source, StoryChapter
+from .models import CelestialBody, Equipment, GuideStep, QuizQuestion, Source, StoryChapter
 
 
 @admin.register(CelestialBody)
@@ -19,7 +19,23 @@ class CelestialBodyAdmin(admin.ModelAdmin):
 class StoryChapterInline(admin.StackedInline):
     model = StoryChapter
     extra = 0
-    fields = ["order", "title_fr", "body_fr", "title_en", "body_en"]
+    fields = [
+        ("order", "date", "date_precision", "focus"),
+        "title_fr",
+        "body_fr",
+        "title_en",
+        "body_en",
+        ("audio_fr", "audio_en"),
+    ]
+
+
+@admin.register(GuideStep)
+class GuideStepAdmin(admin.ModelAdmin):
+    """Le script de Sankofa : 2 phrases maximum par étape, voix générées par `generate_voices`."""
+
+    list_display = ["order", "key", "text_fr"]
+    list_display_links = ["key"]
+    fields = ["key", "order", "text_fr", "text_en", "audio_fr", "audio_en"]
 
 
 class QuizQuestionInline(admin.StackedInline):

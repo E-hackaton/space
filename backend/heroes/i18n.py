@@ -45,3 +45,23 @@ class LocalizedField(serializers.Field):
         if not value:
             value = getattr(instance, f"{self.base}_{DEFAULT_LANGUAGE}")
         return value
+
+
+class LocalizedAudioField(serializers.Field):
+    """
+    URL absolue du fichier audio `<base>_<langue>`, ou null s'il n'existe pas.
+
+    Contrairement aux textes, il n'y a **pas** de repli vers le français : une voix française
+    sur une page anglaise serait déroutante. Le frontend utilise alors la voix du navigateur.
+    """
+
+    def __init__(self, base: str = "audio", **kwargs: Any) -> None:
+        self.base = base
+        super().__init__(source="*", read_only=True, **kwargs)
+
+    def to_representation(self, instance: Any) -> str | None:
+        request = self.context.get("request")
+        audio = getattr(instance, f"{self.base}_{resolve_language(request)}")
+        if not audio:
+            return None
+        return request.build_absolute_uri(audio.url) if request else audio.url

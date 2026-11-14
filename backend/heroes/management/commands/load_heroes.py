@@ -17,7 +17,7 @@ from django.core.exceptions import ValidationError
 from django.core.management.base import BaseCommand, CommandError, CommandParser
 from django.db import transaction
 
-from heroes.models import CelestialBody, Equipment, QuizQuestion, Source, StoryChapter
+from heroes.models import CelestialBody, Equipment, GuideStep, QuizQuestion, Source, StoryChapter
 
 DEFAULT_DATA_FILE = Path(__file__).resolve().parents[2] / "data" / "heroes.json"
 
@@ -42,10 +42,14 @@ class Command(BaseCommand):
         # Tout ou rien : si une seule fiche est invalide, la base reste inchangée.
         with transaction.atomic():
             bodies = self._load_bodies(data.get("bodies", []))
+            guide_created = self._load_guide(data.get("guide", []), options["overwrite"])
             created, skipped = self._load_equipment(data.get("equipment", []), bodies, options["overwrite"])
 
         self.stdout.write(
-            self.style.SUCCESS(f"{len(bodies)} lieux, {created} héros chargés, {skipped} déjà présents (ignorés).")
+            self.style.SUCCESS(
+                f"{len(bodies)} lieux, {guide_created} étapes du guide ajoutées, "
+                f"{created} héros chargés, {skipped} déjà présents (ignorés)."
+            )
         )
 
     # --- Étapes ----------------------------------------------------------------
@@ -70,6 +74,20 @@ class Command(BaseCommand):
             body, _ = CelestialBody.objects.update_or_create(slug=item["slug"], defaults=fields)
             bodies[body.slug] = body
         return bodies
+
+    @staticmethod
+    def _load_guide(items: list[dict[str, Any]], overwrite: bool) -> int:
+        """Même règle que les héros : une étape existante n'est remplacée qu'avec --overwrite."""
+        created = 0
+        for item in items:
+            fields = {key: value for key, value in item.items() if key != "key"}
+            if overwrite:
+                GuideStep.objects.update_or_create(key=item["key"], defaults=fields)
+                created += 1
+            elif not GuideStep.objects.filter(key=item["key"]).exists():
+                GuideStep.objects.create(key=item["key"], **fields)
+                created += 1
+        return created
 
     def _load_equipment(
         self,

@@ -7,8 +7,8 @@ dans la langue demandée : le frontend n'a jamais à gérer le choix de langue c
 
 from rest_framework import serializers
 
-from .i18n import LocalizedField
-from .models import CelestialBody, Equipment, QuizQuestion, Source, StoryChapter
+from .i18n import LocalizedAudioField, LocalizedField
+from .models import CelestialBody, Equipment, GuideStep, QuizQuestion, Source, StoryChapter
 
 
 class CelestialBodySerializer(serializers.ModelSerializer):
@@ -25,12 +25,24 @@ class CelestialBodySerializer(serializers.ModelSerializer):
 
 
 class StoryChapterSerializer(serializers.ModelSerializer):
+    """Étape datée de la mission. `focus` dit au frontend quelle pièce de la machine 3D montrer."""
+
     title = LocalizedField("title")
     body = LocalizedField("body")
+    audio = LocalizedAudioField()
 
     class Meta:
         model = StoryChapter
-        fields = ["order", "title", "body"]
+        fields = ["order", "date", "date_precision", "focus", "title", "body", "audio"]
+
+
+class GuideStepSerializer(serializers.ModelSerializer):
+    text = LocalizedField("text")
+    audio = LocalizedAudioField()
+
+    class Meta:
+        model = GuideStep
+        fields = ["key", "order", "text", "audio"]
 
 
 class QuizQuestionSerializer(serializers.ModelSerializer):

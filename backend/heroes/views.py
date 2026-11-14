@@ -4,12 +4,25 @@ from django.db.models import Count, Prefetch, Q, QuerySet
 from rest_framework import viewsets
 from rest_framework.exceptions import ValidationError
 
-from .models import CelestialBody, Equipment, QuizQuestion, StoryChapter
+from .models import CelestialBody, Equipment, GuideStep, QuizQuestion, StoryChapter
 from .serializers import (
     CelestialBodySerializer,
     EquipmentDetailSerializer,
     EquipmentListSerializer,
+    GuideStepSerializer,
 )
+
+
+class GuideStepViewSet(viewsets.ReadOnlyModelViewSet):
+    """
+    Le script de la visite d'accueil de Sankofa.
+
+    - `GET /api/guide/` : les étapes dans l'ordre, avec leur audio dans la langue demandée
+    """
+
+    serializer_class = GuideStepSerializer
+    queryset = GuideStep.objects.all()
+    lookup_field = "key"
 
 
 class CelestialBodyViewSet(viewsets.ReadOnlyModelViewSet):
