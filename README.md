@@ -1,7 +1,5 @@
 # FORBITS : Their missions ended. Their stories live on.
 
-sk_ca43dc7e30fa6de43b7473ca87a77a47413ee42c51b11d58
-
 Projet de l'équipe **G. Bugs** (Abidjan) pour le **NASA Space Apps Challenge 2026**, défi
 [_Abandoned but not Forgotten_](https://www.spaceappschallenge.org/2026/challenges/nasas-discarded-equipment-storytelling/).
 En ligne : **https://space.techledger.io**
