@@ -1,5 +1,6 @@
 import { lazy, Suspense, useEffect, useMemo, useRef, useState } from 'react';
-import { Link, useSearchParams } from 'react-router-dom';
+import { Link, useNavigate, useSearchParams } from 'react-router-dom';
+import { machinesOn, useCatalog, type MachineSummary } from '../lib/machines';
 import { useTranslation } from 'react-i18next';
 import { AnimatePresence, motion } from 'motion/react';
 import gsap from 'gsap';
@@ -23,6 +24,9 @@ import { speak } from '../audio/speech';
 import { useStore } from '../store/useStore';
 import { player } from '../world/Player';
 import { engineStop, engineUpdate, playBump, playDetect, playLanding, playLiftoff, type SoundWorld } from '../audio/sfx';
+
+/** Machines qui ont leur propre site rejouable dans l'Explorer ; les autres se visitent dans l'expédition au sol. */
+const SITE_OF: Record<string, WorldId> = { 'apollo-11-eagle': 'moon', perseverance: 'jezero', ingenuity: 'jezero', curiosity: 'gale' };
 
 const SOUND_WORLD: Record<WorldId, SoundWorld> = { earth: 'earth', moon: 'moon', jezero: 'mars', gale: 'mars' };
 
@@ -109,6 +113,12 @@ export default function ExplorerPage() {
   const speed = useWorld((s) => s.speed);
   const travelTo = useWorld((s) => s.travelTo);
   const [chooser, setChooser] = useState(false);
+  /** Astre déplié dans le sélecteur du pas de tir. */
+  const [openBody, setOpenBody] = useState<'moon' | 'mars' | null>(null);
+  const catalog = useCatalog();
+  const navigate = useNavigate();
+  /** Après le vol : arriver au sol de l'expédition, devant cette machine. */
+  const expedition = useRef<string | null>(null);
   const flash = useRef<HTMLDivElement>(null);
   const site = world === 'jezero' || world === 'gale' ? world : null;
   const siteData = useSiteData(site ?? 'jezero');
@@ -171,6 +181,15 @@ export default function ExplorerPage() {
         .to(ship, { travel: 1, duration: 4.5 * k, ease: 'power1.inOut' })
         .add(() => white(true), `-=${0.4 * k}`)
         .add(() => {
+          // Machine sans site rejouable : on se pose dans l'expédition au sol, devant elle.
+          if (expedition.current) {
+            const url = expedition.current;
+            expedition.current = null;
+            ship.flame = 0;
+            st.landOn('earth');
+            navigate(url);
+            return;
+          }
           ship.y = 90;
           ship.flame = 1;
           st.arrive(st.target ?? 'earth');
@@ -191,11 +210,18 @@ export default function ExplorerPage() {
 
   const pick = (w: WorldId) => {
     setChooser(false);
+    setOpenBody(null);
     travelTo(w);
   };
+  const pickMachine = (m: MachineSummary, body: 'moon' | 'mars') => {
+    const site = SITE_OF[m.id];
+    if (site) return pick(site);
+    expedition.current = `/mission?astre=${body}&mode=auto&machine=${m.id}`;
+    pick(body === 'moon' ? 'moon' : 'jezero');
+  };
   const onPickPlanet = (w: WorldId) => {
-    if (w === 'moon') pick('moon');
-    else setChooser(true);
+    setChooser(true);
+    setOpenBody(w === 'moon' ? 'moon' : 'mars');
   };
 
   // Fiche de la machine proche : quelques chiffres tirés des données, peu de texte.
@@ -279,17 +305,51 @@ export default function ExplorerPage() {
               className="absolute inset-x-0 bottom-24 z-30 mx-auto flex w-fit items-end gap-3"
             >
               <SankofaAvatar size={64} talking />
-              <div className="rounded-3xl bg-gradient-to-t from-space/90 to-space/40 px-5 pb-3 pt-4 backdrop-blur-md">
+              <div className="max-w-[min(46rem,calc(100vw-6rem))] rounded-3xl bg-gradient-to-t from-space/95 to-space/50 px-5 pb-4 pt-4 backdrop-blur-md">
                 <p className="pb-3 font-display text-xl font-extrabold uppercase tracking-wider text-white">{t('explorer.where')}</p>
-                <div className="flex gap-6">
-                  {(['moon', 'jezero', 'gale'] as WorldId[]).map((w) => (
-                    <button key={w} type="button" onClick={() => pick(w)} className="group flex flex-col items-center text-white transition hover:-translate-y-1">
-                      <PlanetGlyph body={w} size={72} className="transition group-hover:scale-110" />
-                      <span className="mt-1 font-display text-lg font-extrabold uppercase leading-none group-hover:text-active">{t(`explorer.worlds.${w}`)}</span>
-                      <span className="text-[11px] text-slate-400">{t(`explorer.who.${w}`)}</span>
+                <div className="flex justify-center gap-10">
+                  {(['moon', 'mars'] as const).map((b) => (
+                    <button
+                      key={b}
+                      type="button"
+                      onClick={() => setOpenBody(openBody === b ? null : b)}
+                      aria-expanded={openBody === b}
+                      className={`group flex flex-col items-center text-white transition hover:-translate-y-1 ${openBody && openBody !== b ? 'opacity-40' : ''}`}
+                    >
+                      <PlanetGlyph body={b} size={openBody === b ? 84 : 72} className="transition-all group-hover:scale-110" />
+                      <span className="mt-1 font-display text-lg font-extrabold uppercase leading-none group-hover:text-active">{t(`bodies.${b}.name`)}</span>
+                      <span className="text-[11px] text-slate-400">{t('expedition.objects', { count: machinesOn(catalog.machines, b).length })}</span>
                     </button>
                   ))}
                 </div>
+                <AnimatePresence mode="wait">
+                  {openBody && (
+                    <motion.ul
+                      key={openBody}
+                      initial={{ opacity: 0, height: 0 }}
+                      animate={{ opacity: 1, height: 'auto' }}
+                      exit={{ opacity: 0, height: 0 }}
+                      className="mt-4 grid grid-cols-2 gap-x-6 gap-y-1 overflow-hidden border-t border-white/10 pt-3 sm:grid-cols-3"
+                    >
+                      {machinesOn(catalog.machines, openBody).map((m, i) => (
+                        <motion.li key={m.id} initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: i * 0.05 }}>
+                          <button type="button" onClick={() => pickMachine(m, openBody)} className="group w-full py-1.5 text-left text-white">
+                            <span className="flex items-center gap-2 font-display text-lg font-extrabold uppercase leading-none group-hover:text-active">
+                              <span aria-hidden="true" className={m.status === 'active' ? 'text-active' : 'text-dormant'}>
+                                {m.status === 'active' ? '●' : '◐'}
+                              </span>
+                              {m.name}
+                            </span>
+                            <span className="block pl-5 text-[11px] text-slate-400">
+                              {m.mission}
+                              {m.arrivalDate ? ` · ${m.arrivalDate.slice(0, 4)}` : ''}
+                            </span>
+                          </button>
+                        </motion.li>
+                      ))}
+                    </motion.ul>
+                  )}
+                </AnimatePresence>
               </div>
             </motion.div>
           )}
