@@ -3,7 +3,7 @@ import { Link, useSearchParams } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import { Loading } from '../components/ui/Loading';
 import { TOUR_STOPS, type TourStop } from '../lib/solarSystem';
-import { machinesOn } from '../lib/machines';
+import { machinesOn, useCatalog } from '../lib/machines';
 import { webglAvailable } from '../lib/device';
 import { usePrefersReducedMotion } from '../lib/hooks';
 
@@ -23,6 +23,7 @@ export default function Tour() {
   const { t } = useTranslation();
   const reduced = usePrefersReducedMotion();
   const [params, setParams] = useSearchParams();
+  const { machines } = useCatalog();
   const raw = params.get('cible');
   const focus: TourStop = TOUR_STOPS.includes(raw as TourStop) ? (raw as TourStop) : 'overview';
   const index = TOUR_STOPS.indexOf(focus);
@@ -72,7 +73,7 @@ export default function Tour() {
               <p className="mt-1 text-slate-300">
                 {focus === 'overview' ? t('tour.intro') : t(`bodies.${focus}.teaser`)}
               </p>
-              {focus !== 'overview' && machinesOn(focus).length > 0 && (
+              {focus !== 'overview' && machinesOn(machines, focus).length > 0 && (
                 <Link to={`/mission?astre=${focus}`} className="mt-2 inline-block text-active underline underline-offset-4">
                   {t('tour.openChapter')} →
                 </Link>

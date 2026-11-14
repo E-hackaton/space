@@ -21,6 +21,7 @@ export function Layout() {
           <NavLink to="/mission" className={linkClass}>{t('nav.mission')}</NavLink>
           <NavLink to="/carte" className={linkClass}>{t('nav.map')}</NavLink>
           <NavLink to="/visite" className={linkClass}>{t('nav.tour')}</NavLink>
+          <NavLink to="/carnet" className={linkClass}>{t('nav.logbook')}</NavLink>
           <NavLink to="/sources" className={linkClass}>{t('nav.sources')}</NavLink>
           <LanguageSwitch />
         </nav>

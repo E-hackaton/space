@@ -1,7 +1,8 @@
-import { useMemo, useRef } from 'react';
+import { useEffect, useMemo, useRef } from 'react';
 import { useFrame } from '@react-three/fiber';
 import * as THREE from 'three';
-import { CruiseModel, MachineModel, Rocket } from '../../components/3d/Craft';
+import { CruiseModel, MachineModel, Rocket, StatusLight } from '../../components/3d/Craft';
+import { MODELS, NasaModel } from '../../components/3d/NasaModel';
 import { glowTexture } from '../../components/3d/glow';
 import { latLonToVector3 } from '../../lib/geo';
 import { BODIES, OVERVIEW, SUN_POSITION, bodyRegistry, sunDirectionAt, viewDirectionFor, type BodyHandle } from '../../lib/solarSystem';
@@ -61,6 +62,11 @@ export function MissionDirector({ machine, anim, step, animate }: Props) {
   const dustStorm = machine.story.some((s) => s.effect === 'dust-storm');
   const flying = current?.effect === 'flight';
   const statusActive = !(isEnd && machine.fate !== 'active');
+  // Les rotors du modèle NASA (Ingenuity) tournent pendant les vols.
+  const flyingRef = useRef(flying);
+  useEffect(() => {
+    flyingRef.current = flying;
+  }, [flying]);
 
   // Objets pilotés à chaque image.
   const craft = useRef<THREE.Group>(null!);
@@ -204,7 +210,8 @@ export function MissionDirector({ machine, anim, step, animate }: Props) {
     rocket.current.visible = onPad;
     cruise.current.visible = !onPad && !landedLook && !gone;
     deployed.current.visible = !onPad && landedLook && !gone;
-    flame.current = step >= 0 && onPad ? 1 : 0;
+    // Moteur allumé seulement au décollage (pas pendant la présentation ni la conception).
+    flame.current = onPad && a.launch > 0 ? 1 : 0;
     craft.current.position.copy(v.craftPos);
     const scale = onPad ? 0.06 : THREE.MathUtils.lerp(0.035, finalScale, a.arrive);
     craft.current.scale.setScalar(scale);
@@ -338,7 +345,15 @@ export function MissionDirector({ machine, anim, step, animate }: Props) {
           <CruiseModel kind={machine.kind} />
         </group>
         <group ref={deployed} visible={false}>
-          <MachineModel kind={machine.kind} active={statusActive} flying={flying} />
+          {machine.model ? (
+            // Vrai modèle 3D de la NASA, ramené à ~1 unité comme les formes simplifiées.
+            <>
+              <NasaModel id={machine.model} scale={1 / MODELS[machine.model].size} spinning={flyingRef} />
+              <StatusLight active={statusActive} position={[0, 1.05, 0]} />
+            </>
+          ) : (
+            <MachineModel kind={machine.kind} active={statusActive} flying={flying} />
+          )}
         </group>
       </group>
       <sprite ref={fireball} visible={false}>

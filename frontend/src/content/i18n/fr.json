@@ -1,7 +1,7 @@
 {
   "app": {
-    "title": "Les Veilleurs du Système solaire",
-    "tagline": "Des machines laissées sur la Lune, sur Mars et aux confins du Système solaire te racontent leur histoire.",
+    "title": "FORBITS",
+    "tagline": "Leur mission est terminée. Leur histoire continue. Pars à la rencontre des machines que la NASA a laissées sur la Lune, sur Mars et au-delà.",
     "start": "Commencer le voyage",
     "continue": "Reprendre le voyage",
     "skip": "Aller au contenu",
@@ -15,7 +15,8 @@
     "back": "Retour à la carte",
     "tour": "Visite 3D",
     "mission": "Missions",
-    "explorer": "Explorer"
+    "explorer": "Explorer",
+    "logbook": "Carnet"
   },
   "map": {
     "title": "Carte du voyage",
@@ -30,7 +31,7 @@
   "chapters": {
     "earth": {
       "title": "La Terre",
-      "teaser": "Le point de départ. D'ici sont partis tous les veilleurs."
+      "teaser": "Le point de départ. D'ici sont parties toutes les machines."
     },
     "moon": {
       "title": "La Lune",
@@ -55,7 +56,8 @@
   },
   "sources": {
     "title": "Sources",
-    "intro": "Chaque fait de ce site renvoie à une source officielle de la NASA ou du JPL. La liste complète, machine par machine, sera affichée ici."
+    "intro": "Chaque fait de ce site renvoie à une source officielle, en priorité la NASA (NSSDCA, NASA Science, JPL). Voici la liste complète, machine par machine.",
+    "data": "Données et modèles 3D"
   },
   "lite": {
     "notice": "Mode léger : la 3D n'est pas disponible sur cet appareil. Les histoires restent toutes accessibles."
@@ -84,7 +86,7 @@
     },
     "earth": {
       "name": "La Terre",
-      "teaser": "Le point de départ. D'ici sont partis tous les veilleurs."
+      "teaser": "Le point de départ. D'ici sont parties toutes les machines."
     },
     "moon": {
       "name": "La Lune",
@@ -108,9 +110,9 @@
     }
   },
   "guide": {
-    "name": "Orbi",
+    "name": "Sankofa",
     "role": "ton guide",
-    "welcome": "Salut ! Moi, c'est Orbi. Je connais toutes les machines que la NASA a laissées dans le Système solaire. Choisis une destination, je t'y emmène.",
+    "welcome": "Salut ! Moi, c'est Sankofa. Mon nom vient d'un symbole akan qui veut dire « retourne chercher ce qui a été laissé derrière ». Je connais les machines que la NASA a laissées dans l'espace. Choisis une destination, je t'y emmène.",
     "chooseBody": "Clique sur un astre, ou choisis-le dans la liste. Ceux qui brillent abritent une machine qui a une histoire à te raconter.",
     "chooseMachine": "{{body}} ! Voici les machines qui y sont restées. Laquelle veux-tu accompagner ?",
     "noMachine": "Sur {{body}}, je n'ai pas encore d'histoire à te raconter. Essaie un autre astre !",
@@ -131,14 +133,12 @@
     "skip": "Passer la cinématique",
     "restart": "Choisir une autre machine",
     "otherBody": "Changer de destination",
-    "earthImpact": "Ce que ça a changé sur Terre",
     "sources": "Sources",
     "fateTitle": "Ce que je suis devenu",
     "vitalsTitle": "Constantes vitales",
     "vitalsNote": "Jauges illustratives",
     "travel": "Voyage",
     "step": "Étape {{n}} sur {{total}}",
-    "unverified": "À vérifier",
     "launched": "Lancement",
     "narrator": "Narration",
     "autoplay": "Lecture automatique",
@@ -149,14 +149,17 @@
       "work": "Au travail",
       "discovery": "Découverte",
       "decline": "Déclin",
-      "end": "Fin de mission"
+      "end": "Fin de mission",
+      "presentation": "Présentation",
+      "conception": "Conception"
     },
     "fates": {
       "active": "Toujours active",
       "dormant": "Endormie",
       "destroyed": "Détruite",
       "impact": "Écrasée"
-    }
+    },
+    "discovery": "Ma grande découverte"
   },
   "vitals": {
     "energy": "Énergie",
@@ -166,7 +169,8 @@
     "temperature": "Chaleur",
     "blades": "État des pales",
     "map": "Carte réalisée",
-    "radiation": "Radiations reçues"
+    "radiation": "Radiations reçues",
+    "echo": "Retour des échos laser"
   },
   "explorer": {
     "title": "Explorer",
@@ -215,5 +219,29 @@
     "seismometer": "Sismomètre",
     "seismoPanels": "Panneaux solaires",
     "lander": "Module qui nous a posés"
+  },
+  "quiz": {
+    "title": "Le quiz de la mission",
+    "question": "Question {{n}} : {{text}}",
+    "right": "(bonne réponse)",
+    "wrong": "(mauvaise réponse)",
+    "bravo": "Bravo !",
+    "tryAgain": "Pas tout à fait… Relis l'histoire et essaie encore !",
+    "allFound": "Toutes les réponses sont trouvées : tu gagnes le badge de cette machine !",
+    "progress": "{{solved}} / {{total}} réponses trouvées"
+  },
+  "badges": {
+    "earned": "Badge gagné"
+  },
+  "logbook": {
+    "title": "Carnet d'explorateur",
+    "intro": "Écoute l'histoire d'une machine jusqu'au bout, puis réussis son quiz pour gagner son badge.",
+    "progress": "{{earned}} badges sur {{total}}",
+    "heard": "Histoire écoutée",
+    "toDiscover": "À découvrir",
+    "open": "Partir en mission"
+  },
+  "errors": {
+    "api": "Impossible de joindre le serveur des histoires. Vérifie ta connexion et réessaie."
   }
 }

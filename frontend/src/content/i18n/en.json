@@ -1,7 +1,7 @@
 {
   "app": {
-    "title": "The Solar System Sentinels",
-    "tagline": "Machines left on the Moon, on Mars and at the edge of the Solar System tell you their story.",
+    "title": "FORBITS",
+    "tagline": "Their missions ended. Their stories live on. Meet the machines NASA left on the Moon, on Mars and beyond.",
     "start": "Start the journey",
     "continue": "Resume the journey",
     "skip": "Skip to content",
@@ -15,7 +15,8 @@
     "back": "Back to the map",
     "tour": "3D tour",
     "mission": "Missions",
-    "explorer": "Explore"
+    "explorer": "Explore",
+    "logbook": "Logbook"
   },
   "map": {
     "title": "Journey map",
@@ -30,7 +31,7 @@
   "chapters": {
     "earth": {
       "title": "Earth",
-      "teaser": "The starting point. Every sentinel left from here."
+      "teaser": "The starting point. Every machine left from here."
     },
     "moon": {
       "title": "The Moon",
@@ -55,7 +56,8 @@
   },
   "sources": {
     "title": "Sources",
-    "intro": "Every fact on this site links to an official NASA or JPL source. The full list, machine by machine, will appear here."
+    "intro": "Every fact on this site links to an official source, NASA first (NSSDCA, NASA Science, JPL). Here is the full list, machine by machine.",
+    "data": "Data and 3D models"
   },
   "lite": {
     "notice": "Lite mode: 3D is not available on this device. All stories remain accessible."
@@ -84,7 +86,7 @@
     },
     "earth": {
       "name": "Earth",
-      "teaser": "The starting point. Every sentinel left from here."
+      "teaser": "The starting point. Every machine left from here."
     },
     "moon": {
       "name": "The Moon",
@@ -108,9 +110,9 @@
     }
   },
   "guide": {
-    "name": "Orbi",
+    "name": "Sankofa",
     "role": "your guide",
-    "welcome": "Hi! I'm Orbi. I know every machine NASA left across the Solar System. Pick a destination and I'll take you there.",
+    "welcome": "Hi! I'm Sankofa. My name comes from an Akan symbol meaning \"go back and fetch what was left behind\". I know the machines NASA left in space. Pick a destination and I'll take you there.",
     "chooseBody": "Click a world, or pick it from the list. Each one hosts a machine with a story to tell.",
     "chooseMachine": "{{body}}! Here are the machines that stayed there. Which one do you want to follow?",
     "noMachine": "I don't have a story for {{body}} yet. Try another world!",
@@ -131,14 +133,12 @@
     "skip": "Skip the cinematic",
     "restart": "Choose another machine",
     "otherBody": "Change destination",
-    "earthImpact": "What it changed on Earth",
     "sources": "Sources",
     "fateTitle": "What became of me",
     "vitalsTitle": "Vital signs",
     "vitalsNote": "Illustrative gauges",
     "travel": "Journey",
     "step": "Step {{n}} of {{total}}",
-    "unverified": "To be checked",
     "launched": "Launch",
     "narrator": "Narration",
     "autoplay": "Autoplay",
@@ -149,14 +149,17 @@
       "work": "At work",
       "discovery": "Discovery",
       "decline": "Decline",
-      "end": "End of mission"
+      "end": "End of mission",
+      "presentation": "Introduction",
+      "conception": "Design"
     },
     "fates": {
       "active": "Still active",
       "dormant": "Asleep",
       "destroyed": "Destroyed",
       "impact": "Crashed"
-    }
+    },
+    "discovery": "My big discovery"
   },
   "vitals": {
     "energy": "Energy",
@@ -166,7 +169,8 @@
     "temperature": "Heat",
     "blades": "Blade condition",
     "map": "Map completed",
-    "radiation": "Radiation received"
+    "radiation": "Radiation received",
+    "echo": "Laser echoes returned"
   },
   "explorer": {
     "title": "Explore",
@@ -215,5 +219,29 @@
     "seismometer": "Seismometer",
     "seismoPanels": "Solar panels",
     "lander": "Our landing module"
+  },
+  "quiz": {
+    "title": "Mission quiz",
+    "question": "Question {{n}}: {{text}}",
+    "right": "(right answer)",
+    "wrong": "(wrong answer)",
+    "bravo": "Well done!",
+    "tryAgain": "Not quite… Read the story again and have another go!",
+    "allFound": "All answers found: you've earned this machine's badge!",
+    "progress": "{{solved}} / {{total}} answers found"
+  },
+  "badges": {
+    "earned": "Badge earned"
+  },
+  "logbook": {
+    "title": "Explorer's logbook",
+    "intro": "Listen to a machine's story to the end, then pass its quiz to earn its badge.",
+    "progress": "{{earned}} badges out of {{total}}",
+    "heard": "Story heard",
+    "toDiscover": "To discover",
+    "open": "Go on the mission"
+  },
+  "errors": {
+    "api": "Can't reach the story server. Check your connection and try again."
   }
 }

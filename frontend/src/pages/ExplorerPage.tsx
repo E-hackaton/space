@@ -4,7 +4,7 @@ import { useTranslation } from 'react-i18next';
 import { AnimatePresence, motion } from 'motion/react';
 import gsap from 'gsap';
 import { Loading } from '../components/ui/Loading';
-import { OrbiAvatar } from '../components/guide/OrbiAvatar';
+import { SankofaAvatar } from '../components/guide/SankofaAvatar';
 import { StatusPill } from '../components/story/StatusPill';
 import { webglAvailable } from '../lib/device';
 import { usePrefersReducedMotion } from '../lib/hooks';
@@ -120,11 +120,16 @@ export default function ExplorerPage() {
   };
 
   // Fiche de la machine proche : quelques chiffres tirés des données, peu de texte.
-  const card = useMemo(() => {
+  const card = useMemo((): { name: string; active: boolean; stats: string; story?: string; laser?: boolean; noStatus?: boolean } | null => {
     if (!near) return null;
     if (near === 'perseverance' || near === 'curiosity') {
       const pts = siteData?.paths[near];
-      return { name: near === 'perseverance' ? 'Perseverance' : 'Curiosity', active: true, stats: pts ? `${distanceKm(pts, sol).toFixed(1)} km · ${t('explorer.sol')} ${Math.floor(sol)}` : '' };
+      return {
+        name: near === 'perseverance' ? 'Perseverance' : 'Curiosity',
+        active: true,
+        stats: pts ? `${distanceKm(pts, sol).toFixed(1)} km · ${t('explorer.sol')} ${Math.floor(sol)}` : '',
+        story: `/mission?machine=${near}`,
+      };
     }
     if (near === 'ingenuity') {
       const fl = siteData?.flights.ingenuity ?? [];
@@ -132,8 +137,10 @@ export default function ExplorerPage() {
       const over = fl.length > 0 && sol >= fl[fl.length - 1].sol;
       return { name: 'Ingenuity', active: !over, stats: `${done} ${t('explorer.flights')}`, story: '/mission?machine=ingenuity' };
     }
-    if (near === 'apollo-11') return { name: t('explorer.lrrr'), active: true, stats: '1969', laser: true, story: '/mission?machine=apollo-11' };
-    if (near === 'apollo-11-lm') return { name: t('explorer.lm'), active: false, stats: `1969 · ${t('explorer.leftBehind')}`, noStatus: true };
+    // Le réflecteur d'Apollo 11 n'a pas sa propre fiche : on raconte celui d'Apollo 15, son cousin.
+    if (near === 'apollo-11') return { name: t('explorer.lrrr'), active: true, stats: '1969', laser: true, story: '/mission?machine=apollo-15-retroreflector' };
+    if (near === 'apollo-11-lm')
+      return { name: t('explorer.lm'), active: false, stats: `1969 · ${t('explorer.leftBehind')}`, noStatus: true, story: '/mission?machine=apollo-11-eagle' };
     if (near === 'apollo-11-easep') return { name: t('explorer.easep'), active: false, stats: '1969', noStatus: true };
     return null;
   }, [near, sol, siteData, t]);
@@ -193,7 +200,7 @@ export default function ExplorerPage() {
               exit={{ opacity: 0, y: 10 }}
               className="absolute inset-x-0 bottom-24 z-30 mx-auto flex w-fit items-end gap-3"
             >
-              <OrbiAvatar size={64} talking />
+              <SankofaAvatar size={64} talking />
               <div className="rounded-2xl bg-white/95 p-3 text-slate-900 shadow-xl">
                 <p className="px-1 pb-2 text-sm font-semibold">{t('explorer.where')}</p>
                 <div className="flex gap-2">

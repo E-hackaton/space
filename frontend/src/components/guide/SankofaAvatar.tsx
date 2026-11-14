@@ -1,9 +1,10 @@
 import { motion, useReducedMotion } from 'motion/react';
 
 /**
- * Orbi, le robot guide : un personnage original (petite sonde ronde à un œil, antenne lumineuse).
+ * Sankofa, le robot guide : un personnage original (petite sonde ronde à un œil, antenne lumineuse).
+ * Son nom vient du symbole akan Sankofa : « retourne chercher ce qui a été laissé derrière ».
  */
-export function OrbiAvatar({ size = 96, talking = false }: { size?: number; talking?: boolean }) {
+export function SankofaAvatar({ size = 96, talking = false }: { size?: number; talking?: boolean }) {
   const reduced = useReducedMotion();
   return (
     <motion.svg
@@ -32,9 +33,9 @@ export function OrbiAvatar({ size = 96, talking = false }: { size?: number; talk
       <line x1="92" y1="65" x2="98" y2="65" stroke="#c9ced6" strokeWidth="3" />
       {/* Corps */}
       <circle cx="60" cy="64" r="40" fill="#e8ecf2" />
-      <circle cx="60" cy="64" r="40" fill="url(#orbi-shade)" />
+      <circle cx="60" cy="64" r="40" fill="url(#sankofa-shade)" />
       <defs>
-        <radialGradient id="orbi-shade" cx="35%" cy="30%" r="80%">
+        <radialGradient id="sankofa-shade" cx="35%" cy="30%" r="80%">
           <stop offset="0%" stopColor="#ffffff" stopOpacity="0.9" />
           <stop offset="100%" stopColor="#8a93a3" stopOpacity="0.6" />
         </radialGradient>
@@ -52,7 +53,7 @@ export function OrbiAvatar({ size = 96, talking = false }: { size?: number; talk
         transition={{ duration: 4, times: [0, 0.9, 0.95, 1], repeat: Infinity }}
       />
       <circle cx="64" cy="59" r="3.5" fill="#d9ffe9" />
-      {/* Bouche lumineuse quand Orbi parle */}
+      {/* Bouche lumineuse quand Sankofa parle */}
       <motion.rect
         x="50"
         y="88"

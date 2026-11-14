@@ -1,16 +1,17 @@
 import { lazy, Suspense, useCallback, useEffect, useMemo, useRef, useState } from 'react';
-import { useSearchParams } from 'react-router-dom';
+import { Link, useSearchParams } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import { AnimatePresence, motion } from 'motion/react';
 import { Loading } from '../components/ui/Loading';
 import { GuideBubble } from '../components/guide/GuideBubble';
-import { OrbiAvatar } from '../components/guide/OrbiAvatar';
+import { SankofaAvatar } from '../components/guide/SankofaAvatar';
 import { SpeechText } from '../components/guide/SpeechText';
 import { VitalsPanel } from '../components/story/VitalsPanel';
 import { StatusPill } from '../components/story/StatusPill';
 import { TravelClock } from '../components/story/TravelClock';
+import { Quiz } from '../components/story/Quiz';
 import { BODY_ORDER, type BodyId } from '../lib/solarSystem';
-import { formatDate, getMachine, machinesOn, type Machine } from '../lib/machines';
+import { formatDate, machinesOn, useCatalog, useMachine, type MachineSummary } from '../lib/machines';
 import { webglAvailable } from '../lib/device';
 import { usePrefersReducedMotion } from '../lib/hooks';
 import { useStore } from '../store/useStore';
@@ -35,21 +36,31 @@ export default function MissionPage() {
   const autoplay = useStore((s) => s.autoplay);
   const setAutoplay = useStore((s) => s.setAutoplay);
   const completeMachine = useStore((s) => s.completeMachine);
+  const earnBadge = useStore((s) => s.earnBadge);
+  const badges = useStore((s) => s.badges);
+  const hasBadge = (machineSlug: string) => badges.includes(machineSlug);
 
-  const machine = getMachine(params.get('machine'));
+  // Le catalogue (liste) et la fiche complète viennent de l'API Django.
+  const catalog = useCatalog();
+  const slug = params.get('machine');
+  const summary = catalog.machines.find((m) => m.id === slug);
+  const detail = useMachine(slug);
+  const machine = detail.machine;
   const rawBody = params.get('astre');
-  const body: BodyId | null = machine?.body ?? (BODY_ORDER.includes(rawBody as BodyId) ? (rawBody as BodyId) : null);
+  const body: BodyId | null = summary?.body ?? (BODY_ORDER.includes(rawBody as BodyId) ? (rawBody as BodyId) : null);
 
-  const [stage, setStage] = useState<Stage>(machine ? 'pad' : 'explore');
+  const [stage, setStage] = useState<Stage>(slug ? 'pad' : 'explore');
   const [step, setStep] = useState(-1);
   const anim = useMemo(() => createMissionAnim(), [machine?.id]); // eslint-disable-line react-hooks/exhaustive-deps
   const timeline = useRef<ReturnType<typeof animateTo> | null>(null);
+  /** Dernier texte lu jusqu'au bout : la lecture automatique attend la fin de la voix. */
+  const [finished, setFinished] = useState<string | null>(null);
 
   // Si la machine change (lien direct, retour arrière), on repart du pas de tir.
   useEffect(() => {
-    setStage(machine ? 'pad' : 'explore');
+    setStage(slug ? 'pad' : 'explore');
     setStep(-1);
-  }, [machine?.id]); // eslint-disable-line react-hooks/exhaustive-deps
+  }, [slug]);
 
   // GSAP : chaque étape anime la cinématique vers son état.
   useEffect(() => {
@@ -66,7 +77,7 @@ export default function MissionPage() {
     },
     [setParams],
   );
-  const chooseMachine = (m: Machine) => setParams({ astre: m.body, machine: m.id });
+  const chooseMachine = (m: MachineSummary) => setParams({ astre: m.body, machine: m.id });
   const leaveMission = () => {
     stopSpeaking();
     setParams(body ? { astre: body } : {});
@@ -88,38 +99,48 @@ export default function MissionPage() {
   };
   const skip = () => timeline.current?.progress(1);
 
-  // Texte courant (guide ou machine), lu à voix haute si la voix est activée.
-  const machineName = machine ? t(machine.name) : '';
+  // Texte courant (Sankofa ou la machine), lu à voix haute si la voix est activée.
+  const machineName = machine?.name ?? summary?.name ?? '';
   const bodyName = body ? t(`bodies.${body}.name`) : '';
-  const available = body ? machinesOn(body) : [];
+  const available = body ? machinesOn(catalog.machines, body) : [];
   const guideText =
     stage === 'explore'
       ? !body
         ? `${t('guide.welcome')} ${t('guide.chooseBody')}`
-        : available.length
-          ? t('guide.chooseMachine', { body: bodyName })
-          : t('guide.noMachine', { body: bodyName })
+        : catalog.status !== 'ready'
+          ? ''
+          : available.length
+            ? t('guide.chooseMachine', { body: bodyName })
+            : t('guide.noMachine', { body: bodyName })
       : stage === 'pad'
         ? `${t('guide.ready')} ${t('guide.handover', { machine: machineName })}`
         : stage === 'outro'
           ? t('guide.outro', { machine: machineName })
           : '';
-  const storyText = machine && stage === 'story' && step >= 0 ? t(machine.story[step].textKey) : '';
+  const current = machine && step >= 0 ? machine.story[step] : undefined;
+  const storyText = stage === 'story' && current ? current.text : '';
   const spoken = stage === 'story' ? storyText : guideText;
+  // Seuls les récits des machines ont une voix ElevenLabs ; Sankofa parle avec la voix du navigateur.
+  const spokenAudio = stage === 'story' ? (current?.audio ?? null) : null;
 
   useEffect(() => {
     if (!voiceOn || !spoken) return;
-    speak(spoken, i18n.language);
-  }, [spoken, voiceOn, i18n.language]);
+    speak(spoken, i18n.language, { audio: spokenAudio, onEnd: () => setFinished(spoken) });
+  }, [spoken, spokenAudio, voiceOn, i18n.language]);
 
-  // Lecture automatique : on passe à l'étape suivante quand la cinématique et le texte sont finis.
+  // Lecture automatique : on passe à l'étape suivante quand la cinématique et la narration sont finies.
   useEffect(() => {
     if (!autoplay || stage !== 'story' || !storyText) return;
     const cinematic = timeline.current ? (timeline.current.duration() - timeline.current.time()) * 1000 : 0;
-    const reading = Math.max(4500, storyText.length * (voiceOn ? 75 : 55));
+    if (voiceOn) {
+      if (finished !== storyText) return; // la voix parle encore
+      const id = window.setTimeout(next, Math.max(cinematic, 0) + 800);
+      return () => window.clearTimeout(id);
+    }
+    const reading = Math.max(4500, storyText.length * 55);
     const id = window.setTimeout(next, Math.max(cinematic + 800, reading));
     return () => window.clearTimeout(id);
-  }, [autoplay, stage, storyText, voiceOn, next]);
+  }, [autoplay, stage, storyText, voiceOn, finished, next]);
 
   // Raccourcis clavier pendant le récit.
   useEffect(() => {
@@ -133,19 +154,18 @@ export default function MissionPage() {
   });
 
   const inMission = !!machine && stage !== 'explore';
-  const current = machine && step >= 0 ? machine.story[step] : undefined;
   const progress = machine ? (stage === 'outro' ? 1 : Math.max(0, step) / Math.max(1, machine.story.length - 1)) : 0;
   const ended = stage === 'outro' || current?.phase === 'end';
   const activeNow = machine ? (ended ? machine.fate === 'active' : true) : true;
 
-  // Compteur de dates : du dernier repère daté jusqu'à la date de l'étape (voyage et arrivée).
+  // Compteur de dates pendant le voyage : de la date de lancement jusqu'à l'arrivée.
   const clock = useMemo(() => {
     if (!machine || stage !== 'story' || !current) return null;
-    if (current.phase !== 'cruise' && current.phase !== 'arrival') return null;
-    const to = current.date ?? (current.phase === 'arrival' ? machine.arrivalDate : machine.story.slice(step + 1).find((s) => s.date)?.date ?? machine.arrivalDate);
-    const from = machine.story.slice(0, step).reverse().find((s) => s.date)?.date ?? machine.launchDate;
-    return to ? { from, to } : null;
-  }, [machine, stage, current, step]);
+    if (current.phase !== 'launch' && current.phase !== 'cruise' && current.phase !== 'arrival') return null;
+    const to = current.phase === 'arrival' ? (current.date ?? machine.arrivalDate) : machine.arrivalDate;
+    const from = machine.launchDate;
+    return from && to && from < to ? { from, to } : null;
+  }, [machine, stage, current]);
   const getProgress = useCallback(() => timeline.current?.progress() ?? 1, []);
 
   return (
@@ -166,27 +186,38 @@ export default function MissionPage() {
           </Suspense>
         )}
 
+        {/* Fiche en cours de chargement, ou API injoignable */}
+        {slug && detail.status === 'loading' && <Loading />}
+        {(catalog.status === 'error' || (slug && detail.status === 'error')) && (
+          <p role="alert" className="absolute inset-x-0 top-20 z-40 mx-auto w-fit rounded-xl bg-red-500/90 px-4 py-2 text-sm">
+            {t('errors.api')}
+          </p>
+        )}
+
         {/* Bandeau supérieur : machine en cours */}
         {inMission && machine && (
           <div className="absolute inset-x-0 top-0 z-20 flex flex-wrap items-start justify-between gap-3 bg-gradient-to-b from-space/90 to-transparent p-4">
             <div>
               <p className="text-xs uppercase tracking-widest text-slate-400">
-                {t(machine.mission)} · {bodyName}
+                {machine.mission} · {bodyName}
               </p>
               <p className="font-display text-3xl font-extrabold uppercase tracking-wide">{machineName}</p>
               <div className="mt-1 flex flex-wrap items-center gap-2">
                 <StatusPill active={activeNow} label={ended ? t(`mission.fates.${machine.fate}`) : undefined} />
-                {import.meta.env.DEV && !machine.verified && (
-                  <span className="rounded bg-dormant/20 px-2 py-0.5 text-[10px] font-semibold uppercase tracking-wider text-dormant">
-                    {t('mission.unverified')}
-                  </span>
-                )}
               </div>
             </div>
             <div className="flex flex-col items-end gap-2">
               {clock && <TravelClock from={clock.from} to={clock.to} getProgress={getProgress} />}
               <div className="flex gap-2">
-                <button type="button" className={btnGhost} onClick={() => setVoiceOn(!voiceOn)} aria-pressed={voiceOn}>
+                <button
+                  type="button"
+                  className={btnGhost}
+                  onClick={() => {
+                    if (voiceOn) stopSpeaking();
+                    setVoiceOn(!voiceOn);
+                  }}
+                  aria-pressed={voiceOn}
+                >
                   {voiceOn ? '🔊' : '🔇'} <span className="sr-only sm:not-sr-only">{voiceOn ? t('guide.mute') : t('guide.unmute')}</span>
                 </button>
                 <button type="button" className={btnGhost} onClick={() => setAutoplay(!autoplay)} aria-pressed={autoplay}>
@@ -198,7 +229,7 @@ export default function MissionPage() {
         )}
 
         {/* Constantes vitales */}
-        {inMission && machine && stage !== 'pad' && (
+        {inMission && machine && stage !== 'pad' && machine.vitals.length > 0 && (
           <div className="absolute right-4 top-36 z-20 hidden w-60 sm:block">
             <VitalsPanel machine={machine} progress={progress} />
           </div>
@@ -209,7 +240,7 @@ export default function MissionPage() {
           <nav aria-label={t('tour.navLabel')} className="absolute right-3 top-3 z-20 max-h-[45%] overflow-auto rounded-xl bg-space/70 p-2 ring-1 ring-white/10 backdrop-blur sm:max-h-none">
             <ul className="flex flex-wrap gap-1.5 sm:flex-col">
               {BODY_ORDER.map((id) => {
-                const count = machinesOn(id).length;
+                const count = machinesOn(catalog.machines, id).length;
                 return (
                   <li key={id}>
                     <button
@@ -230,13 +261,14 @@ export default function MissionPage() {
           </nav>
         )}
 
-        {/* Bas d'écran : Orbi, choix des machines, ou récit de la machine */}
-        <div className="absolute inset-x-0 bottom-0 z-30 bg-gradient-to-t from-space via-space/80 to-transparent px-4 pb-4 pt-20">
+        {/* Bas d'écran : Sankofa, choix des machines, ou récit de la machine */}
+        <div className="absolute inset-x-0 bottom-0 z-30 max-h-full overflow-y-auto bg-gradient-to-t from-space via-space/80 to-transparent px-4 pb-4 pt-20">
           <div className="mx-auto max-w-5xl">
             <AnimatePresence mode="wait">
               {stage === 'explore' && (
                 <motion.div key={`explore-${body}`} initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0 }}>
-                  <GuideBubble text={guideText} />
+                  {guideText && <GuideBubble text={guideText} />}
+                  {body && catalog.status === 'loading' && <p className="mt-4 text-sm text-slate-400">{t('chapter.loading')}</p>}
                   {body && available.length > 0 && (
                     <div className="mt-4">
                       <p className="mb-2 text-xs uppercase tracking-widest text-slate-400">{t('mission.machinesOn', { body: bodyName })}</p>
@@ -249,12 +281,21 @@ export default function MissionPage() {
                               className="group block w-full rounded-xl bg-white/5 p-3 text-left ring-1 ring-white/15 transition hover:bg-white/10 hover:ring-active/60"
                             >
                               <span className="flex items-center justify-between gap-2">
-                                <span className="font-display text-xl font-extrabold uppercase">{t(m.name)}</span>
+                                <span className="font-display text-xl font-extrabold uppercase">
+                                  {m.name}
+                                  {hasBadge(m.id) && (
+                                    <span className="ml-1" title={t('badges.earned')} aria-label={t('badges.earned')}>
+                                      🏅
+                                    </span>
+                                  )}
+                                </span>
                                 <StatusPill active={m.status === 'active'} />
                               </span>
                               <span className="mt-1 block text-xs text-slate-400">
-                                {t(m.mission)} · {t('mission.launched')} {formatDate(m.launchDate, i18n.language)}
+                                {m.mission}
+                                {m.launchDate && ` · ${t('mission.launched')} ${formatDate(m.launchDate, i18n.language)}`}
                               </span>
+                              <span className="mt-1 block text-sm text-slate-300">{m.tagline}</span>
                               <span className="mt-2 block text-sm font-semibold text-active group-hover:underline">{t('mission.choose')} →</span>
                             </button>
                           </li>
@@ -287,12 +328,13 @@ export default function MissionPage() {
                   className="rounded-2xl bg-space/85 p-4 ring-1 ring-white/15 backdrop-blur"
                 >
                   <div className="flex flex-wrap items-center gap-2 text-xs uppercase tracking-widest">
-                    <span className="rounded-full bg-white/10 px-2 py-0.5 text-white">{t(`mission.phases.${current.phase}`)}</span>
+                    <span className="rounded-full bg-white/10 px-2 py-0.5 text-white">{t(`mission.phases.${step === 0 ? 'presentation' : current.phase}`)}</span>
                     {current.date && <span className="text-slate-300">{formatDate(current.date, i18n.language)}</span>}
                     <span className="ml-auto text-slate-500">{t('mission.step', { n: step + 1, total: machine.story.length })}</span>
                   </div>
+                  {step > 0 && <h2 className="mt-3 font-display text-2xl font-extrabold uppercase tracking-wide">{current.title}</h2>}
                   <div aria-live="polite">
-                    <SpeechText text={storyText} className="mt-3 text-lg leading-relaxed sm:text-xl" />
+                    <SpeechText text={storyText} className="mt-2 text-lg leading-relaxed sm:text-xl" />
                   </div>
                   <div className="mt-4 flex flex-wrap items-center gap-2">
                     <button type="button" className={btnGhost} onClick={previous} disabled={step === 0}>
@@ -305,7 +347,7 @@ export default function MissionPage() {
                       {t('mission.skip')}
                     </button>
                     <span className="ml-auto flex items-center gap-2 text-xs text-slate-400">
-                      <OrbiAvatar size={28} /> {t('app.notToScale')}
+                      <SankofaAvatar size={28} /> {t('app.notToScale')}
                     </span>
                   </div>
                 </motion.div>
@@ -316,11 +358,11 @@ export default function MissionPage() {
                   <div className="grid gap-3 rounded-2xl bg-space/90 p-4 ring-1 ring-white/15 backdrop-blur md:grid-cols-3">
                     <div>
                       <p className="font-display text-sm font-extrabold uppercase tracking-widest text-dormant">{t('mission.fateTitle')}</p>
-                      <p className="mt-1 text-sm">{t(`machines.${machine.id}.fate`)}</p>
+                      <p className="mt-1 text-sm">{machine.statusNote}</p>
                     </div>
                     <div>
-                      <p className="font-display text-sm font-extrabold uppercase tracking-widest text-active">{t('mission.earthImpact')}</p>
-                      <p className="mt-1 text-sm">{t(machine.earthImpact)}</p>
+                      <p className="font-display text-sm font-extrabold uppercase tracking-widest text-active">{t('mission.discovery')}</p>
+                      <p className="mt-1 text-sm">{machine.discovery}</p>
                     </div>
                     <div>
                       <p className="font-display text-sm font-extrabold uppercase tracking-widest text-slate-300">{t('mission.sources')}</p>
@@ -335,6 +377,16 @@ export default function MissionPage() {
                       </ul>
                     </div>
                   </div>
+
+                  {machine.quiz.length > 0 && (
+                    <div className="rounded-2xl bg-space/90 p-4 ring-1 ring-white/15 backdrop-blur">
+                      <p className="mb-3 font-display text-sm font-extrabold uppercase tracking-widest text-active">
+                        {hasBadge(machine.id) ? `🏅 ${t('badges.earned')}` : t('quiz.title')}
+                      </p>
+                      <Quiz key={`${machine.id}-${i18n.language}`} questions={machine.quiz} onComplete={() => earnBadge(machine.id)} />
+                    </div>
+                  )}
+
                   <GuideBubble text={guideText} compact>
                     <button type="button" className={btnLight} onClick={leaveMission}>
                       {t('mission.restart')}
@@ -342,6 +394,9 @@ export default function MissionPage() {
                     <button type="button" className={btnLight} onClick={() => setParams({})}>
                       {t('mission.otherBody')}
                     </button>
+                    <Link to="/carnet" className={btnLight}>
+                      {t('nav.logbook')}
+                    </Link>
                     <button type="button" className={`${btn} text-slate-600 hover:underline`} onClick={previous}>
                       ← {t('mission.previous')}
                     </button>

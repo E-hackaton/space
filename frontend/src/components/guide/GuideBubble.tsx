@@ -1,15 +1,15 @@
 import { AnimatePresence, motion } from 'motion/react';
 import type { ReactNode } from 'react';
 import { useTranslation } from 'react-i18next';
-import { OrbiAvatar } from './OrbiAvatar';
+import { SankofaAvatar } from './SankofaAvatar';
 import { SpeechText } from './SpeechText';
 
-/** Orbi et sa bulle de dialogue. */
+/** Sankofa et sa bulle de dialogue. */
 export function GuideBubble({ text, children, compact = false }: { text: string; children?: ReactNode; compact?: boolean }) {
   const { t } = useTranslation();
   return (
     <div className="pointer-events-auto flex items-end gap-3">
-      <OrbiAvatar size={compact ? 56 : 92} talking />
+      <SankofaAvatar size={compact ? 56 : 92} talking />
       <AnimatePresence mode="wait">
         <motion.div
           key={text}

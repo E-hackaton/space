@@ -12,6 +12,7 @@ const MissionPage = lazy(() => import('../pages/MissionPage'));
 const ExplorerPage = lazy(() => import('../pages/ExplorerPage'));
 const ModelLab = lazy(() => import('../pages/ModelLab'));
 const Sources = lazy(() => import('../pages/Sources'));
+const Logbook = lazy(() => import('../pages/Logbook'));
 const NotFound = lazy(() => import('../pages/NotFound'));
 
 export default function App() {
@@ -27,6 +28,7 @@ export default function App() {
             <Route path="/explorer" element={<ExplorerPage />} />
             {import.meta.env.DEV && <Route path="/labo" element={<ModelLab />} />}
             <Route path="/chapitre/:id" element={<ChapterPage />} />
+            <Route path="/carnet" element={<Logbook />} />
             <Route path="/sources" element={<Sources />} />
             <Route path="*" element={<NotFound />} />
           </Route>

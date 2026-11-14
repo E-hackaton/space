@@ -17,7 +17,8 @@ export function createMissionAnim(): MissionAnim {
   return { launch: 0, travel: 0, arrive: 0, decline: 0, end: 0 };
 }
 
-const RANK: Record<Phase, number> = { launch: 0, cruise: 1, arrival: 2, work: 3, discovery: 4, decline: 5, end: 6 };
+// `conception` (−1) : la machine est encore sur Terre, la fusée attend sur le pas de tir.
+const RANK: Record<Phase, number> = { conception: -1, launch: 0, cruise: 1, arrival: 2, work: 3, discovery: 4, decline: 5, end: 6 };
 
 /** Valeurs cibles pour une étape du récit (−1 = sur le pas de tir). */
 export function targetsFor(machine: Machine, step: number): MissionAnim {
@@ -33,7 +34,7 @@ export function targetsFor(machine: Machine, step: number): MissionAnim {
     travel = machine.cruise?.length ? (k + 1) / segments : 1;
   }
   return {
-    launch: 1,
+    launch: r >= RANK.launch ? 1 : 0,
     travel,
     arrive: r >= RANK.arrival ? 1 : 0,
     decline: r >= RANK.decline ? 1 : 0,

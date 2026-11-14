@@ -23,7 +23,7 @@ export default function MissionScene({ focus, onSelect, machine, inMission, step
   // Une fois arrivé, on ne montre que la destination (et la Terre pour la Lune) :
   // la scène n'étant pas à l'échelle, une planète lointaine pourrait sinon remplir le ciel.
   const phase = mission && step >= 0 ? machine.story[Math.min(step, machine.story.length - 1)].phase : undefined;
-  const arrived = phase !== undefined && phase !== 'launch' && phase !== 'cruise';
+  const arrived = phase !== undefined && phase !== 'conception' && phase !== 'launch' && phase !== 'cruise';
   const keep = mission ? [machine.body, ...(machine.body === 'moon' ? (['earth'] as const) : [])] : [];
   const hidden = arrived ? BODY_ORDER.filter((id) => !keep.includes(id)) : [];
   return (
