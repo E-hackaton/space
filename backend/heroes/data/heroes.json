@@ -3,8 +3,8 @@
     {
       "slug": "moon",
       "order": 1,
-      "name_fr": "Lune",
-      "name_en": "Moon",
+      "name_fr": "La Lune",
+      "name_en": "The Moon",
       "intro_fr": "Bienvenue sur la Lune ! Entre 1966 et 1972, la NASA y a envoyé des robots puis des astronautes. Beaucoup de leurs machines sont restées là-haut, presque intactes : sur la Lune, il n'y a ni vent ni pluie pour les abîmer.",
       "intro_en": "Welcome to the Moon! Between 1966 and 1972, NASA sent robots and then astronauts here. Many of their machines are still up there, almost untouched: on the Moon there is no wind or rain to wear them down."
     },
@@ -19,8 +19,8 @@
     {
       "slug": "elsewhere",
       "order": 3,
-      "name_fr": "Espace profond",
-      "name_en": "Deep space",
+      "name_fr": "Au-delà",
+      "name_en": "Beyond",
       "intro_fr": "Certains héros ne sont ni sur la Lune ni sur Mars : posés sur un astéroïde, en orbite autour d'une planète naine ou en route vers les étoiles.",
       "intro_en": "Some heroes are neither on the Moon nor on Mars: resting on an asteroid, orbiting a dwarf planet, or heading for the stars."
     }
@@ -76,6 +76,7 @@
       "status_note_en": "Silent since May 1967. My camera is missing: astronauts took it back to Earth!",
       "chapters": [
         {
+          "phase": "arrival",
           "date": "1967-04-20",
           "date_precision": "day",
           "focus": "legs",
@@ -85,6 +86,7 @@
           "body_en": "On 20 April 1967, I descend toward the Ocean of Storms. My engines were supposed to shut off just before touchdown… but they stay on! I bounce twice before coming to a stop. Phew, I'm in one piece."
         },
         {
+          "phase": "exploration",
           "date": "1967-04-20",
           "date_precision": "month",
           "focus": "arm",
@@ -94,6 +96,7 @@
           "body_en": "I have a camera and a small arm with a scoop. For two weeks, I dig trenches and send back thousands of pictures. On Earth, engineers learn how the soil reacts when you press on it: exactly what they need to know to land a module with astronauts."
         },
         {
+          "phase": "legacy",
           "date": "1969-11-20",
           "date_precision": "day",
           "focus": "mast",
@@ -177,6 +180,7 @@
       "status_note_en": "I am still exactly where I landed, surrounded by the astronauts' footprints.",
       "chapters": [
         {
+          "phase": "arrival",
           "date": "1969-07-20",
           "date_precision": "day",
           "focus": "legs",
@@ -186,6 +190,7 @@
           "body_en": "I am the bottom half of the lunar module Eagle: the descent stage. On 20 July 1969, I land in the Sea of Tranquility with two astronauts on board. A few hours later, Neil Armstrong climbs down my ladder and sets foot on the Moon."
         },
         {
+          "phase": "exploration",
           "date": "1969-07-21",
           "date_precision": "day",
           "focus": "engine",
@@ -195,6 +200,7 @@
           "body_en": "To leave, the astronauts take only the top half of the module, the ascent stage. I stay on the ground and serve as a platform: the ascent stage lifts off from my back to rejoin the spacecraft waiting in orbit."
         },
         {
+          "phase": "legacy",
           "date": "1969-07-20",
           "date_precision": "month",
           "focus": "legs",
@@ -273,6 +279,7 @@
       "status_note_en": "Parked forever near the landing site. Two other rovers like me are parked on the Moon (Apollo 16 and 17).",
       "chapters": [
         {
+          "phase": "arrival",
           "date": "1971-07-31",
           "date_precision": "day",
           "focus": "body",
@@ -282,6 +289,7 @@
           "body_en": "For the trip, I was folded up and stowed on the side of the lunar module Falcon. Once there, astronauts David Scott and James Irwin pull on straps and I unfold."
         },
         {
+          "phase": "exploration",
           "date": "1971-07-31",
           "date_precision": "year",
           "focus": "wheels",
@@ -291,6 +299,7 @@
           "body_en": "Each of my four wheels has its own electric motor, powered by batteries. My tyres are made of woven wire mesh: an air-filled tyre would not have survived the vacuum and the extreme temperatures. I drive at a little over 10 km/h through the dust."
         },
         {
+          "phase": "legacy",
           "date": "1971-08-02",
           "date_precision": "day",
           "focus": "mast",
@@ -368,6 +377,7 @@
       "status_note_en": "Still useful: more than 50 years after I was set up, scientists still aim at my mirrors.",
       "chapters": [
         {
+          "phase": "conception",
           "date": "1971-07-31",
           "date_precision": "day",
           "focus": "mirror",
@@ -377,6 +387,7 @@
           "body_en": "I am a panel covered with 300 glass \"corner cubes\". Their shape sends light back exactly where it came from, whatever the angle. My cousins from Apollo 11 and 14 have 100 each."
         },
         {
+          "phase": "exploration",
           "date": null,
           "date_precision": "day",
           "focus": "mirror",
@@ -386,6 +397,7 @@
           "body_en": "A laser pulse leaves a telescope on Earth, travels to me, bounces off and comes back: about 2.5 seconds for the round trip. Since we know the speed of light, we can work out the distance."
         },
         {
+          "phase": "discovery",
           "date": null,
           "date_precision": "day",
           "focus": "overview",
@@ -463,6 +475,7 @@
       "status_note_en": "Silent since November 1982. I am still exactly where I landed.",
       "chapters": [
         {
+          "phase": "arrival",
           "date": "1976-07-20",
           "date_precision": "day",
           "focus": "legs",
@@ -472,6 +485,7 @@
           "body_en": "I travel attached to an orbiter. Once near Mars, it photographs the ground for a month to find me a safe place, because the planned site was too rough. On 20 July 1976, seven years to the day after Apollo 11, I land on the plain of Chryse."
         },
         {
+          "phase": "exploration",
           "date": "1976-07-20",
           "date_precision": "day",
           "focus": "mast",
@@ -481,6 +495,7 @@
           "body_en": "A few minutes after landing, I take my very first picture: one of my feet resting on Martian pebbles. The engineers wanted to know right away whether I was sinking into the ground!"
         },
         {
+          "phase": "discovery",
           "date": "1976-07-20",
           "date_precision": "year",
           "focus": "arm",
@@ -490,6 +505,7 @@
           "body_en": "My arm scoops up soil and pours it into three biology experiments. They look for microbes by \"feeding\" them and watching for the gases they give off. The answers surprised everyone, but most scientists now think they are explained by the soil's chemistry, not by life."
         },
         {
+          "phase": "legacy",
           "date": "1982-11-11",
           "date_precision": "day",
           "focus": "antenna",
@@ -550,7 +566,7 @@
     },
     {
       "slug": "opportunity",
-      "order": 2,
+      "order": 3,
       "name": "Opportunity",
       "mission": "Mars Exploration Rover",
       "body": "mars",
@@ -562,8 +578,8 @@
       "last_contact_date": "2018-06-10",
       "latitude": -2.28,
       "longitude": -5.43,
-      "location_fr": "Vallée Perseverance, bord du cratère Endeavour (Meridiani Planum)",
-      "location_en": "Perseverance Valley, rim of Endeavour crater (Meridiani Planum)",
+      "location_fr": "Vallée Perseverance, bord ouest du cratère Endeavour (position approximative)",
+      "location_en": "Perseverance Valley, western rim of Endeavour crater (approximate position)",
       "tagline_fr": "Je devais vivre 90 jours. J'ai exploré Mars pendant près de 15 ans.",
       "tagline_en": "I was built to last 90 days. I explored Mars for almost 15 years.",
       "discovery_fr": "J'ai trouvé de petites billes d'hématite, surnommées « myrtilles », et des roches qui se forment en présence d'eau. C'était la preuve qu'il y avait autrefois de l'eau liquide à la surface de Mars.",
@@ -572,6 +588,7 @@
       "status_note_en": "Silent since June 2018: a huge dust storm blocked the sunlight from my solar panels. My mission was declared over on 13 February 2019.",
       "chapters": [
         {
+          "phase": "arrival",
           "date": "2004-01-25",
           "date_precision": "day",
           "focus": "wheels",
@@ -581,6 +598,7 @@
           "body_en": "On 25 January 2004, I bounce onto Mars wrapped in airbags, then roll… straight into a small crater. Scientists can't believe their luck: right in front of me, layers of rock tell the planet's story. The crater is called Eagle."
         },
         {
+          "phase": "discovery",
           "date": "2004-03-02",
           "date_precision": "month",
           "focus": "arm",
@@ -590,6 +608,7 @@
           "body_en": "In those rocks, I find thousands of tiny grey spheres. My instruments show they are made of hematite, a mineral that often forms in water. So Mars was once much wetter than it is today."
         },
         {
+          "phase": "exploration",
           "date": "2015-03-24",
           "date_precision": "day",
           "focus": "wheels",
@@ -599,6 +618,7 @@
           "body_en": "My solar panels were supposed to be covered in dust within a few months. But Martian gusts of wind cleaned them again and again! In all, I drove more than 45 km: farther than a marathon."
         },
         {
+          "phase": "legacy",
           "date": "2018-06-10",
           "date_precision": "day",
           "focus": "panels",
@@ -654,12 +674,17 @@
           "label": "NSSDCA : Opportunity (2003-032A)",
           "url": "https://nssdc.gsfc.nasa.gov/nmc/spacecraft/display.action?id=2003-032A",
           "is_nasa": true
+        },
+        {
+          "label": "NASA/JPL : carte du dernier trajet d'Opportunity (PIA23178)",
+          "url": "https://photojournal.jpl.nasa.gov/catalog/PIA23178",
+          "is_nasa": true
         }
       ]
     },
     {
       "slug": "insight",
-      "order": 3,
+      "order": 5,
       "name": "InSight",
       "mission": "InSight",
       "body": "mars",
@@ -681,6 +706,7 @@
       "status_note_en": "Silent since December 2022: dust covered my solar panels.",
       "chapters": [
         {
+          "phase": "arrival",
           "date": "2018-12-19",
           "date_precision": "day",
           "focus": "arm",
@@ -690,6 +716,7 @@
           "body_en": "Unlike rovers, I don't move. My job: to study the inside of Mars, all the way to its heart. With my robotic arm, I place my seismometer directly on the ground, under a dome that protects it from wind and cold."
         },
         {
+          "phase": "discovery",
           "date": "2022-05-04",
           "date_precision": "day",
           "focus": "body",
@@ -699,6 +726,7 @@
           "body_en": "I feel tremors caused by faults in the ground, and even by meteorites crashing down. In May 2022, I record the strongest quake ever detected on another planet: about magnitude 5."
         },
         {
+          "phase": "exploration",
           "date": "2021-01-14",
           "date_precision": "month",
           "focus": "arm",
@@ -708,6 +736,7 @@
           "body_en": "I also had a probe nicknamed \"the mole\", meant to burrow 5 metres down to measure the heat of Mars. But the soil didn't grip it enough for it to move forward: it never managed to dig deep. In science, too, we learn from our failures."
         },
         {
+          "phase": "legacy",
           "date": "2022-12-15",
           "date_precision": "day",
           "focus": "panels",
@@ -768,7 +797,7 @@
     },
     {
       "slug": "ingenuity",
-      "order": 4,
+      "order": 6,
       "name": "Ingenuity",
       "mission": "Mars 2020",
       "body": "mars",
@@ -781,8 +810,8 @@
       "mission_end_date": "2024-01-25",
       "latitude": 18.4447,
       "longitude": 77.4508,
-      "location_fr": "Cratère Jezero",
-      "location_en": "Jezero crater",
+      "location_fr": "« Valinor Hills », vallée Neretva, cratère Jezero (position approximative)",
+      "location_en": "\"Valinor Hills\", Neretva Vallis, Jezero crater (approximate position)",
       "tagline_fr": "Je devais voler 5 fois. J'ai volé 72 fois sur Mars.",
       "tagline_en": "I was supposed to fly 5 times. I flew 72 times on Mars.",
       "discovery_fr": "J'ai prouvé qu'un engin pouvait voler dans l'air de Mars, environ 100 fois moins dense que celui de la Terre. J'ai aussi servi d'éclaireur au rover Perseverance en photographiant le terrain depuis le ciel.",
@@ -791,6 +820,7 @@
       "status_note_en": "After my 72nd flight in January 2024, one of my rotor blades was damaged. I can no longer fly, but I remain in Jezero crater.",
       "chapters": [
         {
+          "phase": "arrival",
           "date": "2021-02-18",
           "date_precision": "day",
           "focus": "rotor",
@@ -800,6 +830,7 @@
           "body_en": "I travelled to Mars tucked under the belly of the Perseverance rover. I weigh about 1.8 kg. My two rotors spin in opposite directions at more than 2,400 revolutions per minute to push against very thin air."
         },
         {
+          "phase": "exploration",
           "date": "2021-04-19",
           "date_precision": "day",
           "focus": "rotor",
@@ -809,6 +840,7 @@
           "body_en": "On 19 April 2021, I take off, climb to 3 metres, hover and land again. The flight lasts only 39 seconds, but it is the very first powered, controlled flight on another planet."
         },
         {
+          "phase": "exploration",
           "date": "2022-01-01",
           "date_precision": "year",
           "focus": "body",
@@ -818,6 +850,7 @@
           "body_en": "At first, I was only supposed to make 5 test flights. I worked so well that the team kept me for almost three years: 72 flights, more than 17 km covered and over two hours in the Martian sky."
         },
         {
+          "phase": "legacy",
           "date": "2024-01-18",
           "date_precision": "day",
           "focus": "rotor",
@@ -868,6 +901,11 @@
           "label": "NASA Science : Ingenuity Mars Helicopter",
           "url": "https://science.nasa.gov/mission/mars-2020-perseverance/ingenuity-mars-helicopter/",
           "is_nasa": true
+        },
+        {
+          "label": "NASA Science : adieu à Ingenuity (blog de Perseverance)",
+          "url": "https://science.nasa.gov/missions/mars-2020-perseverance/farewell-to-our-flying-friend-and-closing-in-on-the-crater-rim/",
+          "is_nasa": true
         }
       ]
     },
@@ -895,6 +933,7 @@
       "status_note_en": "Silent since 28 February 2001. I rest on Eros, which keeps circling the Sun.",
       "chapters": [
         {
+          "phase": "arrival",
           "date": "2000-02-14",
           "date_precision": "day",
           "focus": "overview",
@@ -904,6 +943,7 @@
           "body_en": "On 14 February 2000, Valentine's Day, I enter orbit around Eros, a peanut-shaped asteroid about 34 km long. No one had ever orbited an asteroid before me."
         },
         {
+          "phase": "legacy",
           "date": "2001-02-12",
           "date_precision": "day",
           "focus": "panels",
@@ -986,6 +1026,7 @@
       "status_note_en": "Lost since January 2003: my signal became too weak to detect. I keep travelling in silence.",
       "chapters": [
         {
+          "phase": "exploration",
           "date": "1972-07-15",
           "date_precision": "year",
           "focus": "overview",
@@ -995,6 +1036,7 @@
           "body_en": "In 1972, nobody knows whether a spacecraft can cross the asteroid belt without being destroyed. I am the first to try… and I get through unharmed!"
         },
         {
+          "phase": "discovery",
           "date": "1973-12-03",
           "date_precision": "day",
           "focus": "antenna",
@@ -1004,6 +1046,7 @@
           "body_en": "On 3 December 1973, I pass very close to Jupiter. Its radiation is so strong that it disrupts some of my instruments, but I send back hundreds of pictures of the giant planet."
         },
         {
+          "phase": "legacy",
           "date": null,
           "date_precision": "day",
           "focus": "body",
@@ -1058,6 +1101,393 @@
         {
           "label": "NSSDCA : Pioneer 10 (1972-012A)",
           "url": "https://nssdc.gsfc.nasa.gov/nmc/spacecraft/display.action?id=1972-012A",
+          "is_nasa": true
+        }
+      ]
+    },
+    {
+      "slug": "sojourner",
+      "order": 2,
+      "name": "Sojourner",
+      "mission": "Mars Pathfinder",
+      "body": "mars",
+      "kind": "rover",
+      "status": "silent",
+      "nssdca_id": "",
+      "launch_date": "1996-12-04",
+      "arrival_date": "1997-07-04",
+      "last_contact_date": "1997-09-27",
+      "mission_end_date": null,
+      "latitude": 19.13,
+      "longitude": -33.22,
+      "location_fr": "Ares Vallis, près de la station Pathfinder",
+      "location_en": "Ares Vallis, next to the Pathfinder station",
+      "tagline_fr": "Je suis le tout premier rover à avoir roulé sur Mars.",
+      "tagline_en": "I am the very first rover to drive on Mars.",
+      "discovery_fr": "J'ai analysé la composition de roches martiennes avec mon spectromètre. Le paysage d'Ares Vallis, couvert de galets et de rochers, montrait qu'une immense inondation était passée par là autrefois.",
+      "discovery_en": "I analysed the make-up of Martian rocks with my spectrometer. The landscape of Ares Vallis, strewn with pebbles and boulders, showed that a huge flood once swept through.",
+      "status_note_fr": "Silencieux depuis septembre 1997, quand ma base, la station Pathfinder, a cessé de communiquer. Je suis resté tout près d'elle.",
+      "status_note_en": "Silent since September 1997, when my base, the Pathfinder station, stopped communicating. I stayed close by.",
+      "chapters": [
+        {
+          "phase": "conception",
+          "date": null,
+          "date_precision": "day",
+          "focus": "body",
+          "title_fr": "Petit mais pionnier",
+          "body_fr": "Je pèse à peine 10,6 kg, à peu près comme un four à micro-ondes. On m'a construit pour prouver qu'un petit robot à roues pouvait explorer une autre planète.",
+          "title_en": "Small but a pioneer",
+          "body_en": "I weigh just 10.6 kg, about as much as a microwave oven. I was built to prove that a small wheeled robot could explore another planet."
+        },
+        {
+          "phase": "launch",
+          "date": "1996-12-04",
+          "date_precision": "day",
+          "focus": "overview",
+          "title_fr": "Le voyage",
+          "body_fr": "Le 4 décembre 1996, je décolle de Floride, rangé à l'intérieur de l'atterrisseur Mars Pathfinder.",
+          "title_en": "The journey",
+          "body_en": "On 4 December 1996, I lift off from Florida, tucked inside the Mars Pathfinder lander."
+        },
+        {
+          "phase": "arrival",
+          "date": "1997-07-04",
+          "date_precision": "day",
+          "focus": "wheels",
+          "title_fr": "Un atterrissage rebondissant",
+          "body_fr": "Le 4 juillet 1997, Pathfinder arrive sur Mars protégé par de gros airbags. Il rebondit plusieurs fois avant de s'arrêter, puis s'ouvre comme une fleur. Je descends sur le sol par une petite rampe.",
+          "title_en": "A bouncy landing",
+          "body_en": "On 4 July 1997, Pathfinder reaches Mars wrapped in big airbags. It bounces several times before stopping, then opens like a flower. I roll down to the ground on a small ramp."
+        },
+        {
+          "phase": "exploration",
+          "date": "1997-07-06",
+          "date_precision": "month",
+          "focus": "arm",
+          "title_fr": "Des roches avec des surnoms",
+          "body_fr": "Je roule de roche en roche pour les analyser. L'équipe leur donne des noms amusants, comme Barnacle Bill ou Yogi.",
+          "title_en": "Rocks with nicknames",
+          "body_en": "I drive from rock to rock to analyse them. The team gives them fun names, like Barnacle Bill and Yogi."
+        },
+        {
+          "phase": "legacy",
+          "date": "1997-09-27",
+          "date_precision": "day",
+          "focus": "antenna",
+          "title_fr": "83 jours au lieu de 7",
+          "body_fr": "Ma mission devait durer 7 jours martiens. J'ai travaillé 83 jours ! Le 27 septembre 1997, la station Pathfinder envoie son dernier signal. Sans elle, je ne peux plus parler à la Terre.",
+          "title_en": "83 days instead of 7",
+          "body_en": "My mission was meant to last 7 Martian days. I worked for 83! On 27 September 1997, the Pathfinder station sends its last signal. Without it, I can no longer talk to Earth."
+        }
+      ],
+      "quiz": [
+        {
+          "question_fr": "Combien de jours martiens la mission de Sojourner devait-elle durer ?",
+          "choices_fr": [
+            "7",
+            "83",
+            "365"
+          ],
+          "answer_index": 0,
+          "explanation_fr": "Prévue pour 7 jours martiens, elle en a duré 83.",
+          "question_en": "How many Martian days was Sojourner's mission supposed to last?",
+          "choices_en": [
+            "7",
+            "83",
+            "365"
+          ],
+          "explanation_en": "Planned for 7 Martian days, it lasted 83."
+        },
+        {
+          "question_fr": "Comment Mars Pathfinder s'est-il posé sur Mars ?",
+          "choices_fr": [
+            "Avec de gros airbags qui rebondissent",
+            "Sur trois pieds, comme Viking",
+            "Suspendu sous une grue volante"
+          ],
+          "answer_index": 0,
+          "explanation_fr": "Les airbags ont amorti le choc : l'atterrisseur a rebondi plusieurs fois avant de s'immobiliser.",
+          "question_en": "How did Mars Pathfinder land on Mars?",
+          "choices_en": [
+            "With big bouncing airbags",
+            "On three legs, like Viking",
+            "Hanging under a flying crane"
+          ],
+          "explanation_en": "The airbags absorbed the impact: the lander bounced several times before coming to rest."
+        }
+      ],
+      "sources": [
+        {
+          "label": "NASA Science : Mars Pathfinder",
+          "url": "https://science.nasa.gov/mission/mars-pathfinder/",
+          "is_nasa": true
+        }
+      ]
+    },
+    {
+      "slug": "curiosity",
+      "order": 4,
+      "name": "Curiosity",
+      "mission": "Mars Science Laboratory",
+      "body": "mars",
+      "kind": "rover",
+      "status": "active",
+      "nssdca_id": "2011-070A",
+      "launch_date": "2011-11-26",
+      "arrival_date": "2012-08-06",
+      "last_contact_date": null,
+      "mission_end_date": null,
+      "latitude": -4.5895,
+      "longitude": 137.4417,
+      "location_fr": "Mont Sharp, cratère Gale",
+      "location_en": "Mount Sharp, Gale crater",
+      "tagline_fr": "Je suis grand comme une voiture et je grimpe une montagne martienne depuis 2014.",
+      "tagline_en": "I'm the size of a car and I've been climbing a Martian mountain since 2014.",
+      "discovery_fr": "J'ai montré que le cratère Gale abritait autrefois un lac d'eau douce, avec les ingrédients chimiques nécessaires à la vie microbienne. J'y ai aussi trouvé des molécules organiques, les briques de base de la chimie du vivant.",
+      "discovery_en": "I showed that Gale crater once held a freshwater lake, with the chemical ingredients needed for microbial life. I also found organic molecules there, the building blocks of the chemistry of life.",
+      "status_note_fr": "Encore actif : je continue d'explorer les couches du mont Sharp, qui racontent comment Mars s'est asséchée.",
+      "status_note_en": "Still active: I keep exploring the layers of Mount Sharp, which tell how Mars dried out.",
+      "chapters": [
+        {
+          "phase": "conception",
+          "date": null,
+          "date_precision": "day",
+          "focus": "arm",
+          "title_fr": "Un laboratoire sur roues",
+          "body_fr": "On m'a conçu pour répondre à une grande question : Mars a-t-elle pu abriter la vie ? Je transporte un vrai laboratoire de chimie, un laser qui vaporise les roches pour les analyser, et une source d'énergie nucléaire qui ne dépend pas du Soleil.",
+          "title_en": "A laboratory on wheels",
+          "body_en": "I was designed to answer a big question: could Mars ever have supported life? I carry a real chemistry lab, a laser that vaporises rocks to analyse them, and a nuclear power source that does not depend on the Sun."
+        },
+        {
+          "phase": "launch",
+          "date": "2011-11-26",
+          "date_precision": "day",
+          "focus": "overview",
+          "title_fr": "Huit mois de voyage",
+          "body_fr": "Le 26 novembre 2011, je quitte la Terre à bord d'une fusée Atlas V. Pendant plus de huit mois, je traverse l'espace, bien protégé dans ma capsule.",
+          "title_en": "Eight months in space",
+          "body_en": "On 26 November 2011, I leave Earth on an Atlas V rocket. For more than eight months, I cross space, safely tucked inside my capsule."
+        },
+        {
+          "phase": "arrival",
+          "date": "2012-08-06",
+          "date_precision": "day",
+          "focus": "wheels",
+          "title_fr": "Les sept minutes de terreur",
+          "body_fr": "Pour me poser, une « grue volante » à fusées me descend au bout de câbles, puis s'envole plus loin. Tout est automatique : les signaux mettent environ 14 minutes pour arriver sur Terre, bien trop tard pour me piloter.",
+          "title_en": "Seven minutes of terror",
+          "body_en": "To land me, a rocket-powered \"sky crane\" lowers me on cables, then flies away. It is all automatic: signals take about 14 minutes to reach Earth, far too late to steer me."
+        },
+        {
+          "phase": "discovery",
+          "date": "2013-03-12",
+          "date_precision": "month",
+          "focus": "arm",
+          "title_fr": "Un ancien lac",
+          "body_fr": "En forant une roche, je découvre de l'argile : la trace d'un ancien lac d'eau douce. Il y a des milliards d'années, des microbes auraient pu y vivre.",
+          "title_en": "An ancient lake",
+          "body_en": "By drilling into a rock, I find clay: the trace of an ancient freshwater lake. Billions of years ago, microbes could have lived there."
+        },
+        {
+          "phase": "exploration",
+          "date": "2014-09-11",
+          "date_precision": "month",
+          "focus": "wheels",
+          "title_fr": "L'ascension du mont Sharp",
+          "body_fr": "Depuis 2014, je gravis le mont Sharp, une montagne de plus de 5 km de haut au centre du cratère. Chaque couche de roche est comme une page de l'histoire de Mars.",
+          "title_en": "Climbing Mount Sharp",
+          "body_en": "Since 2014, I have been climbing Mount Sharp, a mountain more than 5 km high in the middle of the crater. Each layer of rock is like a page in the history of Mars."
+        },
+        {
+          "phase": "legacy",
+          "date": null,
+          "date_precision": "day",
+          "focus": "mast",
+          "title_fr": "Toujours au travail",
+          "body_fr": "Mes roues sont abîmées par les roches pointues, mais je roule encore. Chaque jour, mes découvertes aident à préparer les futures missions, peut-être avec des humains.",
+          "title_en": "Still at work",
+          "body_en": "My wheels are worn by sharp rocks, but I keep driving. Every day, my discoveries help prepare future missions, perhaps with humans."
+        }
+      ],
+      "quiz": [
+        {
+          "question_fr": "Comment Curiosity s'est-il posé sur Mars ?",
+          "choices_fr": [
+            "Avec des airbags",
+            "Suspendu sous une grue volante à fusées",
+            "Avec un parachute seulement"
+          ],
+          "answer_index": 1,
+          "explanation_fr": "Trop lourd pour des airbags, il a été descendu au bout de câbles par une « grue volante » à fusées.",
+          "question_en": "How did Curiosity land on Mars?",
+          "choices_en": [
+            "With airbags",
+            "Hanging under a rocket-powered sky crane",
+            "With a parachute only"
+          ],
+          "explanation_en": "Too heavy for airbags, it was lowered on cables by a rocket-powered \"sky crane\"."
+        },
+        {
+          "question_fr": "Qu'a découvert Curiosity dans le cratère Gale ?",
+          "choices_fr": [
+            "Les traces d'un ancien lac",
+            "Des fossiles de dinosaures",
+            "De la glace au sommet du mont Sharp"
+          ],
+          "answer_index": 0,
+          "explanation_fr": "Les argiles trouvées en forant montrent qu'un lac d'eau douce existait là il y a des milliards d'années.",
+          "question_en": "What did Curiosity discover in Gale crater?",
+          "choices_en": [
+            "Traces of an ancient lake",
+            "Dinosaur fossils",
+            "Ice on top of Mount Sharp"
+          ],
+          "explanation_en": "The clays found by drilling show a freshwater lake existed there billions of years ago."
+        }
+      ],
+      "sources": [
+        {
+          "label": "NASA Science : Curiosity (Mars Science Laboratory)",
+          "url": "https://science.nasa.gov/mission/msl-curiosity/",
+          "is_nasa": true
+        },
+        {
+          "label": "NSSDCA : Curiosity (2011-070A)",
+          "url": "https://nssdc.gsfc.nasa.gov/nmc/spacecraft/display.action?id=2011-070A",
+          "is_nasa": true
+        }
+      ]
+    },
+    {
+      "slug": "perseverance",
+      "order": 7,
+      "name": "Perseverance",
+      "mission": "Mars 2020",
+      "body": "mars",
+      "kind": "rover",
+      "status": "active",
+      "nssdca_id": "2020-052A",
+      "launch_date": "2020-07-30",
+      "arrival_date": "2021-02-18",
+      "last_contact_date": null,
+      "mission_end_date": null,
+      "latitude": 18.4447,
+      "longitude": 77.4508,
+      "location_fr": "Cratère Jezero (aujourd'hui sur son bord)",
+      "location_en": "Jezero crater (now on its rim)",
+      "tagline_fr": "Je cherche des traces de vie ancienne et je garde des échantillons pour qu'on les rapporte un jour sur Terre.",
+      "tagline_en": "I search for signs of ancient life and keep samples so they can one day be brought back to Earth.",
+      "discovery_fr": "J'ai exploré le delta d'un ancien lac dans le cratère Jezero et rempli des tubes d'échantillons de roches, dont certains sont déposés au sol en attendant un futur retour sur Terre. Mon instrument MOXIE a même fabriqué de l'oxygène à partir de l'air de Mars, une première.",
+      "discovery_en": "I explored the delta of an ancient lake in Jezero crater and filled tubes with rock samples, some of them left on the ground awaiting a future return to Earth. My MOXIE instrument even made oxygen from the Martian air, a first.",
+      "status_note_fr": "Encore actif : j'explore le bord du cratère Jezero, à la recherche des roches les plus anciennes.",
+      "status_note_en": "Still active: I am exploring the rim of Jezero crater, looking for the oldest rocks.",
+      "chapters": [
+        {
+          "phase": "conception",
+          "date": null,
+          "date_precision": "day",
+          "focus": "arm",
+          "title_fr": "Un chercheur de traces",
+          "body_fr": "Je ressemble à mon grand frère Curiosity, mais ma mission est différente : chercher des signes de vie microbienne ancienne, et mettre de côté les meilleures roches dans des tubes scellés.",
+          "title_en": "A sign seeker",
+          "body_en": "I look like my big brother Curiosity, but my mission is different: to search for signs of ancient microbial life, and set aside the best rocks in sealed tubes."
+        },
+        {
+          "phase": "launch",
+          "date": "2020-07-30",
+          "date_precision": "day",
+          "focus": "overview",
+          "title_fr": "Un passager sous le ventre",
+          "body_fr": "Le 30 juillet 2020, je décolle de Floride. Sous mon ventre, je transporte un passager : le petit hélicoptère Ingenuity.",
+          "title_en": "A passenger under my belly",
+          "body_en": "On 30 July 2020, I lift off from Florida. Under my belly, I carry a passenger: the little Ingenuity helicopter."
+        },
+        {
+          "phase": "arrival",
+          "date": "2021-02-18",
+          "date_precision": "day",
+          "focus": "wheels",
+          "title_fr": "Atterrissage dans un ancien lac",
+          "body_fr": "Le 18 février 2021, je me pose dans le cratère Jezero. Il y a des milliards d'années, une rivière y déversait son eau et formait un delta : l'endroit idéal pour chercher des traces de vie.",
+          "title_en": "Landing in an ancient lake",
+          "body_en": "On 18 February 2021, I land in Jezero crater. Billions of years ago, a river poured into it and built a delta: the perfect place to look for signs of life."
+        },
+        {
+          "phase": "exploration",
+          "date": "2021-04-20",
+          "date_precision": "day",
+          "focus": "body",
+          "title_fr": "De l'oxygène sur Mars",
+          "body_fr": "Le 20 avril 2021, mon instrument MOXIE transforme un peu du gaz carbonique de l'air martien en oxygène. Une première ! Un jour, cette technologie pourrait aider des astronautes à respirer ou à fabriquer du carburant.",
+          "title_en": "Oxygen on Mars",
+          "body_en": "On 20 April 2021, my MOXIE instrument turns some of the carbon dioxide in the Martian air into oxygen. A first! One day, this technology could help astronauts breathe or make fuel."
+        },
+        {
+          "phase": "discovery",
+          "date": "2022-12-21",
+          "date_precision": "month",
+          "focus": "arm",
+          "title_fr": "Un dépôt d'échantillons",
+          "body_fr": "Fin 2022, je dépose dix tubes d'échantillons sur le sol, à un endroit nommé Three Forks. C'est une réserve de secours, en attendant qu'une future mission vienne les chercher.",
+          "title_en": "A sample depot",
+          "body_en": "In late 2022, I leave ten sample tubes on the ground at a place called Three Forks. It is a backup stash, waiting for a future mission to come and collect it."
+        },
+        {
+          "phase": "legacy",
+          "date": null,
+          "date_precision": "day",
+          "focus": "mast",
+          "title_fr": "Toujours en route",
+          "body_fr": "Aujourd'hui, j'explore le bord du cratère. Chaque roche que j'étudie aide à répondre à une question immense : la vie a-t-elle existé ailleurs que sur Terre ?",
+          "title_en": "Still on the road",
+          "body_en": "Today, I am exploring the crater rim. Every rock I study helps answer a huge question: has life ever existed beyond Earth?"
+        }
+      ],
+      "quiz": [
+        {
+          "question_fr": "Quel passager Perseverance a-t-il emmené sur Mars ?",
+          "choices_fr": [
+            "Un petit hélicoptère",
+            "Un astronaute",
+            "Un chien robot"
+          ],
+          "answer_index": 0,
+          "explanation_fr": "Ingenuity voyageait sous son ventre. Il est devenu le premier engin à voler sur une autre planète.",
+          "question_en": "Which passenger did Perseverance take to Mars?",
+          "choices_en": [
+            "A small helicopter",
+            "An astronaut",
+            "A robot dog"
+          ],
+          "explanation_en": "Ingenuity travelled under its belly. It became the first aircraft to fly on another planet."
+        },
+        {
+          "question_fr": "Qu'a fabriqué l'instrument MOXIE sur Mars ?",
+          "choices_fr": [
+            "De l'eau",
+            "De l'oxygène",
+            "De la glace"
+          ],
+          "answer_index": 1,
+          "explanation_fr": "MOXIE a transformé du gaz carbonique de l'air martien en oxygène : une première sur une autre planète.",
+          "question_en": "What did the MOXIE instrument make on Mars?",
+          "choices_en": [
+            "Water",
+            "Oxygen",
+            "Ice"
+          ],
+          "explanation_en": "MOXIE turned carbon dioxide from the Martian air into oxygen: a first on another planet."
+        }
+      ],
+      "sources": [
+        {
+          "label": "NASA Science : Mars 2020 Perseverance",
+          "url": "https://science.nasa.gov/mission/mars-2020-perseverance/",
+          "is_nasa": true
+        },
+        {
+          "label": "NSSDCA : Perseverance (2020-052A)",
+          "url": "https://nssdc.gsfc.nasa.gov/nmc/spacecraft/display.action?id=2020-052A",
           "is_nasa": true
         }
       ]

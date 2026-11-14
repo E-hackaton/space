@@ -33,7 +33,7 @@ class StoryChapterSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = StoryChapter
-        fields = ["order", "date", "date_precision", "focus", "title", "body", "audio"]
+        fields = ["order", "phase", "date", "date_precision", "focus", "title", "body", "audio"]
 
 
 class GuideStepSerializer(serializers.ModelSerializer):

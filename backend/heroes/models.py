@@ -1,7 +1,7 @@
 """
 Modèle de données de Sankofa.
 
-Un **lieu** (CelestialBody : Lune, Mars, Espace profond) accueille des **héros** (Equipment),
+Un **lieu** (CelestialBody : The Moon, Mars, Beyond) accueille des **héros** (Equipment),
 c'est-à-dire des engins laissés par la NASA. Chaque héros a :
 - des **chapitres** d'histoire racontés à la première personne (StoryChapter) ;
 - des **questions de quiz** (QuizQuestion) ;
@@ -24,7 +24,7 @@ class CelestialBody(models.Model):
     class Slug(models.TextChoices):
         MOON = "moon", "Lune"
         MARS = "mars", "Mars"
-        ELSEWHERE = "elsewhere", "Espace profond"
+        ELSEWHERE = "elsewhere", "Au-delà (Beyond)"
 
     slug = models.SlugField(unique=True, choices=Slug.choices)
     name_fr = models.CharField("nom (FR)", max_length=60)
@@ -230,10 +230,21 @@ class StoryChapter(VoicedContent):
         MIRROR = "mirror", "Miroirs"
         ENGINE = "engine", "Moteur"
 
+    class Phase(models.TextChoices):
+        """Les six temps du récit d'une mission (concept FORBITS, section 6.8)."""
+
+        CONCEPTION = "conception", "Conception"
+        LAUNCH = "launch", "Préparation et lancement"
+        ARRIVAL = "arrival", "Arrivée"
+        EXPLORATION = "exploration", "Exploration"
+        DISCOVERY = "discovery", "Découvertes"
+        LEGACY = "legacy", "Fin de mission et héritage"
+
     equipment = models.ForeignKey(
         Equipment, on_delete=models.CASCADE, related_name="chapters", verbose_name="héros"
     )
     order = models.PositiveSmallIntegerField("ordre", default=0)
+    phase = models.CharField("phase du récit", max_length=12, choices=Phase.choices, default=Phase.EXPLORATION)
     date = models.DateField("date de l'étape", null=True, blank=True)
     date_precision = models.CharField(
         "précision de la date",

@@ -67,9 +67,13 @@ export type MachineFocus =
 
 export type DatePrecision = 'day' | 'month' | 'year'
 
+/** Les six temps du récit d'une mission (concept FORBITS). */
+export type StoryPhase = 'conception' | 'launch' | 'arrival' | 'exploration' | 'discovery' | 'legacy'
+
 /** Étape datée de la mission, racontée par la machine. */
 export interface StoryChapter {
   order: number
+  phase: StoryPhase
   date: IsoDate | null
   date_precision: DatePrecision
   focus: MachineFocus

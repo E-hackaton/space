@@ -15,10 +15,10 @@ export default defineConfig({
       registerType: 'autoUpdate', // une nouvelle version s'installe d'elle-même au prochain chargement
       includeAssets: ['favicon.svg', 'apple-touch-icon.png'],
       manifest: {
-        name: "Sankofa · Les héros oubliés de l'espace",
-        short_name: 'Sankofa',
+        name: 'FORBITS · Their missions ended. Their stories live on.',
+        short_name: 'FORBITS',
         description:
-          "Découvre les machines que la NASA a laissées sur la Lune, sur Mars et dans l'espace profond, et la science qu'elles ont rendue possible.",
+          "Découvre en 3D les machines que la NASA a laissées sur la Lune, sur Mars et au-delà, et la science qu'elles ont rendue possible.",
         lang: 'fr',
         start_url: '/',
         display: 'standalone',

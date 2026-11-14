@@ -8,7 +8,7 @@ export const en: Messages = {
   common: {
     skipToContent: 'Skip to content',
     loading: 'Loading…',
-    appTagline: 'The forgotten heroes of space',
+    appTagline: 'Their missions ended. Their stories live on.',
     speaker: 'Sankofa',
     newTab: ' (new tab)',
     language: 'Language',
@@ -77,8 +77,8 @@ export const en: Messages = {
 
   home: {
     eyebrow: 'Sleeping far from Earth since 1966',
-    title: 'The forgotten heroes of space',
-    lead: 'Robots, rovers and probes that NASA left on the Moon, on Mars and in deep space. Their mission is over, but their story is not.',
+    title: 'Their missions ended. Their stories live on.',
+    lead: 'Robots, rovers and probes that NASA left on the Moon, on Mars and beyond. Pick a world, meet them in 3D and hear them tell their mission.',
     sankofaIntro:
       "Hi, I'm Sankofa! My name comes from an Akan symbol meaning: \"it is not wrong to go back for what you forgot\". Did you know robots are sleeping on Mars? Come, let me introduce you.",
     start: 'Start exploring',
@@ -158,6 +158,14 @@ export const en: Messages = {
     pauseTour: 'Pause',
     timeline: 'Mission timeline',
     undated: 'Today',
+    phases: {
+      conception: 'Design',
+      launch: 'Launch',
+      arrival: 'Arrival',
+      exploration: 'Exploration',
+      discovery: 'Discovery',
+      legacy: 'Legacy',
+    },
     stageLabel: (name: string) => `3D model of ${name}. Spin it to take a closer look.`,
   },
 

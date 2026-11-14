@@ -5,7 +5,7 @@
  * Les textes qui contiennent une valeur variable sont des fonctions.
  */
 
-import type { EquipmentKind, EquipmentStatus } from '../../types/api'
+import type { EquipmentKind, EquipmentStatus, StoryPhase } from '../../types/api'
 
 export const fr = {
   locale: 'fr-FR',
@@ -13,7 +13,7 @@ export const fr = {
   common: {
     skipToContent: 'Aller au contenu',
     loading: 'Chargement…',
-    appTagline: "Les héros oubliés de l'espace",
+    appTagline: 'Leur mission est terminée. Leur histoire continue.',
     speaker: 'Sankofa',
     newTab: ' (nouvel onglet)',
     language: 'Langue',
@@ -83,8 +83,8 @@ export const fr = {
 
   home: {
     eyebrow: 'Depuis 1966, ils dorment loin de la Terre',
-    title: "Les héros oubliés de l'espace",
-    lead: "Des robots, des rovers et des sondes que la NASA a laissés sur la Lune, sur Mars et dans l'espace profond. Leur mission est finie, mais leur histoire ne l'est pas.",
+    title: 'Leur mission est terminée. Leur histoire continue.',
+    lead: "Des robots, des rovers et des sondes que la NASA a laissés sur la Lune, sur Mars et au-delà. Choisis un univers, rencontre-les en 3D et écoute-les raconter leur mission.",
     sankofaIntro:
       "Salut, je suis Sankofa ! Mon nom vient d'un symbole akan qui veut dire : « il n'est pas interdit de retourner chercher ce qu'on a oublié ». Tu savais que des robots dorment sur Mars ? Viens, je te les présente.",
     start: "Commencer l'exploration",
@@ -164,6 +164,14 @@ export const fr = {
     pauseTour: 'Mettre en pause',
     timeline: 'Frise de la mission',
     undated: 'Aujourd’hui',
+    phases: {
+      conception: 'Conception',
+      launch: 'Lancement',
+      arrival: 'Arrivée',
+      exploration: 'Exploration',
+      discovery: 'Découverte',
+      legacy: 'Héritage',
+    } satisfies Record<StoryPhase, string>,
     stageLabel: (name: string) => `Modèle 3D de ${name}. Fais-le tourner pour l'observer.`,
   },
 

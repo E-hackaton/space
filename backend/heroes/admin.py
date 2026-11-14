@@ -20,7 +20,7 @@ class StoryChapterInline(admin.StackedInline):
     model = StoryChapter
     extra = 0
     fields = [
-        ("order", "date", "date_precision", "focus"),
+        ("order", "phase", "date", "date_precision", "focus"),
         "title_fr",
         "body_fr",
         "title_en",

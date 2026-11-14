@@ -112,6 +112,7 @@ export function MissionTour({ hero, nextSectionId }: MissionTourProps) {
                   goTo(position)
                 }}
               >
+                <span className={styles.phase}>{t.story.phases[item.phase]}</span>
                 <span className={styles.dot} aria-hidden="true" />
                 {stepDate(position)}
                 <span className="visually-hidden"> · {item.title}</span>
@@ -124,7 +125,7 @@ export function MissionTour({ hero, nextSectionId }: MissionTourProps) {
       <div className={styles.panel}>
         <div className={styles.panelHeader}>
           <p className={ui.eyebrow}>
-            {t.story.chapterOf(index + 1, steps.length)}
+            {t.story.phases[step.phase]} · {t.story.chapterOf(index + 1, steps.length)}
             {step.date && ` · ${formatDate(step.date, t.locale, step.date_precision)}`}
           </p>
           <button type="button" className={styles.listen} onClick={toggleListen} aria-pressed={narration.speaking && !touring}>

@@ -21,7 +21,7 @@
   position: absolute;
   left: 0;
   right: 0;
-  top: 1.05rem;
+  top: 2.05rem;
   height: 2px;
   background: var(--color-border);
 }
@@ -46,6 +46,13 @@
   font-weight: 700;
   font-size: 0.85rem;
   cursor: pointer;
+}
+
+.phase {
+  font-size: 0.65rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  white-space: nowrap;
 }
 
 .dot {

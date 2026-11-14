@@ -42,7 +42,7 @@ export function Layout() {
           <NavLink to="/" className={styles.brand}>
             <SankofaAvatar size={40} />
             <span>
-              Sankofa
+              FORBITS
               <span className={styles.brandTagline}>{t.common.appTagline}</span>
             </span>
           </NavLink>

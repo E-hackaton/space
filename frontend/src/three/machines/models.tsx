@@ -21,7 +21,7 @@ const TAU = Math.PI * 2
 export function MachineModel({ kind, slug }: { kind: EquipmentKind; slug: string }) {
   switch (kind) {
     case 'rover':
-      return <Rover variant={slug.includes('lrv') ? 'lunar' : 'mars'} />
+      return <Rover variant={roverVariant(slug)} />
     case 'lander':
       return <Lander variant={slug === 'insight' ? 'insight' : slug.startsWith('surveyor') ? 'surveyor' : 'viking'} />
     case 'descent_stage':
@@ -37,13 +37,48 @@ export function MachineModel({ kind, slug }: { kind: EquipmentKind; slug: string
   }
 }
 
-// --- Rover (Opportunity, rover lunaire) ---------------------------------------
+// --- Rover (rover lunaire, Sojourner, Opportunity, Curiosity, Perseverance) ----
 
-function Rover({ variant }: { variant: 'mars' | 'lunar' }) {
+/**
+ * - lunar : rover lunaire d'Apollo (4 roues, sièges, pas de bras)
+ * - mer : Opportunity et Spirit (grand pont de panneaux solaires)
+ * - msl : Curiosity et Perseverance (pas de panneaux, source nucléaire à l'arrière)
+ * - sojourner : le tout petit premier rover (environ 60 cm de long)
+ */
+type RoverVariant = 'lunar' | 'mer' | 'msl' | 'sojourner'
+
+function roverVariant(slug: string): RoverVariant {
+  if (slug.includes('lrv')) return 'lunar'
+  if (slug === 'curiosity' || slug === 'perseverance') return 'msl'
+  if (slug === 'sojourner') return 'sojourner'
+  return 'mer'
+}
+
+function Rover({ variant }: { variant: RoverVariant }) {
+  // Sojourner est la même architecture en miniature : on réduit tout le modèle.
+  const scale = variant === 'sojourner' ? 0.55 : 1
+  return (
+    <group scale={scale}>
+      <RoverBody variant={variant} />
+      {variant === 'msl' && (
+        <Part focus="body">
+          {/* Le générateur nucléaire (RTG), à l'arrière : il fournit l'énergie jour et nuit. */}
+          <mesh position={[-0.62, 0.8, 0]} rotation={[0, 0, 0.9]}>
+            <cylinderGeometry args={[0.12, 0.12, 0.38, 12]} />
+            <Mat kind="dark" />
+          </mesh>
+        </Part>
+      )}
+    </group>
+  )
+}
+
+function RoverBody({ variant }: { variant: RoverVariant }) {
   const lunar = variant === 'lunar'
-  // Opportunity a 6 roues ; le rover lunaire d'Apollo en a 4, plus grandes.
+  const hasSolarDeck = variant === 'mer' || variant === 'sojourner'
+  // Les rovers martiens ont 6 roues ; le rover lunaire d'Apollo en a 4, plus grandes.
   const wheelX = lunar ? [-0.6, 0.6] : [-0.55, 0, 0.55]
-  const wheelRadius = lunar ? 0.24 : 0.17
+  const wheelRadius = lunar ? 0.24 : variant === 'msl' ? 0.2 : 0.17
 
   return (
     <group>
@@ -78,11 +113,11 @@ function Rover({ variant }: { variant: 'mars' | 'lunar' }) {
         )}
       </Part>
 
-      {!lunar && (
+      {hasSolarDeck && (
         <Part focus="panels">
           {/* Le grand pont de panneaux solaires, en forme d'aile. */}
           <mesh position={[0, 0.82, 0]}>
-            <boxGeometry args={[1.8, 0.04, 1.25]} />
+            <boxGeometry args={variant === 'sojourner' ? [1.1, 0.04, 0.8] : [1.8, 0.04, 1.25]} />
             <Mat kind="solar" />
           </mesh>
         </Part>
