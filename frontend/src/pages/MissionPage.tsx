@@ -321,7 +321,7 @@ function SurfaceExpedition({ body, mode, machines, first, onBack, onMode }: Surf
           </span>
           <div className="hud-pill flex gap-1 p-1" role="group" aria-label={t('expedition.pilot')}>
             {(['auto', 'manual'] as GuideMode[]).map((m) => (
-              <button key={m} type="button" onClick={() => onMode(m)} aria-pressed={mode === m} className={`rounded-full px-3 py-0.5 text-sm ${mode === m ? 'bg-white text-space' : 'hover:bg-white/10'}`}>
+              <button key={m} type="button" onClick={() => onMode(m)} aria-pressed={mode === m} className={`rounded-[3px] px-3 py-0.5 text-sm ${mode === m ? 'bg-white text-space' : 'hover:bg-white/10'}`}>
                 {t(`expedition.modes.${m}`)}
               </button>
             ))}
@@ -422,7 +422,7 @@ function VehicleSwitch() {
   return (
     <div className="hud-pill flex gap-1 p-1" role="group" aria-label={t('visit.vehicle')}>
       {(['rover', 'lrv'] as Vehicle[]).map((v) => (
-        <button key={v} type="button" onClick={() => setVehicle(v)} aria-pressed={vehicle === v} className={`rounded-full px-3 py-0.5 text-sm ${vehicle === v ? 'bg-white text-space' : 'hover:bg-white/10'}`}>
+        <button key={v} type="button" onClick={() => setVehicle(v)} aria-pressed={vehicle === v} className={`rounded-[3px] px-3 py-0.5 text-sm ${vehicle === v ? 'bg-white text-space' : 'hover:bg-white/10'}`}>
           {t(`visit.vehicles.${v}`)}
         </button>
       ))}

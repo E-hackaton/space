@@ -8,7 +8,8 @@ import { LanguageSwitch } from '../components/ui/LanguageSwitch';
 import { SankofaAvatar } from '../components/guide/SankofaAvatar';
 import { SpeechText } from '../components/guide/SpeechText';
 import { unlockAudio } from '../audio/unlock';
-import { playLiftoff, unlockSfx } from '../audio/sfx';
+import { playLiftoff, setSfxEnabled, startSpaceAmbience, stopSpaceAmbience, unlockSfx } from '../audio/sfx';
+import { Icon } from '../components/ui/Glyphs';
 import { webglAvailable } from '../lib/device';
 import { usePrefersReducedMotion } from '../lib/hooks';
 import { warp } from '../scenes/warp';
@@ -25,6 +26,25 @@ export default function Home() {
   const visitChapter = useStore((s) => s.visitChapter);
   const [leaving, setLeaving] = useState(false);
   const [hello, setHello] = useState(false);
+  // Ambiance de l'espace : elle démarre au premier geste (règle des navigateurs).
+  const sfxOn = useStore((s) => s.sfxOn);
+  const setSfxOn = useStore((s) => s.setSfxOn);
+  useEffect(() => {
+    setSfxEnabled(sfxOn);
+    if (!sfxOn) return;
+    const go = () => {
+      unlockSfx();
+      startSpaceAmbience();
+    };
+    go(); // si le son est déjà débloqué (on revient sur l'accueil)
+    window.addEventListener('pointerdown', go, { once: true });
+    window.addEventListener('keydown', go, { once: true });
+    return () => {
+      window.removeEventListener('pointerdown', go);
+      window.removeEventListener('keydown', go);
+      stopSpaceAmbience();
+    };
+  }, [sfxOn]);
   useEffect(() => {
     warp.value = 0;
     const id = window.setTimeout(() => setHello(true), 1600);
@@ -52,14 +72,18 @@ export default function Home() {
       <div className="absolute inset-0">
         <Suspense fallback={null}>{webglAvailable && <HomeHero animate={!reduced} />}</Suspense>
       </div>
-      {/* voile pour la lisibilité du texte */}
-      <div className="pointer-events-none absolute inset-0 bg-gradient-to-r from-space/85 via-space/30 to-transparent" aria-hidden="true" />
+      {/* voile central pour la lisibilité du texte */}
+      <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_55%_50%_at_50%_50%,rgba(6,11,26,.78),rgba(6,11,26,.25)_70%,transparent)]" aria-hidden="true" />
 
-      <div className="absolute right-4 top-4 z-10">
+      <div className="absolute right-4 top-4 z-10 flex items-center gap-3">
+        <button type="button" onClick={() => setSfxOn(!sfxOn)} aria-pressed={sfxOn} className="p-1.5 text-slate-300 hover:text-white" title={t('app.sfx')}>
+          <Icon name={sfxOn ? 'sound' : 'mute'} size={20} />
+          <span className="sr-only">{t('app.sfx')}</span>
+        </button>
         <LanguageSwitch />
       </div>
 
-      <motion.div animate={leaving ? { opacity: 0, x: -40 } : { opacity: 1 }} transition={{ duration: 0.6 }} className="relative z-10 flex h-full min-h-screen max-w-2xl flex-col justify-center gap-6 px-6 sm:px-14">
+      <motion.div animate={leaving ? { opacity: 0, scale: 0.96 } : { opacity: 1 }} transition={{ duration: 0.6 }} className="relative z-10 mx-auto flex h-full min-h-screen max-w-3xl flex-col items-center justify-center gap-8 px-6 text-center">
         <h1 className="hero-title" aria-label={title}>
           {title.split('').map((ch, i) => (
             <motion.span
@@ -74,16 +98,16 @@ export default function Home() {
             </motion.span>
           ))}
         </h1>
-        <motion.p initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.9, duration: 0.8 }} className="max-w-lg text-lg text-slate-200 sm:text-xl">
+        <motion.p initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.9, duration: 0.8 }} className="max-w-xl text-lg leading-relaxed text-slate-200 sm:text-xl">
           {t('app.tagline')}
         </motion.p>
 
-        <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 1.3 }} className="flex items-center gap-3">
+        <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 1.3 }} className="flex items-center gap-3 text-left">
           <SankofaAvatar size={72} talking={hello} />
           {hello && <SpeechText text={t('home.hello')} className="max-w-sm text-base text-slate-100" />}
         </motion.div>
 
-        <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 1.6 }} className="flex flex-wrap items-center gap-4">
+        <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 1.6 }} className="flex flex-col items-center gap-4">
           <button type="button" onClick={onStart} className="hero-cta">
             <span>{journeyStarted ? t('app.continue') : t('app.start')}</span>
           </button>

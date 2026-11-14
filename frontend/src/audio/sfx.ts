@@ -214,3 +214,115 @@ export function playBump(world: SoundWorld) {
   burst(a, { from: Math.min(1200, p.cutoff), to: 90, attack: 0.005, hold: 0.03, release: 0.35, level: 0.5 * p.volume });
   tone(a, { f0: 90, f1: 45, dur: 0.25, level: 0.35 });
 }
+
+/* ------------------------------------------------------------ ambiance de l'espace (accueil) */
+
+/*
+ * Dans le vide, il n'y a pas de son : cette ambiance est une musique d'atmosphère, pas un
+ * enregistrement. Accord grave qui respire, souffle filtré, et rares notes cristallines en écho.
+ */
+interface Ambience {
+  out: GainNode;
+  nodes: AudioScheduledSourceNode[];
+  timer: number;
+}
+let ambience: Ambience | null = null;
+
+export function startSpaceAmbience() {
+  const a = audio();
+  if (!a || ambience) return;
+  if (a.state === 'suspended') void a.resume();
+  const t = a.currentTime;
+  const out = a.createGain();
+  out.gain.setValueAtTime(0.0001, t);
+  out.gain.exponentialRampToValueAtTime(1, t + 4);
+  out.connect(master!);
+  const nodes: AudioScheduledSourceNode[] = [];
+
+  // Écho long, partagé par l'accord et les notes.
+  const delay = a.createDelay(2);
+  delay.delayTime.value = 0.9;
+  const feedback = a.createGain();
+  feedback.gain.value = 0.45;
+  const wet = a.createGain();
+  wet.gain.value = 0.35;
+  delay.connect(feedback).connect(delay);
+  delay.connect(wet).connect(out);
+
+  // Accord grave (la, mi, la) légèrement désaccordé, filtré, qui respire.
+  const pad = a.createBiquadFilter();
+  pad.type = 'lowpass';
+  pad.frequency.value = 420;
+  pad.Q.value = 3;
+  const padGain = a.createGain();
+  padGain.gain.value = 0.055;
+  pad.connect(padGain).connect(out);
+  padGain.connect(delay);
+  for (const [f, type] of [[55, 'sine'], [82.4, 'triangle'], [110.3, 'sine'], [164.8, 'triangle']] as [number, OscillatorType][]) {
+    const o = a.createOscillator();
+    o.type = type;
+    o.frequency.value = f;
+    o.detune.value = (Math.random() - 0.5) * 12;
+    o.connect(pad);
+    o.start(t);
+    nodes.push(o);
+  }
+  const breath = a.createOscillator();
+  breath.frequency.value = 0.07;
+  const breathDepth = a.createGain();
+  breathDepth.gain.value = 260;
+  breath.connect(breathDepth).connect(pad.frequency);
+  breath.start(t);
+  nodes.push(breath);
+
+  // Souffle cosmique : bruit dans un filtre étroit qui ondule.
+  const src = noiseSource(a);
+  const band = a.createBiquadFilter();
+  band.type = 'bandpass';
+  band.frequency.value = 700;
+  band.Q.value = 6;
+  const windGain = a.createGain();
+  windGain.gain.value = 0.035;
+  src.connect(band).connect(windGain).connect(out);
+  const sweep = a.createOscillator();
+  sweep.frequency.value = 0.045;
+  const sweepDepth = a.createGain();
+  sweepDepth.gain.value = 450;
+  sweep.connect(sweepDepth).connect(band.frequency);
+  src.start(t);
+  sweep.start(t);
+  nodes.push(src, sweep);
+
+  // Notes cristallines (gamme pentatonique), toutes les 4 à 9 secondes.
+  const SCALE = [880, 987.8, 1174.7, 1318.5, 1568, 1760];
+  const ping = () => {
+    if (!ambience) return;
+    const now = a.currentTime;
+    const o = a.createOscillator();
+    o.type = 'sine';
+    o.frequency.value = SCALE[Math.floor(Math.random() * SCALE.length)];
+    const g = a.createGain();
+    g.gain.setValueAtTime(0.0001, now);
+    g.gain.exponentialRampToValueAtTime(0.03, now + 0.05);
+    g.gain.exponentialRampToValueAtTime(0.0001, now + 3);
+    o.connect(g);
+    g.connect(out);
+    g.connect(delay);
+    o.start(now);
+    o.stop(now + 3.1);
+    ambience.timer = window.setTimeout(ping, 4000 + Math.random() * 5000);
+  };
+  ambience = { out, nodes, timer: window.setTimeout(ping, 2500) };
+}
+
+export function stopSpaceAmbience() {
+  if (!ambience || !ctx) return;
+  const { out, nodes, timer } = ambience;
+  ambience = null;
+  window.clearTimeout(timer);
+  out.gain.setTargetAtTime(0.0001, ctx.currentTime, 0.5);
+  window.setTimeout(() => {
+    nodes.forEach((n) => n.stop());
+    out.disconnect();
+  }, 2500);
+}

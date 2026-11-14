@@ -28,7 +28,7 @@ export function AtlasMap({ body, points, found, target, onPick }: Props) {
             {found.length}/{points.length}
           </span>
         </p>
-        <button type="button" onClick={() => setBig(!big)} className="rounded-full px-2 text-xs ring-1 ring-white/25 hover:bg-white/10" aria-pressed={big}>
+        <button type="button" onClick={() => setBig(!big)} className="rounded-[3px] px-2 text-xs ring-1 ring-white/25 hover:bg-white/10" aria-pressed={big}>
           {big ? '−' : '+'}
           <span className="sr-only">{t('expedition.mapSize')}</span>
         </button>

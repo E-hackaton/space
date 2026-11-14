@@ -42,7 +42,7 @@ export function AnatomyPanel({ parts, selected, onSelect }: Props) {
               type="button"
               onClick={() => choose(part)}
               aria-pressed={part.label === selected}
-              className={`rounded-full px-2.5 py-1 text-xs font-semibold ring-1 transition ${
+              className={`rounded-[3px] px-2.5 py-1 text-xs font-semibold ring-1 transition ${
                 part.label === selected ? 'bg-active text-space ring-active' : 'ring-white/30 hover:bg-white/10'
               }`}
             >

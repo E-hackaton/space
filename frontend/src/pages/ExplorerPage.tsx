@@ -381,13 +381,13 @@ export default function ExplorerPage() {
                       laser.firing = true;
                       laser.t0 = performance.now() / 1000;
                     }}
-                    className="rounded-full bg-active px-3 py-1 text-sm font-semibold text-space"
+                    className="rounded-[3px] bg-active px-3 py-1 text-sm font-semibold text-space"
                   >
                     <Icon name="bolt" /> {t('explorer.fireLaser')}
                   </button>
                 )}
                 {card.story && (
-                  <Link to={card.story} className="rounded-full px-3 py-1 text-sm ring-1 ring-white/30 hover:bg-white/10">
+                  <Link to={card.story} className="rounded-[3px] px-3 py-1 text-sm ring-1 ring-white/30 hover:bg-white/10">
                     <Icon name="book" /> {t('explorer.story')}
                   </Link>
                 )}
@@ -404,7 +404,7 @@ export default function ExplorerPage() {
         {/* Relecture des trajets (Mars) */}
         {site && phase === 'drive' && siteData && (
           <div className="absolute inset-x-0 bottom-3 z-30 mx-auto flex w-fit items-center gap-3 rounded-full bg-space/80 px-3 py-1.5 text-sm ring-1 ring-white/15 backdrop-blur">
-            <button type="button" onClick={() => useWorld.getState().setPlaying(!playing)} aria-label={playing ? t('explorer.pause') : t('explorer.play')} className="grid h-8 w-8 place-items-center rounded-full bg-white/15">
+            <button type="button" onClick={() => useWorld.getState().setPlaying(!playing)} aria-label={playing ? t('explorer.pause') : t('explorer.play')} className="grid h-8 w-8 place-items-center rounded-[3px] bg-white/15">
               <Icon name={playing ? 'pause' : 'play'} />
             </button>
             <span className="min-w-28 font-display text-lg font-extrabold tabular-nums">
@@ -426,7 +426,7 @@ export default function ExplorerPage() {
               className="w-40 accent-[#4BE08A] sm:w-64"
             />
             {[2, 12, 60].map((s) => (
-              <button key={s} type="button" onClick={() => useWorld.getState().setSpeed(s)} aria-pressed={speed === s} className={`rounded-full px-2 py-0.5 text-xs ${speed === s ? 'bg-white text-space' : 'bg-white/10'}`}>
+              <button key={s} type="button" onClick={() => useWorld.getState().setSpeed(s)} aria-pressed={speed === s} className={`rounded-[3px] px-2 py-0.5 text-xs ${speed === s ? 'bg-white text-space' : 'bg-white/10'}`}>
                 ×{s}
               </button>
             ))}
