@@ -4,7 +4,7 @@ import { Sparkles, Stars, useTexture } from '@react-three/drei';
 import * as THREE from 'three';
 import { Player, player, type Obstacle } from '../Player';
 import { ToonRocket } from '../props/Vehicles';
-import { GrassTufts, Rocks, ShipCamera, SkyDome, SunLight } from '../props/Environment';
+import { GrassTufts, Rocks, ShipCamera, SkyDome, SunLight, scatterRocks } from '../props/Environment';
 import { TerrainMesh } from '../TerrainMesh';
 import { earthField } from '../terrain';
 import { PALETTES } from '../toon';
@@ -132,7 +132,11 @@ export default function EarthWorld({ animate, onPickPlanet }: { animate: boolean
     }
     return out;
   }, []);
-  const obstacles = useMemo<Obstacle[]>(() => [{ x: EARTH_PAD[0], z: EARTH_PAD[1], r: 2.4 }, ...trees.map((t) => ({ x: t.x, z: t.z, r: 0.5 * t.s }))], [trees]);
+  const rocks = useMemo(() => scatterRocks(field, 60, 3, [[EARTH_PAD[0], EARTH_PAD[1], 12], [0, 0, 8], [EARTH_START[0], EARTH_START[1], 5]]), [field]);
+  const obstacles = useMemo<Obstacle[]>(
+    () => [{ x: EARTH_PAD[0], z: EARTH_PAD[1], r: 2.4 }, ...trees.map((t) => ({ x: t.x, z: t.z, r: 0.5 * t.s })), ...rocks.obstacles],
+    [trees, rocks],
+  );
 
   useFrame(({ clock }) => {
     flame.current = ship.flame;
@@ -178,7 +182,7 @@ export default function EarthWorld({ animate, onPickPlanet }: { animate: boolean
       ))}
       <GrassTufts field={field} avoid={GRASS_AVOID} />
       <Flowers field={field} />
-      <Rocks field={field} color={PALETTES.earth.rock} count={60} seed={3} avoid={[[EARTH_PAD[0], EARTH_PAD[1], 12], [0, 0, 8]]} />
+      <Rocks rocks={rocks} color={PALETTES.earth.rock} seed={3} />
       {/* Lucioles */}
       <Sparkles count={140} scale={[110, 8, 110]} position={[0, 4, 0]} size={4} speed={animate ? 0.4 : 0} color="#d8ff9c" opacity={0.9} />
 

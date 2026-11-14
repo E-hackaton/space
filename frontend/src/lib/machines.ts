@@ -3,6 +3,8 @@ import { create } from 'zustand';
 import { fetchEquipment, fetchEquipmentList } from '../api/client';
 import type { ApiBody, ApiEquipmentDetail, ApiEquipmentSummary, ApiKind, ApiPhase, ApiQuizQuestion, ApiSource, DatePrecision } from '../api/types';
 import { DEFAULT_STAGING, STAGING } from '../content/staging';
+import { partsForKind, partsFromLabels, type AnatomyPart } from '../content/anatomy';
+import modelsData from '../content/models.json';
 import type { ModelId } from '../components/3d/NasaModel';
 import { useStore } from '../store/useStore';
 import type { BodyId } from './solarSystem';
@@ -69,7 +71,16 @@ export interface Machine extends MachineSummary {
   nssdcaUrl: string;
   quiz: ApiQuizQuestion[];
   sources: ApiSource[];
+  /** Pièces à expliquer : les étiquettes du modèle NASA s'il en a, sinon celles de la mise en scène. */
+  anatomy: AnatomyPart[];
 }
+
+/** Étiquettes 3D de chaque modèle NASA (lues dans le JSON pour ne pas charger three.js ici). */
+const MODEL_LABELS = Object.fromEntries(
+  Object.entries(modelsData)
+    .filter(([id]) => id !== '_note')
+    .map(([id, info]) => [id, (info as { annotations: { key: string }[] }).annotations.map((a) => a.key)]),
+) as Record<string, string[]>;
 
 // --- Conversion API → jeu ---------------------------------------------------
 
@@ -140,8 +151,11 @@ function toMachine(api: ApiEquipmentDetail): Machine {
     effect: staging.effects?.[chapter.phase],
     audio: chapter.audio,
   }));
+  const summary = toSummary(api);
+  const labels = summary.model ? (MODEL_LABELS[summary.model] ?? []) : [];
   return {
-    ...toSummary(api),
+    ...summary,
+    anatomy: labels.length ? partsFromLabels(labels) : partsForKind(summary.kind, staging.anatomy),
     cruise: staging.cruise,
     vitals: staging.vitals,
     story: [presentation, ...chapters],

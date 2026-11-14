@@ -47,6 +47,7 @@ export function Traverse({ id, data, field, model, trackColor, obstacle }: Trave
   const rover = useRef<THREE.Group>(null!);
   // Légendes visibles quand le joueur est tout près.
   const annotated = useWorld((s) => s.near === id);
+  const focusPart = useWorld((s) => (s.near === id ? s.part : null));
   const { pts, ts, geometry } = useMemo(() => {
     const raw = data.paths[id];
     const pts: Pt[] = raw.map(([mx, mz, , t]) => {
@@ -116,7 +117,7 @@ export function Traverse({ id, data, field, model, trackColor, obstacle }: Trave
       <group ref={rover}>
         {/* Modèle NASA ; l'avant du modèle est vers +Z, celui du trajet vers -Z. */}
         <group rotation={[0, Math.PI, 0]}>
-          <NasaModel id={model} scale={1.3} annotated={annotated} />
+          <NasaModel id={model} scale={1.3} annotated={annotated} focusPart={focusPart} />
         </group>
         <Beacon active y={4.6} />
       </group>
@@ -148,6 +149,7 @@ export function Flights({ id, data, field, carrier }: FlightsProps) {
   const last = flights[flights.length - 1];
   const ended = useRef(false);
   const annotated = useWorld((s) => s.near === id);
+  const focusPart = useWorld((s) => (s.near === id ? s.part : null));
 
   useFrame(() => {
     const t = replay.sol;
@@ -186,7 +188,7 @@ export function Flights({ id, data, field, carrier }: FlightsProps) {
 
   return (
     <group ref={heli}>
-      <NasaModel id="ingenuity" scale={1.6} spinning={spinning} annotated={annotated} />
+      <NasaModel id="ingenuity" scale={1.6} spinning={spinning} annotated={annotated} focusPart={focusPart} />
       <group ref={beacon}>
         <Beacon active y={2.6} />
         <Beacon active={false} y={2.6} />

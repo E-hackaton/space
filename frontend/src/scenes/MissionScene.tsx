@@ -16,9 +16,12 @@ interface Props {
   step: number;
   anim: MissionAnim;
   animate: boolean;
+  /** Actions du joueur transmises à la cinématique. */
+  flying: boolean;
+  laserShots: number;
 }
 
-export default function MissionScene({ focus, onSelect, machine, inMission, step, anim, animate }: Props) {
+export default function MissionScene({ focus, onSelect, machine, inMission, step, anim, animate, flying, laserShots }: Props) {
   const mission = inMission && machine;
   // Une fois arrivé, on ne montre que la destination (et la Terre pour la Lune) :
   // la scène n'étant pas à l'échelle, une planète lointaine pourrait sinon remplir le ciel.
@@ -38,7 +41,7 @@ export default function MissionScene({ focus, onSelect, machine, inMission, step
         hidden={hidden}
       />
       {mission ? (
-        <MissionDirector key={machine.id} machine={machine} anim={anim} step={step} animate={animate} />
+        <MissionDirector key={machine.id} machine={machine} anim={anim} step={step} animate={animate} flying={flying} laserShots={laserShots} />
       ) : (
         <FreeCamera focus={focus} animate={animate} framing={3.2} liftY={0.25} />
       )}

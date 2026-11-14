@@ -15,6 +15,8 @@ interface WorldState {
   speed: number;
   /** Machine près du joueur (fiche affichée). */
   near: string | null;
+  /** Pièce de cette machine dont l'anatomie est expliquée (étiquette 3D, ex. « parts.arm »). */
+  part: string | null;
   /** Le joueur est sur le pas de tir. */
   onPad: boolean;
   travelTo: (target: WorldId) => void;
@@ -24,6 +26,7 @@ interface WorldState {
   setPlaying: (p: boolean) => void;
   setSpeed: (s: number) => void;
   setNear: (id: string | null) => void;
+  setPart: (label: string | null) => void;
   setOnPad: (v: boolean) => void;
 }
 
@@ -35,6 +38,7 @@ export const useWorld = create<WorldState>()((set, get) => ({
   playing: true,
   speed: 12,
   near: null,
+  part: null,
   onPad: false,
   travelTo: (target) => {
     if (get().phase !== 'drive' || target === get().world) return;
@@ -45,7 +49,9 @@ export const useWorld = create<WorldState>()((set, get) => ({
   setSol: (sol) => set({ sol }),
   setPlaying: (playing) => set({ playing }),
   setSpeed: (speed) => set({ speed }),
-  setNear: (near) => (get().near === near ? undefined : set({ near })),
+  // Changer de machine referme la fiche de pièce de la précédente.
+  setNear: (near) => (get().near === near ? undefined : set({ near, part: null })),
+  setPart: (part) => set({ part }),
   setOnPad: (onPad) => (get().onPad === onPad ? undefined : set({ onPad })),
 }));
 

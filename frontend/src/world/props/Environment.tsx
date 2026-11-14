@@ -1,7 +1,7 @@
 import { useMemo, useRef } from 'react';
 import { useFrame } from '@react-three/fiber';
 import * as THREE from 'three';
-import { player } from '../Player';
+import { player, type Obstacle } from '../Player';
 import { smooth } from '../materials';
 import { valueNoise } from '../noise';
 import type { HeightField } from '../terrain';
@@ -79,28 +79,59 @@ function rockGeometry(seed: number) {
   return g;
 }
 
-/** Rochers décoratifs dispersés (instanciés pour rester légers). */
-export function Rocks({ field, color, count = 260, seed = 1, avoid = [] as [number, number, number][] }: { field: HeightField; color: string; count?: number; seed?: number; avoid?: [number, number, number][] }) {
+export interface RockField {
+  matrices: THREE.Matrix4[];
+  /** Rochers assez gros pour bloquer le rover (les petits cailloux se franchissent). */
+  obstacles: Obstacle[];
+}
+
+/** Taille (échelle) à partir de laquelle un rocher bloque le rover au lieu d'être franchi. */
+const BLOCKING_ROCK = 0.55;
+
+/**
+ * Disperse des rochers sur le terrain (tirage pseudo-aléatoire reproductible) et renvoie
+ * à la fois leur placement 3D et leur empreinte au sol pour les collisions.
+ */
+export function scatterRocks(field: HeightField, count: number, seed: number, avoid: [number, number, number][] = []): RockField {
+  let s = seed * 9301 + 49297;
+  const rnd = () => ((s = (s * 9301 + 49297) % 233280) / 233280);
+  const matrices: THREE.Matrix4[] = [];
+  const obstacles: Obstacle[] = [];
+  const m = new THREE.Matrix4();
+  const q = new THREE.Quaternion();
+  const e = new THREE.Euler();
+  while (matrices.length < count) {
+    const x = (rnd() * 2 - 1) * field.half * 0.95;
+    const z = (rnd() * 2 - 1) * field.half * 0.95;
+    if (avoid.some(([ax, az, r]) => Math.hypot(x - ax, z - az) < r)) continue;
+    const sc = 0.3 + Math.pow(rnd(), 3) * 2.2;
+    e.set(rnd() * 3, rnd() * 3, rnd() * 3);
+    q.setFromEuler(e);
+    m.compose(new THREE.Vector3(x, field.heightAt(x, z) + sc * 0.15, z), q, new THREE.Vector3(sc, sc * 0.65, sc));
+    matrices.push(m.clone());
+    // La géométrie fait environ 1 unité de rayon : l'empreinte au sol vaut à peu près l'échelle.
+    if (sc >= BLOCKING_ROCK) obstacles.push({ x, z, r: sc * 0.95 });
+  }
+  return { matrices, obstacles };
+}
+
+/**
+ * Zones sans rochers le long d'un segment (cercles tous les 3 m) : un chemin praticable,
+ * par exemple entre le point de départ du joueur et une machine à visiter.
+ */
+export function corridor(from: [number, number], to: [number, number], width: number): [number, number, number][] {
+  const length = Math.hypot(to[0] - from[0], to[1] - from[1]);
+  const steps = Math.max(1, Math.ceil(length / 3));
+  return Array.from({ length: steps + 1 }, (_, i) => {
+    const k = i / steps;
+    return [from[0] + (to[0] - from[0]) * k, from[1] + (to[1] - from[1]) * k, width] as [number, number, number];
+  });
+}
+
+/** Rochers dispersés (instanciés pour rester légers). Le placement vient de `scatterRocks`. */
+export function Rocks({ rocks, color, seed = 1 }: { rocks: RockField; color: string; seed?: number }) {
   const geometry = useMemo(() => rockGeometry(seed), [seed]);
-  const matrices = useMemo(() => {
-    let s = seed * 9301 + 49297;
-    const rnd = () => ((s = (s * 9301 + 49297) % 233280) / 233280);
-    const out: THREE.Matrix4[] = [];
-    const m = new THREE.Matrix4();
-    const q = new THREE.Quaternion();
-    const e = new THREE.Euler();
-    while (out.length < count) {
-      const x = (rnd() * 2 - 1) * field.half * 0.95;
-      const z = (rnd() * 2 - 1) * field.half * 0.95;
-      if (avoid.some(([ax, az, r]) => Math.hypot(x - ax, z - az) < r)) continue;
-      const sc = 0.3 + Math.pow(rnd(), 3) * 2.2;
-      e.set(rnd() * 3, rnd() * 3, rnd() * 3);
-      q.setFromEuler(e);
-      m.compose(new THREE.Vector3(x, field.heightAt(x, z) + sc * 0.15, z), q, new THREE.Vector3(sc, sc * 0.65, sc));
-      out.push(m.clone());
-    }
-    return out;
-  }, [field, count, seed, avoid]);
+  const { matrices } = rocks;
   return (
     <instancedMesh
       ref={(r) => {

@@ -4,7 +4,8 @@ import * as THREE from 'three';
 import { Sparkles } from '@react-three/drei';
 import { Player, player, type Obstacle } from '../Player';
 import { ToonLander } from '../props/Vehicles';
-import { Rocks, ShipCamera, SkyDome, SunLight } from '../props/Environment';
+import { Rocks, ShipCamera, SkyDome, SunLight, scatterRocks } from '../props/Environment';
+import { DustTrail } from '../props/DustTrail';
 import { Flights, Traverse, machinePositions, replay } from '../Replay';
 import { TerrainMesh } from '../TerrainMesh';
 import { siteField, type SiteData } from '../terrain';
@@ -76,7 +77,15 @@ function MarsSite({ data, site, animate }: { data: SiteData; site: 'jezero' | 'g
   }, [data, field]);
   const start = useMemo<[number, number]>(() => [landing[0] - 6, landing[2] + 4], [landing]);
 
-  const obstacles = useMemo<Obstacle[]>(() => [{ x: landing[0], z: landing[2], r: 2.2 }, ...machines.rovers.map(() => ({ x: 0, z: 0, r: 1.4 }))], [landing, machines]);
+  const rocks = useMemo(
+    () => scatterRocks(field, 520, site === 'gale' ? 5 : 2, [[landing[0], landing[2], 10], [start[0], start[1], 5]]),
+    [field, site, landing, start],
+  );
+  // Ordre important : [atterrisseur, rovers (positions mises à jour par Traverse), rochers].
+  const obstacles = useMemo<Obstacle[]>(
+    () => [{ x: landing[0], z: landing[2], r: 2.2 }, ...machines.rovers.map(() => ({ x: 0, z: 0, r: 1.4 })), ...rocks.obstacles],
+    [landing, machines, rocks],
+  );
   const lander = useRef<THREE.Group>(null!);
   const flame = useRef(0);
   const lastUi = useRef(0);
@@ -120,7 +129,9 @@ function MarsSite({ data, site, animate }: { data: SiteData; site: 'jezero' | 'g
       <TerrainMesh field={field} colors={PALETTES.mars.ground} segments={200} />
       {/* Poussière en suspension qui suit le joueur */}
       <DustMotes animate={animate} />
-      <Rocks field={field} color={PALETTES.mars.rock} count={520} seed={site === 'gale' ? 5 : 2} avoid={[[landing[0], landing[2], 10]]} />
+      <Rocks rocks={rocks} color={PALETTES.mars.rock} seed={site === 'gale' ? 5 : 2} />
+      {/* Poussière des roues : l'air martien, très léger, la freine un peu (pesanteur 3,71 m/s²). */}
+      <DustTrail field={field} color="#c98a5a" gravity={3.71} drag={0.8} active={phase === 'drive'} />
 
       {machines.rovers.map((r, i) => (
         <Traverse key={r.id} id={r.id} data={data} field={field} model={r.model} trackColor={PALETTES.mars.track} obstacle={obstacles[i + 1]} />

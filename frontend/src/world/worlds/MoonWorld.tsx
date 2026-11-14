@@ -5,13 +5,14 @@ import { useTranslation } from 'react-i18next';
 import * as THREE from 'three';
 import { Player, player, type Obstacle } from '../Player';
 import { Beacon, ToonLander } from '../props/Vehicles';
-import { Rocks, ShipCamera, SunLight } from '../props/Environment';
+import { Rocks, ShipCamera, SunLight, corridor, scatterRocks } from '../props/Environment';
+import { DustTrail } from '../props/DustTrail';
 import { TerrainMesh } from '../TerrainMesh';
 import { moonField } from '../terrain';
 import { PALETTES } from '../toon';
 import { smooth } from '../materials';
 import { Atmosphere } from '../../components/3d/Atmosphere';
-import { Callout, NasaModel } from '../../components/3d/NasaModel';
+import { Callout, NasaModel, calloutFocus } from '../../components/3d/NasaModel';
 import { ship, useWorld } from '../state';
 
 /*
@@ -25,13 +26,15 @@ const LRRR: [number, number] = [EASEP[0] - 5 * Math.sin((22.5 * Math.PI) / 180),
 const LANDING: [number, number] = [24, -10];
 // Départ entre le module d'atterrissage et le site d'Apollo 11, tourné vers le site.
 const START: [number, number] = [LANDING[0] - 12, LANDING[1] + 5];
+// Cap de départ : le rover regarde le module d'Apollo 11 (l'avant du rover est vers −Z).
+const START_HEADING = Math.atan2(-(LM[0] - START[0]), -(LM[1] - START[1]));
 
 /** Position de la Terre dans le ciel lunaire (mise en scène). */
 export const EARTH_IN_SKY = new THREE.Vector3(-60, 120, -160);
 
 export const moonMachines = { lm: LM, easep: EASEP, lrrr: LRRR };
 
-function Reflector({ annotated }: { annotated: boolean }) {
+function Reflector({ annotated, focusPart }: { annotated: boolean; focusPart: string | null }) {
   const { t } = useTranslation();
   return (
     <group>
@@ -40,12 +43,14 @@ function Reflector({ annotated }: { annotated: boolean }) {
       <mesh position={[0, 0.25, 0.1]} material={smooth('#c9ced6', { metal: 0.6, rough: 0.3 })}>
         <capsuleGeometry args={[0.025, 0.45, 4, 8]} />
       </mesh>
-      {annotated && <Callout position={new THREE.Vector3(0.3, 0.6, 0)} label={t('parts.reflectorPanel')} side="right" />}
+      {annotated && (
+        <Callout position={new THREE.Vector3(0.3, 0.6, 0)} label={t('parts.reflectorPanel')} side="right" focus={calloutFocus('parts.reflectorPanel', focusPart)} />
+      )}
     </group>
   );
 }
 
-function Seismometer({ annotated }: { annotated: boolean }) {
+function Seismometer({ annotated, focusPart }: { annotated: boolean; focusPart: string | null }) {
   const { t } = useTranslation();
   return (
     <group>
@@ -55,8 +60,8 @@ function Seismometer({ annotated }: { annotated: boolean }) {
       ))}
       {annotated && (
         <>
-          <Callout position={new THREE.Vector3(0.3, 0.45, 0)} label={t('parts.seismometer')} side="right" />
-          <Callout position={new THREE.Vector3(-1.3, 0.52, 0)} label={t('parts.seismoPanels')} side="left" />
+          <Callout position={new THREE.Vector3(0.3, 0.45, 0)} label={t('parts.seismometer')} side="right" focus={calloutFocus('parts.seismometer', focusPart)} />
+          <Callout position={new THREE.Vector3(-1.3, 0.52, 0)} label={t('parts.seismoPanels')} side="left" focus={calloutFocus('parts.seismoPanels', focusPart)} />
         </>
       )}
     </group>
@@ -123,10 +128,19 @@ export default function MoonWorld({ animate }: { animate: boolean }) {
   const phase = useWorld((s) => s.phase);
   const setNear = useWorld((s) => s.setNear);
   const near = useWorld((s) => s.near);
+  const part = useWorld((s) => s.part);
   const flame = useRef(0);
   const lander = useRef<THREE.Group>(null!);
   const landingY = field.heightAt(...LANDING);
-  const obstacles = useMemo<Obstacle[]>(() => [{ x: LANDING[0], z: LANDING[1], r: 2.2 }, { x: LM[0], z: LM[1], r: 3.4 }, { x: EASEP[0], z: EASEP[1], r: 1.4 }, { x: LRRR[0], z: LRRR[1], r: 0.7 }], []);
+  // Rochers partout, sauf sur le site d'Apollo 11, autour du vaisseau et sur le chemin qui y mène.
+  const rocks = useMemo(
+    () => scatterRocks(field, 220, 9, [[0, 8, 16], [LANDING[0], LANDING[1], 8], ...corridor(LANDING, START, 4), ...corridor(START, LM, 4)]),
+    [field],
+  );
+  const obstacles = useMemo<Obstacle[]>(
+    () => [{ x: LANDING[0], z: LANDING[1], r: 2.2 }, { x: LM[0], z: LM[1], r: 3.4 }, { x: EASEP[0], z: EASEP[1], r: 1.4 }, { x: LRRR[0], z: LRRR[1], r: 0.7 }, ...rocks.obstacles],
+    [rocks],
+  );
   const last = useRef(0);
 
   useFrame(({ clock }) => {
@@ -156,27 +170,29 @@ export default function MoonWorld({ animate }: { animate: boolean }) {
       <hemisphereLight args={['#c9d4ff', '#202024', 0.35]} />
       <SunLight color="#ffffff" intensity={3.2} dir={[0.85, 0.5, 0.25]} />
       <TerrainMesh field={field} colors={PALETTES.moon.ground} segments={200} />
-      <Rocks field={field} color={PALETTES.moon.rock} count={220} seed={9} avoid={[[0, 8, 16], [LANDING[0], LANDING[1], 8]]} />
+      <Rocks rocks={rocks} color={PALETTES.moon.rock} seed={9} />
+      {/* Poussière des roues : sans air, elle suit une parabole parfaite (pesanteur lunaire 1,62 m/s²). */}
+      <DustTrail field={field} color="#f4f6fb" gravity={1.62} drag={0} active={phase === 'drive'} />
       <EarthInSky />
       {/* Fine poussière de régolithe soulevée, très discrète */}
       <Sparkles count={60} scale={[60, 3, 60]} position={[0, 1.5, 0]} size={2} speed={animate ? 0.15 : 0} color="#e8ecf5" opacity={0.5} />
       <LaserShot field={field} />
 
       <group position={at(LM)}>
-        <NasaModel id="apollo_lm" annotated={near === 'apollo-11-lm'} />
+        <NasaModel id="apollo_lm" annotated={near === 'apollo-11-lm'} focusPart={near === 'apollo-11-lm' ? part : null} />
       </group>
       <group position={at(EASEP)}>
-        <Seismometer annotated={near === 'apollo-11-easep'} />
+        <Seismometer annotated={near === 'apollo-11-easep'} focusPart={near === 'apollo-11-easep' ? part : null} />
       </group>
       <group position={at(LRRR)}>
-        <Reflector annotated={near === 'apollo-11'} />
+        <Reflector annotated={near === 'apollo-11'} focusPart={near === 'apollo-11' ? part : null} />
         <Beacon active y={1.4} />
       </group>
 
       <group ref={lander} position={[LANDING[0], landingY, LANDING[1]]}>
         <ToonLander flame={flame} />
       </group>
-      <Player field={field} start={START} startHeading={1.25} obstacles={obstacles} enabled={phase === 'drive'} followCamera={phase === 'drive'} animate={animate} visible={phase === 'drive'} />
+      <Player field={field} start={START} startHeading={START_HEADING} obstacles={obstacles} enabled={phase === 'drive'} followCamera={phase === 'drive'} animate={animate} visible={phase === 'drive'} />
       {phase !== 'drive' && <ShipCamera at={[LANDING[0], landingY, LANDING[1]]} ship={ship} animate={animate} />}
     </>
   );

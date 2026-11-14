@@ -2,6 +2,7 @@ import type { ApiPhase } from '../api/types';
 import type { BodyId } from '../lib/solarSystem';
 import type { ModelId } from '../components/3d/NasaModel';
 import type { MachineKind, StoryEffect, Vital } from '../lib/machines';
+import type { AnatomyKey } from './anatomy';
 
 /**
  * Mise en scène de chaque machine dans la cinématique 3D.
@@ -21,6 +22,8 @@ export interface Staging {
   effects?: Partial<Record<ApiPhase, StoryEffect>>;
   /** « Constantes vitales » : jauges illustratives qui évoluent au fil du récit. */
   vitals: Vital[];
+  /** Pièces à expliquer (anatomie) quand le modèle 3D n'a pas d'étiquettes. Par défaut : selon le type. */
+  anatomy?: AnatomyKey[];
 }
 
 const solar = (signalEnd = 0): Vital[] => [
@@ -36,18 +39,19 @@ const nuclear = (energyEnd: number, signalEnd: number): Vital[] => [
 ];
 
 export const STAGING: Record<string, Staging> = {
-  'surveyor-3': { vitals: [{ label: 'vitals.energy', start: 100, end: 0, unit: '%' }, { label: 'vitals.signal', start: 100, end: 0, unit: '%' }] },
+  'surveyor-3': { anatomy: ['body', 'legs', 'footpad', 'arm', 'panels'], vitals: [{ label: 'vitals.energy', start: 100, end: 0, unit: '%' }, { label: 'vitals.signal', start: 100, end: 0, unit: '%' }] },
   'apollo-11-eagle': { model: 'apollo_lm', vitals: [{ label: 'vitals.fuel', start: 100, end: 2, unit: '%' }] },
-  'apollo-15-lrv': { vitals: [{ label: 'vitals.energy', start: 100, end: 0, unit: '%' }, { label: 'vitals.dust', start: 0, end: 70, unit: '%' }] },
+  'apollo-15-lrv': { anatomy: ['body', 'wheels', 'antenna'], vitals: [{ label: 'vitals.energy', start: 100, end: 0, unit: '%' }, { label: 'vitals.dust', start: 0, end: 70, unit: '%' }] },
   'apollo-15-retroreflector': {
     kind: 'reflector',
+    anatomy: ['mirror'],
     effects: { exploration: 'laser', discovery: 'laser' },
     vitals: [{ label: 'vitals.echo', start: 100, end: 100, unit: '%' }],
   },
-  'viking-1': { model: 'viking', vitals: nuclear(60, 0) },
-  sojourner: { vitals: [{ label: 'vitals.energy', start: 100, end: 0, unit: '%' }, { label: 'vitals.signal', start: 100, end: 0, unit: '%' }] },
+  'viking-1': { model: 'viking', anatomy: ['body', 'legs', 'arm', 'power', 'antenna'], vitals: nuclear(60, 0) },
+  sojourner: { anatomy: ['body', 'wheels', 'panels', 'antenna'], vitals: [{ label: 'vitals.energy', start: 100, end: 0, unit: '%' }, { label: 'vitals.signal', start: 100, end: 0, unit: '%' }] },
   opportunity: { model: 'opportunity', effects: { legacy: 'dust-storm' }, vitals: solar() },
-  insight: { vitals: solar() },
+  insight: { anatomy: ['body', 'legs', 'arm', 'panels', 'seismometer'], vitals: solar() },
   ingenuity: {
     model: 'ingenuity',
     effects: { exploration: 'flight' },
@@ -58,8 +62,8 @@ export const STAGING: Record<string, Staging> = {
   },
   curiosity: { model: 'curiosity', vitals: nuclear(75, 100) },
   perseverance: { model: 'perseverance', vitals: nuclear(90, 100) },
-  'near-shoemaker': { vitals: [{ label: 'vitals.energy', start: 100, end: 0, unit: '%' }, { label: 'vitals.signal', start: 100, end: 0, unit: '%' }] },
-  'pioneer-10': { cruise: ['jupiter'], vitals: nuclear(0, 0) },
+  'near-shoemaker': { anatomy: ['body', 'panels', 'antenna'], vitals: [{ label: 'vitals.energy', start: 100, end: 0, unit: '%' }, { label: 'vitals.signal', start: 100, end: 0, unit: '%' }] },
+  'pioneer-10': { cruise: ['jupiter'], anatomy: ['body', 'antenna', 'power'], vitals: nuclear(0, 0) },
 };
 
 /** Valeur par défaut pour une machine ajoutée dans l'admin sans mise en scène dédiée. */

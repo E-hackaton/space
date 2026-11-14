@@ -199,7 +199,10 @@
       "jezero": "Perseverance · Ingenuity",
       "gale": "Curiosity",
       "earth": ""
-    }
+    },
+    "arrived": "Tu es arrivé près de {{name}} ! Regarde ses pièces : touche-en une pour que je t'explique.",
+    "dustMoon": "Regarde la poussière : sans air sur la Lune, elle retombe en arcs parfaits.",
+    "dustMars": "Sur Mars, l'air très léger freine un peu la poussière."
   },
   "parts": {
     "mast": "Mât et caméras",
@@ -243,5 +246,102 @@
   },
   "errors": {
     "api": "Impossible de joindre le serveur des histoires. Vérifie ta connexion et réessaie."
+  },
+  "anatomy": {
+    "body": {
+      "name": "Le corps",
+      "does": "Il protège l'ordinateur, les batteries et l'électronique du froid extrême.",
+      "why": "Sans lui, les instruments ne survivraient pas aux nuits glaciales."
+    },
+    "wheels": {
+      "name": "Les roues",
+      "does": "Elles permettent de se déplacer sur un sol couvert de roches et de sable. Sur les grands rovers martiens, une suspension articulée (« rocker-bogie ») garde les six roues au contact du sol.",
+      "why": "Plus la machine roule loin, plus elle découvre de terrains différents à étudier."
+    },
+    "arm": {
+      "name": "Le bras robotique",
+      "does": "Il approche les instruments des roches, pour les gratter, les creuser ou les analyser.",
+      "why": "C'est la main du robot : sans lui, impossible d'étudier le sol de près."
+    },
+    "mast": {
+      "name": "Le mât et ses caméras",
+      "does": "Il porte les caméras en hauteur, comme une tête avec des yeux.",
+      "why": "Les images servent à choisir où aller et à étudier le paysage."
+    },
+    "panels": {
+      "name": "Les panneaux solaires",
+      "does": "Ils transforment la lumière du Soleil en électricité.",
+      "why": "Quand la poussière les recouvre, l'énergie baisse : c'est ce qui a arrêté plusieurs missions."
+    },
+    "legs": {
+      "name": "Les pieds d'atterrissage",
+      "does": "Ils amortissent l'atterrissage et stabilisent l'engin sur le sol.",
+      "why": "Un atterrissage raté, et toute la mission est perdue."
+    },
+    "rotor": {
+      "name": "Les pales",
+      "does": "Elles tournent très vite pour pousser l'air vers le bas et soulever l'engin.",
+      "why": "Sur Mars, l'air est si léger qu'elles doivent tourner à plus de 2 400 tours par minute."
+    },
+    "antenna": {
+      "name": "L'antenne",
+      "does": "Elle envoie les données vers la Terre et reçoit les ordres des ingénieurs.",
+      "why": "Sans elle, la machine ne pourrait jamais raconter ce qu'elle a découvert."
+    },
+    "mirror": {
+      "name": "Les miroirs",
+      "does": "Des « coins de cube » en verre renvoient la lumière exactement d'où elle vient.",
+      "why": "Ils permettent de mesurer la distance Terre-Lune à quelques millimètres près."
+    },
+    "engine": {
+      "name": "Le moteur de descente",
+      "does": "Il pousse vers le bas pour freiner la descente.",
+      "why": "C'est grâce à lui que l'atterrissage a pu se faire en douceur."
+    },
+    "power": {
+      "name": "Le générateur nucléaire (RTG)",
+      "does": "Il produit de l'électricité à partir de la chaleur d'un matériau radioactif.",
+      "why": "Il fonctionne jour et nuit, même loin du Soleil ou sous la poussière."
+    },
+    "footpad": {
+      "name": "Les patins",
+      "does": "Ces larges pieds répartissent le poids de l'engin sur la poussière.",
+      "why": "Avant les premiers atterrissages, on ne savait pas si le sol lunaire serait assez solide pour porter un vaisseau."
+    },
+    "ladder": {
+      "name": "L'échelle",
+      "does": "Elle relie le module au sol. Neil Armstrong l'a descendue en juillet 1969 pour faire le premier pas sur la Lune.",
+      "why": "C'est le passage entre le vaisseau et la surface : le début de l'exploration humaine de la Lune."
+    },
+    "seismometer": {
+      "name": "Le sismomètre",
+      "does": "Il enregistre les vibrations du sol : impacts de météorites, tremblements de lune.",
+      "why": "Les ondes qui traversent la Lune révèlent ce qu'il y a à l'intérieur, comme une échographie."
+    },
+    "title": "Anatomie",
+    "hint": "Touche une pièce pour savoir à quoi elle sert.",
+    "does": "À quoi ça sert ?",
+    "why": "Pourquoi c'est important ?",
+    "close": "Fermer l'anatomie"
+  },
+  "actions": {
+    "inspect": "Inspecter la machine",
+    "countdown": "Lancer le compte à rebours",
+    "land": "Déclencher l'atterrissage",
+    "laser": "Tirer le laser",
+    "laserResult": "Aller-retour : {{s}} s. La lumière va à 300 000 km/s : la Lune est donc à environ {{km}} km.",
+    "fly": "Faire décoller Ingenuity",
+    "flying": "En vol !",
+    "call": "Envoyer un message radio",
+    "callActive": "{{name}} répond ! Toujours au travail.",
+    "callSilent": "… Pas de réponse. {{name}} ne répondra plus.",
+    "hints": {
+      "inspect": "Avant le départ, inspecte la machine : chaque pièce a un rôle.",
+      "countdown": "C'est toi qui donnes le signal du départ !",
+      "land": "On approche ! À toi de déclencher l'atterrissage.",
+      "laser": "Tire un laser depuis la Terre et mesure le temps du retour.",
+      "fly": "Fais tourner les pales et décolle dans l'air martien.",
+      "call": "Essaie de la contacter une dernière fois."
+    }
   }
 }

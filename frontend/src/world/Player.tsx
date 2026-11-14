@@ -6,7 +6,18 @@ import { drive } from './state';
 import type { HeightField } from './terrain';
 
 /** Position partagée du joueur (lue par les autres éléments du monde). */
-export const player = { x: 0, z: 0, heading: 0, speed: 0, active: false };
+export const player = {
+  x: 0,
+  z: 0,
+  heading: 0,
+  speed: 0,
+  active: false,
+  /** Secousse après un choc contre un obstacle (0 → 1), qui s'atténue toute seule. */
+  bump: 0,
+};
+
+/** Demi-largeur du rover du joueur, pour les collisions (en mètres). */
+const ROVER_RADIUS = 1.1;
 
 export interface Obstacle {
   x: number;
@@ -83,17 +94,28 @@ export function Player({ field, start, startHeading = 0, obstacles = [], enabled
     const lim = field.half - 4;
     p.x = THREE.MathUtils.clamp(p.x, -lim, lim);
     p.z = THREE.MathUtils.clamp(p.z, -lim, lim);
+    // Collision : on repousse le rover hors de l'obstacle. S'il fonce droit dessus il s'arrête ;
+    // s'il le frôle, il glisse le long (on ne retire que la part de vitesse dirigée vers l'obstacle).
+    const fx = -Math.sin(p.heading) * Math.sign(p.speed || 1);
+    const fz = -Math.cos(p.heading) * Math.sign(p.speed || 1);
+    let impact = 0;
     for (const o of obstacles) {
       const dx = p.x - o.x;
       const dz = p.z - o.z;
+      if (Math.abs(dx) > o.r + ROVER_RADIUS || Math.abs(dz) > o.r + ROVER_RADIUS) continue; // tri rapide
       const d = Math.hypot(dx, dz);
-      const min = o.r + 1.1;
+      const min = o.r + ROVER_RADIUS;
       if (d < min && d > 1e-4) {
         p.x = o.x + (dx / d) * min;
         p.z = o.z + (dz / d) * min;
-        p.speed *= 0.6;
+        impact = Math.max(impact, -(fx * dx + fz * dz) / d); // 1 = de face, 0 = en glissant
       }
     }
+    if (impact > 0) {
+      p.bump = Math.max(p.bump, (Math.abs(p.speed) / MAX_SPEED) * impact);
+      p.speed *= 1 - 0.9 * impact;
+    }
+    p.bump *= Math.exp(-dt * 6);
 
     // Épouser le relief : hauteur + inclinaison d'après 4 points autour du rover.
     const h = field.heightAt(p.x, p.z);
@@ -115,6 +137,12 @@ export function Player({ field, start, startHeading = 0, obstacles = [], enabled
       const want = new THREE.Vector3(p.x + Math.sin(camYaw.current) * dist, h + 11.5, p.z + Math.cos(camYaw.current) * dist);
       camTarget.current.lerp(new THREE.Vector3(p.x, h + 1, p.z), first.current || !animate ? 1 : 1 - Math.exp(-dt * 8));
       cam.position.lerp(want, first.current || !animate ? 1 : 1 - Math.exp(-dt * 3));
+      // Petite secousse de caméra au choc (désactivée si l'utilisateur réduit les animations).
+      if (animate && p.bump > 0.01) {
+        const k = p.bump * 0.6;
+        cam.position.x += Math.sin(state.clock.elapsedTime * 47) * k;
+        cam.position.y += Math.sin(state.clock.elapsedTime * 61) * k * 0.6;
+      }
       cam.up.set(0, 1, 0);
       cam.lookAt(camTarget.current);
       first.current = false;

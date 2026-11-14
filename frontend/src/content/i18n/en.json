@@ -199,7 +199,10 @@
       "jezero": "Perseverance · Ingenuity",
       "gale": "Curiosity",
       "earth": ""
-    }
+    },
+    "arrived": "You've reached {{name}}! Look at its parts: tap one and I'll explain it.",
+    "dustMoon": "Look at the dust: with no air on the Moon, it falls back in perfect arcs.",
+    "dustMars": "On Mars, the very thin air slows the dust down a little."
   },
   "parts": {
     "mast": "Mast and cameras",
@@ -243,5 +246,102 @@
   },
   "errors": {
     "api": "Can't reach the story server. Check your connection and try again."
+  },
+  "anatomy": {
+    "body": {
+      "name": "The body",
+      "does": "It protects the computer, batteries and electronics from the extreme cold.",
+      "why": "Without it, the instruments would not survive the freezing nights."
+    },
+    "wheels": {
+      "name": "The wheels",
+      "does": "They let the machine move across ground covered in rocks and sand. On the big Mars rovers, a jointed \"rocker-bogie\" suspension keeps all six wheels on the ground.",
+      "why": "The farther it drives, the more kinds of terrain it can study."
+    },
+    "arm": {
+      "name": "The robotic arm",
+      "does": "It brings the instruments close to rocks to scratch, dig or analyse them.",
+      "why": "It is the robot's hand: without it, studying the ground up close would be impossible."
+    },
+    "mast": {
+      "name": "The mast and its cameras",
+      "does": "It holds the cameras up high, like a head with eyes.",
+      "why": "The pictures are used to choose where to go and to study the landscape."
+    },
+    "panels": {
+      "name": "The solar panels",
+      "does": "They turn sunlight into electricity.",
+      "why": "When dust covers them, power drops: that is what ended several missions."
+    },
+    "legs": {
+      "name": "The landing legs",
+      "does": "They absorb the landing and keep the craft steady on the ground.",
+      "why": "One failed landing, and the whole mission is lost."
+    },
+    "rotor": {
+      "name": "The blades",
+      "does": "They spin very fast to push air down and lift the craft.",
+      "why": "On Mars, the air is so thin that they must spin at more than 2,400 revolutions per minute."
+    },
+    "antenna": {
+      "name": "The antenna",
+      "does": "It sends data to Earth and receives the engineers' commands.",
+      "why": "Without it, the machine could never tell what it discovered."
+    },
+    "mirror": {
+      "name": "The mirrors",
+      "does": "Glass \"corner cubes\" send light back exactly where it came from.",
+      "why": "They let us measure the Earth–Moon distance to within a few millimetres."
+    },
+    "engine": {
+      "name": "The descent engine",
+      "does": "It pushes downward to slow the descent.",
+      "why": "It is what made a soft landing possible."
+    },
+    "power": {
+      "name": "The nuclear generator (RTG)",
+      "does": "It makes electricity from the heat of a radioactive material.",
+      "why": "It works day and night, even far from the Sun or under dust."
+    },
+    "footpad": {
+      "name": "The footpads",
+      "does": "These wide feet spread the craft's weight over the dust.",
+      "why": "Before the first landings, nobody knew whether the lunar ground would be firm enough to hold a spacecraft."
+    },
+    "ladder": {
+      "name": "The ladder",
+      "does": "It links the module to the ground. Neil Armstrong climbed down it in July 1969 to take the first step on the Moon.",
+      "why": "It is the passage between the spacecraft and the surface: the start of human exploration of the Moon."
+    },
+    "seismometer": {
+      "name": "The seismometer",
+      "does": "It records ground vibrations: meteorite impacts, moonquakes.",
+      "why": "Waves travelling through the Moon reveal what lies inside, like an ultrasound scan."
+    },
+    "title": "Anatomy",
+    "hint": "Tap a part to learn what it does.",
+    "does": "What does it do?",
+    "why": "Why does it matter?",
+    "close": "Close anatomy"
+  },
+  "actions": {
+    "inspect": "Inspect the machine",
+    "countdown": "Start the countdown",
+    "land": "Trigger the landing",
+    "laser": "Fire the laser",
+    "laserResult": "Round trip: {{s}} s. Light travels at 300,000 km/s, so the Moon is about {{km}} km away.",
+    "fly": "Make Ingenuity take off",
+    "flying": "Flying!",
+    "call": "Send a radio message",
+    "callActive": "{{name}} answers! Still at work.",
+    "callSilent": "… No answer. {{name}} will not reply any more.",
+    "hints": {
+      "inspect": "Before leaving, inspect the machine: every part has a job.",
+      "countdown": "You give the signal for lift-off!",
+      "land": "We're getting close! You trigger the landing.",
+      "laser": "Fire a laser from Earth and time its return.",
+      "fly": "Spin the blades and take off in the Martian air.",
+      "call": "Try to reach it one last time."
+    }
   }
 }

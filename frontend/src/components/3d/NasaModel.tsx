@@ -88,11 +88,19 @@ function anchorPosition(box: { min: THREE.Vector3; max: THREE.Vector3 }, lift: n
   );
 }
 
+/** Mise en avant d'une légende : la pièce expliquée ressort (`active`), les autres s'effacent (`dim`). */
+export type CalloutFocus = 'normal' | 'active' | 'dim';
+
+export function calloutFocus(label: string, focusPart: string | null | undefined): CalloutFocus {
+  if (!focusPart) return 'normal';
+  return label === focusPart ? 'active' : 'dim';
+}
+
 /** Une légende façon schéma NASA : point, trait et étiquette. */
-export function Callout({ position, label, side }: { position: THREE.Vector3; label: string; side: 'left' | 'right' }) {
+export function Callout({ position, label, side, focus = 'normal' }: { position: THREE.Vector3; label: string; side: 'left' | 'right'; focus?: CalloutFocus }) {
   return (
     <Html position={position} zIndexRange={[20, 0]} style={{ pointerEvents: 'none' }}>
-      <div className={`callout callout-${side}`}>
+      <div className={`callout callout-${side} ${focus === 'normal' ? '' : `callout-${focus}`}`}>
         <span className="callout-dot" />
         <span className="callout-line" />
         <span className="callout-label">{label}</span>
@@ -106,12 +114,14 @@ interface Props {
   /** Multiplicateur appliqué à la taille du catalogue. */
   scale?: number;
   annotated?: boolean;
+  /** Étiquette de la pièce expliquée (ex. « parts.arm ») : elle ressort, les autres s'effacent. */
+  focusPart?: string | null;
   /** Fait tourner les pièces « spin » (ex. rotors) tant que vrai. */
   spinning?: { current: boolean };
   children?: ReactNode;
 }
 
-function Inner({ id, scale = 1, annotated = false, spinning, children }: Props) {
+function Inner({ id, scale = 1, annotated = false, focusPart, spinning, children }: Props) {
   const { t } = useTranslation();
   const { root, k, center, lift, scaledBox, spinners } = useNormalized(id, scale);
   useFrame((_, dt) => {
@@ -127,7 +137,13 @@ function Inner({ id, scale = 1, annotated = false, spinning, children }: Props) 
       </group>
       {annotated &&
         info.annotations.map((a) => (
-          <Callout key={a.key} position={anchorPosition(scaledBox, lift, a.at)} label={t(a.key)} side={a.at[0] < 0.5 ? 'left' : 'right'} />
+          <Callout
+            key={a.key}
+            position={anchorPosition(scaledBox, lift, a.at)}
+            label={t(a.key)}
+            side={a.at[0] < 0.5 ? 'left' : 'right'}
+            focus={calloutFocus(a.key, focusPart)}
+          />
         ))}
       {children}
     </group>

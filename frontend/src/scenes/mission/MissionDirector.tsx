@@ -40,13 +40,21 @@ interface Props {
   /** Étape du récit (−1 = sur le pas de tir). */
   step: number;
   animate: boolean;
+  /** Le joueur a fait décoller l'hélicoptère (étape « vol »). */
+  flying: boolean;
+  /** Nombre de tirs laser du joueur : chaque nouveau tir lance une impulsion aller-retour. */
+  laserShots: number;
 }
+
+/** Durée réelle d'un aller-retour de lumière Terre-Lune (≈ 2,56 s). */
+const LASER_ROUND_TRIP = 2.56;
 
 /**
  * Le « réalisateur » d'une mission : place l'engin (fusée, croisière, machine posée ou en orbite),
  * dirige la caméra et déclenche les effets, à partir des valeurs animées par GSAP.
+ * Les actions du joueur (tir laser, vol) arrivent par les props.
  */
-export function MissionDirector({ machine, anim, step, animate }: Props) {
+export function MissionDirector({ machine, anim, step, animate, flying, laserShots }: Props) {
   const cfg = BODIES[machine.body];
   const r = cfg.radius;
   const span = cfg.rings ? r * cfg.rings.outer * 1.05 : r;
@@ -60,7 +68,9 @@ export function MissionDirector({ machine, anim, step, animate }: Props) {
   );
   const laserOn = effectsSoFar.has('laser') && step >= machine.story.findIndex((s) => s.effect === 'laser');
   const dustStorm = machine.story.some((s) => s.effect === 'dust-storm');
-  const flying = current?.effect === 'flight';
+  // Heure (horloge de la scène) du dernier tir laser ; −∞ tant qu'on n'a pas tiré.
+  const laserStart = useRef(-Infinity);
+  const shotsSeen = useRef(laserShots);
   const statusActive = !(isEnd && machine.fate !== 'active');
   // Les rotors du modèle NASA (Ingenuity) tournent pendant les vols.
   const flyingRef = useRef(flying);
@@ -252,9 +262,15 @@ export function MissionDirector({ machine, anim, step, animate }: Props) {
       haze.current.position.copy(v.destPos);
       (haze.current.material as THREE.MeshStandardMaterial).opacity = a.decline * 0.85;
     }
-    // Tir laser Terre → réflecteur → Terre : aller-retour d'environ 2,5 s, comme en vrai.
+    // Tir laser Terre → réflecteur → Terre, déclenché par le joueur : aller-retour de 2,56 s, comme en vrai.
+    if (laserShots !== shotsSeen.current) {
+      shotsSeen.current = laserShots;
+      laserStart.current = state.clock.elapsedTime;
+    }
+    const sinceShot = state.clock.elapsedTime - laserStart.current;
+    const shooting = laserOn && surface && sinceShot < LASER_ROUND_TRIP;
     laserLine.current.visible = laserOn && surface;
-    laserPulse.current.visible = laserOn && surface;
+    laserPulse.current.visible = shooting;
     if (laserOn && surface) {
       const station = v.earthPos.clone().add(v.site.clone().sub(v.earthPos).normalize().multiplyScalar(BODIES.earth.radius));
       const pos = laserGeom.attributes.position as THREE.BufferAttribute;
@@ -262,7 +278,7 @@ export function MissionDirector({ machine, anim, step, animate }: Props) {
       pos.setXYZ(1, v.site.x, v.site.y, v.site.z);
       pos.needsUpdate = true;
       laserGeom.computeBoundingSphere();
-      const t = (state.clock.elapsedTime % 2.5) / 2.5;
+      const t = Math.min(1, sinceShot / LASER_ROUND_TRIP);
       const f = t < 0.5 ? t * 2 : (1 - t) * 2;
       laserPulse.current.position.copy(station).lerp(v.site, f);
     }

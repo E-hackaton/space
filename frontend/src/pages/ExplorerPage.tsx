@@ -13,10 +13,26 @@ import { useKeyboardDrive } from '../world/useKeyboardDrive';
 import { distanceKm, replay } from '../world/Replay';
 import { useSiteData } from '../world/worlds/MarsWorld';
 import { laser } from '../world/worlds/MoonWorld';
+import { AnatomyPanel } from '../components/guide/AnatomyPanel';
+import { MODELS, type ModelId } from '../components/3d/NasaModel';
+import { partsFromLabels } from '../content/anatomy';
+import { speak } from '../audio/speech';
+import { useStore } from '../store/useStore';
 
 const ExplorerCanvas = lazy(() => import('../world/ExplorerCanvas'));
 
 const WORLD_ICON: Record<WorldId, string> = { earth: '🌍', moon: '🌙', jezero: '🔴', gale: '🔴' };
+
+/** Étiquettes 3D de chaque machine de l'Explorer : ce sont les pièces de son anatomie. */
+const modelLabels = (id: ModelId) => MODELS[id].annotations.map((a) => a.key);
+const ANATOMY_LABELS: Record<string, string[]> = {
+  perseverance: modelLabels('perseverance'),
+  curiosity: modelLabels('curiosity'),
+  ingenuity: modelLabels('ingenuity'),
+  'apollo-11-lm': modelLabels('apollo_lm'),
+  'apollo-11': ['parts.reflectorPanel'],
+  'apollo-11-easep': ['parts.seismometer', 'parts.seismoPanels'],
+};
 
 /** Boutons de conduite tactiles (téléphones et tablettes). */
 function TouchPad() {
@@ -50,7 +66,7 @@ function TouchPad() {
 }
 
 export default function ExplorerPage() {
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
   const reduced = usePrefersReducedMotion();
   const world = useWorld((s) => s.world);
   const phase = useWorld((s) => s.phase);
@@ -145,6 +161,18 @@ export default function ExplorerPage() {
     return null;
   }, [near, sol, siteData, t]);
 
+  // Anatomie de la machine proche : les pièces étiquetées sur son modèle 3D.
+  const part = useWorld((s) => s.part);
+  const setPart = useWorld((s) => s.setPart);
+  const anatomy = useMemo(() => (near ? partsFromLabels(ANATOMY_LABELS[near] ?? []) : []), [near]);
+
+  // En arrivant près d'une machine, Sankofa la présente (une fois par machine rejointe).
+  const voiceOn = useStore((s) => s.voiceOn);
+  useEffect(() => {
+    if (!card || !voiceOn) return;
+    speak(t('explorer.arrived', { name: card.name }), i18n.language);
+  }, [card?.name, voiceOn]); // eslint-disable-line react-hooks/exhaustive-deps
+
   const lastSol = siteData ? Math.max(...Object.values(siteData.paths).map((p) => p[p.length - 1][3])) : 0;
 
   if (!webglAvailable) {
@@ -225,8 +253,10 @@ export default function ExplorerPage() {
               initial={{ opacity: 0, y: -10 }}
               animate={{ opacity: 1, y: 0 }}
               exit={{ opacity: 0 }}
-              className="absolute left-1/2 top-16 z-30 w-72 -translate-x-1/2 rounded-2xl bg-space/85 p-3 ring-1 ring-white/20 backdrop-blur"
-              role="status"
+              // Sur grand écran, la fiche se range à droite pour laisser voir la machine et ses étiquettes 3D.
+              className="absolute left-1/2 top-16 z-30 max-h-[60%] w-[min(22rem,calc(100%-1.5rem))] -translate-x-1/2 overflow-y-auto rounded-2xl bg-space/85 p-3 ring-1 ring-white/20 backdrop-blur sm:left-auto sm:right-3 sm:translate-x-0"
+              role="region"
+              aria-label={card.name}
             >
               <div className="flex items-center justify-between gap-2">
                 <p className="font-display text-xl font-extrabold uppercase">{card.name}</p>
@@ -252,6 +282,11 @@ export default function ExplorerPage() {
                   </Link>
                 )}
               </div>
+              {anatomy.length > 0 && (
+                <div className="mt-3 border-t border-white/10 pt-3">
+                  <AnatomyPanel parts={anatomy} selected={part} onSelect={setPart} />
+                </div>
+              )}
             </motion.div>
           )}
         </AnimatePresence>
@@ -292,6 +327,12 @@ export default function ExplorerPage() {
         {phase === 'drive' && (
           <p className="pointer-events-none absolute bottom-3 left-3 z-20 hidden rounded-full bg-space/60 px-3 py-1 text-xs text-slate-300 sm:block">
             ⌨ ↑ ↓ ← → · {t('explorer.brake')} · {t('app.notToScale')}
+          </p>
+        )}
+        {/* Astuce scientifique : la poussière ne retombe pas pareil sur la Lune et sur Mars. */}
+        {phase === 'drive' && world !== 'earth' && !card && (
+          <p className="pointer-events-none absolute left-3 top-14 z-20 max-w-xs rounded-xl bg-space/70 px-3 py-1.5 text-xs text-slate-200 ring-1 ring-white/10">
+            💨 {t(world === 'moon' ? 'explorer.dustMoon' : 'explorer.dustMars')}
           </p>
         )}
         {phase === 'drive' && <TouchPad />}
