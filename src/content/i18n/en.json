@@ -1,0 +1,53 @@
+{
+  "app": {
+    "title": "The Solar System Sentinels",
+    "tagline": "Machines left on the Moon, on Mars and at the edge of the Solar System tell you their story.",
+    "start": "Start the journey",
+    "continue": "Resume the journey",
+    "skip": "Skip to content",
+    "notToScale": "Sizes and distances not to scale."
+  },
+  "nav": {
+    "home": "Home",
+    "map": "Journey map",
+    "sources": "Sources",
+    "language": "Language",
+    "back": "Back to the map"
+  },
+  "map": {
+    "title": "Journey map",
+    "intro": "Follow the path, from nearest to farthest. Each stop unlocks the next one.",
+    "locked": "Locked",
+    "lockedHint": "Visit the previous chapter first.",
+    "open": "Explore",
+    "visited": "Visited",
+    "chapter": "Chapter {{n}}",
+    "prologue": "Prologue"
+  },
+  "chapters": {
+    "earth": { "title": "Earth", "teaser": "The starting point. Every sentinel left from here." },
+    "moon": { "title": "The Moon", "teaser": "Six Apollo sites, laser reflectors and rovers waiting in the dust." },
+    "mars": { "title": "Mars", "teaser": "Landers, rovers and a helicopter: those asleep and those still at work." },
+    "deep-space": { "title": "Deep space", "teaser": "Probes so far away that their messages take hours to reach us." }
+  },
+  "chapter": {
+    "soon": "This chapter is under construction. Stories are coming soon.",
+    "loading": "Computing trajectory…"
+  },
+  "status": {
+    "active": "Active",
+    "dormant": "Asleep"
+  },
+  "sources": {
+    "title": "Sources",
+    "intro": "Every fact on this site links to an official NASA or JPL source. The full list, machine by machine, will appear here."
+  },
+  "lite": {
+    "notice": "Lite mode: 3D is not available on this device. All stories remain accessible."
+  },
+  "notFound": {
+    "title": "Signal lost",
+    "text": "This page does not exist.",
+    "home": "Back to home"
+  }
+}

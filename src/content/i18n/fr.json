@@ -1,0 +1,53 @@
+{
+  "app": {
+    "title": "Les Veilleurs du Système solaire",
+    "tagline": "Des machines laissées sur la Lune, sur Mars et aux confins du Système solaire te racontent leur histoire.",
+    "start": "Commencer le voyage",
+    "continue": "Reprendre le voyage",
+    "skip": "Aller au contenu",
+    "notToScale": "Tailles et distances non à l'échelle."
+  },
+  "nav": {
+    "home": "Accueil",
+    "map": "Carte du voyage",
+    "sources": "Sources",
+    "language": "Langue",
+    "back": "Retour à la carte"
+  },
+  "map": {
+    "title": "Carte du voyage",
+    "intro": "Suis le parcours, du plus proche au plus lointain. Chaque étape débloque la suivante.",
+    "locked": "Verrouillé",
+    "lockedHint": "Visite d'abord le chapitre précédent.",
+    "open": "Explorer",
+    "visited": "Visité",
+    "chapter": "Chapitre {{n}}",
+    "prologue": "Prologue"
+  },
+  "chapters": {
+    "earth": { "title": "La Terre", "teaser": "Le point de départ. D'ici sont partis tous les veilleurs." },
+    "moon": { "title": "La Lune", "teaser": "Six sites Apollo, des réflecteurs laser et des rovers qui attendent dans la poussière." },
+    "mars": { "title": "Mars", "teaser": "Atterrisseurs, rovers et un hélicoptère : ceux qui dorment et ceux qui travaillent encore." },
+    "deep-space": { "title": "L'espace lointain", "teaser": "Des sondes parties si loin que leurs messages mettent des heures à nous parvenir." }
+  },
+  "chapter": {
+    "soon": "Ce chapitre est en construction. Les histoires arrivent bientôt.",
+    "loading": "Calcul de la trajectoire…"
+  },
+  "status": {
+    "active": "Actif",
+    "dormant": "Endormi"
+  },
+  "sources": {
+    "title": "Sources",
+    "intro": "Chaque fait de ce site renvoie à une source officielle de la NASA ou du JPL. La liste complète, machine par machine, sera affichée ici."
+  },
+  "lite": {
+    "notice": "Mode léger : la 3D n'est pas disponible sur cet appareil. Les histoires restent toutes accessibles."
+  },
+  "notFound": {
+    "title": "Signal perdu",
+    "text": "Cette page n'existe pas.",
+    "home": "Revenir à l'accueil"
+  }
+}
