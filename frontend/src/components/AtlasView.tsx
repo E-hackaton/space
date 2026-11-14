@@ -84,8 +84,14 @@ export function AtlasView({ body, bodyName, map, equipment, year }: AtlasViewPro
             textureUrl={map.src}
             accent={WORLD_ACCENTS[body]}
             markers={buildMarkers(equipment, year, t)}
-            label={t.atlas.globeLabel(bodyName)}
-            onSelect={(slug) => navigate(`/heros/${slug}`)}
+            texts={{
+              label: t.atlas.globeLabel(bodyName),
+              approaching: t.atlas.approaching(bodyName),
+              skip: t.atlas.skipIntro,
+              flyingTo: t.atlas.flyingTo,
+            }}
+            // L'état « arrivedWithGuide » lance la présentation de la machine dès l'ouverture de sa fiche.
+            onArrive={(slug) => navigate(`/heros/${slug}`, { state: { arrivedWithGuide: true } })}
           />
           <p className={styles.hint}>{t.atlas.globeHint}</p>
         </Suspense>

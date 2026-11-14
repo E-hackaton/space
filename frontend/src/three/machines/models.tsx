@@ -61,7 +61,7 @@ function Rover({ variant }: { variant: RoverVariant }) {
     <group scale={scale}>
       <RoverBody variant={variant} />
       {variant === 'msl' && (
-        <Part focus="body">
+        <Part focus="power">
           {/* Le générateur nucléaire (RTG), à l'arrière : il fournit l'énergie jour et nuit. */}
           <mesh position={[-0.62, 0.8, 0]} rotation={[0, 0, 0.9]}>
             <cylinderGeometry args={[0.12, 0.12, 0.38, 12]} />
@@ -396,7 +396,7 @@ function Probe({ variant }: { variant: 'near' | 'pioneer' }) {
         </mesh>
       </Part>
 
-      <Part focus="panels">
+      <Part focus={pioneer ? 'power' : 'panels'}>
         {pioneer
           ? // Pioneer n'a pas de panneaux : ses générateurs nucléaires (RTG) sont au bout de longs bras.
             [0, 1].map((i) => (

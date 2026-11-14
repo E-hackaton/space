@@ -64,6 +64,8 @@ export type MachineFocus =
   | 'antenna'
   | 'mirror'
   | 'engine'
+  /** Source d'énergie nucléaire (RTG). Utilisée seulement par les modèles 3D, pas par l'API. */
+  | 'power'
 
 export type DatePrecision = 'day' | 'month' | 'year'
 

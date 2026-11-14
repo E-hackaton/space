@@ -97,7 +97,10 @@ export const en: Messages = {
     view3d: '3D globe',
     view2d: '2D map',
     globeLabel: (body: string) => `3D globe of ${body}. Spin it, then pick a machine.`,
-    globeHint: 'Spin the globe and tap a machine.',
+    globeHint: 'Spin the globe and tap a machine: Sankofa will take you there.',
+    approaching: (body: string) => `Approaching ${body}`,
+    skipIntro: 'Skip',
+    flyingTo: (name: string) => `Let me take you to ${name}!`,
   },
 
   timeMachine: {
@@ -167,6 +170,87 @@ export const en: Messages = {
       legacy: 'Legacy',
     },
     stageLabel: (name: string) => `3D model of ${name}. Spin it to take a closer look.`,
+  },
+
+  presentation: {
+    label: 'Introduction',
+    greeting: (name: string) => `Hello, I'm ${name}.`,
+    whoAmI: (kindWithArticle: string, mission: string) => `I'm ${kindWithArticle} from the ${mission} mission.`,
+    kindsWithArticle: {
+      lander: 'a lander',
+      descent_stage: 'a descent stage',
+      rover: 'a rover',
+      helicopter: 'a helicopter',
+      instrument: 'a science instrument',
+      orbiter: 'an orbiter',
+      probe: 'an interplanetary probe',
+      telescope: 'a space telescope',
+    },
+  },
+
+  parts: {
+    hint: 'Tap a "+" point to discover a part of the machine.',
+    discover: (name: string) => `Discover: ${name}`,
+    whatItDoes: 'What does it do?',
+    whyItMatters: 'Why does it matter?',
+    close: 'Close',
+    items: {
+      body: {
+        name: 'The body',
+        does: 'It protects the computer, batteries and electronics from the extreme cold.',
+        why: 'Without it, the instruments would not survive the freezing nights.',
+      },
+      wheels: {
+        name: 'The wheels',
+        does: 'They let the machine move across ground covered in rocks and sand.',
+        why: 'The farther it drives, the more kinds of terrain it can study.',
+      },
+      arm: {
+        name: 'The robotic arm',
+        does: 'It brings the instruments close to rocks to scratch, dig or analyse them.',
+        why: "It is the robot's hand: without it, studying the ground up close would be impossible.",
+      },
+      mast: {
+        name: 'The mast and its cameras',
+        does: 'It holds the cameras up high, like a head with eyes.',
+        why: 'The pictures are used to choose where to go and to study the landscape.',
+      },
+      panels: {
+        name: 'The solar panels',
+        does: 'They turn sunlight into electricity.',
+        why: 'When dust covers them, power drops: that is what ended several missions.',
+      },
+      legs: {
+        name: 'The landing legs',
+        does: 'They absorb the landing and keep the craft steady on the ground.',
+        why: 'One failed landing, and the whole mission is lost.',
+      },
+      rotor: {
+        name: 'The blades',
+        does: 'They spin very fast to push air down and lift the craft.',
+        why: 'On Mars, the air is so thin that they must spin at more than 2,400 revolutions per minute.',
+      },
+      antenna: {
+        name: 'The antenna',
+        does: "It sends data to Earth and receives the engineers' commands.",
+        why: 'Without it, the machine could never tell what it discovered.',
+      },
+      mirror: {
+        name: 'The mirrors',
+        does: 'Glass "corner cubes" send light back exactly where it came from.',
+        why: 'They let us measure the Earth–Moon distance to within a few millimetres.',
+      },
+      engine: {
+        name: 'The descent engine',
+        does: 'It pushes downward to slow the descent.',
+        why: 'It is what made a soft landing possible.',
+      },
+      power: {
+        name: 'The nuclear generator (RTG)',
+        does: 'It makes electricity from the heat of a radioactive material.',
+        why: 'It works day and night, even far from the Sun or under dust.',
+      },
+    },
   },
 
   quiz: {

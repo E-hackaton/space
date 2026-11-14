@@ -5,7 +5,7 @@
  * Les textes qui contiennent une valeur variable sont des fonctions.
  */
 
-import type { EquipmentKind, EquipmentStatus, StoryPhase } from '../../types/api'
+import type { EquipmentKind, EquipmentStatus, MachineFocus, StoryPhase } from '../../types/api'
 
 export const fr = {
   locale: 'fr-FR',
@@ -103,7 +103,10 @@ export const fr = {
     view3d: 'Globe 3D',
     view2d: 'Carte 2D',
     globeLabel: (body: string) => `Globe 3D de ${body}. Fais-le tourner, puis choisis une machine.`,
-    globeHint: 'Fais tourner le globe et touche une machine.',
+    globeHint: "Fais tourner le globe et touche une machine : Sankofa t'y emmène.",
+    approaching: (body: string) => `Approche : ${body}`,
+    skipIntro: 'Passer',
+    flyingTo: (name: string) => `Je t'emmène voir ${name} !`,
   },
 
   timeMachine: {
@@ -173,6 +176,87 @@ export const fr = {
       legacy: 'Héritage',
     } satisfies Record<StoryPhase, string>,
     stageLabel: (name: string) => `Modèle 3D de ${name}. Fais-le tourner pour l'observer.`,
+  },
+
+  presentation: {
+    label: 'Présentation',
+    greeting: (name: string) => `Bonjour, je suis ${name}.`,
+    whoAmI: (kindWithArticle: string, mission: string) => `Je suis ${kindWithArticle} de la mission ${mission}.`,
+    kindsWithArticle: {
+      lander: 'un atterrisseur',
+      descent_stage: 'un étage de descente',
+      rover: 'un rover',
+      helicopter: 'un hélicoptère',
+      instrument: 'un instrument scientifique',
+      orbiter: 'une sonde en orbite',
+      probe: 'une sonde interplanétaire',
+      telescope: 'un télescope spatial',
+    } satisfies Record<EquipmentKind, string>,
+  },
+
+  parts: {
+    hint: 'Touche un point « + » pour découvrir une pièce de la machine.',
+    discover: (name: string) => `Découvrir : ${name}`,
+    whatItDoes: 'À quoi ça sert ?',
+    whyItMatters: 'Pourquoi c’est important ?',
+    close: 'Fermer',
+    items: {
+      body: {
+        name: 'Le corps',
+        does: "Il protège l'ordinateur, les batteries et l'électronique du froid extrême.",
+        why: 'Sans lui, les instruments ne survivraient pas aux nuits glaciales.',
+      },
+      wheels: {
+        name: 'Les roues',
+        does: 'Elles permettent de se déplacer sur un sol couvert de roches et de sable.',
+        why: 'Plus la machine roule loin, plus elle découvre de terrains différents à étudier.',
+      },
+      arm: {
+        name: 'Le bras robotique',
+        does: 'Il approche les instruments des roches, pour les gratter, les creuser ou les analyser.',
+        why: "C'est la main du robot : sans lui, impossible d'étudier le sol de près.",
+      },
+      mast: {
+        name: 'Le mât et ses caméras',
+        does: 'Il porte les caméras en hauteur, comme une tête avec des yeux.',
+        why: 'Les images servent à choisir où aller et à étudier le paysage.',
+      },
+      panels: {
+        name: 'Les panneaux solaires',
+        does: 'Ils transforment la lumière du Soleil en électricité.',
+        why: "Quand la poussière les recouvre, l'énergie baisse : c'est ce qui a arrêté plusieurs missions.",
+      },
+      legs: {
+        name: "Les pieds d'atterrissage",
+        does: "Ils amortissent l'atterrissage et stabilisent l'engin sur le sol.",
+        why: 'Un atterrissage raté, et toute la mission est perdue.',
+      },
+      rotor: {
+        name: 'Les pales',
+        does: "Elles tournent très vite pour pousser l'air vers le bas et soulever l'engin.",
+        why: "Sur Mars, l'air est si léger qu'elles doivent tourner à plus de 2 400 tours par minute.",
+      },
+      antenna: {
+        name: "L'antenne",
+        does: 'Elle envoie les données vers la Terre et reçoit les ordres des ingénieurs.',
+        why: "Sans elle, la machine ne pourrait jamais raconter ce qu'elle a découvert.",
+      },
+      mirror: {
+        name: 'Les miroirs',
+        does: "Des « coins de cube » en verre renvoient la lumière exactement d'où elle vient.",
+        why: 'Ils permettent de mesurer la distance Terre-Lune à quelques millimètres près.',
+      },
+      engine: {
+        name: 'Le moteur de descente',
+        does: 'Il pousse vers le bas pour freiner la descente.',
+        why: "C'est grâce à lui que l'atterrissage a pu se faire en douceur.",
+      },
+      power: {
+        name: 'Le générateur nucléaire (RTG)',
+        does: "Il produit de l'électricité à partir de la chaleur d'un matériau radioactif.",
+        why: 'Il fonctionne jour et nuit, même loin du Soleil ou sous la poussière.',
+      },
+    } satisfies Record<Exclude<MachineFocus, 'overview'>, { name: string; does: string; why: string }>,
   },
 
   quiz: {
