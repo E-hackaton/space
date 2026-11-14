@@ -13,7 +13,7 @@ Le plan complet (concept, répartition des tâches, planning) est dans [docs/PLA
 
 ```
 backend/   API Django + Django REST Framework, et admin de saisie du contenu
-frontend/  Application React + TypeScript (Vite), en cours
+frontend/  Application React + TypeScript (Vite)
 docs/      Plan du projet
 ```
 
@@ -47,11 +47,33 @@ python manage.py runserver
 Toutes les routes acceptent `?lang=fr` (par défaut) ou `?lang=en`. Si un texte n'est pas encore
 traduit, l'API renvoie le français.
 
+## Lancer le frontend
+
+Prérequis : Node.js 20 ou plus récent. Le backend doit tourner en parallèle sur le port 8000.
+
+```bash
+cd frontend
+npm install
+npm run dev                       # http://localhost:5173
+```
+
+En développement, Vite redirige `/api` et `/media` vers Django : aucune configuration CORS à faire.
+Pour un backend hébergé ailleurs, définir `VITE_API_URL` (ex. `https://mon-api.onrender.com`).
+
 ## Données et références
 
 Les données proviennent des ressources NASA indiquées par le défi, principalement le
 [NSSDCA](https://nssdc.gsfc.nasa.gov/) et les pages missions de [NASA Science](https://science.nasa.gov/).
 Chaque héros liste ses sources dans l'API (champ `sources`).
+
+Cartes de fond (domaine public) :
+- Lune : mosaïque couleur LRO, [CGI Moon Kit, NASA Scientific Visualization Studio](https://svs.gsfc.nasa.gov/4720/)
+- Mars : mosaïque couleur Viking MDIM 2.1, NASA/JPL/USGS
+  ([USGS Astrogeology](https://astrogeology.usgs.gov/search/map/mars_viking_colorized_global_mosaic_232m)),
+  version réduite téléchargée depuis [Wikimedia Commons](https://commons.wikimedia.org/wiki/File:Mars_Viking_MDIM21_ClrMosaic_1km.jpg)
+
+Bibliothèques : Django, Django REST Framework, django-cors-headers, Pillow, React, React Router,
+Vite, Phosphor Icons, polices Fira Sans et Overpass (SIL OFL, via Fontsource).
 
 > **À vérifier par le rôle Science avant la soumission** : les coordonnées d'Opportunity
 > (lieu de repos final) et d'Ingenuity (position actuelle) sont approximatives.

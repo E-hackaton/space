@@ -81,6 +81,7 @@ class EquipmentListSerializer(serializers.ModelSerializer):
             "launch_date",
             "arrival_date",
             "last_contact_date",
+            "mission_end_date",
         ]
 
 

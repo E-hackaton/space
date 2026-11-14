@@ -27,6 +27,13 @@ class EquipmentValidationTests(TestCase):
             self.equipment.full_clean()
         self.assertIn("last_contact_date", ctx.exception.message_dict)
 
+    def test_mission_end_cannot_precede_arrival(self) -> None:
+        self.equipment.arrival_date = date(2021, 2, 18)
+        self.equipment.mission_end_date = date(2020, 1, 1)
+        with self.assertRaises(ValidationError) as ctx:
+            self.equipment.full_clean()
+        self.assertIn("mission_end_date", ctx.exception.message_dict)
+
     def test_nssdca_url_is_built_from_identifier(self) -> None:
         self.equipment.nssdca_id = "2003-032A"
         self.assertTrue(self.equipment.nssdca_url.endswith("id=2003-032A"))

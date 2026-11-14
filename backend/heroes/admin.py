@@ -54,7 +54,10 @@ class EquipmentAdmin(admin.ModelAdmin):
     # Les sections suivent l'ordre dans lequel on remplit une fiche.
     fieldsets = [
         ("Identité", {"fields": ["name", "slug", "mission", "body", "kind", "status", "is_published", "order"]}),
-        ("Repères NASA", {"fields": ["nssdca_id", "launch_date", "arrival_date", "last_contact_date"]}),
+        (
+            "Repères NASA",
+            {"fields": ["nssdca_id", "launch_date", "arrival_date", "last_contact_date", "mission_end_date"]},
+        ),
         ("Position", {"fields": ["latitude", "longitude", "location_fr", "location_en"]}),
         (
             "Textes pour les élèves",

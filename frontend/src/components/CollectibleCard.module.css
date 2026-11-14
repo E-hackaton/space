@@ -1,0 +1,62 @@
+.card {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-2);
+  height: 100%;
+  padding: var(--space-6) var(--space-4);
+  text-align: center;
+  border: 2px solid var(--color-accent);
+  border-radius: var(--radius-md);
+  /* Look de fiche de mission : bandeau supérieur et quadrillage discret. */
+  background:
+    linear-gradient(var(--color-neon-blue), var(--color-neon-blue)) top / 100% 0.5rem no-repeat,
+    repeating-linear-gradient(0deg, transparent 0 1.5rem, rgb(255 255 255 / 0.04) 1.5rem calc(1.5rem + 1px)),
+    var(--color-deep-blue);
+}
+
+.cardLocked {
+  composes: card;
+  border-style: dashed;
+  border-color: var(--color-border);
+  background: var(--color-surface);
+}
+
+.art {
+  display: grid;
+  place-items: center;
+  width: 6rem;
+  height: 6rem;
+  border-radius: 50%;
+  background: rgb(46 150 245 / 0.15);
+  color: var(--color-blue-yonder);
+  box-shadow: var(--shadow-glow);
+}
+
+.cardLocked .art {
+  color: var(--color-text-muted);
+  box-shadow: none;
+}
+
+.name {
+  margin: var(--space-2) 0 0;
+}
+
+.link {
+  color: var(--color-text);
+  text-decoration: none;
+}
+
+.link::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+}
+
+.meta {
+  word-spacing: 0.15em;
+  font-size: 0.85rem;
+  color: var(--color-text-muted);
+  margin: 0;
+}

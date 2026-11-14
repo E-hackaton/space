@@ -1,7 +1,7 @@
 """
 Modèle de données de Sankofa.
 
-Un **lieu** (CelestialBody : Lune, Mars, Ailleurs) accueille des **héros** (Equipment),
+Un **lieu** (CelestialBody : Lune, Mars, Espace profond) accueille des **héros** (Equipment),
 c'est-à-dire des engins laissés par la NASA. Chaque héros a :
 - des **chapitres** d'histoire racontés à la première personne (StoryChapter) ;
 - des **questions de quiz** (QuizQuestion) ;
@@ -19,12 +19,12 @@ from django.db import models
 
 
 class CelestialBody(models.Model):
-    """Un lieu de l'Atlas : la Lune, Mars ou « Ailleurs » (astéroïdes, espace lointain)."""
+    """Un lieu de l'Atlas : la Lune, Mars ou l'espace profond (astéroïdes, planètes naines, sondes lointaines)."""
 
     class Slug(models.TextChoices):
         MOON = "moon", "Lune"
         MARS = "mars", "Mars"
-        ELSEWHERE = "elsewhere", "Ailleurs"
+        ELSEWHERE = "elsewhere", "Espace profond"
 
     slug = models.SlugField(unique=True, choices=Slug.choices)
     name_fr = models.CharField("nom (FR)", max_length=60)
@@ -85,6 +85,15 @@ class Equipment(models.Model):
     launch_date = models.DateField("date de lancement", null=True, blank=True)
     arrival_date = models.DateField("date d'arrivée", null=True, blank=True)
     last_contact_date = models.DateField("dernier contact", null=True, blank=True)
+    # La fin de mission ne coïncide pas toujours avec le dernier contact. Exemples : Eagle ne
+    # « communique » pas, sa mission s'arrête au décollage des astronautes ; Ingenuity a cessé de
+    # voler en janvier 2024. Vide = on utilise le dernier contact.
+    mission_end_date = models.DateField(
+        "fin de mission",
+        null=True,
+        blank=True,
+        help_text="À remplir seulement si elle diffère du dernier contact. Sert à la frise du temps.",
+    )
 
     # Coordonnées planétocentriques, longitude Est positive (entre -180 et 180).
     # Elles restent vides pour les engins qui ne sont pas posés sur la Lune ou sur Mars.
@@ -156,6 +165,10 @@ class Equipment(models.Model):
         known = [d for d in dates if d is not None]
         if known != sorted(known):
             errors["last_contact_date"] = "Les dates doivent suivre l'ordre : lancement ≤ arrivée ≤ dernier contact."
+
+        start = self.arrival_date or self.launch_date
+        if self.mission_end_date and start and self.mission_end_date < start:
+            errors["mission_end_date"] = "La fin de mission ne peut pas précéder l'arrivée (ou le lancement)."
 
         if errors:
             raise ValidationError(errors)

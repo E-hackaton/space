@@ -19,8 +19,8 @@
     {
       "slug": "elsewhere",
       "order": 3,
-      "name_fr": "Ailleurs",
-      "name_en": "Elsewhere",
+      "name_fr": "Espace profond",
+      "name_en": "Deep space",
       "intro_fr": "Certains héros ne sont ni sur la Lune ni sur Mars : posés sur un astéroïde, en orbite autour d'une planète naine ou en route vers les étoiles.",
       "intro_en": "Some heroes are neither on the Moon nor on Mars: resting on an asteroid, orbiting a dwarf planet, or heading for the stars."
     }
@@ -93,6 +93,7 @@
       "launch_date": "1969-07-16",
       "arrival_date": "1969-07-20",
       "last_contact_date": null,
+      "mission_end_date": "1969-07-21",
       "latitude": 0.6741,
       "longitude": 23.4730,
       "location_fr": "Mer de la Tranquillité",
@@ -147,6 +148,7 @@
       "launch_date": "1971-07-26",
       "arrival_date": "1971-07-30",
       "last_contact_date": null,
+      "mission_end_date": "1971-08-02",
       "latitude": 26.1322,
       "longitude": 3.6339,
       "location_fr": "Région Hadley-Apennin",
@@ -432,6 +434,7 @@
       "launch_date": "2020-07-30",
       "arrival_date": "2021-02-18",
       "last_contact_date": null,
+      "mission_end_date": "2024-01-25",
       "latitude": 18.4447,
       "longitude": 77.4508,
       "location_fr": "Cratère Jezero",
