@@ -1,0 +1,74 @@
+.tile {
+  position: relative;
+  height: 100%;
+  padding: var(--space-4) var(--space-6);
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  transition:
+    border-color 150ms ease,
+    transform 150ms ease;
+}
+
+.tile:hover,
+.tile:focus-within {
+  border-color: var(--color-blue-yonder);
+  transform: translateY(-3px);
+}
+
+.dimmed {
+  opacity: 0.45;
+  filter: grayscale(0.6);
+}
+
+.timeNote {
+  margin: 0 0 var(--space-2);
+  font-family: var(--font-heading);
+  font-weight: 700;
+  font-size: 0.75rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--color-link);
+}
+
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-2);
+  margin-bottom: var(--space-3);
+}
+
+.icon {
+  color: var(--color-blue-yonder);
+}
+
+.title {
+  margin-bottom: var(--space-1);
+}
+
+.link {
+  color: var(--color-text);
+  text-decoration: none;
+}
+
+/* Étend la zone cliquable du lien à toute la vignette. */
+.link::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+}
+
+.meta {
+  /* Les espaces d'Overpass sont étroits : on aère les séparateurs « · ». */
+  word-spacing: 0.15em;
+  font-size: 0.85rem;
+  color: var(--color-text-muted);
+  margin-bottom: var(--space-3);
+}
+
+.tagline {
+  font-style: italic;
+  margin: 0;
+}

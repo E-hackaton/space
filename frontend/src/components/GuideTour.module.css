@@ -1,0 +1,129 @@
+.dialog {
+  display: grid;
+  grid-template-columns: 11rem 1fr;
+  gap: var(--space-6);
+  align-items: center;
+  width: min(44rem, calc(100vw - 2rem));
+  padding: var(--space-6) var(--space-8);
+  border: 1px solid var(--color-accent);
+  border-radius: var(--radius-md);
+  background: var(--color-deep-blue);
+  color: var(--color-text);
+  box-shadow: var(--shadow-glow);
+}
+
+/* Le <dialog> natif est masqué tant qu'il n'est pas ouvert : on ne force la grille qu'une fois ouvert. */
+.dialog:not([open]) {
+  display: none;
+}
+
+.dialog::backdrop {
+  background: rgb(7 23 63 / 0.8);
+  backdrop-filter: blur(4px);
+}
+
+/* Le canvas 3D remplit exactement ce cadre (position absolue) : il ne déborde jamais sur le texte. */
+.bot {
+  position: relative;
+  height: 13rem;
+  display: grid;
+  place-items: center;
+}
+
+.bot > div {
+  position: absolute;
+  inset: 0;
+}
+
+.content {
+  display: grid;
+  gap: var(--space-4);
+}
+
+.speaker {
+  margin: 0;
+  font-family: var(--font-heading);
+  font-weight: 700;
+  font-size: 0.8rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--color-accent);
+}
+
+.title {
+  margin: 0;
+}
+
+.text {
+  margin: 0;
+  min-height: 4.5em;
+  font-size: 1.2rem;
+  line-height: 1.6;
+}
+
+.progress {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.dots {
+  display: flex;
+  gap: var(--space-2);
+}
+
+.dot,
+.dotDone {
+  width: 0.6rem;
+  height: 0.6rem;
+  border-radius: 50%;
+  background: var(--color-border);
+}
+
+.dotDone {
+  background: var(--color-accent);
+}
+
+.sound {
+  display: grid;
+  place-items: center;
+  width: 2.25rem;
+  height: 2.25rem;
+  border: 1px solid var(--color-border);
+  border-radius: 50%;
+  background: transparent;
+  color: var(--color-text);
+  cursor: pointer;
+}
+
+.actions {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: var(--space-3);
+}
+
+.navigation {
+  display: flex;
+  gap: var(--space-2);
+}
+
+.skip {
+  border: 0;
+  background: transparent;
+  color: var(--color-text-muted);
+  text-decoration: underline;
+  cursor: pointer;
+}
+
+@media (max-width: 36rem) {
+  .dialog {
+    grid-template-columns: 1fr;
+    padding: var(--space-4);
+  }
+
+  .bot {
+    height: 9rem;
+  }
+}

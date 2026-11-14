@@ -1,0 +1,40 @@
+# Déploiement de production : `docker compose up -d --build`.
+# Configuration dans le fichier .env (modèle : .env.example).
+
+services:
+  backend:
+    build: ./backend
+    env_file: .env
+    environment:
+      DJANGO_DB_PATH: /app/data/db.sqlite3
+    volumes:
+      - db:/app/data
+      - static:/app/staticfiles
+      - media:/app/media
+    restart: unless-stopped
+
+  web:
+    build:
+      context: .
+      dockerfile: deploy/web.Dockerfile
+    environment:
+      DOMAIN: ${DOMAIN}
+    ports:
+      - "80:80"
+      - "443:443"
+      - "443:443/udp" # HTTP/3
+    volumes:
+      - caddy_data:/data # certificats HTTPS : à conserver pour ne pas les redemander
+      - caddy_config:/config
+      - static:/srv/static:ro
+      - media:/srv/media:ro
+    depends_on:
+      - backend
+    restart: unless-stopped
+
+volumes:
+  db:
+  static:
+  media:
+  caddy_data:
+  caddy_config:

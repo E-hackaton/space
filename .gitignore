@@ -1,7 +1,26 @@
-node_modules
-dist
-*.local
-.env*
-.DS_Store
-*.log
+# --- Python / Django ---
+.venv/
+__pycache__/
+*.py[cod]
+db.sqlite3
+backend/media/
+backend/staticfiles/
+
+# --- Node / React ---
+node_modules/
+dist/
 *.tsbuildinfo
+
+# --- Secrets et environnement ---
+.env
+.env.*
+!.env.example
+
+# --- Éditeurs et système ---
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db
+
+# --- Outils locaux ---
+.claude/

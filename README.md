@@ -1,59 +1,99 @@
-# Les Veilleurs du Système solaire
+# FORBITS : Their missions ended. Their stories live on.
 
-Projet pour le **NASA Space Apps Challenge 2026**, défi *« Abandonné mais pas oublié »*.
+sk_ca43dc7e30fa6de43b7473ca87a77a47413ee42c51b11d58
 
-Les machines laissées par la NASA sur la Lune, sur Mars et dans l'espace lointain racontent leur propre histoire, à la première personne : pourquoi elles ont été envoyées, ce qu'elles ont découvert, et comment elles se sont endormies. Le site s'adresse à tous les curieux de l'espace : collégiens, lycéens, étudiants et grand public.
+Projet de l'équipe **G. Bugs** (Abidjan) pour le **NASA Space Apps Challenge 2026**, défi
+[_Abandoned but not Forgotten_](https://www.spaceappschallenge.org/2026/challenges/nasas-discarded-equipment-storytelling/).
+En ligne : **https://space.techledger.io**
 
-## Commandes
+Une plateforme éducative immersive en 3D, en français et en anglais. Sankofa, un petit robot guide, emmène
+l'utilisateur sur la Lune, sur Mars et au-delà, à la rencontre des machines que la NASA y a laissées.
+Chaque machine se présente, puis raconte sa mission en six temps, de sa conception à son héritage.
 
-Flèches, ZQSD ou WASD pour conduire, Espace pour freiner. Sur téléphone : boutons à l'écran.
+Documents :
 
-## Lancer le projet
+- [docs/CONCEPT.md](docs/CONCEPT.md) : concept produit et parcours
+- [docs/PLAN.md](docs/PLAN.md) : défi, rôles et planning
+- [docs/SUBMISSION.md](docs/SUBMISSION.md) : textes du formulaire de soumission et script de la vidéo
 
-Prérequis : Node.js 20 ou plus récent.
+## Structure
 
-```bash
-npm install
-npm run dev      # serveur de développement
-npm run build    # build de production (dans dist/)
-npm run preview  # prévisualiser le build
+```
+backend/   API Django + Django REST Framework, et admin de saisie du contenu
+frontend/  Application React + TypeScript (Vite)
+docs/      Plan du projet
 ```
 
-## Technologies
+## Lancer le backend
 
-React 18, TypeScript, Vite, React Three Fiber et drei (3D), GSAP (cinématiques), Motion (interface), Zustand (progression), react-i18next (français et anglais), Tailwind CSS. Narration provisoire par la synthèse vocale du navigateur (Web Speech).
+Prérequis : Python 3.12.
 
-## État d'avancement
+```bash
+cd backend
+python -m venv .venv
+.venv/Scripts/activate            # Windows (sous macOS/Linux : source .venv/bin/activate)
+pip install -r requirements.txt
+python manage.py migrate
+python manage.py load_heroes      # charge le contenu de départ (heroes/data/heroes.json)
+python manage.py createsuperuser  # pour accéder à l'admin
+python manage.py runserver
+```
 
-- [x] Squelette, accueil 3D, carte du voyage, chapitres débloqués au fil du parcours, français et anglais, mode léger sans WebGL
-- [x] Visite 3D du Système solaire (Mercure → espace lointain) : textures NASA, nuages, anneaux, atmosphère (shader Fresnel), vols de caméra, navigation au clavier
-- [x] **Explorer** : on conduit un rover en direct sur une île terrestre, on clique sur la Lune ou Mars, on décolle, on voyage, on atterrit, puis on roule à côté des vraies machines. À Jezero et Gale, Perseverance, Ingenuity et Curiosity rejouent leurs **vrais trajets** (données NASA/JPL), sol après sol, en laissant leurs traces ; sur la Lune, le site d'Apollo 11 (étage de descente, sismomètre, réflecteur laser et tir laser Terre-Lune)
-- [x] Parcours « Missions » avec Orbi, le robot guide : choix de l'astre et de la machine, décollage depuis la Terre, voyage, arrivée, puis récit à la première personne jusqu'à la fin de la machine (animations GSAP)
-- [x] 8 machines : réflecteur laser d'Apollo 11, Opportunity, Ingenuity, MESSENGER, Magellan, Galileo, Cassini, Voyager 1 (faits tirés des fiches NASA, **à faire relire** : `verified: false`)
-- [ ] Chapitre Lune et tir laser
-- [ ] Chapitre Mars (Opportunity, Spirit, Ingenuity)
-- [ ] Histoire narrée avec sous-titres
-- [ ] Quiz et carnet de badges
-- [ ] Page Sources complète
-- [ ] Mode démo jury
+- API : http://127.0.0.1:8000/api/
+- Admin (saisie des histoires, quiz, sources) : http://127.0.0.1:8000/admin/
+- Tests : `python manage.py test heroes`
 
-## Sources et crédits
+### Routes de l'API
 
-**Trajets des rovers martiens** : NASA/JPL, cartes MMGIS (fichiers GeoJSON publics), convertis par `scripts/build_traverses.py` en `public/data/*.json` (mètres locaux, sols, altitude). Le terrain de chaque site suit l'altitude réelle le long des trajets, lissée ; le petit relief (bosses, cratères) est décoratif. Échelle des sites : 1 unité = 40 m ; les engins sont agrandis pour être visibles.
-- Perseverance : https://mars.nasa.gov/mmgis-maps/M20/Layers/json/M20_traverse.json
-- Ingenuity : https://mars.nasa.gov/mmgis-maps/M20/Layers/json/m20_heli_waypoints.json
-- Curiosity : https://mars.nasa.gov/mmgis-maps/MSL/Layers/json/MSL_traverse.json et MSL_waypoints.json
+| Route                                         | Description                                 |
+| --------------------------------------------- | ------------------------------------------- |
+| `GET /api/bodies/`                            | Les lieux de l'Atlas (Lune, Mars, Ailleurs) |
+| `GET /api/equipment/?body=mars&status=silent` | Les héros, avec filtres facultatifs         |
+| `GET /api/equipment/<slug>/`                  | Fiche complète : chapitres, quiz, sources   |
 
-Pour mettre à jour les trajets : télécharger ces fichiers dans un dossier, puis `python3 scripts/build_traverses.py <dossier> public/data`.
+Toutes les routes acceptent `?lang=fr` (par défaut) ou `?lang=en`. Si un texte n'est pas encore
+traduit, l'API renvoie le français.
 
-**Textures** (détail dans `src/content/credits.json`) :
-- Terre : NASA/Goddard Space Flight Center Scientific Visualization Studio ; données Blue Marble Next Generation, Reto Stöckli (NASA/GSFC) et NASA Earth Observatory. [SVS 3615](https://svs.gsfc.nasa.gov/3615/)
-- Lune : NASA Scientific Visualization Studio, CGI Moon Kit (données LRO). [SVS 4720](https://svs.gsfc.nasa.gov/4720/)
-- Mars : mosaïque Viking MDIM 2.1, NASA/JPL/USGS (domaine public). [USGS Astrogeology](https://astrogeology.usgs.gov/search/details/Mars/Viking/MDIM21/Mars_Viking_MDIM21_ClrMosaic_global_232m/cub)
-- Mercure : mosaïque globale MESSENGER, NASA. [PIA16298](https://photojournal.jpl.nasa.gov/catalog/PIA16298)
-- Jupiter : carte cylindrique Cassini, NASA. [PIA07782](https://photojournal.jpl.nasa.gov/catalog/PIA07782)
-- Vénus et Saturne : textures d'illustration créées par l'équipe (pas des cartes réelles).
-- Modèles 3D des engins : formes simples génériques créées par l'équipe, pas des répliques.
+## Lancer le frontend
 
+Prérequis : Node.js 20 ou plus récent. Le backend doit tourner en parallèle sur le port 8000.
 
-Chaque fait affiché renvoie à une source officielle de la NASA ou du JPL (page « Sources » du site). Les tailles et distances des scènes 3D ne sont pas à l'échelle. Ce projet n'est ni affilié à la NASA ni approuvé par elle.
+```bash
+cd frontend
+npm install
+npm run dev                       # http://localhost:5173
+```
+
+En développement, Vite redirige `/api` et `/media` vers Django : aucune configuration CORS à faire.
+Pour un backend hébergé ailleurs, définir `VITE_API_URL` (ex. `https://mon-api.onrender.com`).
+
+## Données et références
+
+Les données proviennent des ressources NASA indiquées par le défi, principalement le
+[NSSDCA](https://nssdc.gsfc.nasa.gov/) et les pages missions de [NASA Science](https://science.nasa.gov/).
+Chaque héros liste ses sources dans l'API (champ `sources`).
+
+Cartes de fond (domaine public) :
+
+- Lune : mosaïque couleur LRO, [CGI Moon Kit, NASA Scientific Visualization Studio](https://svs.gsfc.nasa.gov/4720/)
+- Mars : mosaïque couleur Viking MDIM 2.1, NASA/JPL/USGS
+  ([USGS Astrogeology](https://astrogeology.usgs.gov/search/map/mars_viking_colorized_global_mosaic_232m)),
+  version réduite téléchargée depuis [Wikimedia Commons](https://commons.wikimedia.org/wiki/File:Mars_Viking_MDIM21_ClrMosaic_1km.jpg)
+
+Bibliothèques : Django, Django REST Framework, django-cors-headers, Pillow, React, React Router,
+Vite, Phosphor Icons, polices Fira Sans et Overpass (SIL OFL, via Fontsource).
+
+> **À vérifier par le rôle Science avant la soumission** : les coordonnées d'Opportunity
+> (lieu de repos final) et d'Ingenuity (position actuelle) sont approximatives.
+
+Ce projet n'utilise aucun logo ni élément de marque de la NASA. Il n'est ni approuvé ni soutenu par la NASA.
+
+## Utilisation de l'IA
+
+Un assistant de code IA (Claude) a aidé à écrire le code et les premiers textes. Tous les contenus
+sont relus par l'équipe et vérifiés à partir des sources NASA.
+
+Les voix de Sankofa et des machines sont générées avec **ElevenLabs** (voix françaises, et guide en anglais ;
+le reste de l'anglais est lu par la voix du navigateur). Pour les régénérer, ajouter
+dans `.env` les variables `ELEVENLABS_API_KEY`, `ELEVENLABS_VOICE_GUIDE` et `ELEVENLABS_VOICE_MACHINE`,
+puis lancer `python manage.py generate_voices` (`--dry-run` pour estimer le volume de caractères d'abord).
