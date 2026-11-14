@@ -71,8 +71,9 @@ Défi : *Abandoned but not Forgotten: Storytelling about NASA's Discarded Equipm
 
 - **Assistant de code et de rédaction (LLM) : Claude (Anthropic).** Aide à l'écriture du code et des premiers jets
   des textes, tous relus et vérifiés par l'équipe à partir des sources NASA.
-- **Génération de voix : ElevenLabs** (si les voix ont été générées avant la soumission). Narrations des machines
-  et de Sankofa, préparées à l'avance à partir de nos textes.
+- **Génération de voix : ElevenLabs** (modèle `eleven_flash_v2_5`, voix « premade » Jessica pour Sankofa et
+  George pour les machines). Narrations françaises du guide et des 13 machines, plus le guide en anglais, générées
+  à l'avance à partir de nos textes. Les autres narrations anglaises utilisent la voix du navigateur.
 - Aucune image générée par IA. **Aucun logo, drapeau ou identifiant de mission NASA** n'a été produit ni modifié.
 
 ## 7. NASA Data (au moins une ressource du défi est obligatoire)
