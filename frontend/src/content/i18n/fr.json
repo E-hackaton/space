@@ -390,7 +390,12 @@
     "vehicles": {
       "rover": "Rover FORBITS",
       "lrv": "Rover lunaire LRV"
-    }
+    },
+    "hello": "Choisis un site, ton engin, et qui conduit. On se pose directement au sol.",
+    "where": "Site",
+    "go": "Se poser et rouler",
+    "lrvNote": "Le rover lunaire LRV n'a roulé que sur la Lune (Apollo 15, 16 et 17) : sur Mars, c'est pour le jeu.",
+    "takeOver": "Prendre les commandes"
   },
   "home": {
     "hello": "Salut, moi c'est Sankofa. Des machines dorment là-haut, sur la Lune et sur Mars. On part les retrouver ?"

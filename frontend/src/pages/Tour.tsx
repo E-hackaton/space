@@ -1,107 +1,75 @@
-import { lazy, Suspense, useEffect } from 'react';
-import { Link, useSearchParams } from 'react-router-dom';
+import { useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
-import { Loading } from '../components/ui/Loading';
-import { TOUR_STOPS, type TourStop } from '../lib/solarSystem';
-import { machinesOn, useCatalog } from '../lib/machines';
-import { webglAvailable } from '../lib/device';
-import { usePrefersReducedMotion } from '../lib/hooks';
+import { motion } from 'motion/react';
+import { PlanetGlyph } from '../components/ui/Glyphs';
+import { SankofaAvatar } from '../components/guide/SankofaAvatar';
+import { speak } from '../audio/speech';
+import { useStore } from '../store/useStore';
+import type { Vehicle, WorldId } from '../world/state';
 
-const SolarTour = lazy(() => import('../scenes/SolarTour'));
+const SITES: WorldId[] = ['moon', 'jezero', 'gale'];
+const VEHICLES: Vehicle[] = ['rover', 'lrv'];
+type Pilot = 'auto' | 'manual';
 
-const FLAT_IMAGES: Partial<Record<TourStop, string>> = {
-  mercury: '/textures/mercury_color.jpg',
-  venus: '/textures/venus_clouds.jpg',
-  earth: '/textures/earth_color.jpg',
-  moon: '/textures/moon_color.jpg',
-  mars: '/textures/mars_color.jpg',
-  jupiter: '/textures/jupiter_color.jpg',
-  saturn: '/textures/saturn_color.jpg',
-};
-
+/** Visite 3D : choisir le site, l'engin et le pilote, puis on arrive directement au sol. */
 export default function Tour() {
-  const { t } = useTranslation();
-  const reduced = usePrefersReducedMotion();
-  const [params, setParams] = useSearchParams();
-  const { machines } = useCatalog();
-  const raw = params.get('cible');
-  const focus: TourStop = TOUR_STOPS.includes(raw as TourStop) ? (raw as TourStop) : 'overview';
-  const index = TOUR_STOPS.indexOf(focus);
-
-  const go = (stop: TourStop) => setParams(stop === 'overview' ? {} : { cible: stop }, { replace: true });
-
-  // Flèches gauche / droite : étape précédente / suivante.
+  const { t, i18n } = useTranslation();
+  const navigate = useNavigate();
+  const voiceOn = useStore((s) => s.voiceOn);
+  const [site, setSite] = useState<WorldId>('moon');
+  const [vehicle, setVehicle] = useState<Vehicle>('lrv');
+  const [pilot, setPilot] = useState<Pilot>('auto');
   useEffect(() => {
-    const onKey = (e: KeyboardEvent) => {
-      if (e.target instanceof HTMLElement && e.target.closest('input, textarea')) return;
-      if (e.key === 'ArrowRight') go(TOUR_STOPS[Math.min(index + 1, TOUR_STOPS.length - 1)]);
-      if (e.key === 'ArrowLeft') go(TOUR_STOPS[Math.max(index - 1, 0)]);
-    };
-    window.addEventListener('keydown', onKey);
-    return () => window.removeEventListener('keydown', onKey);
-  });
+    if (voiceOn) speak(t('visit.hello'), i18n.language);
+  }, []); // eslint-disable-line react-hooks/exhaustive-deps
+
+  const go = () => navigate(`/explorer?monde=${site}&engin=${vehicle}&pilote=${pilot}`);
+  const option = (on: boolean) => `visit-option ${on ? 'visit-option-on' : ''}`;
 
   return (
-    <section className="relative flex flex-1 flex-col bg-space text-white">
+    <section className="relative flex flex-1 flex-col items-center justify-center gap-10 overflow-hidden bg-space px-4 py-10 text-white">
+      <div className="living-bg" aria-hidden="true" />
       <h1 className="sr-only">{t('tour.title')}</h1>
+      <motion.div initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }} className="relative flex items-center gap-3">
+        <SankofaAvatar size={64} talking />
+        <p className="max-w-md text-lg">{t('visit.hello')}</p>
+      </motion.div>
 
-      <div className="relative h-[calc(100vh-4rem)] min-h-96 w-full">
-        {webglAvailable ? (
-          <Suspense fallback={<Loading />}>
-            <SolarTour focus={focus} animate={!reduced} onSelect={go} liftY={0.28} />
-          </Suspense>
-        ) : (
-          <div className="flex h-full items-center justify-center p-6">
-            {FLAT_IMAGES[focus] ? (
-              <img src={FLAT_IMAGES[focus]} alt="" className="max-h-full max-w-full rounded-lg" />
-            ) : (
-              <p className="max-w-md text-center text-slate-300">{t('tour.intro')}</p>
-            )}
-          </div>
-        )}
+      <fieldset className="relative flex flex-wrap justify-center gap-10">
+        <legend className="visit-legend">{t('visit.where')}</legend>
+        {SITES.map((w, i) => (
+          <motion.button key={w} type="button" onClick={() => setSite(w)} aria-pressed={site === w} initial={{ opacity: 0, y: 30 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: i * 0.1 }} className={`planet-pick ${site === w ? '' : 'opacity-45 hover:opacity-100'}`}>
+            <PlanetGlyph body={w} size={site === w ? 130 : 104} className="transition-all duration-500" />
+            <span className="planet-pick-name !text-2xl">{t(`explorer.worlds.${w}`)}</span>
+            <span className="text-xs text-slate-400">{t(`explorer.who.${w}`)}</span>
+          </motion.button>
+        ))}
+      </fieldset>
 
-        {/* Panneau de navigation : la version accessible au clavier de tout ce qui est cliquable en 3D. */}
-        <nav
-          aria-label={t('tour.navLabel')}
-          className="absolute inset-x-0 bottom-0 z-20 bg-gradient-to-t from-space via-space/85 to-transparent px-4 pb-5 pt-16"
-        >
-          <div className="mx-auto max-w-3xl">
-            <div aria-live="polite" className="mb-4 min-h-20">
-              <p className="font-display text-4xl font-extrabold uppercase tracking-wide">
-                {focus === 'overview' ? t('tour.overview') : t(`bodies.${focus}.name`)}
-              </p>
-              <p className="mt-1 text-slate-300">
-                {focus === 'overview' ? t('tour.intro') : t(`bodies.${focus}.teaser`)}
-              </p>
-              {focus !== 'overview' && machinesOn(machines, focus).length > 0 && (
-                <Link to={`/mission?astre=${focus}`} className="mt-2 inline-block text-active underline underline-offset-4">
-                  {t('tour.openChapter')} →
-                </Link>
-              )}
-            </div>
-
-            <ul className="flex flex-wrap gap-2">
-              {TOUR_STOPS.map((stop) => (
-                <li key={stop}>
-                  <button
-                    type="button"
-                    onClick={() => go(stop)}
-                    aria-current={focus === stop ? 'true' : undefined}
-                    className={`rounded-full px-4 py-2 text-sm font-semibold ring-1 transition ${
-                      focus === stop ? 'bg-white text-space ring-white' : 'ring-white/30 hover:bg-white/10'
-                    }`}
-                  >
-                    {stop === 'overview' ? t('tour.overview') : t(`bodies.${stop}.name`)}
-                  </button>
-                </li>
-              ))}
-            </ul>
-            <p className="mt-3 text-xs text-slate-400">
-              {t('tour.hint')} · {t('app.notToScale')}
-            </p>
-          </div>
-        </nav>
+      <div className="relative flex flex-wrap justify-center gap-12">
+        <fieldset className="flex flex-col items-center gap-1">
+          <legend className="visit-legend">{t('visit.vehicle')}</legend>
+          {VEHICLES.map((v) => (
+            <button key={v} type="button" onClick={() => setVehicle(v)} aria-pressed={vehicle === v} className={option(vehicle === v)}>
+              {t(`visit.vehicles.${v}`)}
+            </button>
+          ))}
+        </fieldset>
+        <fieldset className="flex flex-col items-center gap-1">
+          <legend className="visit-legend">{t('expedition.pilot')}</legend>
+          {(['auto', 'manual'] as Pilot[]).map((p) => (
+            <button key={p} type="button" onClick={() => setPilot(p)} aria-pressed={pilot === p} className={option(pilot === p)}>
+              {t(`expedition.modes.${p}`)}
+            </button>
+          ))}
+        </fieldset>
       </div>
+
+      <button type="button" onClick={go} className="hero-cta relative">
+        <span>{t('visit.go')}</span>
+      </button>
+      {vehicle === 'lrv' && site !== 'moon' && <p className="relative -mt-6 max-w-md text-center text-xs text-slate-400">{t('visit.lrvNote')}</p>}
     </section>
   );
 }

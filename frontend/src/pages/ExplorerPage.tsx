@@ -1,5 +1,5 @@
 import { lazy, Suspense, useEffect, useMemo, useRef, useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useSearchParams } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import { AnimatePresence, motion } from 'motion/react';
 import gsap from 'gsap';
@@ -12,7 +12,10 @@ import { drive, ship, useWorld, type WorldId } from '../world/state';
 import { useKeyboardDrive } from '../world/useKeyboardDrive';
 import { distanceKm, replay } from '../world/Replay';
 import { useSiteData } from '../world/worlds/MarsWorld';
-import { laser } from '../world/worlds/MoonWorld';
+import { laser, moonMachines } from '../world/worlds/MoonWorld';
+import { machinePositions } from '../world/Replay';
+import { useAutopilot } from '../world/autopilot';
+import type { Vehicle } from '../world/state';
 import { AnatomyPanel } from '../components/guide/AnatomyPanel';
 import { MODELS, type ModelId } from '../components/3d/NasaModel';
 import { partsFromLabels } from '../content/anatomy';
@@ -110,7 +113,38 @@ export default function ExplorerPage() {
   const site = world === 'jezero' || world === 'gale' ? world : null;
   const siteData = useSiteData(site ?? 'jezero');
 
-  useKeyboardDrive(phase === 'drive');
+  // Visite 3D : on arrive directement sur le site choisi, avec l'engin choisi.
+  const [params, setParams] = useSearchParams();
+  const pilot = params.get('pilote') === 'auto' ? 'auto' : params.get('pilote') === 'manual' ? 'manual' : null;
+  useEffect(() => {
+    const monde = params.get('monde') as WorldId | null;
+    const engin = params.get('engin') as Vehicle | null;
+    if (engin === 'rover' || engin === 'lrv') useWorld.getState().setVehicle(engin);
+    if (monde && ['earth', 'moon', 'jezero', 'gale'].includes(monde)) useWorld.getState().landOn(monde);
+  }, [params]);
+
+  // Pilote auto de la visite : de machine en machine, avec une pause devant chacune.
+  const stop = useRef(0);
+  const pauseUntil = useRef(0);
+  const waypoints = (): { x: number; z: number }[] => {
+    if (world === 'moon') return [moonMachines.lm, moonMachines.easep, moonMachines.lrrr].map(([x, z]) => ({ x, z }));
+    if (world === 'jezero' || world === 'gale') return [...machinePositions.values()];
+    return [];
+  };
+  useAutopilot({
+    enabled: pilot === 'auto' && phase === 'drive' && world !== 'earth',
+    target: () => {
+      if (performance.now() < pauseUntil.current) return null;
+      const list = waypoints();
+      return list.length ? list[stop.current % list.length] : null;
+    },
+    arrive: 7,
+    onArrive: () => {
+      pauseUntil.current = performance.now() + 9000;
+      stop.current += 1;
+    },
+  });
+  useKeyboardDrive(phase === 'drive' && pilot !== 'auto');
   useExplorerSounds(world, phase, near);
 
   // Voyage : décollage → espace → atterrissage, animé avec GSAP.
@@ -339,6 +373,16 @@ export default function ExplorerPage() {
           </div>
         )}
 
+        {/* Visite en pilote auto : reprendre les commandes */}
+        {pilot === 'auto' && phase === 'drive' && (
+          <button
+            type="button"
+            onClick={() => setParams((p) => (p.set('pilote', 'manual'), p))}
+            className="absolute bottom-12 left-3 z-30 text-sm text-slate-200 underline-offset-4 hover:underline"
+          >
+            {t('visit.takeOver')}
+          </button>
+        )}
         {/* Aide de conduite (discrète) */}
         {phase === 'drive' && (
           <p className="pointer-events-none absolute bottom-3 left-3 z-20 hidden rounded-full bg-space/60 px-3 py-1 text-xs text-slate-300 sm:block">
