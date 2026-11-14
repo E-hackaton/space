@@ -1,6 +1,7 @@
 import { useEffect, useMemo, useRef, useState } from 'react';
 import { useFrame } from '@react-three/fiber';
 import * as THREE from 'three';
+import { Sparkles } from '@react-three/drei';
 import { Player, player, type Obstacle } from '../Player';
 import { ToonLander } from '../props/Vehicles';
 import { Rocks, ShipCamera, SkyDome, SunLight } from '../props/Environment';
@@ -8,6 +9,7 @@ import { Flights, Traverse, machinePositions, replay } from '../Replay';
 import { TerrainMesh } from '../TerrainMesh';
 import { siteField, type SiteData } from '../terrain';
 import { PALETTES } from '../toon';
+import { preloadModel, type ModelId } from '../../components/3d/NasaModel';
 import { ship, useWorld } from '../state';
 
 const cache = new Map<string, SiteData>();
@@ -32,14 +34,24 @@ export function useSiteData(site: string): SiteData | null {
 }
 
 /** Les machines de chaque site (identifiants des trajets dans les données). */
-export const SITE_MACHINES: Record<'jezero' | 'gale', { rovers: { id: string; color: string; accent: string }[]; helis: { id: string; carrier: string }[] }> = {
-  jezero: { rovers: [{ id: 'perseverance', color: '#f3f1ea', accent: '#d0d4dc' }], helis: [{ id: 'ingenuity', carrier: 'perseverance' }] },
-  gale: { rovers: [{ id: 'curiosity', color: '#ece6da', accent: '#c9a24a' }], helis: [] },
+export const SITE_MACHINES: Record<'jezero' | 'gale', { rovers: { id: string; model: ModelId }[]; helis: { id: string; carrier: string }[] }> = {
+  jezero: { rovers: [{ id: 'perseverance', model: 'perseverance' }], helis: [{ id: 'ingenuity', carrier: 'perseverance' }] },
+  gale: { rovers: [{ id: 'curiosity', model: 'curiosity' }], helis: [] },
 };
 
 /** Fin des données pour un site (dernier sol connu). */
 export function lastSol(data: SiteData): number {
   return Math.max(...Object.values(data.paths).map((p) => p[p.length - 1][3]), ...Object.values(data.flights).map((f) => f[f.length - 1].sol));
+}
+
+function DustMotes({ animate }: { animate: boolean }) {
+  const g = useRef<THREE.Group>(null!);
+  useFrame(() => g.current.position.set(player.x, 0, player.z));
+  return (
+    <group ref={g}>
+      <Sparkles count={120} scale={[70, 10, 70]} position={[0, 5, 0]} size={3} speed={animate ? 0.6 : 0} color="#ffd2a8" opacity={0.7} />
+    </group>
+  );
 }
 
 export default function MarsWorld({ site, animate }: { site: 'jezero' | 'gale'; animate: boolean }) {
@@ -70,6 +82,8 @@ function MarsSite({ data, site, animate }: { data: SiteData; site: 'jezero' | 'g
   const lastUi = useRef(0);
 
   useEffect(() => {
+    machines.rovers.forEach((r) => preloadModel(r.model));
+    if (machines.helis.length) preloadModel('ingenuity');
     replay.sol = 0;
     machinePositions.clear();
   }, [site]);
@@ -104,10 +118,12 @@ function MarsSite({ data, site, animate }: { data: SiteData; site: 'jezero' | 'g
       <SunLight color="#ffe2c2" intensity={2.3} dir={[-0.7, 0.6, 0.45]} />
 
       <TerrainMesh field={field} colors={PALETTES.mars.ground} segments={200} />
+      {/* Poussière en suspension qui suit le joueur */}
+      <DustMotes animate={animate} />
       <Rocks field={field} color={PALETTES.mars.rock} count={520} seed={site === 'gale' ? 5 : 2} avoid={[[landing[0], landing[2], 10]]} />
 
       {machines.rovers.map((r, i) => (
-        <Traverse key={r.id} id={r.id} data={data} field={field} color={r.color} accent={r.accent} trackColor={PALETTES.mars.track} obstacle={obstacles[i + 1]} />
+        <Traverse key={r.id} id={r.id} data={data} field={field} model={r.model} trackColor={PALETTES.mars.track} obstacle={obstacles[i + 1]} />
       ))}
       {machines.helis.map((h) => (
         <Flights key={h.id} id={h.id} data={data} field={field} carrier={h.carrier} />

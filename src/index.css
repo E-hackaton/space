@@ -26,3 +26,11 @@
     transition-duration: 0.01ms !important;
   }
 }
+
+/* Légendes des machines, façon schéma NASA : point, trait, étiquette. */
+.callout { position: relative; display: flex; align-items: center; transform: translateY(-50%); white-space: nowrap; font-family: var(--font-sans); }
+.callout-left { flex-direction: row-reverse; transform: translate(-100%, -50%); }
+.callout-dot { width: 9px; height: 9px; border-radius: 9999px; background: #ff7a59; box-shadow: 0 0 0 3px rgba(255, 255, 255, 0.85), 0 0 12px rgba(255, 122, 89, 0.9); flex: none; }
+.callout-line { width: 34px; height: 1.5px; background: rgba(255, 255, 255, 0.85); flex: none; }
+.callout-label { padding: 3px 9px; border-radius: 8px; background: rgba(255, 255, 255, 0.92); color: #10142c; font-size: 12px; font-weight: 600; letter-spacing: 0.01em; box-shadow: 0 4px 14px rgba(0, 0, 0, 0.25); animation: callout-in 0.35s ease-out both; }
+@keyframes callout-in { from { opacity: 0; transform: translateX(-4px); } to { opacity: 1; transform: none; } }

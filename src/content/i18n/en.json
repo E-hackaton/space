@@ -196,5 +196,24 @@
       "gale": "Curiosity",
       "earth": ""
     }
+  },
+  "parts": {
+    "mast": "Mast and cameras",
+    "arm": "Robotic arm and instruments",
+    "rtg": "Power generator (at the rear)",
+    "wheels": "Six wheels (rocker-bogie suspension)",
+    "hga": "High-gain antenna",
+    "blades": "Carbon fiber blades",
+    "solarPanel": "Solar panel",
+    "body": "Avionics, batteries, cameras",
+    "legs": "Carbon fiber tube legs",
+    "descentStage": "Descent stage (left on the Moon)",
+    "landingLegs": "Landing gear",
+    "footpad": "Footpad",
+    "ladder": "Astronauts' ladder",
+    "reflectorPanel": "Prism panel",
+    "seismometer": "Seismometer",
+    "seismoPanels": "Solar panels",
+    "lander": "Our landing module"
   }
 }

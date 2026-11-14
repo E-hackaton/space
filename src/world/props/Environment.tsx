@@ -2,7 +2,8 @@ import { useMemo, useRef } from 'react';
 import { useFrame } from '@react-three/fiber';
 import * as THREE from 'three';
 import { player } from '../Player';
-import { toon } from '../toon';
+import { smooth } from '../materials';
+import { valueNoise } from '../noise';
 import type { HeightField } from '../terrain';
 
 /** Dôme de ciel en dégradé (du bas vers le haut). */
@@ -29,7 +30,7 @@ export function SkyDome({ bottom, top, radius = 400 }: { bottom: string; top: st
   );
 }
 
-/** Soleil : lumière directionnelle avec ombres qui suivent le joueur. */
+/** Soleil : lumière directionnelle avec ombres douces qui suivent le joueur. */
 export function SunLight({ color = '#fff1d6', intensity = 2.4, dir = [0.6, 1, 0.35] as [number, number, number], shadows = true }) {
   const light = useRef<THREE.DirectionalLight>(null!);
   const target = useMemo(() => new THREE.Object3D(), []);
@@ -55,15 +56,32 @@ export function SunLight({ color = '#fff1d6', intensity = 2.4, dir = [0.6, 1, 0.
         shadow-camera-bottom={-40}
         shadow-camera-near={1}
         shadow-camera-far={200}
-        shadow-bias={-0.0005}
+        shadow-bias={-0.0004}
+        shadow-normalBias={0.04}
+        shadow-radius={4}
       />
     </>
   );
 }
 
+/** Géométrie de rocher : une sphère bosselée et lisse (déformée par du bruit). */
+function rockGeometry(seed: number) {
+  const g = new THREE.IcosahedronGeometry(1, 3);
+  const pos = g.attributes.position as THREE.BufferAttribute;
+  const v = new THREE.Vector3();
+  for (let i = 0; i < pos.count; i++) {
+    v.fromBufferAttribute(pos, i);
+    const n = valueNoise(v.x * 1.7 + seed, v.y * 1.7 + v.z * 1.3) * 0.45 + valueNoise(v.x * 4 + seed, v.z * 4) * 0.12;
+    v.multiplyScalar(0.75 + n);
+    pos.setXYZ(i, v.x, v.y, v.z);
+  }
+  g.computeVertexNormals();
+  return g;
+}
+
 /** Rochers décoratifs dispersés (instanciés pour rester légers). */
 export function Rocks({ field, color, count = 260, seed = 1, avoid = [] as [number, number, number][] }: { field: HeightField; color: string; count?: number; seed?: number; avoid?: [number, number, number][] }) {
-  const mesh = useRef<THREE.InstancedMesh>(null!);
+  const geometry = useMemo(() => rockGeometry(seed), [seed]);
   const matrices = useMemo(() => {
     let s = seed * 9301 + 49297;
     const rnd = () => ((s = (s * 9301 + 49297) % 233280) / 233280);
@@ -78,7 +96,7 @@ export function Rocks({ field, color, count = 260, seed = 1, avoid = [] as [numb
       const sc = 0.3 + Math.pow(rnd(), 3) * 2.2;
       e.set(rnd() * 3, rnd() * 3, rnd() * 3);
       q.setFromEuler(e);
-      m.compose(new THREE.Vector3(x, field.heightAt(x, z) + sc * 0.2, z), q, new THREE.Vector3(sc, sc * 0.7, sc));
+      m.compose(new THREE.Vector3(x, field.heightAt(x, z) + sc * 0.15, z), q, new THREE.Vector3(sc, sc * 0.65, sc));
       out.push(m.clone());
     }
     return out;
@@ -87,54 +105,57 @@ export function Rocks({ field, color, count = 260, seed = 1, avoid = [] as [numb
     <instancedMesh
       ref={(r) => {
         if (!r) return;
-        mesh.current = r;
-        matrices.forEach((m, i) => r.setMatrixAt(i, m));
+        matrices.forEach((mm, i) => r.setMatrixAt(i, mm));
         r.instanceMatrix.needsUpdate = true;
       }}
-      args={[undefined, undefined, matrices.length]}
+      args={[geometry, undefined, matrices.length]}
       castShadow
       receiveShadow
-      material={toon(color, { flat: true })}
-    >
-      <dodecahedronGeometry args={[1, 0]} />
-    </instancedMesh>
+      material={smooth(color, { rough: 0.9 })}
+    />
   );
 }
 
-/** Touffes d'herbe instanciées (décor de la Terre). */
-export function GrassTufts({ field, count = 1400, radius = 58, avoid = [] as [number, number, number][] }: { field: HeightField; count?: number; radius?: number; avoid?: [number, number, number][] }) {
-  const matrices = useMemo(() => {
+/** Touffes d'herbe instanciées, qui ondulent doucement (décor de la Terre). */
+export function GrassTufts({ field, count = 1600, radius = 58, avoid = [] as [number, number, number][] }: { field: HeightField; count?: number; radius?: number; avoid?: [number, number, number][] }) {
+  const geometry = useMemo(() => {
+    const g = new THREE.ConeGeometry(0.22, 1.1, 5, 3);
+    g.translate(0, 0.55, 0);
+    return g;
+  }, []);
+  const ref = useRef<THREE.InstancedMesh>(null!);
+  const base = useMemo(() => {
     let s = 11;
     const rnd = () => ((s = (s * 9301 + 49297) % 233280) / 233280);
-    const out: THREE.Matrix4[] = [];
-    const m = new THREE.Matrix4();
-    const q = new THREE.Quaternion();
+    const out: { p: THREE.Vector3; s: THREE.Vector3; yaw: number; phase: number }[] = [];
     while (out.length < count) {
       const a = rnd() * Math.PI * 2;
       const r = Math.sqrt(rnd()) * radius;
       const x = Math.cos(a) * r;
       const z = Math.sin(a) * r;
       if (avoid.some(([ax, az, rr]) => Math.hypot(x - ax, z - az) < rr)) continue;
-      const sc = 0.35 + rnd() * 0.5;
-      q.setFromEuler(new THREE.Euler((rnd() - 0.5) * 0.4, rnd() * 6.28, (rnd() - 0.5) * 0.4));
-      m.compose(new THREE.Vector3(x, field.heightAt(x, z), z), q, new THREE.Vector3(sc, sc * (1 + rnd()), sc));
-      out.push(m.clone());
+      const sc = 0.4 + rnd() * 0.6;
+      out.push({ p: new THREE.Vector3(x, field.heightAt(x, z), z), s: new THREE.Vector3(sc, sc * (1 + rnd()), sc), yaw: rnd() * 6.28, phase: rnd() * 6.28 });
     }
     return out;
   }, [field, count, radius, avoid]);
-  return (
-    <instancedMesh
-      ref={(r) => {
-        if (!r) return;
-        matrices.forEach((mm, i) => r.setMatrixAt(i, mm));
-        r.instanceMatrix.needsUpdate = true;
-      }}
-      args={[undefined, undefined, matrices.length]}
-      material={toon('#8fcf5a')}
-    >
-      <coneGeometry args={[0.35, 1.1, 4]} />
-    </instancedMesh>
-  );
+  const m = useMemo(() => new THREE.Matrix4(), []);
+  const q = useMemo(() => new THREE.Quaternion(), []);
+  const e = useMemo(() => new THREE.Euler(), []);
+  const frame = useRef(0);
+  useFrame(({ clock }) => {
+    // Ondulation au vent (mise à jour une image sur deux pour rester léger).
+    if (frame.current++ % 2) return;
+    const t = clock.elapsedTime;
+    base.forEach((b, i) => {
+      e.set(Math.sin(t * 1.3 + b.phase) * 0.12, b.yaw, Math.cos(t * 1.1 + b.phase) * 0.12);
+      q.setFromEuler(e);
+      m.compose(b.p, q, b.s);
+      ref.current.setMatrixAt(i, m);
+    });
+    ref.current.instanceMatrix.needsUpdate = true;
+  });
+  return <instancedMesh ref={ref} args={[geometry, undefined, base.length]} material={smooth('#7cc95a', { rough: 0.7 })} receiveShadow />;
 }
 
 /** Caméra de cinématique : regarde le vaisseau depuis le côté pendant le décollage ou l'atterrissage. */

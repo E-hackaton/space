@@ -1,244 +1,203 @@
-import { forwardRef, useRef, type ReactNode } from 'react';
+import { forwardRef, useMemo, useRef, type ReactNode } from 'react';
 import { useFrame } from '@react-three/fiber';
-import { Outlines } from '@react-three/drei';
+import { RoundedBox } from '@react-three/drei';
 import * as THREE from 'three';
-import { toon } from '../toon';
+import { smooth } from '../materials';
 
 /*
- * Engins stylisés, en formes simples (originales, pas des répliques).
+ * Engins originaux dessinés en formes lisses (profils tournés, arrondis, tores).
  * Origine : au sol, avant vers -Z.
  */
 
-const INK = '#1a1033';
-const O = ({ t = 0.035 }: { t?: number }) => <Outlines thickness={t} color={INK} screenspace={false} />;
+/** Profil tourné autour de l'axe vertical (fusées, capsules) : des points [rayon, hauteur]. */
+function useLathe(points: [number, number][], segments = 48) {
+  return useMemo(() => new THREE.LatheGeometry(points.map(([r, y]) => new THREE.Vector2(r, y)), segments), [points, segments]);
+}
 
-export function Wheel({ r = 0.32, w = 0.26, spin, steer }: { r?: number; w?: number; spin?: { current: number }; steer?: { current: number } }) {
+export function Wheel({ r = 0.34, w = 0.26, spin, steer }: { r?: number; w?: number; spin?: { current: number }; steer?: { current: number } }) {
   const g = useRef<THREE.Group>(null!);
   const s = useRef<THREE.Group>(null!);
   useFrame(() => {
     if (spin) g.current.rotation.x = spin.current;
-    if (steer && s.current) s.current.rotation.y = steer.current;
+    if (steer) s.current.rotation.y = steer.current;
   });
   return (
     <group ref={s}>
-      <group ref={g}>
-        <mesh rotation={[0, 0, Math.PI / 2]} material={toon('#2b2d3a')} castShadow>
-          <cylinderGeometry args={[r, r, w, 10]} />
-          <O t={0.02} />
+      <group ref={g} rotation={[0, 0, 0]}>
+        <mesh rotation={[0, Math.PI / 2, 0]} material={smooth('#23252d', { rough: 0.9 })} castShadow>
+          <torusGeometry args={[r * 0.72, r * 0.3, 16, 32]} />
         </mesh>
-        <mesh rotation={[0, 0, Math.PI / 2]} material={toon('#c9ced6')}>
-          <cylinderGeometry args={[r * 0.45, r * 0.45, w * 1.05, 6]} />
+        <mesh rotation={[0, 0, Math.PI / 2]} material={smooth('#d6dbe3', { metal: 0.7, rough: 0.3 })}>
+          <cylinderGeometry args={[r * 0.5, r * 0.5, w * 0.7, 24]} />
+        </mesh>
+        <mesh rotation={[0, 0, Math.PI / 2]} material={smooth('#ff8a3d', { metal: 0.3, rough: 0.35 })}>
+          <cylinderGeometry args={[r * 0.18, r * 0.18, w * 0.9, 16]} />
         </mesh>
       </group>
     </group>
   );
 }
 
-/** Le rover du joueur : un buggy d'exploration à six roues, phares allumés. */
-export const PlayerRover = forwardRef<THREE.Group, { spin: { current: number }; steer: { current: number }; body?: string }>(
-  function PlayerRover({ spin, steer, body = '#f2f4f7' }, ref) {
-    return (
-      <group ref={ref}>
-        <mesh position={[0, 0.62, 0]} material={toon(body)} castShadow>
-          <boxGeometry args={[1.1, 0.34, 1.9]} />
-          <O />
-        </mesh>
-        <mesh position={[0, 0.86, 0.15]} material={toon('#2aa8a1')} castShadow>
-          <boxGeometry args={[0.9, 0.18, 1.1]} />
-          <O t={0.025} />
-        </mesh>
-        <mesh position={[0, 1.02, 0.2]} material={toon('#3a5aa8')} castShadow>
-          <boxGeometry args={[1.4, 0.05, 1.0]} />
-          <O t={0.02} />
-        </mesh>
-        {/* Mât et « tête » */}
-        <mesh position={[0.3, 1.25, -0.6]} material={toon('#c9ced6')}>
-          <cylinderGeometry args={[0.04, 0.04, 0.6, 6]} />
-        </mesh>
-        <mesh position={[0.3, 1.58, -0.6]} material={toon(body)} castShadow>
-          <boxGeometry args={[0.36, 0.18, 0.22]} />
-          <O t={0.02} />
-        </mesh>
-        {/* Phares */}
-        {[-0.35, 0.35].map((x) => (
-          <mesh key={x} position={[x, 0.62, -0.96]} material={toon('#fff2b3', { emissive: '#ffd36b' })}>
-            <boxGeometry args={[0.24, 0.1, 0.04]} />
+/** Le rover du joueur : un explorateur arrondi, carrosserie laquée et phares lumineux. */
+export const PlayerRover = forwardRef<THREE.Group, { spin: { current: number }; steer: { current: number } }>(function PlayerRover({ spin, steer }, ref) {
+  const head = useRef<THREE.Group>(null!);
+  useFrame(({ clock }) => {
+    head.current.rotation.y = Math.sin(clock.elapsedTime * 0.7) * 0.5;
+  });
+  return (
+    <group ref={ref}>
+      {/* Châssis et carrosserie */}
+      <RoundedBox args={[1.25, 0.42, 2.0]} radius={0.18} smoothness={4} position={[0, 0.66, 0]} material={smooth('#f4f6fa', { clearcoat: 1, rough: 0.35 })} castShadow />
+      <RoundedBox args={[1.0, 0.26, 1.2]} radius={0.12} smoothness={4} position={[0, 0.98, 0.18]} material={smooth('#21b3a8', { clearcoat: 1, rough: 0.3 })} castShadow />
+      {/* Bulle du cockpit */}
+      <mesh position={[0, 1.05, -0.48]} scale={[0.48, 0.3, 0.42]} material={smooth('#9fe7ff', { rough: 0.05, metal: 0.1, clearcoat: 1, opacity: 0.75 })} castShadow>
+        <sphereGeometry args={[1, 32, 24, 0, Math.PI * 2, 0, Math.PI / 2]} />
+      </mesh>
+      {/* Panneau solaire bombé */}
+      <RoundedBox args={[1.5, 0.05, 1.0]} radius={0.025} smoothness={2} position={[0, 1.16, 0.45]} material={smooth('#2b4fb8', { metal: 0.5, rough: 0.25, clearcoat: 1 })} castShadow />
+      {/* Mât et tête qui regarde autour */}
+      <mesh position={[0.36, 1.45, 0.55]} material={smooth('#d6dbe3', { metal: 0.6, rough: 0.3 })}>
+        <capsuleGeometry args={[0.045, 0.6, 6, 12]} />
+      </mesh>
+      <group ref={head} position={[0.36, 1.85, 0.55]}>
+        <RoundedBox args={[0.42, 0.22, 0.26]} radius={0.08} smoothness={4} material={smooth('#f4f6fa', { clearcoat: 1, rough: 0.35 })} castShadow />
+        {[-0.1, 0.1].map((x) => (
+          <mesh key={x} position={[x, 0, -0.14]} material={smooth('#0d1b2a', { emissive: '#62e6ff', glow: 1.6 })}>
+            <sphereGeometry args={[0.055, 16, 12]} />
           </mesh>
         ))}
-        {/* Six roues */}
-        {[-0.7, 0, 0.7].map((z, i) =>
-          [-0.68, 0.68].map((x) => (
-            <group key={`${x}${z}`} position={[x, 0.32, z]}>
-              <Wheel spin={spin} steer={i === 0 ? steer : undefined} />
-            </group>
-          )),
-        )}
       </group>
-    );
-  },
-);
-
-/** Grand rover scientifique (pour Perseverance et Curiosity) : bras, mât, générateur à l'arrière. */
-export function ScienceRover({ color = '#f0eee8', accent = '#c9a24a', spin }: { color?: string; accent?: string; spin?: { current: number } }) {
-  return (
-    <group>
-      <mesh position={[0, 0.8, 0]} material={toon(color)} castShadow>
-        <boxGeometry args={[1.5, 0.5, 2.2]} />
-        <O />
-      </mesh>
-      <mesh position={[0, 1.08, 0.2]} material={toon('#d8d3c4')} castShadow>
-        <boxGeometry args={[1.3, 0.06, 1.6]} />
-      </mesh>
-      <mesh position={[0, 0.95, 1.25]} rotation={[0.5, 0, 0]} material={toon(accent)} castShadow>
-        <cylinderGeometry args={[0.28, 0.28, 0.6, 8]} />
-        <O t={0.025} />
-      </mesh>
-      <mesh position={[-0.5, 1.6, -0.85]} material={toon('#c9ced6')}>
-        <cylinderGeometry args={[0.05, 0.05, 1.1, 6]} />
-      </mesh>
-      <mesh position={[-0.5, 2.2, -0.85]} material={toon(color)} castShadow>
-        <boxGeometry args={[0.55, 0.26, 0.3]} />
-        <O t={0.025} />
-      </mesh>
-      <mesh position={[0.55, 0.75, -1.25]} rotation={[0.9, 0, 0]} material={toon('#c9ced6')}>
-        <cylinderGeometry args={[0.04, 0.04, 0.9, 6]} />
-      </mesh>
-      {[-0.85, 0, 0.85].map((z) =>
-        [-0.9, 0.9].map((x) => (
-          <group key={`${x}${z}`} position={[x, 0.35, z]}>
-            <Wheel r={0.35} w={0.3} spin={spin} />
+      {/* Phares */}
+      {[-0.4, 0.4].map((x) => (
+        <mesh key={x} position={[x, 0.66, -1.0]} material={smooth('#fff4c2', { emissive: '#ffd36b', glow: 3 })}>
+          <sphereGeometry args={[0.09, 16, 12]} />
+        </mesh>
+      ))}
+      {/* Bras de suspension et six roues */}
+      {[-0.72, 0, 0.72].map((z, i) =>
+        [-0.74, 0.74].map((x) => (
+          <group key={`${x}${z}`} position={[x, 0.34, z]}>
+            <mesh position={[-Math.sign(x) * 0.12, 0.2, 0]} rotation={[0, 0, Math.sign(x) * 0.6]} material={smooth('#c4cad4', { metal: 0.6, rough: 0.35 })}>
+              <capsuleGeometry args={[0.04, 0.32, 4, 8]} />
+            </mesh>
+            <Wheel spin={spin} steer={i === 0 ? steer : undefined} />
           </group>
         )),
       )}
     </group>
   );
-}
-
-/** Petit hélicoptère à deux rotors. */
-export function Helicopter({ spinning }: { spinning: { current: boolean } }) {
-  const rot = useRef<THREE.Group>(null!);
-  useFrame((_, dt) => {
-    if (spinning.current) rot.current.rotation.y += dt * 30;
-  });
-  return (
-    <group>
-      <mesh position={[0, 0.5, 0]} material={toon('#c9a24a')} castShadow>
-        <boxGeometry args={[0.45, 0.4, 0.45]} />
-        <O t={0.025} />
-      </mesh>
-      {[0, 1, 2, 3].map((i) => {
-        const a = (i * Math.PI) / 2 + Math.PI / 4;
-        return (
-          <mesh key={i} position={[Math.cos(a) * 0.38, 0.18, Math.sin(a) * 0.38]} rotation={[Math.sin(a) * 0.45, 0, -Math.cos(a) * 0.45]} material={toon('#c9ced6')}>
-            <cylinderGeometry args={[0.025, 0.025, 0.6, 5]} />
-          </mesh>
-        );
-      })}
-      <mesh position={[0, 1.0, 0]} material={toon('#c9ced6')}>
-        <cylinderGeometry args={[0.03, 0.03, 0.8, 6]} />
-      </mesh>
-      <group ref={rot} position={[0, 1.2, 0]}>
-        <mesh material={toon('#e0c27a')} castShadow>
-          <boxGeometry args={[2.2, 0.03, 0.16]} />
-        </mesh>
-        <mesh position={[0, 0.16, 0]} rotation={[0, Math.PI / 2, 0]} material={toon('#e0c27a')} castShadow>
-          <boxGeometry args={[2.2, 0.03, 0.16]} />
-        </mesh>
-      </group>
-      <mesh position={[0, 1.42, 0]} material={toon('#3a5aa8')} castShadow>
-        <boxGeometry args={[0.6, 0.04, 0.6]} />
-      </mesh>
-    </group>
-  );
-}
+});
 
 /** Voyant d'état : vert qui pulse si actif, ambre fixe si endormi. */
 export function Beacon({ active, y = 2.8 }: { active: boolean; y?: number }) {
   const m = useRef<THREE.Mesh>(null!);
+  const halo = useRef<THREE.Mesh>(null!);
   useFrame(({ clock }) => {
-    const s = active ? 1 + 0.25 * Math.sin(clock.elapsedTime * 4) : 1;
-    m.current.scale.setScalar(s);
+    const p = active ? 0.5 + 0.5 * Math.sin(clock.elapsedTime * 3.5) : 0.6;
+    m.current.position.y = Math.sin(clock.elapsedTime * 1.6) * 0.08;
+    halo.current.scale.setScalar(1 + p * 0.8);
+    (halo.current.material as THREE.MeshBasicMaterial).opacity = 0.15 + 0.25 * p;
   });
+  const color = active ? '#4BE08A' : '#E0A458';
   return (
     <group position={[0, y, 0]}>
-      <mesh ref={m} material={toon(active ? '#4BE08A' : '#E0A458', { emissive: active ? '#4BE08A' : '#E0A458' })}>
-        <octahedronGeometry args={[0.22, 0]} />
-        <O t={0.02} />
+      <mesh ref={m} material={smooth(color, { emissive: color, glow: 3, rough: 0.2 })}>
+        <octahedronGeometry args={[0.2, 2]} />
+      </mesh>
+      <mesh ref={halo}>
+        <sphereGeometry args={[0.3, 16, 12]} />
+        <meshBasicMaterial color={color} transparent opacity={0.2} depthWrite={false} toneMapped={false} />
       </mesh>
     </group>
   );
 }
 
-/** Fusée stylisée, avec flamme pilotée de l'extérieur. */
-export function ToonRocket({ flame, children }: { flame: { current: number }; children?: ReactNode }) {
-  const f = useRef<THREE.Mesh>(null!);
+const ROCKET_BODY: [number, number][] = [
+  [0, 0], [1.05, 0], [1.12, 0.4], [1.12, 5.6], [1.05, 6.6], [0.85, 7.7], [0.55, 8.6], [0.22, 9.3], [0, 9.6],
+];
+const FLAME: [number, number][] = [[0, -3.4], [0.35, -2.2], [0.75, -0.8], [0.9, 0], [0, 0]];
+
+function Flame({ flame, scale = 1 }: { flame: { current: number }; scale?: number }) {
+  const outer = useRef<THREE.Mesh>(null!);
+  const inner = useRef<THREE.Mesh>(null!);
+  const geo = useLathe(FLAME, 24);
   useFrame(({ clock }) => {
     const k = flame.current;
-    f.current.visible = k > 0.01;
-    const flick = 0.85 + 0.15 * Math.sin(clock.elapsedTime * 45);
-    f.current.scale.set(k * flick, k * (1 + 0.4 * flick), k * flick);
+    const f = 0.85 + 0.15 * Math.sin(clock.elapsedTime * 47) + 0.05 * Math.sin(clock.elapsedTime * 13);
+    for (const [ref, s] of [[outer, 1], [inner, 0.55]] as const) {
+      ref.current.visible = k > 0.01;
+      ref.current.scale.set(k * s * scale, k * f * s * scale * 1.2, k * s * scale);
+    }
   });
   return (
+    <>
+      <mesh ref={outer} geometry={geo}>
+        <meshBasicMaterial color="#ff9a3c" transparent opacity={0.85} toneMapped={false} depthWrite={false} />
+      </mesh>
+      <mesh ref={inner} geometry={geo}>
+        <meshBasicMaterial color="#fff2c4" toneMapped={false} />
+      </mesh>
+    </>
+  );
+}
+
+/** Fusée au profil arrondi, avec ailerons et flamme. */
+export function ToonRocket({ flame, children }: { flame: { current: number }; children?: ReactNode }) {
+  const body = useLathe(ROCKET_BODY);
+  return (
     <group>
-      <mesh position={[0, 4.2, 0]} material={toon('#f4f4f2')} castShadow>
-        <cylinderGeometry args={[1, 1.1, 7, 12]} />
-        <O t={0.05} />
+      <mesh geometry={body} material={smooth('#f6f6f3', { clearcoat: 1, rough: 0.3 })} castShadow />
+      <mesh position={[0, 6.3, 0]} rotation={[Math.PI / 2, 0, 0]} material={smooth('#e2473b', { clearcoat: 1, rough: 0.3 })}>
+        <torusGeometry args={[1.1, 0.07, 12, 48]} />
       </mesh>
-      <mesh position={[0, 8.7, 0]} material={toon('#e2473b')} castShadow>
-        <coneGeometry args={[1, 2.2, 12]} />
-        <O t={0.05} />
+      <mesh position={[0, 8.2, 0]} rotation={[Math.PI / 2, 0, 0]} material={smooth('#e2473b', { clearcoat: 1, rough: 0.3 })}>
+        <torusGeometry args={[0.72, 0.09, 12, 48]} />
       </mesh>
-      <mesh position={[0, 6.4, 0]} material={toon('#e2473b')}>
-        <cylinderGeometry args={[1.02, 1.02, 0.4, 12]} />
-      </mesh>
-      <mesh position={[0, 5.2, -1.01]} material={toon('#9fd8ff', { emissive: '#4aa3df' })}>
-        <circleGeometry args={[0.38, 16]} />
+      <mesh position={[0, 5.0, -1.06]} material={smooth('#123049', { emissive: '#5fd2ff', glow: 1.4, clearcoat: 1 })}>
+        <sphereGeometry args={[0.38, 24, 16]} />
       </mesh>
       {[0, 1, 2, 3].map((i) => (
-        <mesh key={i} position={[Math.cos((i * Math.PI) / 2) * 1.15, 1.2, Math.sin((i * Math.PI) / 2) * 1.15]} rotation={[0, -(i * Math.PI) / 2, 0]} material={toon('#e2473b')} castShadow>
-          <boxGeometry args={[0.9, 2, 0.12]} />
-          <O t={0.03} />
-        </mesh>
+        <group key={i} rotation={[0, (i * Math.PI) / 2, 0]}>
+          <mesh position={[1.3, 1.2, 0]} scale={[0.55, 1.4, 0.12]} material={smooth('#e2473b', { clearcoat: 1, rough: 0.3 })} castShadow>
+            <sphereGeometry args={[1, 24, 16]} />
+          </mesh>
+        </group>
       ))}
-      <mesh ref={f} position={[0, -0.9, 0]} rotation={[Math.PI, 0, 0]}>
-        <coneGeometry args={[0.9, 3.2, 12, 1, true]} />
-        <meshBasicMaterial color="#ffb347" transparent opacity={0.95} toneMapped={false} />
-      </mesh>
+      <group position={[0, 0.05, 0]}>
+        <Flame flame={flame} />
+      </group>
       {children}
     </group>
   );
 }
 
-/** Module d'atterrissage stylisé (capsule à pieds) avec rétrofusée. */
+const LANDER_BODY: [number, number][] = [[0, 0.9], [1.9, 0.9], [2.1, 1.3], [1.9, 2.6], [1.3, 3.4], [0.6, 3.8], [0, 3.9]];
+
+/** Module d'atterrissage arrondi (capsule à pieds) avec rétrofusée. */
 export function ToonLander({ flame }: { flame: { current: number } }) {
-  const f = useRef<THREE.Mesh>(null!);
-  useFrame(({ clock }) => {
-    const k = flame.current;
-    f.current.visible = k > 0.01;
-    f.current.scale.setScalar(k * (0.85 + 0.15 * Math.sin(clock.elapsedTime * 40)));
-  });
+  const body = useLathe(LANDER_BODY);
   return (
     <group>
-      <mesh position={[0, 2.2, 0]} material={toon('#f4f4f2')} castShadow>
-        <cylinderGeometry args={[1.2, 2, 2.2, 10]} />
-        <O t={0.05} />
-      </mesh>
-      <mesh position={[0, 3.6, 0]} material={toon('#e2473b')} castShadow>
-        <cylinderGeometry args={[0.6, 1.2, 0.8, 10]} />
-        <O t={0.04} />
+      <mesh geometry={body} material={smooth('#f2efe8', { clearcoat: 0.8, rough: 0.35 })} castShadow />
+      <mesh position={[0, 2.6, 0]} rotation={[Math.PI / 2, 0, 0]} material={smooth('#e2473b', { clearcoat: 1, rough: 0.3 })}>
+        <torusGeometry args={[1.95, 0.08, 12, 48]} />
       </mesh>
       {[0, 1, 2, 3].map((i) => {
         const a = (i * Math.PI) / 2 + Math.PI / 4;
         return (
-          <mesh key={i} position={[Math.cos(a) * 2, 0.6, Math.sin(a) * 2]} rotation={[Math.sin(a) * 0.5, 0, -Math.cos(a) * 0.5]} material={toon('#c9ced6')} castShadow>
-            <cylinderGeometry args={[0.08, 0.08, 1.8, 6]} />
-          </mesh>
+          <group key={i} rotation={[0, -a, 0]}>
+            <mesh position={[2.1, 0.55, 0]} rotation={[0, 0, 0.55]} material={smooth('#c9ced6', { metal: 0.7, rough: 0.3 })} castShadow>
+              <capsuleGeometry args={[0.08, 1.4, 6, 12]} />
+            </mesh>
+            <mesh position={[2.45, 0.05, 0]} scale={[1, 0.25, 1]} material={smooth('#c9ced6', { metal: 0.7, rough: 0.3 })}>
+              <sphereGeometry args={[0.38, 20, 12]} />
+            </mesh>
+          </group>
         );
       })}
-      <mesh ref={f} position={[0, 0.4, 0]} rotation={[Math.PI, 0, 0]}>
-        <coneGeometry args={[0.8, 2.4, 10, 1, true]} />
-        <meshBasicMaterial color="#ffcf7a" transparent opacity={0.9} toneMapped={false} />
-      </mesh>
+      <group position={[0, 0.9, 0]}>
+        <Flame flame={flame} scale={0.7} />
+      </group>
     </group>
   );
 }

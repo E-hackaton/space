@@ -1,0 +1,219 @@
+{
+  "_note": "Modèles 3D de la NASA (libres de droits) optimisés par l'équipe (meshopt, textures WebP ≤ 1024 px). Les ancres d'annotation sont en fractions de la boîte englobante du modèle normalisé : [x gauche→droite, y bas→haut, z arrière→avant]. Les tailles cibles sont des ordres de grandeur pour la mise en scène.",
+  "perseverance": {
+    "file": "/models/perseverance.glb",
+    "size": 3,
+    "source": "https://github.com/nasa/NASA-3D-Resources/tree/master/3D%20Models/Mars%202020%20Perseverance%20Rover",
+    "annotations": [
+      {
+        "key": "parts.mast",
+        "at": [
+          0.33,
+          0.95,
+          0.6
+        ]
+      },
+      {
+        "key": "parts.arm",
+        "at": [
+          0.5,
+          0.3,
+          0.97
+        ]
+      },
+      {
+        "key": "parts.rtg",
+        "at": [
+          0.5,
+          0.55,
+          0.04
+        ]
+      },
+      {
+        "key": "parts.wheels",
+        "at": [
+          0.02,
+          0.12,
+          0.5
+        ]
+      },
+      {
+        "key": "parts.hga",
+        "at": [
+          0.2,
+          0.7,
+          0.35
+        ]
+      }
+    ]
+  },
+  "curiosity": {
+    "file": "/models/curiosity.glb",
+    "size": 3,
+    "source": "https://science.nasa.gov/resource/curiosity-rover-3d-model/",
+    "annotations": [
+      {
+        "key": "parts.mast",
+        "at": [
+          0.33,
+          0.95,
+          0.6
+        ]
+      },
+      {
+        "key": "parts.arm",
+        "at": [
+          0.5,
+          0.3,
+          0.97
+        ]
+      },
+      {
+        "key": "parts.rtg",
+        "at": [
+          0.5,
+          0.55,
+          0.04
+        ]
+      },
+      {
+        "key": "parts.wheels",
+        "at": [
+          0.02,
+          0.12,
+          0.5
+        ]
+      },
+      {
+        "key": "parts.hga",
+        "at": [
+          0.2,
+          0.7,
+          0.35
+        ]
+      }
+    ]
+  },
+  "ingenuity": {
+    "file": "/models/ingenuity.glb",
+    "size": 1.2,
+    "source": "https://github.com/nasa/NASA-3D-Resources/tree/master/3D%20Models/Ingenuity%20Mars%20Helicopter",
+    "annotations": [
+      {
+        "key": "parts.blades",
+        "at": [
+          0.22,
+          0.62,
+          0.5
+        ]
+      },
+      {
+        "key": "parts.solarPanel",
+        "at": [
+          0.5,
+          1.0,
+          0.5
+        ]
+      },
+      {
+        "key": "parts.body",
+        "at": [
+          0.55,
+          0.3,
+          0.5
+        ]
+      },
+      {
+        "key": "parts.legs",
+        "at": [
+          0.25,
+          0.06,
+          0.3
+        ]
+      }
+    ],
+    "spin": "ROTOR"
+  },
+  "apollo_lm": {
+    "file": "/models/apollo_lm.glb",
+    "size": 9,
+    "hideAbove": 0.5,
+    "source": "https://github.com/nasa/NASA-3D-Resources/tree/master/3D%20Models/Apollo%20Lunar%20Module",
+    "annotations": [
+      {
+        "key": "parts.descentStage",
+        "at": [
+          0.5,
+          0.8,
+          0.5
+        ]
+      },
+      {
+        "key": "parts.landingLegs",
+        "at": [
+          0.08,
+          0.35,
+          0.5
+        ]
+      },
+      {
+        "key": "parts.footpad",
+        "at": [
+          0.05,
+          0.02,
+          0.5
+        ]
+      },
+      {
+        "key": "parts.ladder",
+        "at": [
+          0.5,
+          0.45,
+          0.98
+        ]
+      }
+    ]
+  },
+  "opportunity": {
+    "file": "/models/opportunity.glb",
+    "size": 2.3,
+    "source": "https://github.com/nasa/NASA-3D-Resources/tree/master/3D%20Models/Mars%20Exploration%20Rover%20-%20Opportunity%20(MER-B)",
+    "annotations": []
+  },
+  "viking": {
+    "file": "/models/viking.glb",
+    "size": 3,
+    "source": "https://github.com/nasa/NASA-3D-Resources/tree/master/3D%20Models/Viking%20Lander",
+    "annotations": []
+  },
+  "messenger": {
+    "file": "/models/messenger.glb",
+    "size": 3,
+    "source": "https://github.com/nasa/NASA-3D-Resources/tree/master/3D%20Models/MErcury%20Surface%2C%20Space%20ENvironment%2C%20GEochemistry%2C%20and%20Ranging%20(MESSENGER)",
+    "annotations": []
+  },
+  "magellan": {
+    "file": "/models/magellan.glb",
+    "size": 6,
+    "source": "https://github.com/nasa/NASA-3D-Resources/tree/master/3D%20Models/Magellan",
+    "annotations": []
+  },
+  "galileo": {
+    "file": "/models/galileo.glb",
+    "size": 6,
+    "source": "https://github.com/nasa/NASA-3D-Resources/tree/master/3D%20Models/Galileo",
+    "annotations": []
+  },
+  "cassini": {
+    "file": "/models/cassini.glb",
+    "size": 7,
+    "source": "https://github.com/nasa/NASA-3D-Resources/tree/master/3D%20Models/Cassini-Huygens%20(A)",
+    "annotations": []
+  },
+  "voyager": {
+    "file": "/models/voyager.glb",
+    "size": 4,
+    "source": "https://github.com/nasa/NASA-3D-Resources/tree/master/3D%20Models/Voyager%20Probe%20(A)",
+    "annotations": []
+  }
+}

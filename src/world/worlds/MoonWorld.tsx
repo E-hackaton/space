@@ -1,13 +1,17 @@
 import { useMemo, useRef } from 'react';
 import { useFrame } from '@react-three/fiber';
-import { Outlines, Stars, useTexture } from '@react-three/drei';
+import { RoundedBox, Sparkles, Stars, useTexture } from '@react-three/drei';
+import { useTranslation } from 'react-i18next';
 import * as THREE from 'three';
 import { Player, player, type Obstacle } from '../Player';
 import { Beacon, ToonLander } from '../props/Vehicles';
 import { Rocks, ShipCamera, SunLight } from '../props/Environment';
 import { TerrainMesh } from '../TerrainMesh';
 import { moonField } from '../terrain';
-import { PALETTES, toon, toonGradient } from '../toon';
+import { PALETTES } from '../toon';
+import { smooth } from '../materials';
+import { Atmosphere } from '../../components/3d/Atmosphere';
+import { Callout, NasaModel } from '../../components/3d/NasaModel';
 import { ship, useWorld } from '../state';
 
 /*
@@ -27,57 +31,34 @@ export const EARTH_IN_SKY = new THREE.Vector3(-60, 120, -160);
 
 export const moonMachines = { lm: LM, easep: EASEP, lrrr: LRRR };
 
-/** Étage de descente du module lunaire, resté sur place. */
-function DescentStage() {
+function Reflector({ annotated }: { annotated: boolean }) {
+  const { t } = useTranslation();
   return (
     <group>
-      <mesh position={[0, 1.6, 0]} material={toon('#c9a24a')} castShadow>
-        <cylinderGeometry args={[2.1, 2.1, 1.6, 8]} />
-        <Outlines thickness={0.05} color="#1a1033" />
+      <RoundedBox args={[0.65, 0.06, 0.5]} radius={0.02} smoothness={3} position={[0, 0.5, 0]} rotation={[-0.5, 0, 0]} material={smooth('#9aa4b2', { metal: 0.8, rough: 0.25 })} castShadow />
+      <RoundedBox args={[0.58, 0.03, 0.43]} radius={0.01} smoothness={2} position={[0, 0.53, 0.01]} rotation={[-0.5, 0, 0]} material={smooth('#5b7bd5', { metal: 0.9, rough: 0.08, clearcoat: 1 })} />
+      <mesh position={[0, 0.25, 0.1]} material={smooth('#c9ced6', { metal: 0.6, rough: 0.3 })}>
+        <capsuleGeometry args={[0.025, 0.45, 4, 8]} />
       </mesh>
-      {[0, 1, 2, 3].map((i) => {
-        const a = (i * Math.PI) / 2 + Math.PI / 4;
-        return (
-          <group key={i}>
-            <mesh position={[Math.cos(a) * 2.6, 0.8, Math.sin(a) * 2.6]} rotation={[Math.sin(a) * 0.5, 0, -Math.cos(a) * 0.5]} material={toon('#c9ced6')} castShadow>
-              <cylinderGeometry args={[0.08, 0.08, 2.2, 6]} />
-            </mesh>
-            <mesh position={[Math.cos(a) * 3.2, 0.05, Math.sin(a) * 3.2]} material={toon('#c9ced6')}>
-              <cylinderGeometry args={[0.45, 0.45, 0.1, 10]} />
-            </mesh>
-          </group>
-        );
-      })}
+      {annotated && <Callout position={new THREE.Vector3(0.3, 0.6, 0)} label={t('parts.reflectorPanel')} side="right" />}
     </group>
   );
 }
 
-function Reflector() {
+function Seismometer({ annotated }: { annotated: boolean }) {
+  const { t } = useTranslation();
   return (
     <group>
-      <mesh position={[0, 0.5, 0]} rotation={[-0.5, 0, 0]} material={toon('#8e98a6')} castShadow>
-        <boxGeometry args={[0.65, 0.06, 0.5]} />
-        <Outlines thickness={0.02} color="#1a1033" />
-      </mesh>
-      <mesh position={[0, 0.25, 0.1]} material={toon('#c9ced6')}>
-        <cylinderGeometry args={[0.03, 0.03, 0.5, 6]} />
-      </mesh>
-    </group>
-  );
-}
-
-function Seismometer() {
-  return (
-    <group>
-      <mesh position={[0, 0.35, 0]} material={toon('#c9a24a')} castShadow>
-        <boxGeometry args={[0.6, 0.5, 0.6]} />
-        <Outlines thickness={0.02} color="#1a1033" />
-      </mesh>
-      {[-1, 1].map((s) => (
-        <mesh key={s} position={[s * 0.9, 0.5, 0]} material={toon('#3a5aa8')} castShadow>
-          <boxGeometry args={[1, 0.03, 0.5]} />
-        </mesh>
+      <RoundedBox args={[0.6, 0.5, 0.6]} radius={0.06} smoothness={3} position={[0, 0.35, 0]} material={smooth('#d4ad4a', { metal: 0.6, rough: 0.35 })} castShadow />
+      {[-1, 1].map((sd) => (
+        <RoundedBox key={sd} args={[1, 0.03, 0.5]} radius={0.012} smoothness={2} position={[sd * 0.9, 0.5, 0]} material={smooth('#2b4fb8', { metal: 0.5, rough: 0.25, clearcoat: 1 })} castShadow />
       ))}
+      {annotated && (
+        <>
+          <Callout position={new THREE.Vector3(0.3, 0.45, 0)} label={t('parts.seismometer')} side="right" />
+          <Callout position={new THREE.Vector3(-1.3, 0.52, 0)} label={t('parts.seismoPanels')} side="left" />
+        </>
+      )}
     </group>
   );
 }
@@ -85,12 +66,15 @@ function Seismometer() {
 function EarthInSky() {
   const map = useTexture('/textures/earth_color.jpg');
   map.colorSpace = THREE.SRGBColorSpace;
+  const sunDir = useMemo(() => new THREE.Vector3(0.85, 0.5, 0.25).normalize(), []);
   return (
-    <mesh position={EARTH_IN_SKY}>
-      <sphereGeometry args={[14, 48, 48]} />
-      <meshToonMaterial map={map} gradientMap={toonGradient()} fog={false} />
-      <Outlines thickness={0.5} color="#0b0d26" />
-    </mesh>
+    <group position={EARTH_IN_SKY}>
+      <mesh>
+        <sphereGeometry args={[14, 64, 64]} />
+        <meshStandardMaterial map={map} roughness={0.9} fog={false} emissive="#ffffff" emissiveMap={map} emissiveIntensity={0.2} />
+      </mesh>
+      <Atmosphere radius={14} color="#6fb4ff" sunDir={sunDir} scale={1.07} power={2.2} intensity={1.8} />
+    </group>
   );
 }
 
@@ -138,6 +122,7 @@ export default function MoonWorld({ animate }: { animate: boolean }) {
   const field = useMemo(() => moonField(), []);
   const phase = useWorld((s) => s.phase);
   const setNear = useWorld((s) => s.setNear);
+  const near = useWorld((s) => s.near);
   const flame = useRef(0);
   const lander = useRef<THREE.Group>(null!);
   const landingY = field.heightAt(...LANDING);
@@ -173,16 +158,18 @@ export default function MoonWorld({ animate }: { animate: boolean }) {
       <TerrainMesh field={field} colors={PALETTES.moon.ground} segments={200} />
       <Rocks field={field} color={PALETTES.moon.rock} count={220} seed={9} avoid={[[0, 8, 16], [LANDING[0], LANDING[1], 8]]} />
       <EarthInSky />
+      {/* Fine poussière de régolithe soulevée, très discrète */}
+      <Sparkles count={60} scale={[60, 3, 60]} position={[0, 1.5, 0]} size={2} speed={animate ? 0.15 : 0} color="#e8ecf5" opacity={0.5} />
       <LaserShot field={field} />
 
       <group position={at(LM)}>
-        <DescentStage />
+        <NasaModel id="apollo_lm" annotated={near === 'apollo-11-lm'} />
       </group>
       <group position={at(EASEP)}>
-        <Seismometer />
+        <Seismometer annotated={near === 'apollo-11-easep'} />
       </group>
       <group position={at(LRRR)}>
-        <Reflector />
+        <Reflector annotated={near === 'apollo-11'} />
         <Beacon active y={1.4} />
       </group>
 

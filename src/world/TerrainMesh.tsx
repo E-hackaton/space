@@ -1,6 +1,5 @@
 import { useMemo } from 'react';
 import * as THREE from 'three';
-import { toonGradient } from './toon';
 import { fbm } from './noise';
 import type { HeightField } from './terrain';
 
@@ -11,15 +10,12 @@ interface Props {
   segments?: number;
 }
 
-/** Sol en aplats de couleur (ombrage toon + facettes), teinté selon l'altitude et la pente. */
+/** Sol lisse, teinté selon l'altitude et la pente, avec des taches de couleur. */
 export function TerrainMesh({ field, colors, segments = 180 }: Props) {
   const geometry = useMemo(() => {
     const size = field.half * 2;
-    const plane = new THREE.PlaneGeometry(size, size, segments, segments);
-    plane.rotateX(-Math.PI / 2);
-    // Sommets non partagés : chaque triangle a sa propre normale, d'où l'aspect à facettes.
-    const g = plane.toNonIndexed();
-    plane.dispose();
+    const g = new THREE.PlaneGeometry(size, size, segments, segments);
+    g.rotateX(-Math.PI / 2);
     const pos = g.attributes.position as THREE.BufferAttribute;
     let lo = Infinity;
     let hi = -Infinity;
@@ -42,7 +38,7 @@ export function TerrainMesh({ field, colors, segments = 180 }: Props) {
       tmp.copy(c[0]).lerp(c[1], Math.min(1, t * 2)).lerp(c[2], Math.max(0, t * 2 - 1));
       // Taches de couleur (sol plus vivant) et pentes plus sombres.
       const patch = fbm(pos.getX(i) * 0.03 + 11, pos.getZ(i) * 0.03 - 7, 3);
-      tmp.offsetHSL(0, 0, patch * 0.08);
+      tmp.offsetHSL(0, 0, patch * 0.1);
       tmp.multiplyScalar(1 - Math.min(0.45, steep * 2.2));
       col.set([tmp.r, tmp.g, tmp.b], i * 3);
     }
@@ -52,7 +48,7 @@ export function TerrainMesh({ field, colors, segments = 180 }: Props) {
 
   return (
     <mesh geometry={geometry} receiveShadow>
-      <meshToonMaterial vertexColors gradientMap={toonGradient()} />
+      <meshStandardMaterial vertexColors roughness={0.95} metalness={0} />
     </mesh>
   );
 }

@@ -196,5 +196,24 @@
       "gale": "Curiosity",
       "earth": ""
     }
+  },
+  "parts": {
+    "mast": "Mât et caméras",
+    "arm": "Bras robotique et ses instruments",
+    "rtg": "Générateur d'énergie (à l'arrière)",
+    "wheels": "Six roues (suspension « rocker-bogie »)",
+    "hga": "Antenne à grand gain",
+    "blades": "Pales en fibre de carbone",
+    "solarPanel": "Panneau solaire",
+    "body": "Électronique, batteries, caméras",
+    "legs": "Jambes en tubes de carbone",
+    "descentStage": "Étage de descente (resté sur la Lune)",
+    "landingLegs": "Train d'atterrissage",
+    "footpad": "Patin",
+    "ladder": "Échelle des astronautes",
+    "reflectorPanel": "Panneau de prismes",
+    "seismometer": "Sismomètre",
+    "seismoPanels": "Panneaux solaires",
+    "lander": "Module qui nous a posés"
   }
 }

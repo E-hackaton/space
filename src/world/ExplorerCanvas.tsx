@@ -8,6 +8,15 @@ import EarthWorld from './worlds/EarthWorld';
 import MarsWorld from './worlds/MarsWorld';
 import MoonWorld from './worlds/MoonWorld';
 import SpaceScene from './worlds/SpaceScene';
+import { Look } from './Look';
+
+const LOOK: Record<WorldId | 'space', { tint: string; ground: string; bloom: number }> = {
+  earth: { tint: '#ffe6c4', ground: '#2b4a2b', bloom: 0.7 },
+  moon: { tint: '#ffffff', ground: '#3a3c42', bloom: 0.5 },
+  jezero: { tint: '#ffd9b0', ground: '#6a3420', bloom: 0.5 },
+  gale: { tint: '#ffd9b0', ground: '#6a3420', bloom: 0.5 },
+  space: { tint: '#ffffff', ground: '#060b1a', bloom: 0.9 },
+};
 
 /** La toile 3D de l'exploration : un monde à la fois, ou l'espace pendant le voyage. */
 export default function ExplorerCanvas({ animate, onPickPlanet }: { animate: boolean; onPickPlanet: (w: WorldId) => void }) {
@@ -22,10 +31,8 @@ export default function ExplorerCanvas({ animate, onPickPlanet }: { animate: boo
       shadows={shadows ? { type: THREE.PCFSoftShadowMap } : false}
       dpr={dpr}
       camera={{ fov: 42, near: 0.1, far: 900, position: [0, 20, 30] }}
-      gl={{ antialias: true, powerPreference: 'high-performance' }}
+      gl={{ antialias: true, powerPreference: 'high-performance', toneMapping: THREE.ACESFilmicToneMapping, toneMappingExposure: 1.05 }}
       aria-hidden="true"
-      // Pas de correction de tons : des couleurs franches, façon dessin animé.
-      flat
     >
       {/* Qualité automatique : on baisse la résolution, puis on coupe les ombres si l'appareil peine. */}
       <PerformanceMonitor
@@ -36,6 +43,7 @@ export default function ExplorerCanvas({ animate, onPickPlanet }: { animate: boo
         onIncline={() => setDpr(1.5)}
       />
       <AdaptiveDpr pixelated />
+      <Look {...LOOK[phase === 'space' ? 'space' : world]} effects={shadows} />
       <Suspense fallback={null}>
         {phase === 'space' && target ? (
           <SpaceScene from={world} to={target} animate={animate} />

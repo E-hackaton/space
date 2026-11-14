@@ -1,7 +1,9 @@
 import { useMemo, useRef } from 'react';
 import { useFrame } from '@react-three/fiber';
 import * as THREE from 'three';
-import { Beacon, Helicopter, ScienceRover } from './props/Vehicles';
+import { Beacon } from './props/Vehicles';
+import { NasaModel, type ModelId } from '../components/3d/NasaModel';
+import { useWorld } from './state';
 import type { HeightField, SiteData } from './terrain';
 import type { Obstacle } from './Player';
 
@@ -35,16 +37,16 @@ interface TraverseProps {
   id: string;
   data: SiteData;
   field: HeightField & { toWorld: (x: number, z: number) => [number, number] };
-  color: string;
-  accent: string;
+  model: ModelId;
   trackColor: string;
   obstacle: Obstacle;
 }
 
 /** Un rover qui rejoue son vrai trajet (données NASA/JPL), en laissant ses traces derrière lui. */
-export function Traverse({ id, data, field, color, accent, trackColor, obstacle }: TraverseProps) {
+export function Traverse({ id, data, field, model, trackColor, obstacle }: TraverseProps) {
   const rover = useRef<THREE.Group>(null!);
-  const spin = useRef(0);
+  // Légendes visibles quand le joueur est tout près.
+  const annotated = useWorld((s) => s.near === id);
   const { pts, ts, geometry } = useMemo(() => {
     const raw = data.paths[id];
     const pts: Pt[] = raw.map(([mx, mz, , t]) => {
@@ -97,7 +99,6 @@ export function Traverse({ id, data, field, color, accent, trackColor, obstacle 
       const want = Math.atan2(-(b.x - a.x), -(b.z - a.z));
       const d = Math.atan2(Math.sin(want - heading.current), Math.cos(want - heading.current));
       heading.current += d * Math.min(1, dt * 6);
-      spin.current -= dt * 6;
     }
     rover.current.position.set(x, field.heightAt(x, z), z);
     rover.current.rotation.y = heading.current;
@@ -113,8 +114,11 @@ export function Traverse({ id, data, field, color, accent, trackColor, obstacle 
         <meshBasicMaterial color={trackColor} transparent opacity={0.75} depthWrite={false} />
       </mesh>
       <group ref={rover}>
-        <ScienceRover color={color} accent={accent} spin={spin} />
-        <Beacon active y={3} />
+        {/* Modèle NASA ; l'avant du modèle est vers +Z, celui du trajet vers -Z. */}
+        <group rotation={[0, Math.PI, 0]}>
+          <NasaModel id={model} scale={1.3} annotated={annotated} />
+        </group>
+        <Beacon active y={4.6} />
       </group>
     </>
   );
@@ -143,6 +147,7 @@ export function Flights({ id, data, field, carrier }: FlightsProps) {
   );
   const last = flights[flights.length - 1];
   const ended = useRef(false);
+  const annotated = useWorld((s) => s.near === id);
 
   useFrame(() => {
     const t = replay.sol;
@@ -181,12 +186,10 @@ export function Flights({ id, data, field, carrier }: FlightsProps) {
 
   return (
     <group ref={heli}>
-      <group scale={1.2}>
-        <Helicopter spinning={spinning} />
-      </group>
+      <NasaModel id="ingenuity" scale={1.6} spinning={spinning} annotated={annotated} />
       <group ref={beacon}>
-        <Beacon active y={2.4} />
-        <Beacon active={false} y={2.4} />
+        <Beacon active y={2.6} />
+        <Beacon active={false} y={2.6} />
       </group>
     </group>
   );

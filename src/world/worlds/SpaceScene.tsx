@@ -1,17 +1,18 @@
 import { useMemo, useRef } from 'react';
 import { useFrame } from '@react-three/fiber';
-import { Outlines, Stars, useTexture } from '@react-three/drei';
+import { Stars, useTexture } from '@react-three/drei';
+import { Atmosphere } from '../../components/3d/Atmosphere';
 import * as THREE from 'three';
 import { ToonRocket } from '../props/Vehicles';
-import { toonGradient } from '../toon';
 import { ship, type WorldId } from '../state';
 
 /** Positions des astres pendant le voyage (mise en scène, pas à l'échelle). */
 const SPOTS = {
-  earth: { pos: new THREE.Vector3(0, 0, 0), r: 10, tex: '/textures/earth_color.jpg' },
-  moon: { pos: new THREE.Vector3(-34, 8, -40), r: 3.5, tex: '/textures/moon_color.jpg' },
-  mars: { pos: new THREE.Vector3(70, -6, -110), r: 6, tex: '/textures/mars_color.jpg' },
+  earth: { pos: new THREE.Vector3(0, 0, 0), r: 10, tex: '/textures/earth_color.jpg', glow: '#5fa8ff' },
+  moon: { pos: new THREE.Vector3(-34, 8, -40), r: 3.5, tex: '/textures/moon_color.jpg', glow: '#c9d3ff' },
+  mars: { pos: new THREE.Vector3(70, -6, -110), r: 6, tex: '/textures/mars_color.jpg', glow: '#ff9a6a' },
 };
+const SUN_DIR = new THREE.Vector3(-60, 30, 40).normalize();
 const bodyOf = (w: WorldId) => (w === 'earth' ? 'earth' : w === 'moon' ? 'moon' : 'mars');
 
 function Planet({ id }: { id: keyof typeof SPOTS }) {
@@ -21,11 +22,13 @@ function Planet({ id }: { id: keyof typeof SPOTS }) {
   const ref = useRef<THREE.Mesh>(null!);
   useFrame((_, dt) => (ref.current.rotation.y += dt * 0.08));
   return (
-    <mesh ref={ref} position={s.pos}>
-      <sphereGeometry args={[s.r, 48, 48]} />
-      <meshToonMaterial map={map} gradientMap={toonGradient()} />
-      <Outlines thickness={0.25} color="#0b0d26" />
-    </mesh>
+    <group position={s.pos}>
+      <mesh ref={ref}>
+        <sphereGeometry args={[s.r, 64, 64]} />
+        <meshStandardMaterial map={map} roughness={0.9} />
+      </mesh>
+      <Atmosphere radius={s.r} color={s.glow} sunDir={SUN_DIR} scale={1.06} power={2.4} intensity={1.5} />
+    </group>
   );
 }
 
