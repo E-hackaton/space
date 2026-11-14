@@ -1,0 +1,6 @@
+[
+  { "id": "earth", "order": 0, "titleKey": "chapters.earth.title", "teaserKey": "chapters.earth.teaser", "color": "#3A7BD5" },
+  { "id": "moon", "order": 1, "titleKey": "chapters.moon.title", "teaserKey": "chapters.moon.teaser", "color": "#C9CED6" },
+  { "id": "mars", "order": 2, "titleKey": "chapters.mars.title", "teaserKey": "chapters.mars.teaser", "color": "#C1440E" },
+  { "id": "deep-space", "order": 3, "titleKey": "chapters.deep-space.title", "teaserKey": "chapters.deep-space.teaser", "color": "#8A7CFF" }
+]

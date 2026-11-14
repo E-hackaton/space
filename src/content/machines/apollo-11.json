@@ -1,0 +1,31 @@
+{
+  "id": "apollo-11",
+  "name": "machines.apollo-11.name",
+  "mission": "machines.apollo-11.mission",
+  "body": "moon",
+  "kind": "reflector",
+  "lat": 0.67416,
+  "lon": 23.47314,
+  "launchDate": "1969-07-16",
+  "arrivalDate": "1969-07-20",
+  "status": "active",
+  "fate": "active",
+  "vitals": [
+    { "label": "vitals.signal", "start": 100, "end": 100, "unit": "%" },
+    { "label": "vitals.dust", "start": 0, "end": 40, "unit": "%" }
+  ],
+  "story": [
+    { "textKey": "machines.apollo-11.story.0", "phase": "launch", "date": "1969-07-16" },
+    { "textKey": "machines.apollo-11.story.1", "phase": "cruise" },
+    { "textKey": "machines.apollo-11.story.2", "phase": "arrival", "date": "1969-07-20" },
+    { "textKey": "machines.apollo-11.story.3", "phase": "work" },
+    { "textKey": "machines.apollo-11.story.4", "phase": "discovery", "effect": "laser" },
+    { "textKey": "machines.apollo-11.story.5", "phase": "end" }
+  ],
+  "earthImpact": "machines.apollo-11.earthImpact",
+  "quiz": [],
+  "sources": [
+    { "label": "NASA NSSDCA – Apollo 11 Lunar Module / EASEP", "url": "https://nssdc.gsfc.nasa.gov/nmc/spacecraft/display.action?id=1969-059C" }
+  ],
+  "verified": false
+}

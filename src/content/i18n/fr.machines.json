@@ -1,0 +1,117 @@
+{
+  "apollo-11": {
+    "name": "Le réflecteur laser d'Apollo 11",
+    "mission": "Apollo 11",
+    "story": [
+      "16 juillet 1969. Je suis rangé dans le module lunaire, tout en haut d'une fusée Saturn V. Les moteurs s'allument : c'est parti pour la Lune, avec trois astronautes.",
+      "Quatre jours de voyage. Moi, je ne fais rien : je suis un simple panneau couvert de petits prismes. Pas de moteur, pas de batterie. Et c'est justement ma force.",
+      "20 juillet 1969. Le module lunaire se pose dans la mer de la Tranquillité. Les astronautes m'installent à quelques mètres de lui, à côté d'un sismomètre.",
+      "Mon travail ? Renvoyer la lumière exactement vers l'endroit d'où elle vient. Je n'ai besoin d'aucune énergie pour ça : seulement de la géométrie.",
+      "Regarde : depuis la Terre, un observatoire tire un laser vers moi. La lumière fait l'aller-retour en environ 2,5 secondes. En chronométrant ce trajet, on calcule la distance entre la Terre et la Lune avec une grande précision.",
+      "Les astronautes sont repartis depuis longtemps. L'étage de descente de leur module est resté là, près de moi : un morceau de machine laissé sur la Lune. Moi, je n'ai pas cessé de travailler. Je suis toujours là, et on me vise encore."
+    ],
+    "earthImpact": "Grâce aux mesures laser répétées pendant des décennies, les scientifiques suivent très précisément l'orbite de la Lune. Ces mesures servent à tester les lois de la gravité.",
+    "fate": "Toujours en service sur la Lune. L'étage de descente d'Apollo 11 est resté à côté."
+  },
+  "opportunity": {
+    "name": "Opportunity",
+    "mission": "Mars Exploration Rover",
+    "story": [
+      "7 juillet 2003, Cap Canaveral. Je suis un robot à six roues, replié dans une capsule au sommet d'une fusée. Direction : Mars.",
+      "Six mois de voyage dans le vide. Je dors pendant presque tout le trajet. Mes ingénieurs, eux, ne dorment pas beaucoup.",
+      "Janvier 2004. J'arrive à Meridiani Planum et je roule jusqu'au fond d'un petit cratère, Eagle. On a prévu que je travaille 90 jours martiens, et que je parcoure environ un kilomètre.",
+      "Mes panneaux solaires me donnent mon énergie. J'analyse les roches avec mes instruments et j'envoie des photos à la Terre. Les 90 jours passent… et je continue.",
+      "9 août 2011 : après presque trois ans de route, j'atteins le grand cratère Endeavour. Mes découvertes montrent que Mars a peut-être pu, autrefois, accueillir une vie microbienne. Et j'y trouve un ravin creusé par un liquide : de l'eau a coulé ici.",
+      "2018. Une énorme tempête de poussière recouvre toute la planète. Le ciel devient noir, la poussière couvre mes panneaux. Mon énergie baisse, baisse… Le 10 juin 2018, j'envoie mon dernier message.",
+      "La NASA a essayé de me réveiller pendant des mois. Le 13 février 2019, elle déclare ma mission terminée. J'avais roulé plus de 45 kilomètres, au lieu d'un seul. Je dors maintenant sur Mars, couvert de poussière."
+    ],
+    "earthImpact": "Opportunity a montré qu'un robot prévu pour 90 jours pouvait en faire bien plus. Ce qu'il a appris sur l'eau ancienne de Mars guide encore le choix des sites où les nouvelles missions cherchent des traces de vie.",
+    "fate": "Endormi sur Mars depuis 2018, panneaux couverts de poussière."
+  },
+  "ingenuity": {
+    "name": "Ingenuity",
+    "mission": "Mars 2020",
+    "story": [
+      "30 juillet 2020. Je suis un petit hélicoptère de 1,8 kg, accroché sous le ventre du rover Perseverance. Ensemble, nous décollons de Cap Canaveral.",
+      "Près de sept mois de voyage. Personne n'a jamais fait voler un engin motorisé sur une autre planète. C'est mon défi : l'air de Mars est très peu dense, il porte très mal.",
+      "18 février 2021. Perseverance se pose dans le cratère Jezero. Un peu plus tard, il me dépose délicatement au sol et s'éloigne pour me laisser la place.",
+      "19 avril 2021. Mes pales tournent très vite, je décolle, je reste en l'air quelques secondes et je me repose. C'est le premier vol motorisé et contrôlé sur une autre planète !",
+      "On avait prévu au plus cinq vols d'essai. J'en ai fait 72. Au total : plus de 128 minutes en l'air, environ 17 kilomètres parcourus, jusqu'à 24 mètres d'altitude.",
+      "18 janvier 2024 : mon 72e vol. À l'atterrissage, mes pales sont abîmées. Je ne pourrai plus jamais voler.",
+      "Le 25 janvier 2024, la NASA annonce la fin de ma mission. Je reste posé dans le cratère Jezero. J'ai prouvé qu'on peut voler sur Mars."
+    ],
+    "earthImpact": "Ingenuity a ouvert la voie à de futurs engins volants pour explorer d'autres planètes, là où les rovers ne peuvent pas aller.",
+    "fate": "Posé pour toujours dans le cratère Jezero, ses pales abîmées."
+  },
+  "messenger": {
+    "name": "MESSENGER",
+    "mission": "MESSENGER",
+    "story": [
+      "3 août 2004. Je décolle de Cap Canaveral. Ma destination : Mercure, la planète la plus proche du Soleil.",
+      "Aller vers le Soleil, c'est difficile : il faut freiner sans cesse. Mon voyage dure plus de six ans. Un grand pare-soleil me protège de la chaleur.",
+      "Mars 2011. Je deviens le premier engin à tourner autour de Mercure.",
+      "Je photographie Mercure sans relâche : près de 100 000 images pendant ma mission principale. J'étudie sa surface, sa composition et son champ magnétique.",
+      "Ma grande découverte : aux pôles, dans des cratères où le Soleil n'entre jamais, il y a de la glace d'eau. Sur la planète la plus proche du Soleil ! J'ai aussi trouvé des traces d'anciens volcans.",
+      "Pour rester en orbite, j'utilise du carburant. Et mon réservoir se vide. Sans carburant, je ne peux plus éviter de descendre.",
+      "30 avril 2015. Je m'écrase sur Mercure à environ 14 000 km/h. Mon impact a creusé un nouveau cratère. C'est tout ce qu'il reste de moi : un trou de plus sur Mercure."
+    ],
+    "earthImpact": "MESSENGER a montré que de la glace d'eau peut survivre même tout près du Soleil, à l'ombre. Ça aide à comprendre comment l'eau s'est répartie dans le Système solaire, jusqu'à la Terre.",
+    "fate": "Écrasé sur Mercure en 2015 : il a creusé un nouveau cratère."
+  },
+  "magellan": {
+    "name": "Magellan",
+    "mission": "Magellan",
+    "story": [
+      "4 mai 1989. Je quitte la Terre dans la soute de la navette spatiale Atlantis. Ma destination : Vénus, cachée sous des nuages épais.",
+      "Les nuages de Vénus sont si épais qu'aucune caméra ne voit le sol. Alors je n'emporte pas d'appareil photo ordinaire : j'ai un radar, qui traverse les nuages.",
+      "10 août 1990. J'entre en orbite autour de Vénus et je commence à cartographier.",
+      "Bande après bande, je dessine la surface. Lors de mon premier tour complet de cartographie, je dévoile 83,7 % de la planète. À la fin, j'en aurai cartographié 98 %.",
+      "Ce que je découvre : des volcans partout. Au moins 85 % de la surface est couverte de coulées de lave. Il y a aussi d'étranges dômes plats, en forme de crêpes.",
+      "Octobre 1994. Pour ma dernière mission, on me fait plonger dans l'atmosphère de Vénus, pour mesurer comment elle me freine. Le 13 octobre, le contact est perdu. Environ dix heures plus tard, je brûle dans le ciel de Vénus."
+    ],
+    "earthImpact": "Vénus a presque la taille de la Terre, mais elle est devenue un enfer brûlant. Comprendre pourquoi aide les scientifiques à mieux comprendre le climat de notre propre planète.",
+    "fate": "Brûlé dans l'atmosphère de Vénus en 1994."
+  },
+  "galileo": {
+    "name": "Galileo",
+    "mission": "Galileo",
+    "story": [
+      "18 octobre 1989. Je quitte la Terre dans la soute de la navette spatiale Atlantis. Direction : Jupiter, la plus grosse planète du Système solaire.",
+      "Juillet 1995. J'emporte avec moi une petite sonde. Je la lâche en route : elle va plonger seule dans les nuages de Jupiter.",
+      "7 décembre 1995. Le même jour, ma petite sonde entre dans l'atmosphère de Jupiter à 47,6 km par seconde, et moi, j'entre en orbite. Je suis le premier engin à tourner autour de Jupiter.",
+      "Je fais 34 fois le tour de Jupiter. Je survole ses lunes : Io, Europe, Ganymède, Callisto.",
+      "Ma plus belle découverte : sous la glace d'Europe, il y a sans doute un océan d'eau liquide. Ganymède et Callisto pourraient aussi cacher une couche d'eau salée.",
+      "2003. Mon carburant est presque épuisé. Si je deviens incontrôlable, je risque un jour de m'écraser sur Europe et de la contaminer. Alors, le 21 septembre 2003, on me fait plonger dans Jupiter, à plus de 48 km par seconde. Ma sonde et moi, nous sommes restés dans Jupiter."
+    ],
+    "earthImpact": "En découvrant un océan probable sous la glace d'Europe, Galileo a changé la question « où chercher la vie ? ». On sait maintenant qu'il peut y avoir de l'eau liquide loin du Soleil.",
+    "fate": "Plongé volontairement dans Jupiter en 2003 pour protéger Europe."
+  },
+  "cassini": {
+    "name": "Cassini",
+    "mission": "Cassini-Huygens",
+    "story": [
+      "15 octobre 1997. Je décolle de Cap Canaveral. Ma destination : Saturne, la planète aux anneaux.",
+      "Le voyage est long : près de sept ans pour atteindre Saturne.",
+      "2004. Je deviens le premier engin à tourner autour de Saturne. Je commence l'étude rapprochée de la planète, de ses anneaux et de ses lunes.",
+      "Je passe des années à tourner autour de Saturne. Sur Titan, sa plus grande lune, je découvre des rivières de méthane qui coulent vers une mer de méthane.",
+      "Et sur Enceladus, une petite lune glacée, je vois des jets d'eau et de glace jaillir du pôle Sud, par de longues fissures appelées « rayures de tigre ».",
+      "Mon carburant est presque épuisé. Pour que les lunes de Saturne restent intactes pour de futures explorations, on décide de me faire plonger dans Saturne. Le 15 septembre 2017, j'envoie mes dernières données… et je disparais dans Saturne."
+    ],
+    "earthImpact": "Les jets d'Enceladus montrent qu'un petit monde glacé peut cacher de l'eau. Cassini a ajouté Enceladus à la liste des endroits où chercher la vie ailleurs que sur Terre.",
+    "fate": "Plongé volontairement dans Saturne en 2017."
+  },
+  "voyager-1": {
+    "name": "Voyager 1",
+    "mission": "Voyager",
+    "story": [
+      "5 septembre 1977, Cap Canaveral. Je décolle pour un très, très long voyage. À bord, j'emporte un disque en cuivre doré : des salutations en 55 langues, des sons de la Terre, de la musique et 115 images.",
+      "5 mars 1979. Je frôle Jupiter, à environ 280 000 km de ses nuages.",
+      "12 novembre 1980. Je passe près de Saturne, à environ 126 000 km. Ensuite, je file vers l'extérieur du Système solaire. Plus aucune planète devant moi.",
+      "25 août 2012. Je deviens le premier objet fabriqué par l'humanité à quitter la bulle de vent solaire qui entoure le Soleil. Je suis dans l'espace interstellaire.",
+      "Mon énergie vient de générateurs nucléaires qui faiblissent avec les années. Pour économiser, on éteint mes instruments un à un. Mais je parle encore à la Terre.",
+      "Le 18 novembre 2026, je dois atteindre une distance d'un jour-lumière : mon message mettra une journée entière pour arriver jusqu'à toi. Je suis toujours en route, et je le serai pour très longtemps."
+    ],
+    "earthImpact": "Voyager 1 nous a appris à quoi ressemble la frontière du Système solaire. Et son disque doré pose une question à tout le monde : que voulons-nous dire de la Terre à ceux qui pourraient le trouver ?",
+    "fate": "Toujours actif, dans l'espace interstellaire."
+  }
+}

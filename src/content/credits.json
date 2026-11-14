@@ -1,0 +1,65 @@
+{
+  "textures": [
+    {
+      "file": "public/textures/earth_color.jpg",
+      "what": "Terre sans nuages (Blue Marble Next Generation), 2048×1024",
+      "credit": "NASA/Goddard Space Flight Center Scientific Visualization Studio. Blue Marble Next Generation data courtesy of Reto Stöckli (NASA/GSFC) and NASA's Earth Observatory.",
+      "source": "https://svs.gsfc.nasa.gov/3615/"
+    },
+    {
+      "file": "public/textures/earth_clouds.jpg",
+      "what": "Masque de nuages calculé par l'équipe (différence entre les images avec et sans nuages)",
+      "credit": "NASA/Goddard Space Flight Center Scientific Visualization Studio. Blue Marble Next Generation data courtesy of Reto Stöckli (NASA/GSFC) and NASA's Earth Observatory.",
+      "source": "https://svs.gsfc.nasa.gov/3615/"
+    },
+    {
+      "file": "public/textures/moon_color.jpg",
+      "what": "Couleur de la Lune (LRO LROC), CGI Moon Kit, 2048×1024",
+      "credit": "NASA's Scientific Visualization Studio, CGI Moon Kit (données LRO).",
+      "source": "https://svs.gsfc.nasa.gov/4720/"
+    },
+    {
+      "file": "public/textures/moon_bump.jpg",
+      "what": "Relief de la Lune (LOLA, carte d'altitude 8 bits), CGI Moon Kit",
+      "credit": "NASA's Scientific Visualization Studio, CGI Moon Kit (données LRO LOLA).",
+      "source": "https://svs.gsfc.nasa.gov/4720/"
+    },
+    {
+      "file": "public/textures/mars_color.jpg",
+      "what": "Mosaïque couleur de Mars Viking MDIM 2.1, recadrée et réduite à 2048×1024 (domaine public)",
+      "credit": "NASA / JPL / USGS",
+      "source": "https://astrogeology.usgs.gov/search/details/Mars/Viking/MDIM21/Mars_Viking_MDIM21_ClrMosaic_global_232m/cub"
+    },
+    {
+      "file": "public/textures/mercury_color.jpg",
+      "what": "Mosaïque globale de Mercure (MESSENGER), réduite à 2048×1024",
+      "credit": "NASA – TODO: à vérifier : ligne de crédit exacte sur la page PIA16298 (probablement NASA/Johns Hopkins University Applied Physics Laboratory/Carnegie Institution of Washington)",
+      "source": "https://photojournal.jpl.nasa.gov/catalog/PIA16298"
+    },
+    {
+      "file": "public/textures/jupiter_color.jpg",
+      "what": "Carte cylindrique de Jupiter (Cassini, décembre 2000), réduite à 2048×1024",
+      "credit": "NASA – TODO: à vérifier : ligne de crédit exacte sur la page PIA07782 (probablement NASA/JPL/Space Science Institute)",
+      "source": "https://photojournal.jpl.nasa.gov/catalog/PIA07782"
+    },
+    {
+      "file": "public/textures/venus_clouds.jpg",
+      "what": "Illustration (pas une carte réelle) : couverture nuageuse de Vénus générée par l'équipe",
+      "credit": "Équipe Les Veilleurs",
+      "source": "generated"
+    },
+    {
+      "file": "public/textures/saturn_color.jpg",
+      "what": "Illustration (pas une carte réelle) : bandes de Saturne générées par l'équipe",
+      "credit": "Équipe Les Veilleurs",
+      "source": "generated"
+    },
+    {
+      "file": "public/textures/saturn_ring.png",
+      "what": "Illustration : profil des anneaux de Saturne généré par l'équipe",
+      "credit": "Équipe Les Veilleurs",
+      "source": "generated"
+    }
+  ],
+  "audio": []
+}

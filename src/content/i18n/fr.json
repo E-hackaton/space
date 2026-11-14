@@ -1,0 +1,200 @@
+{
+  "app": {
+    "title": "Les Veilleurs du Système solaire",
+    "tagline": "Des machines laissées sur la Lune, sur Mars et aux confins du Système solaire te racontent leur histoire.",
+    "start": "Commencer le voyage",
+    "continue": "Reprendre le voyage",
+    "skip": "Aller au contenu",
+    "notToScale": "Tailles et distances non à l'échelle."
+  },
+  "nav": {
+    "home": "Accueil",
+    "map": "Carte du voyage",
+    "sources": "Sources",
+    "language": "Langue",
+    "back": "Retour à la carte",
+    "tour": "Visite 3D",
+    "mission": "Missions",
+    "explorer": "Explorer"
+  },
+  "map": {
+    "title": "Carte du voyage",
+    "intro": "Suis le parcours, du plus proche au plus lointain. Chaque étape débloque la suivante.",
+    "locked": "Verrouillé",
+    "lockedHint": "Visite d'abord le chapitre précédent.",
+    "open": "Explorer",
+    "visited": "Visité",
+    "chapter": "Chapitre {{n}}",
+    "prologue": "Prologue"
+  },
+  "chapters": {
+    "earth": {
+      "title": "La Terre",
+      "teaser": "Le point de départ. D'ici sont partis tous les veilleurs."
+    },
+    "moon": {
+      "title": "La Lune",
+      "teaser": "Six sites Apollo, des réflecteurs laser et des rovers qui attendent dans la poussière."
+    },
+    "mars": {
+      "title": "Mars",
+      "teaser": "Atterrisseurs, rovers et un hélicoptère : ceux qui dorment et ceux qui travaillent encore."
+    },
+    "deep-space": {
+      "title": "L'espace lointain",
+      "teaser": "Des sondes parties si loin que leurs messages mettent des heures à nous parvenir."
+    }
+  },
+  "chapter": {
+    "soon": "Ce chapitre est en construction. Les histoires arrivent bientôt.",
+    "loading": "Calcul de la trajectoire…"
+  },
+  "status": {
+    "active": "Actif",
+    "dormant": "Endormi"
+  },
+  "sources": {
+    "title": "Sources",
+    "intro": "Chaque fait de ce site renvoie à une source officielle de la NASA ou du JPL. La liste complète, machine par machine, sera affichée ici."
+  },
+  "lite": {
+    "notice": "Mode léger : la 3D n'est pas disponible sur cet appareil. Les histoires restent toutes accessibles."
+  },
+  "notFound": {
+    "title": "Signal perdu",
+    "text": "Cette page n'existe pas.",
+    "home": "Revenir à l'accueil"
+  },
+  "tour": {
+    "title": "Visite 3D",
+    "overview": "Vue d'ensemble",
+    "intro": "Le Système solaire et les mondes où dorment les machines de la NASA. Choisis une destination : la caméra t'y emmène.",
+    "navLabel": "Destinations de la visite",
+    "openChapter": "Voir les missions",
+    "hint": "Fais glisser pour tourner, molette ou pincement pour zoomer, flèches ← → pour changer d'étape"
+  },
+  "bodies": {
+    "mercury": {
+      "name": "Mercure",
+      "teaser": "La planète la plus proche du Soleil."
+    },
+    "venus": {
+      "name": "Vénus",
+      "teaser": "Une planète cachée sous des nuages épais."
+    },
+    "earth": {
+      "name": "La Terre",
+      "teaser": "Le point de départ. D'ici sont partis tous les veilleurs."
+    },
+    "moon": {
+      "name": "La Lune",
+      "teaser": "Notre voisine. Des machines y attendent depuis l'époque d'Apollo."
+    },
+    "mars": {
+      "name": "Mars",
+      "teaser": "Atterrisseurs, rovers et un hélicoptère : ceux qui dorment et ceux qui travaillent encore."
+    },
+    "jupiter": {
+      "name": "Jupiter",
+      "teaser": "La plus grosse planète du Système solaire."
+    },
+    "saturn": {
+      "name": "Saturne",
+      "teaser": "La planète aux anneaux."
+    },
+    "deep-space": {
+      "name": "L'espace lointain",
+      "teaser": "Au-delà des planètes, des sondes filent toujours plus loin."
+    }
+  },
+  "guide": {
+    "name": "Orbi",
+    "role": "ton guide",
+    "welcome": "Salut ! Moi, c'est Orbi. Je connais toutes les machines que la NASA a laissées dans le Système solaire. Choisis une destination, je t'y emmène.",
+    "chooseBody": "Clique sur un astre, ou choisis-le dans la liste. Ceux qui brillent abritent une machine qui a une histoire à te raconter.",
+    "chooseMachine": "{{body}} ! Voici les machines qui y sont restées. Laquelle veux-tu accompagner ?",
+    "noMachine": "Sur {{body}}, je n'ai pas encore d'histoire à te raconter. Essaie un autre astre !",
+    "ready": "Bon choix. On retourne sur Terre : c'est de là que tout commence. Attache ta ceinture !",
+    "handover": "Je te laisse avec {{machine}}. Elle va te raconter sa mission, du décollage jusqu'à la fin.",
+    "outro": "Fin de l'histoire de {{machine}}. Tu veux découvrir une autre machine ?",
+    "mute": "Couper la voix",
+    "unmute": "Activer la voix"
+  },
+  "mission": {
+    "title": "Missions",
+    "choose": "Choisir",
+    "machinesOn": "Machines sur {{body}}",
+    "launch": "Décoller !",
+    "back": "Retour",
+    "next": "Suivant",
+    "previous": "Précédent",
+    "skip": "Passer la cinématique",
+    "restart": "Choisir une autre machine",
+    "otherBody": "Changer de destination",
+    "earthImpact": "Ce que ça a changé sur Terre",
+    "sources": "Sources",
+    "fateTitle": "Ce que je suis devenu",
+    "vitalsTitle": "Constantes vitales",
+    "vitalsNote": "Jauges illustratives",
+    "travel": "Voyage",
+    "step": "Étape {{n}} sur {{total}}",
+    "unverified": "À vérifier",
+    "launched": "Lancement",
+    "narrator": "Narration",
+    "autoplay": "Lecture automatique",
+    "phases": {
+      "launch": "Décollage",
+      "cruise": "Voyage",
+      "arrival": "Arrivée",
+      "work": "Au travail",
+      "discovery": "Découverte",
+      "decline": "Déclin",
+      "end": "Fin de mission"
+    },
+    "fates": {
+      "active": "Toujours active",
+      "dormant": "Endormie",
+      "destroyed": "Détruite",
+      "impact": "Écrasée"
+    }
+  },
+  "vitals": {
+    "energy": "Énergie",
+    "dust": "Poussière",
+    "signal": "Contact radio",
+    "fuel": "Carburant",
+    "temperature": "Chaleur",
+    "blades": "État des pales",
+    "map": "Carte réalisée",
+    "radiation": "Radiations reçues"
+  },
+  "explorer": {
+    "title": "Explorer",
+    "destinations": "Destinations",
+    "where": "On va où ?",
+    "sol": "Sol",
+    "flights": "vols",
+    "lrrr": "Réflecteur laser",
+    "lm": "Étage de descente",
+    "easep": "Sismomètre",
+    "leftBehind": "resté sur la Lune",
+    "fireLaser": "Tirer le laser",
+    "story": "Son histoire",
+    "pause": "Pause",
+    "play": "Lecture",
+    "timeline": "Temps de la mission (sols)",
+    "brake": "Espace : frein",
+    "worlds": {
+      "earth": "Terre",
+      "moon": "Lune · Apollo 11",
+      "jezero": "Mars · Jezero",
+      "gale": "Mars · Gale"
+    },
+    "who": {
+      "moon": "Apollo 11",
+      "jezero": "Perseverance · Ingenuity",
+      "gale": "Curiosity",
+      "earth": ""
+    }
+  }
+}

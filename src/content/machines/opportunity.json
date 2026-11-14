@@ -1,0 +1,34 @@
+{
+  "id": "opportunity",
+  "name": "machines.opportunity.name",
+  "mission": "machines.opportunity.mission",
+  "body": "mars",
+  "kind": "rover",
+  "lat": -1.9483,
+  "lon": 354.47417,
+  "launchDate": "2003-07-07",
+  "arrivalDate": "2004-01-25",
+  "endDate": "2018-06-10",
+  "status": "dormant",
+  "fate": "dormant",
+  "vitals": [
+    { "label": "vitals.energy", "start": 100, "end": 0, "unit": "%" },
+    { "label": "vitals.dust", "start": 0, "end": 100, "unit": "%" },
+    { "label": "vitals.signal", "start": 100, "end": 0, "unit": "%" }
+  ],
+  "story": [
+    { "textKey": "machines.opportunity.story.0", "phase": "launch", "date": "2003-07-07" },
+    { "textKey": "machines.opportunity.story.1", "phase": "cruise" },
+    { "textKey": "machines.opportunity.story.2", "phase": "arrival", "date": "2004-01" },
+    { "textKey": "machines.opportunity.story.3", "phase": "work" },
+    { "textKey": "machines.opportunity.story.4", "phase": "discovery", "date": "2011-08-09" },
+    { "textKey": "machines.opportunity.story.5", "phase": "decline", "date": "2018", "effect": "dust-storm" },
+    { "textKey": "machines.opportunity.story.6", "phase": "end", "date": "2019-02-13" }
+  ],
+  "earthImpact": "machines.opportunity.earthImpact",
+  "quiz": [],
+  "sources": [
+    { "label": "NASA Science – Opportunity", "url": "https://science.nasa.gov/mission/mer-opportunity/" }
+  ],
+  "verified": false
+}

@@ -1,0 +1,36 @@
+{
+  "id": "ingenuity",
+  "name": "machines.ingenuity.name",
+  "mission": "machines.ingenuity.mission",
+  "body": "mars",
+  "kind": "helicopter",
+  "lat": 18.4447,
+  "lon": 77.4508,
+  "latLonNote": "TODO: à vérifier – coordonnées du site d'atterrissage de Perseverance (Octavia E. Butler Landing) tirées de sources secondaires, pas encore d'une page NASA.",
+  "launchDate": "2020-07-30",
+  "arrivalDate": "2021-02-18",
+  "endDate": "2024-01-25",
+  "status": "dormant",
+  "fate": "dormant",
+  "vitals": [
+    { "label": "vitals.energy", "start": 100, "end": 60, "unit": "%" },
+    { "label": "vitals.blades", "start": 100, "end": 0, "unit": "%" },
+    { "label": "vitals.signal", "start": 100, "end": 20, "unit": "%" }
+  ],
+  "story": [
+    { "textKey": "machines.ingenuity.story.0", "phase": "launch", "date": "2020-07-30" },
+    { "textKey": "machines.ingenuity.story.1", "phase": "cruise" },
+    { "textKey": "machines.ingenuity.story.2", "phase": "arrival", "date": "2021-02-18" },
+    { "textKey": "machines.ingenuity.story.3", "phase": "work", "date": "2021-04-19", "effect": "flight" },
+    { "textKey": "machines.ingenuity.story.4", "phase": "discovery", "effect": "flight" },
+    { "textKey": "machines.ingenuity.story.5", "phase": "decline", "date": "2024-01-18" },
+    { "textKey": "machines.ingenuity.story.6", "phase": "end", "date": "2024-01-25" }
+  ],
+  "earthImpact": "machines.ingenuity.earthImpact",
+  "quiz": [],
+  "sources": [
+    { "label": "NASA Science – Ingenuity Mars Helicopter", "url": "https://science.nasa.gov/mission/mars-2020-perseverance/ingenuity-mars-helicopter/" },
+    { "label": "NASA Science – Mars 2020 Perseverance", "url": "https://science.nasa.gov/mission/mars-2020-perseverance/" }
+  ],
+  "verified": false
+}

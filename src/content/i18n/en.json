@@ -1,0 +1,200 @@
+{
+  "app": {
+    "title": "The Solar System Sentinels",
+    "tagline": "Machines left on the Moon, on Mars and at the edge of the Solar System tell you their story.",
+    "start": "Start the journey",
+    "continue": "Resume the journey",
+    "skip": "Skip to content",
+    "notToScale": "Sizes and distances not to scale."
+  },
+  "nav": {
+    "home": "Home",
+    "map": "Journey map",
+    "sources": "Sources",
+    "language": "Language",
+    "back": "Back to the map",
+    "tour": "3D tour",
+    "mission": "Missions",
+    "explorer": "Explore"
+  },
+  "map": {
+    "title": "Journey map",
+    "intro": "Follow the path, from nearest to farthest. Each stop unlocks the next one.",
+    "locked": "Locked",
+    "lockedHint": "Visit the previous chapter first.",
+    "open": "Explore",
+    "visited": "Visited",
+    "chapter": "Chapter {{n}}",
+    "prologue": "Prologue"
+  },
+  "chapters": {
+    "earth": {
+      "title": "Earth",
+      "teaser": "The starting point. Every sentinel left from here."
+    },
+    "moon": {
+      "title": "The Moon",
+      "teaser": "Six Apollo sites, laser reflectors and rovers waiting in the dust."
+    },
+    "mars": {
+      "title": "Mars",
+      "teaser": "Landers, rovers and a helicopter: those asleep and those still at work."
+    },
+    "deep-space": {
+      "title": "Deep space",
+      "teaser": "Probes so far away that their messages take hours to reach us."
+    }
+  },
+  "chapter": {
+    "soon": "This chapter is under construction. Stories are coming soon.",
+    "loading": "Computing trajectory…"
+  },
+  "status": {
+    "active": "Active",
+    "dormant": "Asleep"
+  },
+  "sources": {
+    "title": "Sources",
+    "intro": "Every fact on this site links to an official NASA or JPL source. The full list, machine by machine, will appear here."
+  },
+  "lite": {
+    "notice": "Lite mode: 3D is not available on this device. All stories remain accessible."
+  },
+  "notFound": {
+    "title": "Signal lost",
+    "text": "This page does not exist.",
+    "home": "Back to home"
+  },
+  "tour": {
+    "title": "3D tour",
+    "overview": "Overview",
+    "intro": "The Solar System and the worlds where NASA's machines rest. Pick a destination: the camera takes you there.",
+    "navLabel": "Tour destinations",
+    "openChapter": "See the missions",
+    "hint": "Drag to rotate, scroll or pinch to zoom, ← → arrows to change stop"
+  },
+  "bodies": {
+    "mercury": {
+      "name": "Mercury",
+      "teaser": "The planet closest to the Sun."
+    },
+    "venus": {
+      "name": "Venus",
+      "teaser": "A planet hidden under thick clouds."
+    },
+    "earth": {
+      "name": "Earth",
+      "teaser": "The starting point. Every sentinel left from here."
+    },
+    "moon": {
+      "name": "The Moon",
+      "teaser": "Our neighbour. Machines have been waiting there since Apollo."
+    },
+    "mars": {
+      "name": "Mars",
+      "teaser": "Landers, rovers and a helicopter: those asleep and those still at work."
+    },
+    "jupiter": {
+      "name": "Jupiter",
+      "teaser": "The largest planet in the Solar System."
+    },
+    "saturn": {
+      "name": "Saturn",
+      "teaser": "The ringed planet."
+    },
+    "deep-space": {
+      "name": "Deep space",
+      "teaser": "Beyond the planets, probes keep flying farther away."
+    }
+  },
+  "guide": {
+    "name": "Orbi",
+    "role": "your guide",
+    "welcome": "Hi! I'm Orbi. I know every machine NASA left across the Solar System. Pick a destination and I'll take you there.",
+    "chooseBody": "Click a world, or pick it from the list. Each one hosts a machine with a story to tell.",
+    "chooseMachine": "{{body}}! Here are the machines that stayed there. Which one do you want to follow?",
+    "noMachine": "I don't have a story for {{body}} yet. Try another world!",
+    "ready": "Good choice. Back to Earth: that's where it all begins. Buckle up!",
+    "handover": "I'll leave you with {{machine}}. It will tell you its mission, from launch to the very end.",
+    "outro": "That's the end of {{machine}}'s story. Want to discover another machine?",
+    "mute": "Mute voice",
+    "unmute": "Turn voice on"
+  },
+  "mission": {
+    "title": "Missions",
+    "choose": "Choose",
+    "machinesOn": "Machines on {{body}}",
+    "launch": "Lift off!",
+    "back": "Back",
+    "next": "Next",
+    "previous": "Previous",
+    "skip": "Skip the cinematic",
+    "restart": "Choose another machine",
+    "otherBody": "Change destination",
+    "earthImpact": "What it changed on Earth",
+    "sources": "Sources",
+    "fateTitle": "What became of me",
+    "vitalsTitle": "Vital signs",
+    "vitalsNote": "Illustrative gauges",
+    "travel": "Journey",
+    "step": "Step {{n}} of {{total}}",
+    "unverified": "To be checked",
+    "launched": "Launch",
+    "narrator": "Narration",
+    "autoplay": "Autoplay",
+    "phases": {
+      "launch": "Lift-off",
+      "cruise": "Journey",
+      "arrival": "Arrival",
+      "work": "At work",
+      "discovery": "Discovery",
+      "decline": "Decline",
+      "end": "End of mission"
+    },
+    "fates": {
+      "active": "Still active",
+      "dormant": "Asleep",
+      "destroyed": "Destroyed",
+      "impact": "Crashed"
+    }
+  },
+  "vitals": {
+    "energy": "Energy",
+    "dust": "Dust",
+    "signal": "Radio contact",
+    "fuel": "Fuel",
+    "temperature": "Heat",
+    "blades": "Blade condition",
+    "map": "Map completed",
+    "radiation": "Radiation received"
+  },
+  "explorer": {
+    "title": "Explore",
+    "destinations": "Destinations",
+    "where": "Where to?",
+    "sol": "Sol",
+    "flights": "flights",
+    "lrrr": "Laser reflector",
+    "lm": "Descent stage",
+    "easep": "Seismometer",
+    "leftBehind": "left on the Moon",
+    "fireLaser": "Fire the laser",
+    "story": "Its story",
+    "pause": "Pause",
+    "play": "Play",
+    "timeline": "Mission time (sols)",
+    "brake": "Space: brake",
+    "worlds": {
+      "earth": "Earth",
+      "moon": "Moon · Apollo 11",
+      "jezero": "Mars · Jezero",
+      "gale": "Mars · Gale"
+    },
+    "who": {
+      "moon": "Apollo 11",
+      "jezero": "Perseverance · Ingenuity",
+      "gale": "Curiosity",
+      "earth": ""
+    }
+  }
+}

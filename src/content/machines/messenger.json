@@ -1,0 +1,35 @@
+{
+  "id": "messenger",
+  "name": "machines.messenger.name",
+  "mission": "machines.messenger.mission",
+  "body": "mercury",
+  "kind": "orbiter",
+  "lat": 54.4,
+  "lon": -149.9,
+  "latLonNote": "Site d'impact approximatif selon la NASA (« probablement proche de »).",
+  "launchDate": "2004-08-03",
+  "arrivalDate": "2011-03-18",
+  "endDate": "2015-04-30",
+  "status": "dormant",
+  "fate": "impact",
+  "vitals": [
+    { "label": "vitals.fuel", "start": 100, "end": 0, "unit": "%" },
+    { "label": "vitals.temperature", "start": 50, "end": 90, "unit": "%" },
+    { "label": "vitals.signal", "start": 100, "end": 0, "unit": "%" }
+  ],
+  "story": [
+    { "textKey": "machines.messenger.story.0", "phase": "launch", "date": "2004-08-03" },
+    { "textKey": "machines.messenger.story.1", "phase": "cruise" },
+    { "textKey": "machines.messenger.story.2", "phase": "arrival", "date": "2011-03-18" },
+    { "textKey": "machines.messenger.story.3", "phase": "work" },
+    { "textKey": "machines.messenger.story.4", "phase": "discovery" },
+    { "textKey": "machines.messenger.story.5", "phase": "decline" },
+    { "textKey": "machines.messenger.story.6", "phase": "end", "date": "2015-04-30" }
+  ],
+  "earthImpact": "machines.messenger.earthImpact",
+  "quiz": [],
+  "sources": [
+    { "label": "NASA Science – MESSENGER", "url": "https://science.nasa.gov/mission/messenger/" }
+  ],
+  "verified": false
+}
