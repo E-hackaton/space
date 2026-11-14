@@ -179,19 +179,8 @@ export const fr = {
   },
 
   presentation: {
+    // Le texte de la présentation vient de l'API (pour être lu par la voix ElevenLabs).
     label: 'Présentation',
-    greeting: (name: string) => `Bonjour, je suis ${name}.`,
-    whoAmI: (kindWithArticle: string, mission: string) => `Je suis ${kindWithArticle} de la mission ${mission}.`,
-    kindsWithArticle: {
-      lander: 'un atterrisseur',
-      descent_stage: 'un étage de descente',
-      rover: 'un rover',
-      helicopter: 'un hélicoptère',
-      instrument: 'un instrument scientifique',
-      orbiter: 'une sonde en orbite',
-      probe: 'une sonde interplanétaire',
-      telescope: 'un télescope spatial',
-    } satisfies Record<EquipmentKind, string>,
   },
 
   parts: {

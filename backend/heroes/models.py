@@ -46,8 +46,72 @@ class CelestialBody(models.Model):
         return self.name_fr
 
 
-class Equipment(models.Model):
-    """Un « héros » : un engin de la NASA laissé sur la Lune, sur Mars ou ailleurs."""
+class VoicedContent(models.Model):
+    """
+    Contenu lu à voix haute : un fichier audio par langue, généré par ElevenLabs.
+
+    L'empreinte (hash) mémorise le texte et la voix qui ont produit l'audio. La commande
+    `generate_voices` ne régénère que ce qui a changé, ce qui économise le quota ElevenLabs.
+    """
+
+    LANGUAGES = ("fr", "en")
+
+    audio_fr = models.FileField("voix (FR)", upload_to="voices/", blank=True)
+    audio_en = models.FileField("voix (EN)", upload_to="voices/", blank=True)
+    audio_fr_hash = models.CharField(max_length=64, blank=True, editable=False)
+    audio_en_hash = models.CharField(max_length=64, blank=True, editable=False)
+
+    class Meta:
+        abstract = True
+
+    def spoken_text(self, language: str) -> str:
+        """Texte à lire dans la langue demandée, ou chaîne vide s'il n'est pas traduit."""
+        raise NotImplementedError
+
+    def voice_role(self) -> str:
+        """« guide » (voix de Sankofa) ou « machine » (voix des héros)."""
+        raise NotImplementedError
+
+    def audio_slug(self) -> str:
+        """Préfixe lisible du nom de fichier audio."""
+        raise NotImplementedError
+
+
+# Phrases de présentation d'une machine (« Bonjour, je suis Sojourner… »), dans chaque langue.
+# Elles sont composées ici, côté serveur, pour pouvoir être lues par la voix ElevenLabs.
+GREETING = {"fr": "Bonjour, je suis {name}.", "en": "Hello, I'm {name}."}
+WHO_AM_I = {"fr": "Je suis {kind} de la mission {mission}.", "en": "I'm {kind} from the {mission} mission."}
+KIND_WITH_ARTICLE = {
+    "fr": {
+        "lander": "un atterrisseur",
+        "descent_stage": "un étage de descente",
+        "rover": "un rover",
+        "helicopter": "un hélicoptère",
+        "instrument": "un instrument scientifique",
+        "orbiter": "une sonde en orbite",
+        "probe": "une sonde interplanétaire",
+        "telescope": "un télescope spatial",
+    },
+    "en": {
+        "lander": "a lander",
+        "descent_stage": "a descent stage",
+        "rover": "a rover",
+        "helicopter": "a helicopter",
+        "instrument": "a science instrument",
+        "orbiter": "an orbiter",
+        "probe": "an interplanetary probe",
+        "telescope": "a space telescope",
+    },
+}
+
+
+class Equipment(VoicedContent):
+    """
+    Un « héros » : un engin de la NASA laissé sur la Lune, sur Mars ou ailleurs.
+
+    Ses champs audio (hérités de VoicedContent) contiennent sa **présentation** dite à voix haute,
+    la première étape de sa visite : « Bonjour, je suis… ».
+    """
 
     class Kind(models.TextChoices):
         LANDER = "lander", "Atterrisseur"
@@ -173,36 +237,31 @@ class Equipment(models.Model):
         if errors:
             raise ValidationError(errors)
 
+    # --- Présentation dite par la machine (première étape de la visite) ---
 
-class VoicedContent(models.Model):
-    """
-    Contenu lu à voix haute : un fichier audio par langue, généré par ElevenLabs.
-
-    L'empreinte (hash) mémorise le texte et la voix qui ont produit l'audio. La commande
-    `generate_voices` ne régénère que ce qui a changé, ce qui économise le quota ElevenLabs.
-    """
-
-    LANGUAGES = ("fr", "en")
-
-    audio_fr = models.FileField("voix (FR)", upload_to="voices/", blank=True)
-    audio_en = models.FileField("voix (EN)", upload_to="voices/", blank=True)
-    audio_fr_hash = models.CharField(max_length=64, blank=True, editable=False)
-    audio_en_hash = models.CharField(max_length=64, blank=True, editable=False)
-
-    class Meta:
-        abstract = True
+    def presentation(self, language: str) -> tuple[str, str]:
+        """
+        Titre et texte de la présentation, ex. (« Bonjour, je suis Curiosity. »,
+        « Je suis un rover de la mission Mars Science Laboratory. <accroche> »).
+        L'accroche se replie sur le français si elle n'est pas traduite, comme dans l'API.
+        """
+        tagline = getattr(self, f"tagline_{language}") or self.tagline_fr
+        title = GREETING[language].format(name=self.name)
+        who = WHO_AM_I[language].format(kind=KIND_WITH_ARTICLE[language][self.kind], mission=self.mission)
+        return title, f"{who} {tagline}"
 
     def spoken_text(self, language: str) -> str:
-        """Texte à lire dans la langue demandée, ou chaîne vide s'il n'est pas traduit."""
-        raise NotImplementedError
+        # Pas de voix anglaise tant que l'accroche n'est pas traduite : elle mélangerait les deux langues.
+        if not getattr(self, f"tagline_{language}"):
+            return ""
+        title, body = self.presentation(language)
+        return f"{title} {body}"
 
     def voice_role(self) -> str:
-        """« guide » (voix de Sankofa) ou « machine » (voix des héros)."""
-        raise NotImplementedError
+        return "machine"
 
     def audio_slug(self) -> str:
-        """Préfixe lisible du nom de fichier audio."""
-        raise NotImplementedError
+        return f"{self.slug}-intro"
 
 
 class StoryChapter(VoicedContent):

@@ -174,18 +174,6 @@ export const en: Messages = {
 
   presentation: {
     label: 'Introduction',
-    greeting: (name: string) => `Hello, I'm ${name}.`,
-    whoAmI: (kindWithArticle: string, mission: string) => `I'm ${kindWithArticle} from the ${mission} mission.`,
-    kindsWithArticle: {
-      lander: 'a lander',
-      descent_stage: 'a descent stage',
-      rover: 'a rover',
-      helicopter: 'a helicopter',
-      instrument: 'a science instrument',
-      orbiter: 'an orbiter',
-      probe: 'an interplanetary probe',
-      telescope: 'a space telescope',
-    },
   },
 
   parts: {

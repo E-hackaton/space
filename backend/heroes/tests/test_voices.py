@@ -38,6 +38,22 @@ class GuideApiTests(APITestCase):
         self.assertIsNone(response.data[0]["audio"])
 
 
+class PresentationApiTests(APITestCase):
+    def setUp(self) -> None:
+        make_equipment(make_body(), kind="rover", tagline_en="I was meant to live 90 days.")
+
+    def test_presentation_is_composed_in_the_requested_language(self) -> None:
+        url = reverse("equipment-detail", args=["opportunity"])
+
+        fr = self.client.get(url).json()["presentation"]
+        en = self.client.get(url, {"lang": "en"}).json()["presentation"]
+
+        self.assertEqual(fr["title"], "Bonjour, je suis Opportunity.")
+        self.assertEqual(fr["body"], "Je suis un rover de la mission MER. Je devais vivre 90 jours.")
+        self.assertEqual(en["body"], "I'm a rover from the MER mission. I was meant to live 90 days.")
+        self.assertIsNone(fr["audio"])  # pas encore généré : le navigateur lira le texte
+
+
 class GenerateVoicesTests(TestCase):
     def setUp(self) -> None:
         # Les fichiers audio générés pendant les tests vont dans un dossier temporaire.
@@ -61,8 +77,9 @@ class GenerateVoicesTests(TestCase):
             output = self._run("--dry-run")
 
         synthesize.assert_not_called()
-        # 3 textes : guide FR, guide EN, étape FR (l'étape n'a pas de traduction anglaise).
-        self.assertIn("3 audios à générer", output)
+        # 4 textes : guide FR, guide EN, présentation FR, étape FR (rien d'autre n'est traduit en anglais).
+        self.assertIn("4 audios à générer", output)
+        self.assertIn("opportunity-intro (fr)", output)
 
     @mock.patch.dict("os.environ", FAKE_ENV)
     def test_generates_once_then_skips_unchanged_texts(self) -> None:
@@ -70,7 +87,12 @@ class GenerateVoicesTests(TestCase):
             self._run()
             self._run()
 
-        self.assertEqual(synthesize.call_count, 3)  # le second passage ne régénère rien
+        self.assertEqual(synthesize.call_count, 4)  # le second passage ne régénère rien
+        self.assertIn(
+            mock.call("Bonjour, je suis Opportunity. Je suis un rover de la mission MER. Je devais vivre 90 jours.",
+                      "voice-machine", mock.ANY),
+            synthesize.call_args_list,
+        )
         step = GuideStep.objects.get(key="welcome")
         self.assertTrue(step.audio_fr.name.startswith("voices/guide-welcome-fr-"))
         # La voix du guide et celle des machines sont bien distinctes.

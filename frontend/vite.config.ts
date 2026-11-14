@@ -60,6 +60,8 @@ export default defineConfig({
               cacheName: 'sankofa-media',
               expiration: { maxEntries: 300, maxAgeSeconds: 30 * 24 * 3600 },
               cacheableResponse: { statuses: [0, 200] },
+              // Les lecteurs audio (Safari, iPhone) demandent des morceaux de fichier : on sait y répondre.
+              rangeRequests: true,
             },
           },
         ],

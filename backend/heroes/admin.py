@@ -80,4 +80,6 @@ class EquipmentAdmin(admin.ModelAdmin):
             {"fields": ["tagline_fr", "discovery_fr", "status_note_fr", "tagline_en", "discovery_en", "status_note_en"]},
         ),
         ("Illustration", {"fields": ["image", "image_credit"]}),
+        # Rempli par `python manage.py generate_voices` (ElevenLabs).
+        ("Voix de la présentation", {"fields": ["audio_fr", "audio_en"], "classes": ["collapse"]}),
     ]

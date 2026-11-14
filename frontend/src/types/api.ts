@@ -108,11 +108,20 @@ export interface Source {
 }
 
 /** Fiche complète d'un héros. */
+export interface Presentation {
+  title: string
+  body: string
+  /** MP3 ElevenLabs, ou null : le navigateur lit alors le texte. */
+  audio: string | null
+}
+
 export interface EquipmentDetail extends EquipmentSummary {
   nssdca_id: string
   nssdca_url: string
   discovery: string
   status_note: string
+  /** Première étape de la visite (« Bonjour, je suis… »), composée par l'API dans la langue demandée. */
+  presentation: Presentation
   chapters: StoryChapter[]
   quiz: QuizQuestion[]
   sources: Source[]

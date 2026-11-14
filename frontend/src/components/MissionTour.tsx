@@ -46,10 +46,11 @@ function buildSteps(hero: EquipmentDetail, t: Messages): TourStep[] {
     phaseLabel: t.presentation.label,
     shortDate: '★',
     fullDate: null,
-    title: t.presentation.greeting(hero.name),
-    body: `${t.presentation.whoAmI(t.presentation.kindsWithArticle[hero.kind], hero.mission)} ${hero.tagline}`,
+    // Texte et voix ElevenLabs fournis par l'API, comme pour les étapes de la mission.
+    title: hero.presentation.title,
+    body: hero.presentation.body,
     focus: 'overview',
-    audio: null, // texte composé côté client : lu par la voix du navigateur
+    audio: hero.presentation.audio,
   }
 
   const chapters = hero.chapters.map<TourStep>((chapter) => ({

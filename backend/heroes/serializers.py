@@ -7,7 +7,7 @@ dans la langue demandée : le frontend n'a jamais à gérer le choix de langue c
 
 from rest_framework import serializers
 
-from .i18n import LocalizedAudioField, LocalizedField
+from .i18n import LocalizedAudioField, LocalizedField, localized_audio_url, resolve_language
 from .models import CelestialBody, Equipment, GuideStep, QuizQuestion, Source, StoryChapter
 
 
@@ -103,6 +103,8 @@ class EquipmentDetailSerializer(EquipmentListSerializer):
     discovery = LocalizedField("discovery")
     status_note = LocalizedField("status_note")
     nssdca_url = serializers.CharField(read_only=True)
+    # Première étape de la visite : la machine se présente, avec sa voix ElevenLabs si elle existe.
+    presentation = serializers.SerializerMethodField()
     chapters = StoryChapterSerializer(many=True, read_only=True)
     quiz = QuizQuestionSerializer(source="quiz_questions", many=True, read_only=True)
     sources = SourceSerializer(many=True, read_only=True)
@@ -114,7 +116,13 @@ class EquipmentDetailSerializer(EquipmentListSerializer):
             "nssdca_url",
             "discovery",
             "status_note",
+            "presentation",
             "chapters",
             "quiz",
             "sources",
         ]
+
+    def get_presentation(self, hero: Equipment) -> dict[str, str | None]:
+        request = self.context.get("request")
+        title, body = hero.presentation(resolve_language(request))
+        return {"title": title, "body": body, "audio": localized_audio_url(hero, request)}

@@ -18,7 +18,7 @@ from typing import Any
 from django.core.files.base import ContentFile
 from django.core.management.base import BaseCommand, CommandError, CommandParser
 
-from heroes.models import GuideStep, StoryChapter, VoicedContent
+from heroes.models import Equipment, GuideStep, StoryChapter, VoicedContent
 from heroes.services import elevenlabs
 
 
@@ -89,9 +89,13 @@ class Command(BaseCommand):
         if only != "chapters" and not equipment:
             yield from GuideStep.objects.all()
         if only != "guide":
+            # Pour chaque machine : sa présentation (« Bonjour, je suis… »), puis les étapes de sa mission.
+            heroes = Equipment.objects.filter(is_published=True)
             chapters = StoryChapter.objects.select_related("equipment").filter(equipment__is_published=True)
             if equipment:
+                heroes = heroes.filter(slug__in=equipment)
                 chapters = chapters.filter(equipment__slug__in=equipment)
+            yield from heroes
             yield from chapters
 
     @staticmethod

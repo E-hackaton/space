@@ -60,8 +60,12 @@ class LocalizedAudioField(serializers.Field):
         super().__init__(source="*", read_only=True, **kwargs)
 
     def to_representation(self, instance: Any) -> str | None:
-        request = self.context.get("request")
-        audio = getattr(instance, f"{self.base}_{resolve_language(request)}")
-        if not audio:
-            return None
-        return request.build_absolute_uri(audio.url) if request else audio.url
+        return localized_audio_url(instance, self.context.get("request"), self.base)
+
+
+def localized_audio_url(instance: Any, request: Request | None, base: str = "audio") -> str | None:
+    """URL absolue de l'audio dans la langue demandée, ou None (voir LocalizedAudioField)."""
+    audio = getattr(instance, f"{base}_{resolve_language(request)}")
+    if not audio:
+        return None
+    return request.build_absolute_uri(audio.url) if request else audio.url
