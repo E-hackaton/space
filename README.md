@@ -1,13 +1,17 @@
-# Sankofa : les héros oubliés de l'espace
+# FORBITS : Their missions ended. Their stories live on.
 
 Projet de l'équipe **G. Bugs** (Abidjan) pour le **NASA Space Apps Challenge 2026**, défi
 [*Abandoned but not Forgotten*](https://www.spaceappschallenge.org/2026/challenges/nasas-discarded-equipment-storytelling/).
+En ligne : **https://space.techledger.io**
 
-Une web app éducative pour les élèves. Sankofa, un robot-guide, leur fait découvrir les engins que la
-NASA a laissés sur la Lune, sur Mars et ailleurs dans le système solaire. Chaque engin raconte son
-histoire, ce qu'il a découvert et ce qu'il est devenu.
+Une plateforme éducative immersive en 3D, en français et en anglais. Sankofa, un petit robot guide, emmène
+l'utilisateur sur la Lune, sur Mars et au-delà, à la rencontre des machines que la NASA y a laissées.
+Chaque machine se présente, puis raconte sa mission en six temps, de sa conception à son héritage.
 
-Le plan complet (concept, répartition des tâches, planning) est dans [docs/PLAN.md](docs/PLAN.md).
+Documents :
+- [docs/CONCEPT.md](docs/CONCEPT.md) : concept produit et parcours
+- [docs/PLAN.md](docs/PLAN.md) : défi, rôles et planning
+- [docs/SUBMISSION.md](docs/SUBMISSION.md) : textes du formulaire de soumission et script de la vidéo
 
 ## Structure
 
@@ -83,4 +87,8 @@ Ce projet n'utilise aucun logo ni élément de marque de la NASA. Il n'est ni ap
 ## Utilisation de l'IA
 
 Un assistant de code IA (Claude) a aidé à écrire le code et les premiers textes. Tous les contenus
-sont relus par l'équipe.
+sont relus par l'équipe et vérifiés à partir des sources NASA.
+
+Les voix des machines et de Sankofa peuvent être générées avec **ElevenLabs**. Pour les activer, ajouter
+dans `.env` les variables `ELEVENLABS_API_KEY`, `ELEVENLABS_VOICE_GUIDE` et `ELEVENLABS_VOICE_MACHINE`,
+puis lancer `python manage.py generate_voices` (`--dry-run` pour estimer le volume de caractères d'abord).
