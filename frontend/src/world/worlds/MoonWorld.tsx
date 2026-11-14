@@ -1,7 +1,6 @@
 import { useMemo, useRef } from 'react';
 import { useFrame } from '@react-three/fiber';
-import { RoundedBox, Sparkles, Stars, useTexture } from '@react-three/drei';
-import { useTranslation } from 'react-i18next';
+import { Sparkles, Stars, useTexture } from '@react-three/drei';
 import * as THREE from 'three';
 import { Player, player, type Obstacle } from '../Player';
 import { Beacon, ToonLander } from '../props/Vehicles';
@@ -10,9 +9,8 @@ import { DustTrail } from '../props/DustTrail';
 import { TerrainMesh } from '../TerrainMesh';
 import { moonField } from '../terrain';
 import { PALETTES } from '../toon';
-import { smooth } from '../materials';
 import { Atmosphere } from '../../components/3d/Atmosphere';
-import { Callout, NasaModel, calloutFocus } from '../../components/3d/NasaModel';
+import { AnatomyModel, type Label } from '../anatomy/AnatomyModel';
 import { ship, useWorld } from '../state';
 
 /*
@@ -34,39 +32,21 @@ export const EARTH_IN_SKY = new THREE.Vector3(-60, 120, -160);
 
 export const moonMachines = { lm: LM, easep: EASEP, lrrr: LRRR };
 
-function Reflector({ annotated, focusPart }: { annotated: boolean; focusPart: string | null }) {
-  const { t } = useTranslation();
-  return (
-    <group>
-      <RoundedBox args={[0.65, 0.06, 0.5]} radius={0.02} smoothness={3} position={[0, 0.5, 0]} rotation={[-0.5, 0, 0]} material={smooth('#9aa4b2', { metal: 0.8, rough: 0.25 })} castShadow />
-      <RoundedBox args={[0.58, 0.03, 0.43]} radius={0.01} smoothness={2} position={[0, 0.53, 0.01]} rotation={[-0.5, 0, 0]} material={smooth('#5b7bd5', { metal: 0.9, rough: 0.08, clearcoat: 1 })} />
-      <mesh position={[0, 0.25, 0.1]} material={smooth('#c9ced6', { metal: 0.6, rough: 0.3 })}>
-        <capsuleGeometry args={[0.025, 0.45, 4, 8]} />
-      </mesh>
-      {annotated && (
-        <Callout position={new THREE.Vector3(0.3, 0.6, 0)} label={t('parts.reflectorPanel')} side="right" focus={calloutFocus('parts.reflectorPanel', focusPart)} />
-      )}
-    </group>
-  );
-}
-
-function Seismometer({ annotated, focusPart }: { annotated: boolean; focusPart: string | null }) {
-  const { t } = useTranslation();
-  return (
-    <group>
-      <RoundedBox args={[0.6, 0.5, 0.6]} radius={0.06} smoothness={3} position={[0, 0.35, 0]} material={smooth('#d4ad4a', { metal: 0.6, rough: 0.35 })} castShadow />
-      {[-1, 1].map((sd) => (
-        <RoundedBox key={sd} args={[1, 0.03, 0.5]} radius={0.012} smoothness={2} position={[sd * 0.9, 0.5, 0]} material={smooth('#2b4fb8', { metal: 0.5, rough: 0.25, clearcoat: 1 })} castShadow />
-      ))}
-      {annotated && (
-        <>
-          <Callout position={new THREE.Vector3(0.3, 0.45, 0)} label={t('parts.seismometer')} side="right" focus={calloutFocus('parts.seismometer', focusPart)} />
-          <Callout position={new THREE.Vector3(-1.3, 0.52, 0)} label={t('parts.seismoPanels')} side="left" focus={calloutFocus('parts.seismoPanels', focusPart)} />
-        </>
-      )}
-    </group>
-  );
-}
+/*
+ * Machines d'Apollo 11 dessinées pièce par pièce (figures FORBITS Anatomy, vraies cotes) :
+ * l'étage de descente d'Eagle (l'étage de remontée est reparti), le réflecteur laser et le sismomètre.
+ */
+const LM_LABELS: Label[] = [
+  { piece: 'descent', label: 'parts.descentStage' },
+  { piece: 'gear', label: 'parts.landingLegs' },
+  { piece: 'gear.pad0', label: 'parts.footpad' },
+  { piece: 'ladder', label: 'parts.ladder' },
+];
+const LRRR_LABELS: Label[] = [{ piece: 'lrrr.panel', label: 'parts.reflectorPanel' }];
+const PSEP_LABELS: Label[] = [
+  { piece: 'psep.body', label: 'parts.seismometer' },
+  { piece: 'psep.panel1', label: 'parts.seismoPanels' },
+];
 
 function EarthInSky() {
   const map = useTexture('/textures/earth_color.jpg');
@@ -138,7 +118,7 @@ export default function MoonWorld({ animate }: { animate: boolean }) {
     [field],
   );
   const obstacles = useMemo<Obstacle[]>(
-    () => [{ x: LANDING[0], z: LANDING[1], r: 2.2 }, { x: LM[0], z: LM[1], r: 3.4 }, { x: EASEP[0], z: EASEP[1], r: 1.4 }, { x: LRRR[0], z: LRRR[1], r: 0.7 }, ...rocks.obstacles],
+    () => [{ x: LANDING[0], z: LANDING[1], r: 2.2 }, { x: LM[0], z: LM[1], r: 4.4 }, { x: EASEP[0], z: EASEP[1], r: 1.4 }, { x: LRRR[0], z: LRRR[1], r: 0.7 }, ...rocks.obstacles],
     [rocks],
   );
   const last = useRef(0);
@@ -179,20 +159,20 @@ export default function MoonWorld({ animate }: { animate: boolean }) {
       <LaserShot field={field} />
 
       <group position={at(LM)}>
-        <NasaModel id="apollo_lm" annotated={near === 'apollo-11-lm'} focusPart={near === 'apollo-11-lm' ? part : null} />
+        <AnatomyModel id="lunar-module" excludeGroups={['asc', 'flag']} exclude={['lrrr', 'psep']} labels={LM_LABELS} annotated={near === 'apollo-11-lm'} focusPart={near === 'apollo-11-lm' ? part : null} />
       </group>
       <group position={at(EASEP)}>
-        <Seismometer annotated={near === 'apollo-11-easep'} focusPart={near === 'apollo-11-easep' ? part : null} />
+        <AnatomyModel id="lunar-module" pieces={['psep']} labels={PSEP_LABELS} annotated={near === 'apollo-11-easep'} focusPart={near === 'apollo-11-easep' ? part : null} />
       </group>
       <group position={at(LRRR)}>
-        <Reflector annotated={near === 'apollo-11'} focusPart={near === 'apollo-11' ? part : null} />
+        <AnatomyModel id="lunar-module" pieces={['lrrr']} labels={LRRR_LABELS} annotated={near === 'apollo-11'} focusPart={near === 'apollo-11' ? part : null} />
         <Beacon active y={1.4} />
       </group>
 
       <group ref={lander} position={[LANDING[0], landingY, LANDING[1]]}>
         <ToonLander flame={flame} />
       </group>
-      <Player field={field} start={START} startHeading={START_HEADING} obstacles={obstacles} enabled={phase === 'drive'} followCamera={phase === 'drive'} animate={animate} visible={phase === 'drive'} />
+      <Player vehicle="lrv" field={field} start={START} startHeading={START_HEADING} obstacles={obstacles} enabled={phase === 'drive'} followCamera={phase === 'drive'} animate={animate} visible={phase === 'drive'} />
       {phase !== 'drive' && <ShipCamera at={[LANDING[0], landingY, LANDING[1]]} ship={ship} animate={animate} />}
     </>
   );

@@ -147,48 +147,6 @@ export function Rocks({ rocks, color, seed = 1 }: { rocks: RockField; color: str
   );
 }
 
-/** Touffes d'herbe instanciées, qui ondulent doucement (décor de la Terre). */
-export function GrassTufts({ field, count = 1600, radius = 58, avoid = [] as [number, number, number][] }: { field: HeightField; count?: number; radius?: number; avoid?: [number, number, number][] }) {
-  const geometry = useMemo(() => {
-    const g = new THREE.ConeGeometry(0.22, 1.1, 5, 3);
-    g.translate(0, 0.55, 0);
-    return g;
-  }, []);
-  const ref = useRef<THREE.InstancedMesh>(null!);
-  const base = useMemo(() => {
-    let s = 11;
-    const rnd = () => ((s = (s * 9301 + 49297) % 233280) / 233280);
-    const out: { p: THREE.Vector3; s: THREE.Vector3; yaw: number; phase: number }[] = [];
-    while (out.length < count) {
-      const a = rnd() * Math.PI * 2;
-      const r = Math.sqrt(rnd()) * radius;
-      const x = Math.cos(a) * r;
-      const z = Math.sin(a) * r;
-      if (avoid.some(([ax, az, rr]) => Math.hypot(x - ax, z - az) < rr)) continue;
-      const sc = 0.4 + rnd() * 0.6;
-      out.push({ p: new THREE.Vector3(x, field.heightAt(x, z), z), s: new THREE.Vector3(sc, sc * (1 + rnd()), sc), yaw: rnd() * 6.28, phase: rnd() * 6.28 });
-    }
-    return out;
-  }, [field, count, radius, avoid]);
-  const m = useMemo(() => new THREE.Matrix4(), []);
-  const q = useMemo(() => new THREE.Quaternion(), []);
-  const e = useMemo(() => new THREE.Euler(), []);
-  const frame = useRef(0);
-  useFrame(({ clock }) => {
-    // Ondulation au vent (mise à jour une image sur deux pour rester léger).
-    if (frame.current++ % 2) return;
-    const t = clock.elapsedTime;
-    base.forEach((b, i) => {
-      e.set(Math.sin(t * 1.3 + b.phase) * 0.12, b.yaw, Math.cos(t * 1.1 + b.phase) * 0.12);
-      q.setFromEuler(e);
-      m.compose(b.p, q, b.s);
-      ref.current.setMatrixAt(i, m);
-    });
-    ref.current.instanceMatrix.needsUpdate = true;
-  });
-  return <instancedMesh ref={ref} args={[geometry, undefined, base.length]} material={smooth('#7cc95a', { rough: 0.7 })} receiveShadow />;
-}
-
 /** Caméra de cinématique : regarde le vaisseau depuis le côté pendant le décollage ou l'atterrissage. */
 export function ShipCamera({ at, ship, animate }: { at: [number, number, number]; ship: { y: number }; animate: boolean }) {
   useFrame((state, dt) => {

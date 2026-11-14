@@ -4,44 +4,18 @@ import { Sparkles, Stars, useTexture } from '@react-three/drei';
 import * as THREE from 'three';
 import { Player, player, type Obstacle } from '../Player';
 import { ToonRocket } from '../props/Vehicles';
-import { GrassTufts, Rocks, ShipCamera, SkyDome, SunLight, scatterRocks } from '../props/Environment';
+import { Rocks, ShipCamera, SkyDome, SunLight, scatterRocks } from '../props/Environment';
 import { TerrainMesh } from '../TerrainMesh';
 import { earthField } from '../terrain';
 import { PALETTES } from '../toon';
 import { smooth } from '../materials';
+import { Grass, Trees } from '../props/Nature';
 import { Atmosphere } from '../../components/3d/Atmosphere';
 import { ship, useWorld, type WorldId } from '../state';
 
 export const EARTH_PAD: [number, number] = [22, -18];
 const EARTH_START: [number, number] = [EARTH_PAD[0] - 12, EARTH_PAD[1] + 10];
 const GRASS_AVOID: [number, number, number][] = [[EARTH_PAD[0], EARTH_PAD[1], 10]];
-
-/** Arbre au feuillage arrondi, qui se balance doucement. */
-function Tree({ x, z, s, y, phase }: { x: number; z: number; s: number; y: number; phase: number }) {
-  const crown = useRef<THREE.Group>(null!);
-  useFrame(({ clock }) => {
-    crown.current.rotation.z = Math.sin(clock.elapsedTime * 0.8 + phase) * 0.04;
-  });
-  return (
-    <group position={[x, y, z]} scale={s}>
-      <mesh position={[0, 1, 0]} material={smooth('#7a4a2b', { rough: 0.8 })} castShadow>
-        <cylinderGeometry args={[0.16, 0.28, 2, 12]} />
-      </mesh>
-      <group ref={crown} position={[0, 2, 0]}>
-        {[
-          [0, 0.7, 0, 1.15, '#2f9a52'],
-          [0.65, 0.35, 0.2, 0.8, '#3fb563'],
-          [-0.55, 0.45, -0.25, 0.85, '#2a8a4a'],
-          [0.05, 1.35, 0.1, 0.75, '#4cc46e'],
-        ].map(([px, py, pz, r, c], i) => (
-          <mesh key={i} position={[px as number, py as number, pz as number]} material={smooth(c as string, { rough: 0.6 })} castShadow>
-            <sphereGeometry args={[r as number, 24, 18]} />
-          </mesh>
-        ))}
-      </group>
-    </group>
-  );
-}
 
 /** Petites fleurs lumineuses (instanciées). */
 function Flowers({ field }: { field: ReturnType<typeof earthField> }) {
@@ -134,7 +108,7 @@ export default function EarthWorld({ animate, onPickPlanet }: { animate: boolean
   }, []);
   const rocks = useMemo(() => scatterRocks(field, 60, 3, [[EARTH_PAD[0], EARTH_PAD[1], 12], [0, 0, 8], [EARTH_START[0], EARTH_START[1], 5]]), [field]);
   const obstacles = useMemo<Obstacle[]>(
-    () => [{ x: EARTH_PAD[0], z: EARTH_PAD[1], r: 2.4 }, ...trees.map((t) => ({ x: t.x, z: t.z, r: 0.5 * t.s })), ...rocks.obstacles],
+    () => [{ x: EARTH_PAD[0], z: EARTH_PAD[1], r: 2.4 }, ...trees.map((t) => ({ x: t.x, z: t.z, r: 0.45 * t.s })), ...rocks.obstacles],
     [trees, rocks],
   );
 
@@ -177,10 +151,8 @@ export default function EarthWorld({ animate, onPickPlanet }: { animate: boolean
         <ToonRocket flame={flame} />
       </group>
 
-      {trees.map((t, i) => (
-        <Tree key={i} {...t} y={field.heightAt(t.x, t.z)} />
-      ))}
-      <GrassTufts field={field} avoid={GRASS_AVOID} />
+      <Trees field={field} trees={trees} animate={animate} />
+      <Grass field={field} avoid={GRASS_AVOID} animate={animate} />
       <Flowers field={field} />
       <Rocks rocks={rocks} color={PALETTES.earth.rock} seed={3} />
       {/* Lucioles */}

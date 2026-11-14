@@ -1,7 +1,7 @@
 import { useEffect, useRef } from 'react';
 import { useFrame } from '@react-three/fiber';
 import * as THREE from 'three';
-import { PlayerRover } from './props/Vehicles';
+import { LunarRover, PlayerRover } from './props/Vehicles';
 import { drive } from './state';
 import type { HeightField } from './terrain';
 
@@ -36,6 +36,8 @@ interface Props {
   followCamera: boolean;
   animate: boolean;
   visible?: boolean;
+  /** Véhicule affiché : le rover générique, ou le rover lunaire LRV. */
+  vehicle?: 'rover' | 'lrv';
 }
 
 const MAX_SPEED = 16;
@@ -48,7 +50,7 @@ const Y = new THREE.Vector3(0, 1, 0);
  * Le rover du joueur : conduite « arcade » (pas de moteur physique, pour rester léger),
  * qui épouse le relief, et caméra de trois quarts qui le suit.
  */
-export function Player({ field, start, startHeading = 0, obstacles = [], enabled, followCamera, animate, visible = true }: Props) {
+export function Player({ field, start, startHeading = 0, obstacles = [], enabled, followCamera, animate, visible = true, vehicle = 'rover' }: Props) {
   const group = useRef<THREE.Group>(null!);
   const spin = useRef(0);
   const steer = useRef(0);
@@ -151,7 +153,7 @@ export function Player({ field, start, startHeading = 0, obstacles = [], enabled
 
   return (
     <group visible={visible}>
-      <PlayerRover ref={group} spin={spin} steer={steer} />
+      {vehicle === 'lrv' ? <LunarRover ref={group} spin={spin} steer={steer} /> : <PlayerRover ref={group} spin={spin} steer={steer} />}
     </group>
   );
 }

@@ -3,6 +3,7 @@ import { useFrame } from '@react-three/fiber';
 import { RoundedBox } from '@react-three/drei';
 import * as THREE from 'three';
 import { smooth } from '../materials';
+import { AnatomyModel, type Built } from '../anatomy/AnatomyModel';
 
 /*
  * Engins originaux dessinés en formes lisses (profils tournés, arrondis, tores).
@@ -88,6 +89,36 @@ export const PlayerRover = forwardRef<THREE.Group, { spin: { current: number }; 
   );
 });
 
+/** Rayon des roues du rover lunaire (Ø 81,8 cm, fiche LRV) et du rover générique. */
+const LRV_WHEEL_R = 0.409;
+const TOY_WHEEL_R = 0.32;
+
+/**
+ * Le rover lunaire LRV (Apollo 15 à 17), dessiné pièce par pièce d'après la figure Anatomy :
+ * direction sur les quatre roues (l'arrière braque à l'opposé de l'avant) et roues qui tournent.
+ */
+export const LunarRover = forwardRef<THREE.Group, { spin: { current: number }; steer: { current: number } }>(function LunarRover({ spin, steer }, ref) {
+  const joints = useRef<Built['joints'] | null>(null);
+  useFrame(() => {
+    const j = joints.current;
+    if (!j) return;
+    const roll = (-spin.current * TOY_WHEEL_R) / LRV_WHEEL_R;
+    for (const w of ['FL', 'FR', 'RL', 'RR']) {
+      j[`s${w}`].node.rotation.y = (w[0] === 'F' ? 1 : -1) * steer.current * 0.8;
+      const wheel = j[`w${w}`];
+      wheel.node.quaternion.setFromAxisAngle(wheel.axis, roll);
+    }
+  });
+  return (
+    <group ref={ref}>
+      {/* La figure regarde vers +x ; le joueur avance vers −z. */}
+      <group rotation={[0, Math.PI / 2, 0]}>
+        <AnatomyModel id="lunar-rover" onReady={(b) => (joints.current = b.joints)} />
+      </group>
+    </group>
+  );
+});
+
 /** Voyant d'état : vert qui pulse si actif, ambre fixe si endormi. */
 export function Beacon({ active, y = 2.8 }: { active: boolean; y?: number }) {
   const m = useRef<THREE.Mesh>(null!);
@@ -141,29 +172,71 @@ function Flame({ flame, scale = 1 }: { flame: { current: number }; scale?: numbe
   );
 }
 
-/** Fusée au profil arrondi, avec ailerons et flamme. */
+/** Aileron profilé (bord d'attaque en flèche), extrudé avec des arêtes adoucies. */
+function useFin() {
+  return useMemo(() => {
+    const sh = new THREE.Shape();
+    sh.moveTo(0, 0);
+    sh.lineTo(0, 3.2);
+    sh.bezierCurveTo(0.6, 2.4, 1.3, 1.2, 1.55, -0.35);
+    sh.lineTo(1.35, -0.6);
+    sh.quadraticCurveTo(0.6, -0.2, 0, 0);
+    const g = new THREE.ExtrudeGeometry(sh, { depth: 0.08, bevelEnabled: true, bevelThickness: 0.05, bevelSize: 0.05, bevelSegments: 4, curveSegments: 24 });
+    g.translate(0, 0, -0.04);
+    return g;
+  }, []);
+}
+
+const ROCKET_NOSE: [number, number][] = [[1.065, 6.6], [0.865, 7.7], [0.565, 8.6], [0.232, 9.3], [0, 9.62]];
+const ROCKET_BELL: [number, number][] = [[0.42, 0], [0.5, -0.25], [0.68, -0.7], [0.86, -1.05], [0.8, -1.05], [0.62, -0.68], [0.45, -0.25], [0.36, 0]];
+
+/** Fusée : corps à profil tourné, jupe et tuyère, ailerons profilés, coiffe, hublot cerclé et flamme. */
 export function ToonRocket({ flame, children }: { flame: { current: number }; children?: ReactNode }) {
-  const body = useLathe(ROCKET_BODY);
+  const body = useLathe(ROCKET_BODY, 64);
+  const bell = useLathe(ROCKET_BELL, 40);
+  const nose = useLathe(ROCKET_NOSE, 64);
+  const fin = useFin();
+  const white = smooth('#f6f6f3', { clearcoat: 1, rough: 0.3 });
+  const red = smooth('#d8392f', { clearcoat: 1, rough: 0.28 });
+  const seam = smooth('#c9ccd2', { metal: 0.6, rough: 0.35 });
+  const dark = smooth('#2b2f36', { metal: 0.8, rough: 0.4 });
   return (
-    <group>
-      <mesh geometry={body} material={smooth('#f6f6f3', { clearcoat: 1, rough: 0.3 })} castShadow />
-      <mesh position={[0, 6.3, 0]} rotation={[Math.PI / 2, 0, 0]} material={smooth('#e2473b', { clearcoat: 1, rough: 0.3 })}>
-        <torusGeometry args={[1.1, 0.07, 12, 48]} />
-      </mesh>
-      <mesh position={[0, 8.2, 0]} rotation={[Math.PI / 2, 0, 0]} material={smooth('#e2473b', { clearcoat: 1, rough: 0.3 })}>
-        <torusGeometry args={[0.72, 0.09, 12, 48]} />
-      </mesh>
-      <mesh position={[0, 5.0, -1.06]} material={smooth('#123049', { emissive: '#5fd2ff', glow: 1.4, clearcoat: 1 })}>
-        <sphereGeometry args={[0.38, 24, 16]} />
-      </mesh>
-      {[0, 1, 2, 3].map((i) => (
-        <group key={i} rotation={[0, (i * Math.PI) / 2, 0]}>
-          <mesh position={[1.3, 1.2, 0]} scale={[0.55, 1.4, 0.12]} material={smooth('#e2473b', { clearcoat: 1, rough: 0.3 })} castShadow>
-            <sphereGeometry args={[1, 24, 16]} />
+    <group position={[0, 0.9, 0]}>
+      <group position={[0, 1.15, 0]}>
+        <mesh geometry={body} material={white} castShadow />
+        {/* lignes de panneaux et bande rouge */}
+        {[1.6, 3.0, 4.4].map((y) => (
+          <mesh key={y} position={[0, y, 0]} rotation={[Math.PI / 2, 0, 0]} material={seam}>
+            <torusGeometry args={[1.125, 0.018, 8, 64]} />
+          </mesh>
+        ))}
+        <mesh position={[0, 5.15, 0]} material={red}>
+          <cylinderGeometry args={[1.125, 1.125, 0.5, 64, 1, true]} />
+        </mesh>
+        {/* coiffe rouge */}
+        <mesh geometry={nose} material={red} castShadow />
+        {/* hublot cerclé */}
+        <group position={[0, 3.7, -1.08]}>
+          <mesh rotation={[0, 0, 0]} material={smooth('#123049', { emissive: '#5fd2ff', glow: 1.2, clearcoat: 1, rough: 0.05 })}>
+            <sphereGeometry args={[0.34, 32, 16, 0, Math.PI * 2, 0, Math.PI / 2]} />
+          </mesh>
+          <mesh material={seam}>
+            <torusGeometry args={[0.36, 0.05, 12, 48]} />
           </mesh>
         </group>
-      ))}
-      <group position={[0, 0.05, 0]}>
+        {/* ailerons */}
+        {[0, 1, 2, 3].map((i) => (
+          <group key={i} rotation={[0, (i * Math.PI) / 2 + Math.PI / 4, 0]}>
+            <mesh geometry={fin} position={[1.02, 0.15, 0]} material={red} castShadow />
+          </group>
+        ))}
+      </group>
+      {/* jupe moteur et tuyère */}
+      <mesh position={[0, 0.85, 0]} material={dark} castShadow>
+        <cylinderGeometry args={[1.05, 0.7, 0.6, 48]} />
+      </mesh>
+      <mesh geometry={bell} position={[0, 0.55, 0]} material={dark} castShadow />
+      <group position={[0, -0.5, 0]}>
         <Flame flame={flame} />
       </group>
       {children}

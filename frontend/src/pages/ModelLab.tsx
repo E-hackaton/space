@@ -3,11 +3,25 @@ import { OrbitControls } from '@react-three/drei';
 import { useSearchParams } from 'react-router-dom';
 import { MODELS, NasaModel, type ModelId } from '../components/3d/NasaModel';
 import { Look } from '../world/Look';
+import { AnatomyModel, type AnatomyId } from '../world/anatomy/AnatomyModel';
+import { Grass, Trees } from '../world/props/Nature';
+import { ToonRocket } from '../world/props/Vehicles';
+
+const NO_FLAME = { current: 0 };
+import { earthField } from '../world/terrain';
+
+const LAB_FIELD = earthField();
+const LAB_TREES = [
+  { x: -5, z: 0, s: 1.3, phase: 0 },
+  { x: 4, z: -3, s: 1, phase: 1 },
+  { x: 1, z: 6, s: 0.8, phase: 2 },
+];
 
 /** Outil de développement : voir chaque modèle NASA et régler ses légendes. Route /labo (dev seulement). */
 export default function ModelLab() {
   const [params] = useSearchParams();
-  const ids = (params.get('m')?.split(',') as ModelId[] | undefined) ?? (Object.keys(MODELS).filter((k) => k !== '_note') as ModelId[]);
+  const anat = params.get('anat')?.split(',').filter(Boolean) as AnatomyId[] | undefined;
+  const ids = anat ? [] : (params.get('m')?.split(',') as ModelId[] | undefined) ?? (Object.keys(MODELS).filter((k) => k !== '_note') as ModelId[]);
   const cols = Math.ceil(Math.sqrt(ids.length));
   const d = Number(params.get('d') ?? 16);
   const az = Number(params.get('az') ?? 0);
@@ -27,6 +41,18 @@ export default function ModelLab() {
             </group>
           );
         })}
+        {params.has('rocket') && <ToonRocket flame={NO_FLAME} />}
+        {params.has('nature') && (
+          <group position={[0, -LAB_FIELD.heightAt(0, 0), 0]}>
+            <Trees field={LAB_FIELD} trees={LAB_TREES} animate />
+            <Grass field={LAB_FIELD} radius={14} clumps={900} animate />
+          </group>
+        )}
+        {anat?.map((id, i) => (
+          <group key={id} position={[(i - (anat.length - 1) / 2) * 7, 0, 0]}>
+            <AnatomyModel id={id} />
+          </group>
+        ))}
         <mesh rotation-x={-Math.PI / 2} receiveShadow>
           <planeGeometry args={[60, 60]} />
           <meshStandardMaterial color="#5a4038" />
