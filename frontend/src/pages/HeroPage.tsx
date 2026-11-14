@@ -4,10 +4,10 @@ import { Link, useParams } from 'react-router-dom'
 
 import { fetchEquipment } from '../api/heroes'
 import { KindIcon } from '../components/KindIcon'
+import { MissionTour } from '../components/MissionTour'
 import { Quiz } from '../components/Quiz'
 import { StatusBadge } from '../components/StatusBadge'
 import { LoadError, Loading } from '../components/StatusMessage'
-import { StoryReader } from '../components/StoryReader'
 import { UnlockCelebration } from '../components/UnlockCelebration'
 import { EXPERIENCES } from '../experiences'
 import { useApi } from '../hooks/useApi'
@@ -81,7 +81,7 @@ function HeroSheet({ hero }: { hero: EquipmentDetail }) {
 
       <section className={ui.panel} aria-labelledby="histoire">
         <h2 id="histoire">{t.hero.story}</h2>
-        <StoryReader chapters={hero.chapters} nextSectionId={hero.quiz.length > 0 ? 'quiz' : undefined} />
+        <MissionTour hero={hero} nextSectionId={hero.quiz.length > 0 ? 'quiz' : undefined} />
       </section>
 
       <section className={styles.discovery} aria-labelledby="science">

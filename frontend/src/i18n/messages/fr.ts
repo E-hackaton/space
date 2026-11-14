@@ -137,12 +137,17 @@ export const fr = {
   },
 
   story: {
-    chapterOf: (index: number, total: number) => `Chapitre ${index} sur ${total}`,
+    chapterOf: (index: number, total: number) => `Étape ${index} sur ${total}`,
     listen: 'Écouter',
     stop: 'Arrêter',
     previous: 'Précédent',
     next: 'Suivant',
     challenge: 'Je relève le défi',
+    guidedTour: 'Visite guidée',
+    pauseTour: 'Mettre en pause',
+    timeline: 'Frise de la mission',
+    undated: 'Aujourd’hui',
+    stageLabel: (name: string) => `Modèle 3D de ${name}. Fais-le tourner pour l'observer.`,
   },
 
   quiz: {

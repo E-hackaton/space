@@ -131,12 +131,17 @@ export const en: Messages = {
   },
 
   story: {
-    chapterOf: (index: number, total: number) => `Chapter ${index} of ${total}`,
+    chapterOf: (index: number, total: number) => `Step ${index} of ${total}`,
     listen: 'Listen',
     stop: 'Stop',
     previous: 'Previous',
     next: 'Next',
     challenge: 'Take the challenge',
+    guidedTour: 'Guided tour',
+    pauseTour: 'Pause',
+    timeline: 'Mission timeline',
+    undated: 'Today',
+    stageLabel: (name: string) => `3D model of ${name}. Spin it to take a closer look.`,
   },
 
   quiz: {

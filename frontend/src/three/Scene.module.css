@@ -23,6 +23,18 @@
   cursor: grabbing;
 }
 
+.machineStage {
+  position: relative;
+  height: clamp(18rem, 48vh, 28rem);
+  border-radius: var(--radius-md);
+  background: radial-gradient(circle at 50% 60%, rgb(255 255 255 / 0.06), transparent 70%);
+  cursor: grab;
+}
+
+.machineStage:active {
+  cursor: grabbing;
+}
+
 @media (max-width: 36rem) {
   .universeStage {
     height: 40rem;
