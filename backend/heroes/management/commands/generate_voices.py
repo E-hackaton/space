@@ -41,7 +41,9 @@ class Command(BaseCommand):
         items = list(self._select_items(options["only"], options["equipment"]))
         dry_run: bool = options["dry_run"]
 
-        config = None if dry_run else self._load_config()
+        # En simulation, la configuration reste facultative ; si elle existe, on s'en sert pour
+        # reconnaître les audios déjà à jour (sinon l'estimation compterait tout).
+        config = self._optional_config() if dry_run else self._load_config()
         generated = skipped = characters = 0
 
         for item in items:
@@ -64,7 +66,7 @@ class Command(BaseCommand):
                     self.stdout.write(f"  [à générer] {item.audio_slug()} ({language}) : {len(text)} caractères")
                     continue
 
-                assert config is not None
+                assert config is not None  # toujours chargée hors simulation
                 try:
                     audio = elevenlabs.synthesize(text, voice_id, config)
                 except elevenlabs.ElevenLabsError as exc:
@@ -97,6 +99,13 @@ class Command(BaseCommand):
                 chapters = chapters.filter(equipment__slug__in=equipment)
             yield from heroes
             yield from chapters
+
+    @staticmethod
+    def _optional_config() -> elevenlabs.VoiceConfig | None:
+        try:
+            return elevenlabs.VoiceConfig.from_env()
+        except elevenlabs.ElevenLabsError:
+            return None
 
     @staticmethod
     def _load_config() -> elevenlabs.VoiceConfig:

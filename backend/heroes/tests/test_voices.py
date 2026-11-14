@@ -100,6 +100,12 @@ class GenerateVoicesTests(TestCase):
         self.assertEqual(voices, {"voice-guide", "voice-machine"})
 
     @mock.patch.dict("os.environ", FAKE_ENV)
+    def test_dry_run_recognises_up_to_date_audio(self) -> None:
+        with mock.patch("heroes.services.elevenlabs.synthesize", return_value=b"ID3"):
+            self._run()
+        self.assertIn("0 audios à générer · 4 déjà à jour", self._run("--dry-run"))
+
+    @mock.patch.dict("os.environ", FAKE_ENV)
     def test_changed_text_is_regenerated(self) -> None:
         with mock.patch("heroes.services.elevenlabs.synthesize", return_value=b"ID3") as synthesize:
             self._run("--only", "guide", "--lang", "fr")
