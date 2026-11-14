@@ -4,6 +4,9 @@ import tailwindcss from '@tailwindcss/vite';
 
 export default defineConfig({
   plugins: [react(), tailwindcss()],
+  // Port 3000 (au lieu de 5173 par défaut), accessible depuis le réseau local (adresse IP).
+  server: { port: 3000, strictPort: true, host: true },
+  preview: { port: 3000, strictPort: true, host: true },
   build: {
     // three.js pèse ~290 Ko gzip, chargé à la demande : avertissement attendu.
     chunkSizeWarningLimit: 1200,
