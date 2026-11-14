@@ -391,5 +391,8 @@
       "rover": "Rover FORBITS",
       "lrv": "Rover lunaire LRV"
     }
+  },
+  "home": {
+    "hello": "Salut, moi c'est Sankofa. Des machines dorment là-haut, sur la Lune et sur Mars. On part les retrouver ?"
   }
 }

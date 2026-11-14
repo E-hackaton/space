@@ -1,15 +1,20 @@
-import { lazy, Suspense } from 'react';
+import { lazy, Suspense, useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
+import gsap from 'gsap';
 import { motion } from 'motion/react';
 import { useStore } from '../store/useStore';
 import { LanguageSwitch } from '../components/ui/LanguageSwitch';
+import { SankofaAvatar } from '../components/guide/SankofaAvatar';
+import { SpeechText } from '../components/guide/SpeechText';
 import { unlockAudio } from '../audio/unlock';
+import { playLiftoff, unlockSfx } from '../audio/sfx';
 import { webglAvailable } from '../lib/device';
 import { usePrefersReducedMotion } from '../lib/hooks';
+import { warp } from '../scenes/warp';
 
 // La 3D est chargée après le premier affichage pour que le titre apparaisse vite.
-const SolarTour = lazy(() => import('../scenes/SolarTour'));
+const HomeHero = lazy(() => import('../scenes/HomeHero'));
 
 export default function Home() {
   const { t } = useTranslation();
@@ -18,44 +23,72 @@ export default function Home() {
   const journeyStarted = useStore((s) => s.journeyStarted);
   const startJourney = useStore((s) => s.startJourney);
   const visitChapter = useStore((s) => s.visitChapter);
+  const [leaving, setLeaving] = useState(false);
+  const [hello, setHello] = useState(false);
+  useEffect(() => {
+    warp.value = 0;
+    const id = window.setTimeout(() => setHello(true), 1600);
+    return () => window.clearTimeout(id);
+  }, []);
 
   const onStart = () => {
     unlockAudio();
+    unlockSfx();
     startJourney();
     visitChapter('earth');
-    navigate('/explorer');
+    setLeaving(true);
+    if (reduced) {
+      navigate('/mission');
+      return;
+    }
+    // Saut : les étoiles s'étirent, la caméra fonce, puis on entre dans le jeu.
+    playLiftoff('space');
+    gsap.to(warp, { value: 1, duration: 1.6, ease: 'power3.in', onComplete: () => navigate('/mission') });
   };
 
+  const title = t('app.title');
   return (
     <div className="relative h-full min-h-screen overflow-hidden bg-space text-white">
       <div className="absolute inset-0">
-        <Suspense fallback={null}>
-          {webglAvailable && <SolarTour focus="earth" interactive={false} showLabels={false} animate={!reduced} framing={3.8} liftY={0.38} />}
-        </Suspense>
+        <Suspense fallback={null}>{webglAvailable && <HomeHero animate={!reduced} />}</Suspense>
       </div>
+      {/* voile pour la lisibilité du texte */}
+      <div className="pointer-events-none absolute inset-0 bg-gradient-to-r from-space/85 via-space/30 to-transparent" aria-hidden="true" />
 
       <div className="absolute right-4 top-4 z-10">
         <LanguageSwitch />
       </div>
 
-      <motion.div
-        initial={{ opacity: 0, y: 20 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.8 }}
-        className="pointer-events-none relative z-10 flex h-full min-h-screen flex-col items-center justify-end gap-6 px-6 pb-16 text-center"
-      >
-        <h1 className="font-display text-5xl font-extrabold uppercase leading-none tracking-wide drop-shadow-lg sm:text-7xl">
-          {t('app.title')}
+      <motion.div animate={leaving ? { opacity: 0, x: -40 } : { opacity: 1 }} transition={{ duration: 0.6 }} className="relative z-10 flex h-full min-h-screen max-w-2xl flex-col justify-center gap-6 px-6 sm:px-14">
+        <h1 className="hero-title" aria-label={title}>
+          {title.split('').map((ch, i) => (
+            <motion.span
+              key={i}
+              aria-hidden="true"
+              initial={{ opacity: 0, y: 60, rotateX: -90, filter: 'blur(12px)' }}
+              animate={{ opacity: 1, y: 0, rotateX: 0, filter: 'blur(0px)' }}
+              transition={{ delay: 0.15 + i * 0.07, duration: 0.9, ease: [0.2, 0.8, 0.2, 1] }}
+              className="inline-block"
+            >
+              {ch}
+            </motion.span>
+          ))}
         </h1>
-        <p className="max-w-xl text-lg text-slate-200">{t('app.tagline')}</p>
-        <button
-          type="button"
-          onClick={onStart}
-          className="pointer-events-auto rounded-full bg-active px-8 py-3 font-semibold text-space shadow-lg shadow-active/30 transition hover:scale-105"
-        >
-          {journeyStarted ? t('app.continue') : t('app.start')}
-        </button>
-        <p className="text-xs text-slate-400">{t('app.notToScale')}</p>
+        <motion.p initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.9, duration: 0.8 }} className="max-w-lg text-lg text-slate-200 sm:text-xl">
+          {t('app.tagline')}
+        </motion.p>
+
+        <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 1.3 }} className="flex items-center gap-3">
+          <SankofaAvatar size={72} talking={hello} />
+          {hello && <SpeechText text={t('home.hello')} className="max-w-sm text-base text-slate-100" />}
+        </motion.div>
+
+        <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 1.6 }} className="flex flex-wrap items-center gap-4">
+          <button type="button" onClick={onStart} className="hero-cta">
+            <span>{journeyStarted ? t('app.continue') : t('app.start')}</span>
+          </button>
+          <p className="text-xs text-slate-400">{t('app.notToScale')}</p>
+        </motion.div>
       </motion.div>
     </div>
   );

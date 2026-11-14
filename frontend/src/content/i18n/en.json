@@ -391,5 +391,8 @@
       "rover": "FORBITS rover",
       "lrv": "Lunar Roving Vehicle"
     }
+  },
+  "home": {
+    "hello": "Hi, I'm Sankofa. Machines are sleeping up there, on the Moon and on Mars. Shall we go and find them?"
   }
 }
