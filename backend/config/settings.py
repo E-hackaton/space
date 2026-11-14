@@ -10,6 +10,8 @@ Le même fichier sert donc en local et en production.
 import os
 from pathlib import Path
 
+from django.core.exceptions import ImproperlyConfigured
+
 BASE_DIR = Path(__file__).resolve().parent.parent
 
 
@@ -28,10 +30,22 @@ def env_list(name: str, default: str) -> list[str]:
 
 # --- Sécurité -----------------------------------------------------------------
 
-# La clé par défaut ne sert qu'en local : en production, DJANGO_SECRET_KEY est obligatoire.
-SECRET_KEY = os.environ.get("DJANGO_SECRET_KEY", "dev-only-insecure-key-change-me")
+DEV_SECRET_KEY = "dev-only-insecure-key-change-me"
+SECRET_KEY = os.environ.get("DJANGO_SECRET_KEY", DEV_SECRET_KEY)
 DEBUG = env_bool("DJANGO_DEBUG", default=True)
 ALLOWED_HOSTS = env_list("DJANGO_ALLOWED_HOSTS", "localhost,127.0.0.1")
+# Origines HTTPS autorisées à envoyer des formulaires (admin), ex. « https://space.techledger.io ».
+CSRF_TRUSTED_ORIGINS = env_list("DJANGO_CSRF_TRUSTED_ORIGINS", "")
+
+if not DEBUG:
+    # En production, on refuse de démarrer avec la clé de développement, publique sur GitHub.
+    if SECRET_KEY == DEV_SECRET_KEY:
+        raise ImproperlyConfigured("DJANGO_SECRET_KEY doit être définie en production.")
+    # Caddy termine le HTTPS et transmet la requête en HTTP : cet en-tête dit à Django
+    # que la connexion d'origine était sécurisée.
+    SECURE_PROXY_SSL_HEADER = ("HTTP_X_FORWARDED_PROTO", "https")
+    SESSION_COOKIE_SECURE = True
+    CSRF_COOKIE_SECURE = True
 
 
 # --- Applications -------------------------------------------------------------
@@ -88,7 +102,8 @@ WSGI_APPLICATION = "config.wsgi.application"
 DATABASES = {
     "default": {
         "ENGINE": "django.db.backends.sqlite3",
-        "NAME": BASE_DIR / "db.sqlite3",
+        # En Docker, la base vit dans un volume (DJANGO_DB_PATH) pour survivre aux redéploiements.
+        "NAME": Path(os.environ.get("DJANGO_DB_PATH", BASE_DIR / "db.sqlite3")),
     }
 }
 
