@@ -1,6 +1,10 @@
 .hero {
   max-width: 48rem;
-  margin-bottom: var(--space-12);
+  margin-bottom: var(--space-6);
+}
+
+.worldsTitle {
+  text-align: center;
 }
 
 .lead {

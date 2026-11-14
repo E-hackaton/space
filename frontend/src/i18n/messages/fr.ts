@@ -71,7 +71,7 @@ export const fr = {
     sankofaIntro:
       "Salut, je suis Sankofa ! Mon nom vient d'un symbole akan qui veut dire : « il n'est pas interdit de retourner chercher ce qu'on a oublié ». Tu savais que des robots dorment sur Mars ? Viens, je te les présente.",
     start: "Commencer l'exploration",
-    destinations: 'Choisis ta destination',
+    destinations: 'Choisis ton univers',
     heroesToDiscover: (count: number) => `${count} héros à découvrir`,
   },
 
@@ -82,6 +82,11 @@ export const fr = {
     listTitle: 'Tous les héros de ce lieu',
     notLaunched: (year: number) => `Pas encore lancé en ${year}`,
     traveling: (year: number) => `En route en ${year}`,
+    viewLabel: 'Type de vue',
+    view3d: 'Globe 3D',
+    view2d: 'Carte 2D',
+    globeLabel: (body: string) => `Globe 3D de ${body}. Fais-le tourner, puis choisis une machine.`,
+    globeHint: 'Fais tourner le globe et touche une machine.',
   },
 
   timeMachine: {

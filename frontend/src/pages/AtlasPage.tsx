@@ -2,8 +2,8 @@ import { useState } from 'react'
 import { NavLink, useParams } from 'react-router-dom'
 
 import { fetchBodies, fetchEquipmentList } from '../api/heroes'
+import { AtlasView } from '../components/AtlasView'
 import { HeroTile } from '../components/HeroTile'
-import { PlanetMap } from '../components/PlanetMap'
 import { SankofaSays } from '../components/SankofaSays'
 import { LoadError, Loading } from '../components/StatusMessage'
 import { TimeMachine } from '../components/TimeMachine'
@@ -85,7 +85,7 @@ function Atlas({ bodySlug }: { bodySlug: BodySlug }) {
         <>
           <TimeMachine heroes={equipment.data} year={year} onYearChange={setYear} />
 
-          {map && <PlanetMap map={map} bodyName={body?.name ?? ''} equipment={equipment.data} year={year} />}
+          {map && <AtlasView body={bodySlug} bodyName={body?.name ?? ''} map={map} equipment={equipment.data} year={year} />}
 
           <section aria-labelledby="liste-heros">
             <h2 id="liste-heros">{t.atlas.listTitle}</h2>

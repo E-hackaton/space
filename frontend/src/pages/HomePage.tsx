@@ -1,5 +1,5 @@
-import { ArrowRight } from '@phosphor-icons/react'
-import { Link } from 'react-router-dom'
+import { lazy, Suspense } from 'react'
+import { Link, useNavigate } from 'react-router-dom'
 
 import { fetchBodies } from '../api/heroes'
 import { SankofaSays } from '../components/SankofaSays'
@@ -7,8 +7,13 @@ import { LoadError, Loading } from '../components/StatusMessage'
 import { WorldIcon } from '../components/WorldIcon'
 import { useApi } from '../hooks/useApi'
 import { useI18n } from '../i18n/useI18n'
+import { canUseWebGL } from '../lib/webgl'
 import ui from '../styles/ui.module.css'
+import type { CelestialBody } from '../types/api'
 import styles from './HomePage.module.css'
+
+// La 3D (three.js) n'est téléchargée que si on en a besoin : le premier affichage reste léger.
+const UniverseScene = lazy(() => import('../three/UniverseScene'))
 
 export function HomePage() {
   const { t } = useI18n()
@@ -24,31 +29,50 @@ export function HomePage() {
         <SankofaSays avatarSize={110}>
           <p>{t.home.sankofaIntro}</p>
         </SankofaSays>
-
-        <Link to="/atlas/moon" className={ui.button}>
-          {t.home.start} <ArrowRight aria-hidden="true" />
-        </Link>
       </section>
 
       <section aria-labelledby="destinations">
-        <h2 id="destinations">{t.home.destinations}</h2>
+        <h2 id="destinations" className={styles.worldsTitle}>
+          {t.home.destinations}
+        </h2>
         {bodies.status === 'loading' && <Loading />}
         {bodies.status === 'error' && <LoadError error={bodies.error} />}
-        {bodies.status === 'success' && (
-          <ul className={ui.grid}>
-            {bodies.data.map((body) => (
-              // data-world : chaque carte de destination prend la couleur de son monde.
-              <li key={body.slug} data-world={body.slug} className="reveal">
-                <Link to={`/atlas/${body.slug}`} className={styles.destination}>
-                  <WorldIcon world={body.slug} size={40} className={styles.destinationIcon} />
-                  <span className={styles.destinationName}>{body.name}</span>
-                  <span className={ui.muted}>{t.home.heroesToDiscover(body.equipment_count)}</span>
-                </Link>
-              </li>
-            ))}
-          </ul>
-        )}
+        {bodies.status === 'success' && <WorldChooser bodies={bodies.data} />}
       </section>
     </>
+  )
+}
+
+/** Choix du monde : en 3D si le navigateur le permet, sinon en cartes 2D. */
+function WorldChooser({ bodies }: { bodies: CelestialBody[] }) {
+  const { t } = useI18n()
+  const navigate = useNavigate()
+
+  if (canUseWebGL()) {
+    const worlds = bodies.map((body) => ({
+      slug: body.slug,
+      name: body.name,
+      subtitle: t.home.heroesToDiscover(body.equipment_count),
+    }))
+    return (
+      <Suspense fallback={<Loading />}>
+        <UniverseScene worlds={worlds} label={t.home.destinations} onSelect={(slug) => navigate(`/atlas/${slug}`)} />
+      </Suspense>
+    )
+  }
+
+  return (
+    <ul className={ui.grid}>
+      {bodies.map((body) => (
+        // data-world : chaque carte de destination prend la couleur de son monde.
+        <li key={body.slug} data-world={body.slug} className="reveal">
+          <Link to={`/atlas/${body.slug}`} className={styles.destination}>
+            <WorldIcon world={body.slug} size={40} className={styles.destinationIcon} />
+            <span className={styles.destinationName}>{body.name}</span>
+            <span className={ui.muted}>{t.home.heroesToDiscover(body.equipment_count)}</span>
+          </Link>
+        </li>
+      ))}
+    </ul>
   )
 }

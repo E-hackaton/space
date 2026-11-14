@@ -65,7 +65,7 @@ export const en: Messages = {
     sankofaIntro:
       "Hi, I'm Sankofa! My name comes from an Akan symbol meaning: \"it is not wrong to go back for what you forgot\". Did you know robots are sleeping on Mars? Come, let me introduce you.",
     start: 'Start exploring',
-    destinations: 'Choose your destination',
+    destinations: 'Choose your world',
     heroesToDiscover: (count: number) => `${count} heroes to discover`,
   },
 
@@ -76,6 +76,11 @@ export const en: Messages = {
     listTitle: 'All the heroes here',
     notLaunched: (year: number) => `Not launched yet in ${year}`,
     traveling: (year: number) => `On its way in ${year}`,
+    viewLabel: 'View type',
+    view3d: '3D globe',
+    view2d: '2D map',
+    globeLabel: (body: string) => `3D globe of ${body}. Spin it, then pick a machine.`,
+    globeHint: 'Spin the globe and tap a machine.',
   },
 
   timeMachine: {
