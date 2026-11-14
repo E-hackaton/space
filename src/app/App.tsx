@@ -9,6 +9,7 @@ const JourneyMap = lazy(() => import('../pages/JourneyMap'));
 const ChapterPage = lazy(() => import('../pages/ChapterPage'));
 const Tour = lazy(() => import('../pages/Tour'));
 const MissionPage = lazy(() => import('../pages/MissionPage'));
+const ExplorerPage = lazy(() => import('../pages/ExplorerPage'));
 const Sources = lazy(() => import('../pages/Sources'));
 const NotFound = lazy(() => import('../pages/NotFound'));
 
@@ -22,6 +23,7 @@ export default function App() {
             <Route path="/carte" element={<JourneyMap />} />
             <Route path="/visite" element={<Tour />} />
             <Route path="/mission" element={<MissionPage />} />
+            <Route path="/explorer" element={<ExplorerPage />} />
             <Route path="/chapitre/:id" element={<ChapterPage />} />
             <Route path="/sources" element={<Sources />} />
             <Route path="*" element={<NotFound />} />

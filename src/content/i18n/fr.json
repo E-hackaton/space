@@ -14,7 +14,8 @@
     "language": "Langue",
     "back": "Retour à la carte",
     "tour": "Visite 3D",
-    "mission": "Missions"
+    "mission": "Missions",
+    "explorer": "Explorer"
   },
   "map": {
     "title": "Carte du voyage",
@@ -166,5 +167,34 @@
     "blades": "État des pales",
     "map": "Carte réalisée",
     "radiation": "Radiations reçues"
+  },
+  "explorer": {
+    "title": "Explorer",
+    "destinations": "Destinations",
+    "where": "On va où ?",
+    "sol": "Sol",
+    "flights": "vols",
+    "lrrr": "Réflecteur laser",
+    "lm": "Étage de descente",
+    "easep": "Sismomètre",
+    "leftBehind": "resté sur la Lune",
+    "fireLaser": "Tirer le laser",
+    "story": "Son histoire",
+    "pause": "Pause",
+    "play": "Lecture",
+    "timeline": "Temps de la mission (sols)",
+    "brake": "Espace : frein",
+    "worlds": {
+      "earth": "Terre",
+      "moon": "Lune · Apollo 11",
+      "jezero": "Mars · Jezero",
+      "gale": "Mars · Gale"
+    },
+    "who": {
+      "moon": "Apollo 11",
+      "jezero": "Perseverance · Ingenuity",
+      "gale": "Curiosity",
+      "earth": ""
+    }
   }
 }

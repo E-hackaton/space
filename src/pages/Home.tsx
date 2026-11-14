@@ -23,7 +23,7 @@ export default function Home() {
     unlockAudio();
     startJourney();
     visitChapter('earth');
-    navigate('/mission');
+    navigate('/explorer');
   };
 
   return (

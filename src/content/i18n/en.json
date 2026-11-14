@@ -14,7 +14,8 @@
     "language": "Language",
     "back": "Back to the map",
     "tour": "3D tour",
-    "mission": "Missions"
+    "mission": "Missions",
+    "explorer": "Explore"
   },
   "map": {
     "title": "Journey map",
@@ -166,5 +167,34 @@
     "blades": "Blade condition",
     "map": "Map completed",
     "radiation": "Radiation received"
+  },
+  "explorer": {
+    "title": "Explore",
+    "destinations": "Destinations",
+    "where": "Where to?",
+    "sol": "Sol",
+    "flights": "flights",
+    "lrrr": "Laser reflector",
+    "lm": "Descent stage",
+    "easep": "Seismometer",
+    "leftBehind": "left on the Moon",
+    "fireLaser": "Fire the laser",
+    "story": "Its story",
+    "pause": "Pause",
+    "play": "Play",
+    "timeline": "Mission time (sols)",
+    "brake": "Space: brake",
+    "worlds": {
+      "earth": "Earth",
+      "moon": "Moon · Apollo 11",
+      "jezero": "Mars · Jezero",
+      "gale": "Mars · Gale"
+    },
+    "who": {
+      "moon": "Apollo 11",
+      "jezero": "Perseverance · Ingenuity",
+      "gale": "Curiosity",
+      "earth": ""
+    }
   }
 }
