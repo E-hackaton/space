@@ -1,5 +1,5 @@
 {
-  "_note": "Modèles 3D de la NASA (libres de droits) optimisés par l'équipe (meshopt, textures WebP ≤ 1024 px). Les ancres d'annotation sont en fractions de la boîte englobante du modèle normalisé : [x gauche→droite, y bas→haut, z arrière→avant]. Les tailles cibles sont des ordres de grandeur pour la mise en scène.",
+  "_note": "Modèles 3D de la NASA (libres de droits) optimisés par l'équipe (meshopt, textures WebP ≤ 1024 px). Les ancres d'annotation sont en fractions de la boîte englobante du modèle normalisé : [x gauche→droite, y bas→haut, z arrière→avant]. Les tailles cibles sont des ordres de grandeur pour la mise en scène. Ancres « norm » : repère du modèle centré, rayon de la sphère englobante = 1, Y vers le haut (annotations reprises de docs/mars1/outils/engins).",
   "perseverance": {
     "file": "/models/perseverance.glb",
     "size": 3,
@@ -215,5 +215,143 @@
     "size": 4,
     "source": "https://github.com/nasa/NASA-3D-Resources/tree/master/3D%20Models/Voyager%20Probe%20(A)",
     "annotations": []
+  },
+  "insight": {
+    "file": "/models/insight.glb",
+    "size": 6,
+    "source": "https://science.nasa.gov/3d-resources/insight-cruise-lander/",
+    "annotations": [
+      {
+        "key": "parts.solarPanel",
+        "at": [
+          0.55,
+          -0.01,
+          -0.05
+        ],
+        "norm": true
+      },
+      {
+        "key": "parts.arm",
+        "at": [
+          -0.106,
+          0.158,
+          0.254
+        ],
+        "norm": true
+      },
+      {
+        "key": "parts.seismometer",
+        "at": [
+          0.031,
+          0.069,
+          0.128
+        ],
+        "norm": true
+      },
+      {
+        "key": "parts.heatProbe",
+        "at": [
+          -0.078,
+          0.073,
+          -0.007
+        ],
+        "norm": true
+      },
+      {
+        "key": "parts.legs",
+        "at": [
+          0.291,
+          -0.278,
+          0.166
+        ],
+        "norm": true
+      }
+    ]
+  },
+  "near": {
+    "file": "/models/near.glb",
+    "size": 3,
+    "source": "https://science.nasa.gov/3d-resources/near-shoemaker/",
+    "annotations": [
+      {
+        "key": "parts.solarPanel",
+        "at": [
+          -0.45,
+          0.19,
+          0.02
+        ],
+        "norm": true
+      },
+      {
+        "key": "parts.hga",
+        "at": [
+          0.154,
+          0.174,
+          0.037
+        ],
+        "norm": true
+      },
+      {
+        "key": "parts.imager",
+        "at": [
+          -0.18,
+          -0.255,
+          0.002
+        ],
+        "norm": true
+      },
+      {
+        "key": "parts.body",
+        "at": [
+          -0.13,
+          0,
+          0.13
+        ],
+        "norm": true
+      }
+    ]
+  },
+  "pioneer10": {
+    "file": "/models/pioneer10.glb",
+    "size": 3,
+    "source": "https://science.nasa.gov/3d-resources/pioneer/",
+    "annotations": [
+      {
+        "key": "parts.hga",
+        "at": [
+          0.067,
+          0.752,
+          0.048
+        ],
+        "norm": true
+      },
+      {
+        "key": "parts.rtg",
+        "at": [
+          0.44,
+          0.81,
+          0.13
+        ],
+        "norm": true
+      },
+      {
+        "key": "parts.magnetometer",
+        "at": [
+          0.002,
+          -0.825,
+          0.11
+        ],
+        "norm": true
+      },
+      {
+        "key": "parts.body",
+        "at": [
+          -0.007,
+          0.554,
+          0.186
+        ],
+        "norm": true
+      }
+    ]
   }
 }

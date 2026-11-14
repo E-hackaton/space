@@ -222,7 +222,10 @@
     "reflectorPanel": "Panneau de prismes",
     "seismometer": "Sismomètre",
     "seismoPanels": "Panneaux solaires",
-    "lander": "Module qui nous a posés"
+    "lander": "Module qui nous a posés",
+    "heatProbe": "Sonde de chaleur HP3",
+    "imager": "Imageur multispectral",
+    "magnetometer": "Magnétomètre"
   },
   "quiz": {
     "title": "Le quiz de la mission",

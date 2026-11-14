@@ -222,7 +222,10 @@
     "reflectorPanel": "Prism panel",
     "seismometer": "Seismometer",
     "seismoPanels": "Solar panels",
-    "lander": "Our landing module"
+    "lander": "Our landing module",
+    "heatProbe": "HP3 heat probe",
+    "imager": "Multispectral imager",
+    "magnetometer": "Magnetometer"
   },
   "quiz": {
     "title": "Mission quiz",

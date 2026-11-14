@@ -51,7 +51,7 @@ export const STAGING: Record<string, Staging> = {
   'viking-1': { model: 'viking', anatomy: ['body', 'legs', 'arm', 'power', 'antenna'], vitals: nuclear(60, 0) },
   sojourner: { anatomy: ['body', 'wheels', 'panels', 'antenna'], vitals: [{ label: 'vitals.energy', start: 100, end: 0, unit: '%' }, { label: 'vitals.signal', start: 100, end: 0, unit: '%' }] },
   opportunity: { model: 'opportunity', effects: { legacy: 'dust-storm' }, vitals: solar() },
-  insight: { anatomy: ['body', 'legs', 'arm', 'panels', 'seismometer'], vitals: solar() },
+  insight: { model: 'insight', anatomy: ['body', 'legs', 'arm', 'panels', 'seismometer'], vitals: solar() },
   ingenuity: {
     model: 'ingenuity',
     effects: { exploration: 'flight' },
@@ -62,8 +62,8 @@ export const STAGING: Record<string, Staging> = {
   },
   curiosity: { model: 'curiosity', vitals: nuclear(75, 100) },
   perseverance: { model: 'perseverance', vitals: nuclear(90, 100) },
-  'near-shoemaker': { anatomy: ['body', 'panels', 'antenna'], vitals: [{ label: 'vitals.energy', start: 100, end: 0, unit: '%' }, { label: 'vitals.signal', start: 100, end: 0, unit: '%' }] },
-  'pioneer-10': { cruise: ['jupiter'], anatomy: ['body', 'antenna', 'power'], vitals: nuclear(0, 0) },
+  'near-shoemaker': { model: 'near', anatomy: ['body', 'panels', 'antenna'], vitals: [{ label: 'vitals.energy', start: 100, end: 0, unit: '%' }, { label: 'vitals.signal', start: 100, end: 0, unit: '%' }] },
+  'pioneer-10': { model: 'pioneer10', cruise: ['jupiter'], anatomy: ['body', 'antenna', 'power'], vitals: nuclear(0, 0) },
 };
 
 /** Valeur par défaut pour une machine ajoutée dans l'admin sans mise en scène dédiée. */

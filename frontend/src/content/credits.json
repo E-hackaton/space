@@ -61,5 +61,32 @@
       "source": "generated"
     }
   ],
-  "audio": []
+  "audio": [
+    {
+      "file": "src/audio/sfx.ts",
+      "what": "Effets sonores et ambiance de l'espace, synthétisés en direct (Web Audio API)",
+      "credit": "Créés par l'équipe",
+      "source": "—"
+    }
+  ],
+  "models": [
+    {
+      "file": "public/models/insight.glb",
+      "what": "InSight (Cruise Lander, bras déployé), optimisé par l'équipe",
+      "credit": "NASA 3D Resources",
+      "source": "https://science.nasa.gov/3d-resources/insight-cruise-lander/"
+    },
+    {
+      "file": "public/models/near.glb",
+      "what": "NEAR Shoemaker, optimisé par l'équipe",
+      "credit": "NASA 3D Resources",
+      "source": "https://science.nasa.gov/3d-resources/near-shoemaker/"
+    },
+    {
+      "file": "public/models/pioneer10.glb",
+      "what": "Pioneer 10, optimisé par l'équipe",
+      "credit": "NASA 3D Resources",
+      "source": "https://science.nasa.gov/3d-resources/pioneer/"
+    }
+  ]
 }

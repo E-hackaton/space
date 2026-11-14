@@ -62,6 +62,9 @@ export const LOOKS: Record<string, Look3D> = {
   curiosity: { kind: 'nasa', id: 'curiosity' },
   ingenuity: { kind: 'nasa', id: 'ingenuity' },
   perseverance: { kind: 'nasa', id: 'perseverance' },
+  insight: { kind: 'nasa', id: 'insight' },
+  'near-shoemaker': { kind: 'nasa', id: 'near' },
+  'pioneer-10': { kind: 'nasa', id: 'pioneer10' },
 };
 export const lookOf = (id: string): Look3D => LOOKS[id] ?? { kind: 'craft' };
 

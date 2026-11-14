@@ -9,6 +9,8 @@ export interface Annotation {
   key: string;
   /** Fractions de la boîte englobante : [x gauche→droite, y bas→haut, z arrière→avant]. */
   at: [number, number, number];
+  /** Si vrai, `at` est dans le repère normalisé : centré, rayon de la sphère englobante = 1. */
+  norm?: boolean;
 }
 export interface ModelInfo {
   file: string;
@@ -75,7 +77,8 @@ function useNormalized(id: ModelId, scale: number) {
         if (re.test(o.name) && !(o.parent && re.test(o.parent.name))) spinners.push(o);
       });
     }
-    return { root, k, center, lift, scaledBox, spinners };
+    const radius = box.getBoundingSphere(new THREE.Sphere()).radius;
+    return { root, k, center, lift, scaledBox, spinners, radius };
   }, [scene, info, scale]);
 }
 
@@ -123,7 +126,8 @@ interface Props {
 
 function Inner({ id, scale = 1, annotated = false, focusPart, spinning, children }: Props) {
   const { t } = useTranslation();
-  const { root, k, center, lift, scaledBox, spinners } = useNormalized(id, scale);
+  const { root, k, center, lift, scaledBox, spinners, radius } = useNormalized(id, scale);
+  const anchor = (a: Annotation) => (a.norm ? new THREE.Vector3(...a.at).multiplyScalar(radius * k).add(new THREE.Vector3(0, lift, 0)) : anchorPosition(scaledBox, lift, a.at));
   useFrame((_, dt) => {
     if (!spinning?.current) return;
     // Rotors contrarotatifs : un sur deux tourne dans l'autre sens.
@@ -139,9 +143,9 @@ function Inner({ id, scale = 1, annotated = false, focusPart, spinning, children
         info.annotations.map((a) => (
           <Callout
             key={a.key}
-            position={anchorPosition(scaledBox, lift, a.at)}
+            position={anchor(a)}
             label={t(a.key)}
-            side={a.at[0] < 0.5 ? 'left' : 'right'}
+            side={a.at[0] < (a.norm ? 0 : 0.5) ? 'left' : 'right'}
             focus={calloutFocus(a.key, focusPart)}
           />
         ))}
