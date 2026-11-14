@@ -18,6 +18,7 @@ export function Layout() {
         </Link>
         <nav className="flex items-center gap-3 text-sm">
           <NavLink to="/carte" className={linkClass}>{t('nav.map')}</NavLink>
+          <NavLink to="/visite" className={linkClass}>{t('nav.tour')}</NavLink>
           <NavLink to="/sources" className={linkClass}>{t('nav.sources')}</NavLink>
           <LanguageSwitch />
         </nav>

@@ -5,13 +5,16 @@ import { motion } from 'motion/react';
 import { useStore } from '../store/useStore';
 import { LanguageSwitch } from '../components/ui/LanguageSwitch';
 import { unlockAudio } from '../audio/unlock';
+import { webglAvailable } from '../lib/device';
+import { usePrefersReducedMotion } from '../lib/hooks';
 
 // La 3D est chargée après le premier affichage pour que le titre apparaisse vite.
-const PlanetView = lazy(() => import('../components/3d/PlanetView'));
+const SolarTour = lazy(() => import('../scenes/SolarTour'));
 
 export default function Home() {
   const { t } = useTranslation();
   const navigate = useNavigate();
+  const reduced = usePrefersReducedMotion();
   const journeyStarted = useStore((s) => s.journeyStarted);
   const startJourney = useStore((s) => s.startJourney);
   const visitChapter = useStore((s) => s.visitChapter);
@@ -27,7 +30,7 @@ export default function Home() {
     <div className="relative h-full min-h-screen overflow-hidden bg-space text-white">
       <div className="absolute inset-0">
         <Suspense fallback={null}>
-          <PlanetView color="#2F6FD0" atmosphere="#7FB7FF" />
+          {webglAvailable && <SolarTour focus="earth" interactive={false} showLabels={false} animate={!reduced} framing={3.8} liftY={0.38} />}
         </Suspense>
       </div>
 

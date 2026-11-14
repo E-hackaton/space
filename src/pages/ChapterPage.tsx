@@ -5,13 +5,17 @@ import { getChapter, isUnlocked } from '../lib/chapters';
 import { useStore } from '../store/useStore';
 import { Loading } from '../components/ui/Loading';
 import NotFound from './NotFound';
+import { webglAvailable } from '../lib/device';
+import { usePrefersReducedMotion } from '../lib/hooks';
 
 const PlanetView = lazy(() => import('../components/3d/PlanetView'));
+const SolarTour = lazy(() => import('../scenes/SolarTour'));
 
 export default function ChapterPage() {
   const { id } = useParams();
   const { t } = useTranslation();
   const chapter = getChapter(id);
+  const reduced = usePrefersReducedMotion();
   const visited = useStore((s) => s.visitedChapters);
   const visitChapter = useStore((s) => s.visitChapter);
   const unlocked = chapter ? isUnlocked(chapter.id, visited) : false;
@@ -38,7 +42,11 @@ export default function ChapterPage() {
     <section className="relative flex flex-1 flex-col bg-space text-white">
       <div className="relative h-[60vh] min-h-80 w-full">
         <Suspense fallback={<Loading />}>
-          <PlanetView color={chapter.color} />
+          {webglAvailable && (chapter.id === 'moon' || chapter.id === 'mars') ? (
+            <SolarTour focus={chapter.id} showLabels={false} animate={!reduced} framing={3} />
+          ) : (
+            <PlanetView color={chapter.color} />
+          )}
         </Suspense>
         <p className="absolute bottom-2 right-3 text-xs text-slate-400">{t('app.notToScale')}</p>
       </div>

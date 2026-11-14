@@ -5,8 +5,8 @@ import tailwindcss from '@tailwindcss/vite';
 export default defineConfig({
   plugins: [react(), tailwindcss()],
   build: {
-    // three.js pèse ~230 Ko gzip, chargé à la demande : avertissement attendu.
-    chunkSizeWarningLimit: 1000,
+    // three.js pèse ~290 Ko gzip, chargé à la demande : avertissement attendu.
+    chunkSizeWarningLimit: 1200,
     rollupOptions: {
       output: {
         // Isole la 3D dans son propre fichier, chargé seulement quand une scène s'affiche.

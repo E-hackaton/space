@@ -12,7 +12,8 @@
     "map": "Carte du voyage",
     "sources": "Sources",
     "language": "Langue",
-    "back": "Retour à la carte"
+    "back": "Retour à la carte",
+    "tour": "Visite 3D"
   },
   "map": {
     "title": "Carte du voyage",
@@ -25,10 +26,22 @@
     "prologue": "Prologue"
   },
   "chapters": {
-    "earth": { "title": "La Terre", "teaser": "Le point de départ. D'ici sont partis tous les veilleurs." },
-    "moon": { "title": "La Lune", "teaser": "Six sites Apollo, des réflecteurs laser et des rovers qui attendent dans la poussière." },
-    "mars": { "title": "Mars", "teaser": "Atterrisseurs, rovers et un hélicoptère : ceux qui dorment et ceux qui travaillent encore." },
-    "deep-space": { "title": "L'espace lointain", "teaser": "Des sondes parties si loin que leurs messages mettent des heures à nous parvenir." }
+    "earth": {
+      "title": "La Terre",
+      "teaser": "Le point de départ. D'ici sont partis tous les veilleurs."
+    },
+    "moon": {
+      "title": "La Lune",
+      "teaser": "Six sites Apollo, des réflecteurs laser et des rovers qui attendent dans la poussière."
+    },
+    "mars": {
+      "title": "Mars",
+      "teaser": "Atterrisseurs, rovers et un hélicoptère : ceux qui dorment et ceux qui travaillent encore."
+    },
+    "deep-space": {
+      "title": "L'espace lointain",
+      "teaser": "Des sondes parties si loin que leurs messages mettent des heures à nous parvenir."
+    }
   },
   "chapter": {
     "soon": "Ce chapitre est en construction. Les histoires arrivent bientôt.",
@@ -49,5 +62,13 @@
     "title": "Signal perdu",
     "text": "Cette page n'existe pas.",
     "home": "Revenir à l'accueil"
+  },
+  "tour": {
+    "title": "Visite 3D",
+    "overview": "Vue d'ensemble",
+    "intro": "La Terre, la Lune et Mars. Choisis une destination : la caméra t'y emmène.",
+    "navLabel": "Destinations de la visite",
+    "openChapter": "Ouvrir le chapitre",
+    "hint": "Fais glisser pour tourner, molette ou pincement pour zoomer, flèches ← → pour changer d'étape"
   }
 }

@@ -12,7 +12,8 @@
     "map": "Journey map",
     "sources": "Sources",
     "language": "Language",
-    "back": "Back to the map"
+    "back": "Back to the map",
+    "tour": "3D tour"
   },
   "map": {
     "title": "Journey map",
@@ -25,10 +26,22 @@
     "prologue": "Prologue"
   },
   "chapters": {
-    "earth": { "title": "Earth", "teaser": "The starting point. Every sentinel left from here." },
-    "moon": { "title": "The Moon", "teaser": "Six Apollo sites, laser reflectors and rovers waiting in the dust." },
-    "mars": { "title": "Mars", "teaser": "Landers, rovers and a helicopter: those asleep and those still at work." },
-    "deep-space": { "title": "Deep space", "teaser": "Probes so far away that their messages take hours to reach us." }
+    "earth": {
+      "title": "Earth",
+      "teaser": "The starting point. Every sentinel left from here."
+    },
+    "moon": {
+      "title": "The Moon",
+      "teaser": "Six Apollo sites, laser reflectors and rovers waiting in the dust."
+    },
+    "mars": {
+      "title": "Mars",
+      "teaser": "Landers, rovers and a helicopter: those asleep and those still at work."
+    },
+    "deep-space": {
+      "title": "Deep space",
+      "teaser": "Probes so far away that their messages take hours to reach us."
+    }
   },
   "chapter": {
     "soon": "This chapter is under construction. Stories are coming soon.",
@@ -49,5 +62,13 @@
     "title": "Signal lost",
     "text": "This page does not exist.",
     "home": "Back to home"
+  },
+  "tour": {
+    "title": "3D tour",
+    "overview": "Overview",
+    "intro": "Earth, the Moon and Mars. Pick a destination: the camera takes you there.",
+    "navLabel": "Tour destinations",
+    "openChapter": "Open the chapter",
+    "hint": "Drag to rotate, scroll or pinch to zoom, ← → arrows to change stop"
   }
 }
