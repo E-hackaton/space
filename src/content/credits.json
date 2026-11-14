@@ -29,6 +29,36 @@
       "what": "Mosaïque couleur de Mars Viking MDIM 2.1, recadrée et réduite à 2048×1024 (domaine public)",
       "credit": "NASA / JPL / USGS",
       "source": "https://astrogeology.usgs.gov/search/details/Mars/Viking/MDIM21/Mars_Viking_MDIM21_ClrMosaic_global_232m/cub"
+    },
+    {
+      "file": "public/textures/mercury_color.jpg",
+      "what": "Mosaïque globale de Mercure (MESSENGER), réduite à 2048×1024",
+      "credit": "NASA – TODO: à vérifier : ligne de crédit exacte sur la page PIA16298 (probablement NASA/Johns Hopkins University Applied Physics Laboratory/Carnegie Institution of Washington)",
+      "source": "https://photojournal.jpl.nasa.gov/catalog/PIA16298"
+    },
+    {
+      "file": "public/textures/jupiter_color.jpg",
+      "what": "Carte cylindrique de Jupiter (Cassini, décembre 2000), réduite à 2048×1024",
+      "credit": "NASA – TODO: à vérifier : ligne de crédit exacte sur la page PIA07782 (probablement NASA/JPL/Space Science Institute)",
+      "source": "https://photojournal.jpl.nasa.gov/catalog/PIA07782"
+    },
+    {
+      "file": "public/textures/venus_clouds.jpg",
+      "what": "Illustration (pas une carte réelle) : couverture nuageuse de Vénus générée par l'équipe",
+      "credit": "Équipe Les Veilleurs",
+      "source": "generated"
+    },
+    {
+      "file": "public/textures/saturn_color.jpg",
+      "what": "Illustration (pas une carte réelle) : bandes de Saturne générées par l'équipe",
+      "credit": "Équipe Les Veilleurs",
+      "source": "generated"
+    },
+    {
+      "file": "public/textures/saturn_ring.png",
+      "what": "Illustration : profil des anneaux de Saturne généré par l'équipe",
+      "credit": "Équipe Les Veilleurs",
+      "source": "generated"
     }
   ],
   "audio": []

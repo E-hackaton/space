@@ -2,16 +2,21 @@ import { lazy, Suspense, useEffect } from 'react';
 import { Link, useSearchParams } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import { Loading } from '../components/ui/Loading';
-import { TOUR_STOPS, type TourStop } from '../lib/tour';
+import { TOUR_STOPS, type TourStop } from '../lib/solarSystem';
+import { machinesOn } from '../lib/machines';
 import { webglAvailable } from '../lib/device';
 import { usePrefersReducedMotion } from '../lib/hooks';
 
 const SolarTour = lazy(() => import('../scenes/SolarTour'));
 
-const FLAT_IMAGES: Record<Exclude<TourStop, 'overview'>, string> = {
+const FLAT_IMAGES: Partial<Record<TourStop, string>> = {
+  mercury: '/textures/mercury_color.jpg',
+  venus: '/textures/venus_clouds.jpg',
   earth: '/textures/earth_color.jpg',
   moon: '/textures/moon_color.jpg',
   mars: '/textures/mars_color.jpg',
+  jupiter: '/textures/jupiter_color.jpg',
+  saturn: '/textures/saturn_color.jpg',
 };
 
 export default function Tour() {
@@ -46,10 +51,10 @@ export default function Tour() {
           </Suspense>
         ) : (
           <div className="flex h-full items-center justify-center p-6">
-            {focus === 'overview' ? (
-              <p className="max-w-md text-center text-slate-300">{t('tour.intro')}</p>
-            ) : (
+            {FLAT_IMAGES[focus] ? (
               <img src={FLAT_IMAGES[focus]} alt="" className="max-h-full max-w-full rounded-lg" />
+            ) : (
+              <p className="max-w-md text-center text-slate-300">{t('tour.intro')}</p>
             )}
           </div>
         )}
@@ -62,13 +67,13 @@ export default function Tour() {
           <div className="mx-auto max-w-3xl">
             <div aria-live="polite" className="mb-4 min-h-20">
               <p className="font-display text-4xl font-extrabold uppercase tracking-wide">
-                {focus === 'overview' ? t('tour.overview') : t(`chapters.${focus}.title`)}
+                {focus === 'overview' ? t('tour.overview') : t(`bodies.${focus}.name`)}
               </p>
               <p className="mt-1 text-slate-300">
-                {focus === 'overview' ? t('tour.intro') : t(`chapters.${focus}.teaser`)}
+                {focus === 'overview' ? t('tour.intro') : t(`bodies.${focus}.teaser`)}
               </p>
-              {focus !== 'overview' && focus !== 'earth' && (
-                <Link to={`/chapitre/${focus}`} className="mt-2 inline-block text-active underline underline-offset-4">
+              {focus !== 'overview' && machinesOn(focus).length > 0 && (
+                <Link to={`/mission?astre=${focus}`} className="mt-2 inline-block text-active underline underline-offset-4">
                   {t('tour.openChapter')} →
                 </Link>
               )}
@@ -85,7 +90,7 @@ export default function Tour() {
                       focus === stop ? 'bg-white text-space ring-white' : 'ring-white/30 hover:bg-white/10'
                     }`}
                   >
-                    {stop === 'overview' ? t('tour.overview') : t(`chapters.${stop}.title`)}
+                    {stop === 'overview' ? t('tour.overview') : t(`bodies.${stop}.name`)}
                   </button>
                 </li>
               ))}

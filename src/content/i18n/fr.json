@@ -13,7 +13,8 @@
     "sources": "Sources",
     "language": "Langue",
     "back": "Retour à la carte",
-    "tour": "Visite 3D"
+    "tour": "Visite 3D",
+    "mission": "Missions"
   },
   "map": {
     "title": "Carte du voyage",
@@ -66,9 +67,104 @@
   "tour": {
     "title": "Visite 3D",
     "overview": "Vue d'ensemble",
-    "intro": "La Terre, la Lune et Mars. Choisis une destination : la caméra t'y emmène.",
+    "intro": "Le Système solaire et les mondes où dorment les machines de la NASA. Choisis une destination : la caméra t'y emmène.",
     "navLabel": "Destinations de la visite",
-    "openChapter": "Ouvrir le chapitre",
+    "openChapter": "Voir les missions",
     "hint": "Fais glisser pour tourner, molette ou pincement pour zoomer, flèches ← → pour changer d'étape"
+  },
+  "bodies": {
+    "mercury": {
+      "name": "Mercure",
+      "teaser": "La planète la plus proche du Soleil."
+    },
+    "venus": {
+      "name": "Vénus",
+      "teaser": "Une planète cachée sous des nuages épais."
+    },
+    "earth": {
+      "name": "La Terre",
+      "teaser": "Le point de départ. D'ici sont partis tous les veilleurs."
+    },
+    "moon": {
+      "name": "La Lune",
+      "teaser": "Notre voisine. Des machines y attendent depuis l'époque d'Apollo."
+    },
+    "mars": {
+      "name": "Mars",
+      "teaser": "Atterrisseurs, rovers et un hélicoptère : ceux qui dorment et ceux qui travaillent encore."
+    },
+    "jupiter": {
+      "name": "Jupiter",
+      "teaser": "La plus grosse planète du Système solaire."
+    },
+    "saturn": {
+      "name": "Saturne",
+      "teaser": "La planète aux anneaux."
+    },
+    "deep-space": {
+      "name": "L'espace lointain",
+      "teaser": "Au-delà des planètes, des sondes filent toujours plus loin."
+    }
+  },
+  "guide": {
+    "name": "Orbi",
+    "role": "ton guide",
+    "welcome": "Salut ! Moi, c'est Orbi. Je connais toutes les machines que la NASA a laissées dans le Système solaire. Choisis une destination, je t'y emmène.",
+    "chooseBody": "Clique sur un astre, ou choisis-le dans la liste. Ceux qui brillent abritent une machine qui a une histoire à te raconter.",
+    "chooseMachine": "{{body}} ! Voici les machines qui y sont restées. Laquelle veux-tu accompagner ?",
+    "noMachine": "Sur {{body}}, je n'ai pas encore d'histoire à te raconter. Essaie un autre astre !",
+    "ready": "Bon choix. On retourne sur Terre : c'est de là que tout commence. Attache ta ceinture !",
+    "handover": "Je te laisse avec {{machine}}. Elle va te raconter sa mission, du décollage jusqu'à la fin.",
+    "outro": "Fin de l'histoire de {{machine}}. Tu veux découvrir une autre machine ?",
+    "mute": "Couper la voix",
+    "unmute": "Activer la voix"
+  },
+  "mission": {
+    "title": "Missions",
+    "choose": "Choisir",
+    "machinesOn": "Machines sur {{body}}",
+    "launch": "Décoller !",
+    "back": "Retour",
+    "next": "Suivant",
+    "previous": "Précédent",
+    "skip": "Passer la cinématique",
+    "restart": "Choisir une autre machine",
+    "otherBody": "Changer de destination",
+    "earthImpact": "Ce que ça a changé sur Terre",
+    "sources": "Sources",
+    "fateTitle": "Ce que je suis devenu",
+    "vitalsTitle": "Constantes vitales",
+    "vitalsNote": "Jauges illustratives",
+    "travel": "Voyage",
+    "step": "Étape {{n}} sur {{total}}",
+    "unverified": "À vérifier",
+    "launched": "Lancement",
+    "narrator": "Narration",
+    "autoplay": "Lecture automatique",
+    "phases": {
+      "launch": "Décollage",
+      "cruise": "Voyage",
+      "arrival": "Arrivée",
+      "work": "Au travail",
+      "discovery": "Découverte",
+      "decline": "Déclin",
+      "end": "Fin de mission"
+    },
+    "fates": {
+      "active": "Toujours active",
+      "dormant": "Endormie",
+      "destroyed": "Détruite",
+      "impact": "Écrasée"
+    }
+  },
+  "vitals": {
+    "energy": "Énergie",
+    "dust": "Poussière",
+    "signal": "Contact radio",
+    "fuel": "Carburant",
+    "temperature": "Chaleur",
+    "blades": "État des pales",
+    "map": "Carte réalisée",
+    "radiation": "Radiations reçues"
   }
 }

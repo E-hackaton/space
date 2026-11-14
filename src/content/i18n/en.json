@@ -13,7 +13,8 @@
     "sources": "Sources",
     "language": "Language",
     "back": "Back to the map",
-    "tour": "3D tour"
+    "tour": "3D tour",
+    "mission": "Missions"
   },
   "map": {
     "title": "Journey map",
@@ -66,9 +67,104 @@
   "tour": {
     "title": "3D tour",
     "overview": "Overview",
-    "intro": "Earth, the Moon and Mars. Pick a destination: the camera takes you there.",
+    "intro": "The Solar System and the worlds where NASA's machines rest. Pick a destination: the camera takes you there.",
     "navLabel": "Tour destinations",
-    "openChapter": "Open the chapter",
+    "openChapter": "See the missions",
     "hint": "Drag to rotate, scroll or pinch to zoom, ← → arrows to change stop"
+  },
+  "bodies": {
+    "mercury": {
+      "name": "Mercury",
+      "teaser": "The planet closest to the Sun."
+    },
+    "venus": {
+      "name": "Venus",
+      "teaser": "A planet hidden under thick clouds."
+    },
+    "earth": {
+      "name": "Earth",
+      "teaser": "The starting point. Every sentinel left from here."
+    },
+    "moon": {
+      "name": "The Moon",
+      "teaser": "Our neighbour. Machines have been waiting there since Apollo."
+    },
+    "mars": {
+      "name": "Mars",
+      "teaser": "Landers, rovers and a helicopter: those asleep and those still at work."
+    },
+    "jupiter": {
+      "name": "Jupiter",
+      "teaser": "The largest planet in the Solar System."
+    },
+    "saturn": {
+      "name": "Saturn",
+      "teaser": "The ringed planet."
+    },
+    "deep-space": {
+      "name": "Deep space",
+      "teaser": "Beyond the planets, probes keep flying farther away."
+    }
+  },
+  "guide": {
+    "name": "Orbi",
+    "role": "your guide",
+    "welcome": "Hi! I'm Orbi. I know every machine NASA left across the Solar System. Pick a destination and I'll take you there.",
+    "chooseBody": "Click a world, or pick it from the list. Each one hosts a machine with a story to tell.",
+    "chooseMachine": "{{body}}! Here are the machines that stayed there. Which one do you want to follow?",
+    "noMachine": "I don't have a story for {{body}} yet. Try another world!",
+    "ready": "Good choice. Back to Earth: that's where it all begins. Buckle up!",
+    "handover": "I'll leave you with {{machine}}. It will tell you its mission, from launch to the very end.",
+    "outro": "That's the end of {{machine}}'s story. Want to discover another machine?",
+    "mute": "Mute voice",
+    "unmute": "Turn voice on"
+  },
+  "mission": {
+    "title": "Missions",
+    "choose": "Choose",
+    "machinesOn": "Machines on {{body}}",
+    "launch": "Lift off!",
+    "back": "Back",
+    "next": "Next",
+    "previous": "Previous",
+    "skip": "Skip the cinematic",
+    "restart": "Choose another machine",
+    "otherBody": "Change destination",
+    "earthImpact": "What it changed on Earth",
+    "sources": "Sources",
+    "fateTitle": "What became of me",
+    "vitalsTitle": "Vital signs",
+    "vitalsNote": "Illustrative gauges",
+    "travel": "Journey",
+    "step": "Step {{n}} of {{total}}",
+    "unverified": "To be checked",
+    "launched": "Launch",
+    "narrator": "Narration",
+    "autoplay": "Autoplay",
+    "phases": {
+      "launch": "Lift-off",
+      "cruise": "Journey",
+      "arrival": "Arrival",
+      "work": "At work",
+      "discovery": "Discovery",
+      "decline": "Decline",
+      "end": "End of mission"
+    },
+    "fates": {
+      "active": "Still active",
+      "dormant": "Asleep",
+      "destroyed": "Destroyed",
+      "impact": "Crashed"
+    }
+  },
+  "vitals": {
+    "energy": "Energy",
+    "dust": "Dust",
+    "signal": "Radio contact",
+    "fuel": "Fuel",
+    "temperature": "Heat",
+    "blades": "Blade condition",
+    "map": "Map completed",
+    "radiation": "Radiation received"
   }
 }

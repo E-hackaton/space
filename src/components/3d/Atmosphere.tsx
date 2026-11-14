@@ -1,6 +1,5 @@
 import { useMemo } from 'react';
 import * as THREE from 'three';
-import { SCENE } from '../../lib/tour';
 
 const vertexShader = /* glsl */ `
   varying vec3 vNormalView;
@@ -38,18 +37,20 @@ interface AtmosphereProps {
   scale?: number;
   power?: number;
   intensity?: number;
+  /** Direction du Soleil (repère monde). */
+  sunDir: THREE.Vector3;
 }
 
 /** Halo atmosphérique (shader Fresnel), éclairé seulement côté jour. */
-export function Atmosphere({ radius, color, scale = 1.04, power = 3, intensity = 1.2 }: AtmosphereProps) {
+export function Atmosphere({ radius, color, sunDir, scale = 1.04, power = 3, intensity = 1.2 }: AtmosphereProps) {
   const uniforms = useMemo(
     () => ({
       uColor: { value: new THREE.Color(color) },
-      uSunDir: { value: SCENE.sunDirection.clone() },
+      uSunDir: { value: sunDir.clone() },
       uPower: { value: power },
       uIntensity: { value: intensity },
     }),
-    [color, power, intensity],
+    [color, power, intensity, sunDir],
   );
   return (
     <mesh scale={scale} raycast={() => null}>

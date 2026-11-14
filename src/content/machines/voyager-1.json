@@ -1,0 +1,30 @@
+{
+  "id": "voyager-1",
+  "name": "machines.voyager-1.name",
+  "mission": "machines.voyager-1.mission",
+  "body": "deep-space",
+  "kind": "probe",
+  "cruise": ["jupiter", "saturn"],
+  "launchDate": "1977-09-05",
+  "arrivalDate": "2012-08-25",
+  "status": "active",
+  "fate": "active",
+  "vitals": [
+    { "label": "vitals.energy", "start": 100, "end": 30, "unit": "%" },
+    { "label": "vitals.signal", "start": 100, "end": 15, "unit": "%" }
+  ],
+  "story": [
+    { "textKey": "machines.voyager-1.story.0", "phase": "launch", "date": "1977-09-05" },
+    { "textKey": "machines.voyager-1.story.1", "phase": "cruise", "date": "1979-03-05" },
+    { "textKey": "machines.voyager-1.story.2", "phase": "cruise", "date": "1980-11-12" },
+    { "textKey": "machines.voyager-1.story.3", "phase": "arrival", "date": "2012-08-25" },
+    { "textKey": "machines.voyager-1.story.4", "phase": "work" },
+    { "textKey": "machines.voyager-1.story.5", "phase": "end", "date": "2026-11-18" }
+  ],
+  "earthImpact": "machines.voyager-1.earthImpact",
+  "quiz": [],
+  "sources": [
+    { "label": "NASA Science – Voyager 1", "url": "https://science.nasa.gov/mission/voyager/voyager-1/" }
+  ],
+  "verified": false
+}
