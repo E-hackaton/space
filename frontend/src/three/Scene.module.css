@@ -23,6 +23,11 @@
   cursor: grabbing;
 }
 
+.botStage {
+  width: 100%;
+  height: 100%;
+}
+
 .machineStage {
   position: relative;
   height: clamp(18rem, 48vh, 28rem);

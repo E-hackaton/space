@@ -1,7 +1,11 @@
-import { NavLink, Outlet, ScrollRestoration, useMatch } from 'react-router-dom'
+import { Question } from '@phosphor-icons/react'
+import { useEffect } from 'react'
+import { NavLink, Outlet, ScrollRestoration, useLocation, useMatch } from 'react-router-dom'
 
 import { useCollection } from '../hooks/useCollection'
 import { useI18n } from '../i18n/useI18n'
+import { hasSeenGuide, openGuide } from '../lib/guideStore'
+import { GuideTour } from './GuideTour'
 import { LanguageSwitch } from './LanguageSwitch'
 import styles from './Layout.module.css'
 import { SankofaAvatar } from './SankofaAvatar'
@@ -15,6 +19,14 @@ export function Layout() {
   const { collected } = useCollection()
   // Le lien « Atlas » mène à la Lune, mais il doit rester actif sur tous les lieux de l'Atlas.
   const inAtlas = useMatch('/atlas/:bodySlug') !== null
+  const { pathname } = useLocation()
+
+  // Première visite sur l'accueil : Sankofa se présente. Ensuite, le bouton « ? » permet de le revoir.
+  // Volontairement exécuté une seule fois, au chargement de l'application.
+  useEffect(() => {
+    if (pathname === '/' && !hasSeenGuide()) openGuide()
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [])
 
   return (
     <>
@@ -59,6 +71,10 @@ export function Layout() {
               </ul>
             </nav>
             <LanguageSwitch />
+            <button type="button" className={styles.helpButton} onClick={openGuide} title={t.guide.replay}>
+              <Question aria-hidden="true" weight="bold" />
+              <span className="visually-hidden">{t.guide.replay}</span>
+            </button>
           </div>
         </div>
       </header>
@@ -74,6 +90,7 @@ export function Layout() {
         </div>
       </footer>
 
+      <GuideTour />
       <ScrollRestoration />
     </>
   )

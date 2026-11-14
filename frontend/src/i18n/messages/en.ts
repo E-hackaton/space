@@ -58,6 +58,23 @@ export const en: Messages = {
     telescope: 'Space telescope',
   },
 
+  guide: {
+    dialogLabel: 'Welcome tour with Sankofa',
+    launchTitle: 'Ready for the journey?',
+    launchText:
+      'Forgotten machines are waiting for you on the Moon, on Mars and in deep space. Pick your language, then turn on the sound: I will tell you their stories.',
+    startWithSound: 'Start with sound',
+    startSilent: 'Without sound',
+    stepOf: (index: number, total: number) => `${index} / ${total}`,
+    skip: 'Skip',
+    previous: 'Previous',
+    next: 'Next',
+    finish: 'Choose my first world',
+    soundOn: 'Mute',
+    soundOff: 'Turn sound on',
+    replay: 'Replay the tour with Sankofa',
+  },
+
   home: {
     eyebrow: 'Sleeping far from Earth since 1966',
     title: 'The forgotten heroes of space',

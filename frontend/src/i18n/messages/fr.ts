@@ -64,6 +64,23 @@ export const fr = {
     telescope: 'Télescope spatial',
   } satisfies Record<EquipmentKind, string>,
 
+  guide: {
+    dialogLabel: "Visite d'accueil avec Sankofa",
+    launchTitle: 'Prêt pour le voyage ?',
+    launchText:
+      'Des machines oubliées t’attendent sur la Lune, sur Mars et dans l’espace profond. Choisis ta langue, puis active le son : je vais te raconter.',
+    startWithSound: 'Commencer avec le son',
+    startSilent: 'Sans le son',
+    stepOf: (index: number, total: number) => `${index} / ${total}`,
+    skip: 'Passer',
+    previous: 'Précédent',
+    next: 'Suivant',
+    finish: 'Choisir mon premier monde',
+    soundOn: 'Couper le son',
+    soundOff: 'Activer le son',
+    replay: 'Revoir la visite avec Sankofa',
+  },
+
   home: {
     eyebrow: 'Depuis 1966, ils dorment loin de la Terre',
     title: "Les héros oubliés de l'espace",

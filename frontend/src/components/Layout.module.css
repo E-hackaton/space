@@ -62,6 +62,22 @@
   flex-wrap: wrap;
 }
 
+.helpButton {
+  display: grid;
+  place-items: center;
+  width: 2.25rem;
+  height: 2.25rem;
+  border: 1px solid var(--color-border);
+  border-radius: 50%;
+  background: transparent;
+  color: var(--color-text);
+  cursor: pointer;
+}
+
+.helpButton:hover {
+  border-color: var(--color-accent);
+}
+
 .nav {
   display: flex;
   gap: var(--space-2);

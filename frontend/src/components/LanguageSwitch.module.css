@@ -1,5 +1,6 @@
 .switch {
   display: inline-flex;
+  justify-self: start; /* dans une grille, garde sa taille naturelle au lieu de s'étirer */
   padding: 2px;
   border: 1px solid var(--color-border);
   border-radius: var(--radius-pill);
