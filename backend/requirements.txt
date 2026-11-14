@@ -1,0 +1,6 @@
+# Dépendances directes du backend (versions figées pour des installations reproductibles).
+Django==5.2.19
+djangorestframework==3.18.3
+django-cors-headers==4.9.0
+# Nécessaire aux ImageField (photos des héros, cartes).
+pillow==13.0.0

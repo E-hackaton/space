@@ -1,0 +1,588 @@
+{
+  "bodies": [
+    {
+      "slug": "moon",
+      "order": 1,
+      "name_fr": "Lune",
+      "name_en": "Moon",
+      "intro_fr": "Bienvenue sur la Lune ! Entre 1966 et 1972, la NASA y a envoyé des robots puis des astronautes. Beaucoup de leurs machines sont restées là-haut, presque intactes : sur la Lune, il n'y a ni vent ni pluie pour les abîmer.",
+      "intro_en": "Welcome to the Moon! Between 1966 and 1972, NASA sent robots and then astronauts here. Many of their machines are still up there, almost untouched: on the Moon there is no wind or rain to wear them down."
+    },
+    {
+      "slug": "mars",
+      "order": 2,
+      "name_fr": "Mars",
+      "name_en": "Mars",
+      "intro_fr": "Voici Mars, la planète rouge. Depuis 1976, des atterrisseurs, des rovers et même un hélicoptère s'y sont posés. Certains dorment sous la poussière, d'autres travaillent encore.",
+      "intro_en": "This is Mars, the red planet. Since 1976, landers, rovers and even a helicopter have touched down here. Some are sleeping under the dust, others are still at work."
+    },
+    {
+      "slug": "elsewhere",
+      "order": 3,
+      "name_fr": "Ailleurs",
+      "name_en": "Elsewhere",
+      "intro_fr": "Certains héros ne sont ni sur la Lune ni sur Mars : posés sur un astéroïde, en orbite autour d'une planète naine ou en route vers les étoiles.",
+      "intro_en": "Some heroes are neither on the Moon nor on Mars: resting on an asteroid, orbiting a dwarf planet, or heading for the stars."
+    }
+  ],
+  "equipment": [
+    {
+      "slug": "surveyor-3",
+      "order": 1,
+      "name": "Surveyor 3",
+      "mission": "Surveyor 3",
+      "body": "moon",
+      "kind": "lander",
+      "status": "silent",
+      "nssdca_id": "1967-035A",
+      "launch_date": "1967-04-17",
+      "arrival_date": "1967-04-20",
+      "last_contact_date": "1967-05-04",
+      "latitude": -3.0124,
+      "longitude": -23.4216,
+      "location_fr": "Océan des Tempêtes (Oceanus Procellarum)",
+      "location_en": "Ocean of Storms (Oceanus Procellarum)",
+      "tagline_fr": "J'ai prouvé qu'on pouvait se poser sur la Lune… et deux astronautes sont venus me rendre visite.",
+      "tagline_en": "I proved you could land on the Moon… and two astronauts came to visit me.",
+      "discovery_fr": "Avec ma petite pelle, j'ai creusé le sol lunaire et montré qu'il était assez solide pour porter un vaisseau habité. Mes photos ont aidé à préparer les missions Apollo.",
+      "discovery_en": "With my little scoop, I dug into the lunar soil and showed it was firm enough to hold a crewed spacecraft. My pictures helped prepare the Apollo missions.",
+      "status_note_fr": "Silencieux depuis mai 1967. Il me manque ma caméra : des astronautes l'ont rapportée sur Terre !",
+      "status_note_en": "Silent since May 1967. My camera is missing: astronauts took it back to Earth!",
+      "chapters": [
+        {
+          "title_fr": "Un atterrissage qui rebondit",
+          "body_fr": "Le 20 avril 1967, je descends vers l'Océan des Tempêtes. Mes moteurs devaient s'éteindre juste avant de toucher le sol… mais ils restent allumés ! Je rebondis deux fois avant de m'immobiliser. Ouf, je suis entier."
+        },
+        {
+          "title_fr": "Ma pelle et mes photos",
+          "body_fr": "J'ai une caméra et un petit bras terminé par une pelle. Pendant deux semaines, je creuse des tranchées et j'envoie des milliers de photos. Sur Terre, les ingénieurs découvrent comment le sol réagit quand on appuie dessus : exactement ce qu'il faut savoir pour poser un module avec des astronautes."
+        },
+        {
+          "title_fr": "La visite d'Apollo 12",
+          "body_fr": "Quand la longue nuit lunaire tombe, je m'endors pour toujours. Mais en novembre 1969, Apollo 12 se pose à environ 180 mètres de moi ! Les astronautes Pete Conrad et Alan Bean viennent à pied, découpent ma caméra et quelques pièces, puis les rapportent sur Terre. Les scientifiques ont ainsi pu étudier ce que 31 mois sur la Lune avaient fait à mes matériaux."
+        }
+      ],
+      "quiz": [
+        {
+          "question_fr": "Pourquoi Surveyor 3 a-t-il rebondi en se posant ?",
+          "choices_fr": ["Ses moteurs ne se sont pas éteints à temps", "Il est tombé dans un cratère", "Un astronaute l'a poussé"],
+          "answer_index": 0,
+          "explanation_fr": "Ses petits moteurs de freinage sont restés allumés jusqu'au sol. Il a rebondi deux fois avant de se poser pour de bon."
+        },
+        {
+          "question_fr": "Quelle mission habitée est venue rendre visite à Surveyor 3 ?",
+          "choices_fr": ["Apollo 11", "Apollo 12", "Apollo 17"],
+          "answer_index": 1,
+          "explanation_fr": "En 1969, l'équipage d'Apollo 12 s'est posé tout près et a rapporté sa caméra sur Terre."
+        }
+      ],
+      "sources": [
+        { "label": "NASA Science : Surveyor 3", "url": "https://science.nasa.gov/mission/surveyor-3/", "is_nasa": true },
+        { "label": "NSSDCA : Surveyor 3 (1967-035A)", "url": "https://nssdc.gsfc.nasa.gov/nmc/spacecraft/display.action?id=1967-035A", "is_nasa": true }
+      ]
+    },
+    {
+      "slug": "apollo-11-eagle",
+      "order": 2,
+      "name": "Eagle",
+      "mission": "Apollo 11",
+      "body": "moon",
+      "kind": "descent_stage",
+      "status": "silent",
+      "nssdca_id": "1969-059C",
+      "launch_date": "1969-07-16",
+      "arrival_date": "1969-07-20",
+      "last_contact_date": null,
+      "latitude": 0.6741,
+      "longitude": 23.4730,
+      "location_fr": "Mer de la Tranquillité",
+      "location_en": "Sea of Tranquility",
+      "tagline_fr": "J'ai porté les premiers humains sur la Lune, puis je leur ai servi de rampe de lancement.",
+      "tagline_en": "I carried the first humans to the Moon, then served as their launch pad.",
+      "discovery_fr": "Grâce à moi, Neil Armstrong et Buzz Aldrin ont marché sur la Lune et rapporté environ 21,5 kg de roches et de poussière lunaires, étudiées encore aujourd'hui.",
+      "discovery_en": "Thanks to me, Neil Armstrong and Buzz Aldrin walked on the Moon and brought back about 21.5 kg of lunar rocks and dust that scientists still study today.",
+      "status_note_fr": "Je suis resté exactement là où je me suis posé, entouré des traces de pas des astronautes.",
+      "status_note_en": "I am still exactly where I landed, surrounded by the astronauts' footprints.",
+      "chapters": [
+        {
+          "title_fr": "Un vaisseau en deux morceaux",
+          "body_fr": "Je suis la moitié basse du module lunaire Eagle : l'étage de descente. Le 20 juillet 1969, je me pose dans la Mer de la Tranquillité avec deux astronautes à bord. Quelques heures plus tard, Neil Armstrong descend mon échelle et pose le pied sur la Lune."
+        },
+        {
+          "title_fr": "Une rampe de lancement",
+          "body_fr": "Pour repartir, les astronautes n'emportent que la partie haute du module, l'étage de remontée. Moi, je reste au sol et je sers de plateforme : l'étage de remontée décolle depuis mon dos pour rejoindre le vaisseau qui attend en orbite."
+        },
+        {
+          "title_fr": "Le message que je porte",
+          "body_fr": "Sur l'un de mes pieds, une plaque dit : « Ici, des hommes de la planète Terre ont posé le pied sur la Lune pour la première fois, juillet 1969 après J.-C. Nous sommes venus en paix au nom de toute l'humanité. »"
+        }
+      ],
+      "quiz": [
+        {
+          "question_fr": "Quelle partie du module lunaire d'Apollo 11 est restée sur la Lune ?",
+          "choices_fr": ["La partie haute (étage de remontée)", "La partie basse (étage de descente)", "Le module entier"],
+          "answer_index": 1,
+          "explanation_fr": "L'étage de descente a servi de rampe de lancement : seule la partie haute est repartie."
+        },
+        {
+          "question_fr": "Dans quelle région de la Lune Eagle s'est-il posé ?",
+          "choices_fr": ["La Mer de la Tranquillité", "L'Océan des Tempêtes", "Le cratère Tycho"],
+          "answer_index": 0,
+          "explanation_fr": "Une plaine assez plate et sûre, choisie grâce aux photos des missions robotiques précédentes."
+        }
+      ],
+      "sources": [
+        { "label": "NSSDCA : Apollo 11 Lunar Module (1969-059C)", "url": "https://nssdc.gsfc.nasa.gov/nmc/spacecraft/display.action?id=1969-059C", "is_nasa": true }
+      ]
+    },
+    {
+      "slug": "apollo-15-lrv",
+      "order": 3,
+      "name": "Rover lunaire (LRV)",
+      "mission": "Apollo 15",
+      "body": "moon",
+      "kind": "rover",
+      "status": "silent",
+      "nssdca_id": "1971-063C",
+      "launch_date": "1971-07-26",
+      "arrival_date": "1971-07-30",
+      "last_contact_date": null,
+      "latitude": 26.1322,
+      "longitude": 3.6339,
+      "location_fr": "Région Hadley-Apennin",
+      "location_en": "Hadley–Apennine region",
+      "tagline_fr": "Je suis la première voiture électrique à avoir roulé sur la Lune.",
+      "tagline_en": "I am the first electric car ever driven on the Moon.",
+      "discovery_fr": "En roulant environ 28 km, j'ai permis aux astronautes d'aller bien plus loin qu'à pied et de ramasser des roches très anciennes, dont la célèbre « Genesis Rock », vieille d'environ 4 milliards d'années.",
+      "discovery_en": "By driving about 28 km, I let the astronauts travel much farther than on foot and collect very old rocks, including the famous \"Genesis Rock\", about 4 billion years old.",
+      "status_note_fr": "Garé pour toujours près du site d'atterrissage. Deux autres rovers comme moi sont garés sur la Lune (Apollo 16 et 17).",
+      "status_note_en": "Parked forever near the landing site. Two other rovers like me are parked on the Moon (Apollo 16 and 17).",
+      "chapters": [
+        {
+          "title_fr": "Plié comme un origami",
+          "body_fr": "Pour le voyage, on m'a plié et rangé sur le côté du module lunaire Falcon. Une fois sur place, les astronautes David Scott et James Irwin tirent sur des sangles et je me déplie."
+        },
+        {
+          "title_fr": "Rouler sur la Lune",
+          "body_fr": "Chacune de mes quatre roues a son propre moteur électrique, alimenté par des batteries. Mes pneus sont en mailles de fil métallique : un pneu gonflé d'air n'aurait pas supporté le vide et les températures extrêmes. Je roule à un peu plus de 10 km/h dans la poussière."
+        },
+        {
+          "title_fr": "Ma dernière mission : filmer le départ",
+          "body_fr": "Avant de partir, les astronautes me garent un peu à l'écart, caméra allumée. Depuis la Terre, les ingénieurs l'utilisent pour filmer le décollage de l'étage de remontée. Puis je reste là, garé pour toujours."
+        }
+      ],
+      "quiz": [
+        {
+          "question_fr": "Pourquoi les pneus du rover lunaire n'étaient-ils pas gonflés à l'air ?",
+          "choices_fr": ["Pour supporter le vide et les températures extrêmes", "Parce que l'air coûtait trop cher", "Pour rouler plus vite"],
+          "answer_index": 0,
+          "explanation_fr": "Sur la Lune, il n'y a pas d'air et la température change énormément entre le jour et la nuit. Des mailles métalliques résistent mieux."
+        },
+        {
+          "question_fr": "Combien de rovers lunaires sont garés sur la Lune ?",
+          "choices_fr": ["Un", "Trois", "Dix"],
+          "answer_index": 1,
+          "explanation_fr": "Un pour chacune des missions Apollo 15, 16 et 17."
+        }
+      ],
+      "sources": [
+        { "label": "NSSDCA : Apollo 15 Lunar Module / LRV (1971-063C)", "url": "https://nssdc.gsfc.nasa.gov/nmc/spacecraft/display.action?id=1971-063C", "is_nasa": true }
+      ]
+    },
+    {
+      "slug": "apollo-15-retroreflector",
+      "order": 4,
+      "name": "Réflecteur laser (LRRR)",
+      "mission": "Apollo 15",
+      "body": "moon",
+      "kind": "instrument",
+      "status": "useful",
+      "nssdca_id": "",
+      "launch_date": "1971-07-26",
+      "arrival_date": "1971-07-30",
+      "last_contact_date": null,
+      "latitude": 26.1333,
+      "longitude": 3.6285,
+      "location_fr": "Région Hadley-Apennin",
+      "location_en": "Hadley–Apennine region",
+      "tagline_fr": "Je n'ai ni moteur ni batterie, et pourtant je travaille encore aujourd'hui.",
+      "tagline_en": "I have no engine and no battery, yet I am still working today.",
+      "discovery_fr": "Des observatoires sur Terre envoient des lasers sur moi et chronomètrent le retour de la lumière. Résultat : on connaît la distance Terre-Lune à quelques millimètres près, et on sait que la Lune s'éloigne de nous d'environ 3,8 cm par an.",
+      "discovery_en": "Observatories on Earth fire lasers at me and time how long the light takes to come back. As a result, we know the Earth–Moon distance to within a few millimetres, and we know the Moon is drifting away by about 3.8 cm per year.",
+      "status_note_fr": "Encore utile : plus de 50 ans après mon installation, des scientifiques visent toujours mes miroirs.",
+      "status_note_en": "Still useful: more than 50 years after I was set up, scientists still aim at my mirrors.",
+      "chapters": [
+        {
+          "title_fr": "Un miroir très spécial",
+          "body_fr": "Je suis un panneau couvert de 300 « coins de cube » en verre. Leur forme renvoie la lumière exactement vers l'endroit d'où elle vient, quel que soit l'angle. Mes cousins d'Apollo 11 et 14 en ont 100 chacun."
+        },
+        {
+          "title_fr": "Un ping-pong de lumière",
+          "body_fr": "Une impulsion laser part d'un télescope sur Terre, voyage jusqu'à moi, rebondit et revient : environ 2,5 secondes aller-retour. Comme on connaît la vitesse de la lumière, on en déduit la distance."
+        },
+        {
+          "title_fr": "Pourquoi je suis toujours utile",
+          "body_fr": "Grâce à moi, les scientifiques ont confirmé que la Lune s'éloigne lentement de la Terre : environ 3,8 cm par an, à peu près la vitesse à laquelle poussent tes ongles. Mes mesures servent aussi à tester la théorie de la gravité d'Einstein."
+        }
+      ],
+      "quiz": [
+        {
+          "question_fr": "Comment les scientifiques mesurent-ils la distance Terre-Lune avec ce réflecteur ?",
+          "choices_fr": ["En envoyant un laser et en chronométrant son retour", "Avec un très long mètre ruban", "En comptant les cratères"],
+          "answer_index": 0,
+          "explanation_fr": "La lumière fait l'aller-retour en environ 2,5 secondes. Connaissant sa vitesse, on calcule la distance."
+        },
+        {
+          "question_fr": "De combien la Lune s'éloigne-t-elle de la Terre chaque année ?",
+          "choices_fr": ["Environ 3,8 mm", "Environ 3,8 cm", "Environ 3,8 m"],
+          "answer_index": 1,
+          "explanation_fr": "Environ 3,8 cm par an : à peu près la vitesse à laquelle poussent nos ongles."
+        }
+      ],
+      "sources": [
+        { "label": "NSSDCA : ALSEP, Apollo Lunar Surface Experiments Package", "url": "https://nssdc.gsfc.nasa.gov/nmc/spacecraft/display.action?id=1969-099C", "is_nasa": true }
+      ]
+    },
+    {
+      "slug": "viking-1",
+      "order": 1,
+      "name": "Viking 1",
+      "mission": "Viking 1",
+      "body": "mars",
+      "kind": "lander",
+      "status": "silent",
+      "nssdca_id": "1975-075C",
+      "launch_date": "1975-08-20",
+      "arrival_date": "1976-07-20",
+      "last_contact_date": "1982-11-11",
+      "latitude": 22.2700,
+      "longitude": -47.9500,
+      "location_fr": "Plaine de Chryse (Chryse Planitia)",
+      "location_en": "Chryse Planitia",
+      "tagline_fr": "J'ai été le premier engin américain à travailler avec succès sur le sol de Mars.",
+      "tagline_en": "I was the first U.S. spacecraft to successfully operate on the surface of Mars.",
+      "discovery_fr": "J'ai envoyé les premières photos prises depuis le sol de Mars, mesuré sa météo pendant plus de six ans et cherché des traces de vie dans le sol. Mes résultats n'ont pas permis de conclure, mais ils ont guidé toutes les missions suivantes.",
+      "discovery_en": "I sent the first pictures taken from the surface of Mars, recorded its weather for more than six years and searched the soil for signs of life. My results were not conclusive, but they guided every mission that followed.",
+      "status_note_fr": "Silencieux depuis novembre 1982. Je suis resté exactement là où je me suis posé.",
+      "status_note_en": "Silent since November 1982. I am still exactly where I landed.",
+      "chapters": [
+        {
+          "title_fr": "Trouver un endroit sûr",
+          "body_fr": "Je voyage accroché à un orbiteur. Arrivé près de Mars, il photographie le sol pendant un mois pour me trouver un endroit sûr, car le site prévu était trop accidenté. Le 20 juillet 1976, sept ans jour pour jour après Apollo 11, je me pose dans la plaine de Chryse."
+        },
+        {
+          "title_fr": "Ma première photo",
+          "body_fr": "Quelques minutes après l'atterrissage, je prends ma toute première photo : l'un de mes pieds posé sur des cailloux martiens. Les ingénieurs voulaient savoir tout de suite si je m'enfonçais dans le sol !"
+        },
+        {
+          "title_fr": "Mon laboratoire miniature",
+          "body_fr": "Mon bras ramasse de la terre et la verse dans trois expériences de biologie. Elles cherchent des microbes en leur donnant à « manger » et en observant les gaz produits. Les réponses ont surpris tout le monde, mais la plupart des scientifiques pensent aujourd'hui qu'elles s'expliquent par la chimie du sol, pas par la vie."
+        },
+        {
+          "title_fr": "Le silence",
+          "body_fr": "En novembre 1982, une commande envoyée par erreur depuis la Terre dérègle le pointage de mon antenne. Le contact est perdu pour toujours, après plus de six ans de travail."
+        }
+      ],
+      "quiz": [
+        {
+          "question_fr": "Quelle a été la toute première photo de Viking 1 sur Mars ?",
+          "choices_fr": ["Un coucher de soleil", "L'un de ses propres pieds", "Un rover"],
+          "answer_index": 1,
+          "explanation_fr": "Les ingénieurs voulaient vérifier que l'atterrisseur ne s'enfonçait pas dans le sol."
+        },
+        {
+          "question_fr": "Pourquoi Viking 1 a-t-il perdu le contact avec la Terre ?",
+          "choices_fr": ["Une tempête de poussière", "Une commande envoyée par erreur", "Une météorite"],
+          "answer_index": 1,
+          "explanation_fr": "Une commande erronée a modifié le pointage de son antenne : il ne pouvait plus viser la Terre."
+        }
+      ],
+      "sources": [
+        { "label": "NASA Science : Viking 1", "url": "https://science.nasa.gov/mission/viking-1/", "is_nasa": true },
+        { "label": "NSSDCA : Viking 1 Lander (1975-075C)", "url": "https://nssdc.gsfc.nasa.gov/nmc/spacecraft/display.action?id=1975-075C", "is_nasa": true }
+      ]
+    },
+    {
+      "slug": "opportunity",
+      "order": 2,
+      "name": "Opportunity",
+      "mission": "Mars Exploration Rover",
+      "body": "mars",
+      "kind": "rover",
+      "status": "silent",
+      "nssdca_id": "2003-032A",
+      "launch_date": "2003-07-07",
+      "arrival_date": "2004-01-25",
+      "last_contact_date": "2018-06-10",
+      "latitude": -2.2800,
+      "longitude": -5.4300,
+      "location_fr": "Vallée Perseverance, bord du cratère Endeavour (Meridiani Planum)",
+      "location_en": "Perseverance Valley, rim of Endeavour crater (Meridiani Planum)",
+      "tagline_fr": "Je devais vivre 90 jours. J'ai exploré Mars pendant près de 15 ans.",
+      "tagline_en": "I was built to last 90 days. I explored Mars for almost 15 years.",
+      "discovery_fr": "J'ai trouvé de petites billes d'hématite, surnommées « myrtilles », et des roches qui se forment en présence d'eau. C'était la preuve qu'il y avait autrefois de l'eau liquide à la surface de Mars.",
+      "discovery_en": "I found tiny hematite spheres nicknamed \"blueberries\" and rocks that form in water. It was proof that liquid water once existed on the surface of Mars.",
+      "status_note_fr": "Silencieux depuis juin 2018 : une immense tempête de poussière a privé mes panneaux solaires de lumière. Ma mission a été déclarée terminée le 13 février 2019.",
+      "status_note_en": "Silent since June 2018: a huge dust storm blocked the sunlight from my solar panels. My mission was declared over on 13 February 2019.",
+      "chapters": [
+        {
+          "title_fr": "Un trou en un",
+          "body_fr": "Le 25 janvier 2004, je rebondis sur Mars, emballé dans des airbags, puis je roule… droit dans un petit cratère. Les scientifiques n'en reviennent pas : juste devant moi, des couches de roches racontent l'histoire de la planète. Ce cratère s'appelle Eagle."
+        },
+        {
+          "title_fr": "Les myrtilles de Mars",
+          "body_fr": "Dans ces roches, je découvre des milliers de petites billes grises. Mes instruments montrent qu'elles sont faites d'hématite, un minéral qui se forme souvent dans l'eau. Mars était donc autrefois bien plus humide qu'aujourd'hui."
+        },
+        {
+          "title_fr": "Un marathon martien",
+          "body_fr": "Mes panneaux solaires devaient se couvrir de poussière en quelques mois. Mais des coups de vent martiens les ont régulièrement nettoyés ! Au total, j'ai roulé plus de 45 km : plus qu'un marathon."
+        },
+        {
+          "title_fr": "La grande tempête",
+          "body_fr": "En juin 2018, une tempête de poussière couvre presque toute la planète. Le ciel devient si sombre que mes panneaux ne produisent plus assez d'énergie. Mon dernier message arrive le 10 juin 2018. Pendant des mois, les ingénieurs m'envoient plus de mille appels. Je ne réponds plus. Un journaliste a résumé mes dernières données par une phrase devenue célèbre : « Ma batterie est faible et il fait de plus en plus sombre. » Ce ne sont pas mes vrais mots, mais c'est bien ce que disaient mes mesures."
+        }
+      ],
+      "quiz": [
+        {
+          "question_fr": "Combien de temps la mission d'Opportunity devait-elle durer au départ ?",
+          "choices_fr": ["90 jours martiens", "5 ans", "15 ans"],
+          "answer_index": 0,
+          "explanation_fr": "Prévue pour 90 jours martiens, la mission a duré près de 15 ans."
+        },
+        {
+          "question_fr": "Que révèlent les « myrtilles » d'hématite trouvées par Opportunity ?",
+          "choices_fr": ["Qu'il y a des plantes sur Mars", "Qu'il y avait autrefois de l'eau liquide", "Que Mars est une planète très chaude"],
+          "answer_index": 1,
+          "explanation_fr": "L'hématite de ce type se forme en présence d'eau : c'est une trace d'un passé plus humide."
+        }
+      ],
+      "sources": [
+        { "label": "NASA Science : Spirit et Opportunity", "url": "https://science.nasa.gov/mission/mars-exploration-rovers-spirit-and-opportunity/", "is_nasa": true },
+        { "label": "NSSDCA : Opportunity (2003-032A)", "url": "https://nssdc.gsfc.nasa.gov/nmc/spacecraft/display.action?id=2003-032A", "is_nasa": true }
+      ]
+    },
+    {
+      "slug": "insight",
+      "order": 3,
+      "name": "InSight",
+      "mission": "InSight",
+      "body": "mars",
+      "kind": "lander",
+      "status": "silent",
+      "nssdca_id": "2018-042A",
+      "launch_date": "2018-05-05",
+      "arrival_date": "2018-11-26",
+      "last_contact_date": "2022-12-15",
+      "latitude": 4.5024,
+      "longitude": 135.6234,
+      "location_fr": "Plaine d'Elysium (Elysium Planitia)",
+      "location_en": "Elysium Planitia",
+      "tagline_fr": "J'ai collé mon oreille contre Mars pour l'écouter trembler.",
+      "tagline_en": "I pressed my ear against Mars to listen to it shake.",
+      "discovery_fr": "Mon sismomètre a enregistré plus de 1 300 « tremblements de Mars ». En étudiant comment ces vibrations traversent la planète, les scientifiques ont mesuré pour la première fois l'épaisseur de sa croûte et de son manteau, et la taille de son noyau.",
+      "discovery_en": "My seismometer recorded more than 1,300 \"marsquakes\". By studying how these vibrations travel through the planet, scientists measured for the first time the thickness of its crust and mantle and the size of its core.",
+      "status_note_fr": "Silencieux depuis décembre 2022 : la poussière a recouvert mes panneaux solaires.",
+      "status_note_en": "Silent since December 2022: dust covered my solar panels.",
+      "chapters": [
+        {
+          "title_fr": "Un géologue immobile",
+          "body_fr": "Contrairement aux rovers, je ne bouge pas. Mon travail : étudier l'intérieur de Mars, jusqu'à son cœur. Avec mon bras robotique, je pose mon sismomètre directement sur le sol, sous une cloche qui le protège du vent et du froid."
+        },
+        {
+          "title_fr": "Mars tremble",
+          "body_fr": "Je sens des secousses causées par des failles dans le sol, et même par des météorites qui s'écrasent. En mai 2022, j'enregistre le plus fort séisme jamais détecté sur une autre planète : une magnitude d'environ 5."
+        },
+        {
+          "title_fr": "La taupe têtue",
+          "body_fr": "J'avais aussi une sonde surnommée « la taupe », qui devait s'enfoncer jusqu'à 5 mètres pour mesurer la chaleur de Mars. Mais le sol ne la retenait pas assez pour qu'elle avance : elle n'a jamais réussi à creuser profondément. En science aussi, on apprend de ses échecs."
+        },
+        {
+          "title_fr": "Mon dernier message",
+          "body_fr": "Petit à petit, la poussière recouvre mes panneaux solaires. Fin 2022, mon équipe publie en mon nom : « Mon énergie est vraiment faible, alors ceci est peut-être la dernière image que je peux envoyer. » Le 15 décembre 2022, je me tais."
+        }
+      ],
+      "quiz": [
+        {
+          "question_fr": "Qu'écoutait InSight sur Mars ?",
+          "choices_fr": ["Le vent", "Les tremblements de Mars", "Des signaux extraterrestres"],
+          "answer_index": 1,
+          "explanation_fr": "Son sismomètre a enregistré plus de 1 300 séismes martiens, ce qui a permis de « voir » l'intérieur de la planète."
+        },
+        {
+          "question_fr": "Pourquoi la « taupe » d'InSight n'a-t-elle pas pu creuser profondément ?",
+          "choices_fr": ["Le sol ne la retenait pas assez pour qu'elle avance", "Elle est tombée en panne d'électricité", "Un rover l'a écrasée"],
+          "answer_index": 0,
+          "explanation_fr": "La taupe avait besoin que le sol frotte contre elle pour progresser. Le sol martien était différent de ce que l'on attendait."
+        }
+      ],
+      "sources": [
+        { "label": "NASA Science : InSight", "url": "https://science.nasa.gov/mission/insight/", "is_nasa": true },
+        { "label": "NSSDCA : InSight (2018-042A)", "url": "https://nssdc.gsfc.nasa.gov/nmc/spacecraft/display.action?id=2018-042A", "is_nasa": true }
+      ]
+    },
+    {
+      "slug": "ingenuity",
+      "order": 4,
+      "name": "Ingenuity",
+      "mission": "Mars 2020",
+      "body": "mars",
+      "kind": "helicopter",
+      "status": "silent",
+      "nssdca_id": "",
+      "launch_date": "2020-07-30",
+      "arrival_date": "2021-02-18",
+      "last_contact_date": null,
+      "latitude": 18.4447,
+      "longitude": 77.4508,
+      "location_fr": "Cratère Jezero",
+      "location_en": "Jezero crater",
+      "tagline_fr": "Je devais voler 5 fois. J'ai volé 72 fois sur Mars.",
+      "tagline_en": "I was supposed to fly 5 times. I flew 72 times on Mars.",
+      "discovery_fr": "J'ai prouvé qu'un engin pouvait voler dans l'air de Mars, environ 100 fois moins dense que celui de la Terre. J'ai aussi servi d'éclaireur au rover Perseverance en photographiant le terrain depuis le ciel.",
+      "discovery_en": "I proved that a vehicle could fly in the Martian air, about 100 times thinner than Earth's. I also scouted ahead for the Perseverance rover by photographing the terrain from the sky.",
+      "status_note_fr": "Après mon 72e vol, en janvier 2024, l'une de mes pales a été abîmée. Je ne peux plus voler, mais je reste posé dans le cratère Jezero.",
+      "status_note_en": "After my 72nd flight in January 2024, one of my rotor blades was damaged. I can no longer fly, but I remain in Jezero crater.",
+      "chapters": [
+        {
+          "title_fr": "Un passager discret",
+          "body_fr": "J'ai voyagé jusqu'à Mars accroché sous le ventre du rover Perseverance. Je pèse environ 1,8 kg. Mes deux hélices tournent en sens inverse l'une de l'autre, à plus de 2 400 tours par minute, pour réussir à s'appuyer sur un air très peu dense."
+        },
+        {
+          "title_fr": "Le premier vol",
+          "body_fr": "Le 19 avril 2021, je décolle, je monte à 3 mètres, je fais du surplace et je me repose. Le vol ne dure que 39 secondes, mais c'est le tout premier vol motorisé et contrôlé sur une autre planète."
+        },
+        {
+          "title_fr": "De démonstrateur à éclaireur",
+          "body_fr": "Au début, je ne devais faire que 5 vols d'essai. J'ai si bien marché que l'équipe m'a gardé presque trois ans : 72 vols, plus de 17 km parcourus et plus de deux heures dans le ciel martien."
+        },
+        {
+          "title_fr": "Un atterrissage brutal",
+          "body_fr": "Lors de mon 72e vol, je survole un sable très lisse, sans repères pour guider ma caméra de navigation. J'atterris brutalement et mes pales sont abîmées. Mon aventure dans le ciel s'arrête là, mais j'ai ouvert la voie aux futurs engins volants, comme Dragonfly, qui doit explorer Titan, une lune de Saturne."
+        }
+      ],
+      "quiz": [
+        {
+          "question_fr": "Combien de vols Ingenuity devait-il faire au départ ?",
+          "choices_fr": ["5", "72", "500"],
+          "answer_index": 0,
+          "explanation_fr": "Il devait faire 5 vols de démonstration. Il en a fait 72 !"
+        },
+        {
+          "question_fr": "Pourquoi est-il difficile de voler sur Mars ?",
+          "choices_fr": ["Il y fait trop chaud", "L'air y est environ 100 fois moins dense que sur Terre", "Il n'y a pas de gravité"],
+          "answer_index": 1,
+          "explanation_fr": "Avec si peu d'air, les hélices doivent être grandes, légères et tourner très vite."
+        }
+      ],
+      "sources": [
+        { "label": "NASA Science : Ingenuity Mars Helicopter", "url": "https://science.nasa.gov/mission/mars-2020-perseverance/ingenuity-mars-helicopter/", "is_nasa": true }
+      ]
+    },
+    {
+      "slug": "near-shoemaker",
+      "order": 1,
+      "name": "NEAR Shoemaker",
+      "mission": "NEAR",
+      "body": "elsewhere",
+      "kind": "orbiter",
+      "status": "silent",
+      "nssdca_id": "1996-008A",
+      "launch_date": "1996-02-17",
+      "arrival_date": "2000-02-14",
+      "last_contact_date": "2001-02-28",
+      "latitude": null,
+      "longitude": null,
+      "location_fr": "Posé sur l'astéroïde 433 Éros",
+      "location_en": "Resting on asteroid 433 Eros",
+      "tagline_fr": "Je n'étais pas fait pour atterrir… et pourtant je me suis posé sur un astéroïde.",
+      "tagline_en": "I wasn't designed to land… and yet I touched down on an asteroid.",
+      "discovery_fr": "Pendant un an en orbite, j'ai cartographié en détail l'astéroïde Éros : un bloc rocheux couvert de rochers et de poussière fine. J'ai été le premier engin à tourner autour d'un astéroïde, puis à s'y poser.",
+      "discovery_en": "During a year in orbit, I mapped asteroid Eros in detail: a rocky body covered with boulders and fine dust. I was the first spacecraft to orbit an asteroid, and then to land on one.",
+      "status_note_fr": "Silencieux depuis le 28 février 2001. Je repose sur Éros, qui continue de tourner autour du Soleil.",
+      "status_note_en": "Silent since 28 February 2001. I rest on Eros, which keeps circling the Sun.",
+      "chapters": [
+        {
+          "title_fr": "Rendez-vous de la Saint-Valentin",
+          "body_fr": "Le 14 février 2000, jour de la Saint-Valentin, je me place en orbite autour d'Éros, un astéroïde en forme de cacahuète d'environ 34 km de long. Personne n'avait jamais tourné autour d'un astéroïde avant moi."
+        },
+        {
+          "title_fr": "Un atterrissage bonus",
+          "body_fr": "Ma mission terminée, l'équipe tente quelque chose d'incroyable : me poser en douceur sur Éros, alors que je n'ai pas de pieds ! Le 12 février 2001, je touche le sol à peu près à la vitesse d'un piéton… et je continue d'envoyer des données depuis la surface pendant plus de deux semaines."
+        }
+      ],
+      "quiz": [
+        {
+          "question_fr": "Quel jour NEAR Shoemaker s'est-il mis en orbite autour d'Éros ?",
+          "choices_fr": ["Le jour de Noël", "Le jour de la Saint-Valentin", "Le jour de l'An"],
+          "answer_index": 1,
+          "explanation_fr": "Le 14 février 2000 : un clin d'œil, car Éros est le dieu grec de l'amour."
+        },
+        {
+          "question_fr": "Qu'est-ce qui rendait l'atterrissage de NEAR Shoemaker si surprenant ?",
+          "choices_fr": ["Il n'avait pas été conçu pour atterrir", "Il s'est posé sur Mars", "Il avait des astronautes à bord"],
+          "answer_index": 0,
+          "explanation_fr": "C'était une sonde d'orbite, sans pieds ni système d'atterrissage. Elle a pourtant survécu au contact."
+        }
+      ],
+      "sources": [
+        { "label": "NASA Science : NEAR Shoemaker", "url": "https://science.nasa.gov/mission/near-shoemaker/", "is_nasa": true },
+        { "label": "NSSDCA : NEAR Shoemaker (1996-008A)", "url": "https://nssdc.gsfc.nasa.gov/nmc/spacecraft/display.action?id=1996-008A", "is_nasa": true }
+      ]
+    },
+    {
+      "slug": "pioneer-10",
+      "order": 2,
+      "name": "Pioneer 10",
+      "mission": "Pioneer 10",
+      "body": "elsewhere",
+      "kind": "probe",
+      "status": "lost",
+      "nssdca_id": "1972-012A",
+      "launch_date": "1972-03-03",
+      "arrival_date": "1973-12-03",
+      "last_contact_date": "2003-01-23",
+      "latitude": null,
+      "longitude": null,
+      "location_fr": "En route hors du système solaire, vers l'étoile Aldébaran",
+      "location_en": "Leaving the solar system, heading toward the star Aldebaran",
+      "tagline_fr": "J'ai été le premier à traverser la ceinture d'astéroïdes et à visiter Jupiter.",
+      "tagline_en": "I was the first to cross the asteroid belt and to visit Jupiter.",
+      "discovery_fr": "J'ai pris les premières images rapprochées de Jupiter et mesuré ses ceintures de radiations, bien plus fortes que prévu. Ces mesures ont aidé à concevoir les sondes suivantes, comme Voyager.",
+      "discovery_en": "I took the first close-up pictures of Jupiter and measured its radiation belts, which were far stronger than expected. These measurements helped design the probes that followed, such as Voyager.",
+      "status_note_fr": "Perdu depuis janvier 2003 : mon signal est devenu trop faible pour être capté. Je continue ma route en silence.",
+      "status_note_en": "Lost since January 2003: my signal became too weak to detect. I keep travelling in silence.",
+      "chapters": [
+        {
+          "title_fr": "Traverser la ceinture",
+          "body_fr": "En 1972, personne ne sait si un vaisseau peut traverser la ceinture d'astéroïdes sans être détruit. Je suis le premier à essayer… et je passe sans dommage !"
+        },
+        {
+          "title_fr": "Rencontre avec Jupiter",
+          "body_fr": "Le 3 décembre 1973, je passe tout près de Jupiter. Ses radiations sont si fortes qu'elles perturbent certains de mes instruments, mais j'envoie des centaines d'images de la planète géante."
+        },
+        {
+          "title_fr": "Un message pour qui me trouvera",
+          "body_fr": "Je transporte une plaque gravée qui montre un homme, une femme et la position de la Terre. Si quelqu'un me trouve un jour, il saura d'où je viens. Je me dirige vers l'étoile Aldébaran, que j'atteindrai dans environ 2 millions d'années."
+        }
+      ],
+      "quiz": [
+        {
+          "question_fr": "Quelle zone Pioneer 10 a-t-il été le premier à traverser ?",
+          "choices_fr": ["La ceinture d'astéroïdes", "Les anneaux de Saturne", "La ceinture de Kuiper"],
+          "answer_index": 0,
+          "explanation_fr": "Entre Mars et Jupiter, la ceinture d'astéroïdes inquiétait les ingénieurs. Pioneer 10 a prouvé qu'on pouvait la traverser."
+        },
+        {
+          "question_fr": "Que transporte Pioneer 10, au cas où quelqu'un le trouverait ?",
+          "choices_fr": ["Un disque de musique", "Une plaque gravée", "Une lettre manuscrite"],
+          "answer_index": 1,
+          "explanation_fr": "La plaque montre deux humains et la position de la Terre. Le disque de musique, c'est Voyager !"
+        }
+      ],
+      "sources": [
+        { "label": "NASA Science : Pioneer 10", "url": "https://science.nasa.gov/mission/pioneer-10/", "is_nasa": true },
+        { "label": "NSSDCA : Pioneer 10 (1972-012A)", "url": "https://nssdc.gsfc.nasa.gov/nmc/spacecraft/display.action?id=1972-012A", "is_nasa": true }
+      ]
+    }
+  ]
+}
