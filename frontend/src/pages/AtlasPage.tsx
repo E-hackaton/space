@@ -13,6 +13,8 @@ import { BODY_ORDER } from '../content/labels'
 import { MAPS } from '../content/maps'
 import { useApi } from '../hooks/useApi'
 import { useWorldTheme } from '../hooks/useWorldTheme'
+import type { Messages } from '../i18n/messages/fr'
+import { useI18n } from '../i18n/useI18n'
 import { phaseAt, TIMELINE_END_YEAR, type HeroPhase } from '../lib/timeline'
 import ui from '../styles/ui.module.css'
 import type { BodySlug } from '../types/api'
@@ -24,9 +26,9 @@ function isBodySlug(value: string | undefined): value is BodySlug {
 }
 
 /** Note affichée sur une vignette quand on remonte le temps. Rien à dire si le héros est déjà là. */
-function timeNote(phase: HeroPhase, year: number): string | undefined {
-  if (phase === 'future') return `Pas encore lancé en ${year}`
-  if (phase === 'traveling') return `En route en ${year}`
+function timeNote(phase: HeroPhase, year: number, t: Messages): string | undefined {
+  if (phase === 'future') return t.atlas.notLaunched(year)
+  if (phase === 'traveling') return t.atlas.traveling(year)
   return undefined
 }
 
@@ -39,6 +41,7 @@ export function AtlasPage() {
 }
 
 function Atlas({ bodySlug }: { bodySlug: BodySlug }) {
+  const { t } = useI18n()
   const bodies = useApi('bodies', fetchBodies)
   const equipment = useApi(`equipment:${bodySlug}`, (signal) => fetchEquipmentList(bodySlug, signal))
   const [year, setYear] = useState(TIMELINE_END_YEAR)
@@ -49,10 +52,10 @@ function Atlas({ bodySlug }: { bodySlug: BodySlug }) {
 
   return (
     <>
-      <h1>L'Atlas des héros</h1>
+      <h1>{t.atlas.title}</h1>
 
       {bodies.status === 'success' && (
-        <nav aria-label="Lieux de l'Atlas">
+        <nav aria-label={t.atlas.placesLabel}>
           <ul className={styles.tabs}>
             {bodies.data.map((item) => (
               // data-world : chaque onglet porte déjà la couleur de son monde, même inactif.
@@ -76,7 +79,7 @@ function Atlas({ bodySlug }: { bodySlug: BodySlug }) {
         </SankofaSays>
       )}
 
-      {equipment.status === 'loading' && <Loading label="Je cherche les héros…" />}
+      {equipment.status === 'loading' && <Loading label={t.atlas.searching} />}
       {equipment.status === 'error' && <LoadError error={equipment.error} />}
       {equipment.status === 'success' && (
         <>
@@ -85,13 +88,13 @@ function Atlas({ bodySlug }: { bodySlug: BodySlug }) {
           {map && <PlanetMap map={map} bodyName={body?.name ?? ''} equipment={equipment.data} year={year} />}
 
           <section aria-labelledby="liste-heros">
-            <h2 id="liste-heros">Tous les héros de ce lieu</h2>
+            <h2 id="liste-heros">{t.atlas.listTitle}</h2>
             <ul className={ui.grid}>
               {equipment.data.map((item) => {
                 const phase = phaseAt(item, year)
                 return (
                   <li key={item.slug} className="reveal">
-                    <HeroTile equipment={item} timeNote={timeNote(phase, year)} dimmed={phase === 'future'} />
+                    <HeroTile equipment={item} timeNote={timeNote(phase, year, t)} dimmed={phase === 'future'} />
                   </li>
                 )
               })}

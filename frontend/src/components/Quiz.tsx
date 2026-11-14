@@ -1,6 +1,7 @@
 import { Check, X } from '@phosphor-icons/react'
 import { useState } from 'react'
 
+import { useI18n } from '../i18n/useI18n'
 import type { QuizQuestion } from '../types/api'
 import styles from './Quiz.module.css'
 
@@ -23,6 +24,7 @@ const EMPTY_PROGRESS: QuestionProgress = { wrongChoices: [], solved: false }
  * après une erreur, l'élève peut réessayer, et l'explication s'affiche dès la bonne réponse.
  */
 export function Quiz({ questions, onComplete }: QuizProps) {
+  const { t } = useI18n()
   const [progress, setProgress] = useState<Record<number, QuestionProgress>>({})
 
   const solvedCount = questions.filter((question) => progress[question.id]?.solved).length
@@ -53,7 +55,7 @@ export function Quiz({ questions, onComplete }: QuizProps) {
         return (
           <fieldset key={question.id} className={styles.question}>
             <legend className={styles.legend}>
-              Question {questionNumber + 1} : {question.question}
+              {t.quiz.question(questionNumber + 1, question.question)}
             </legend>
 
             <div className={styles.choices}>
@@ -73,8 +75,8 @@ export function Quiz({ questions, onComplete }: QuizProps) {
                     {isRight && <Check aria-hidden="true" weight="bold" />}
                     {isWrong && <X aria-hidden="true" weight="bold" />}
                     {choice}
-                    {isRight && <span className="visually-hidden"> (bonne réponse)</span>}
-                    {isWrong && <span className="visually-hidden"> (mauvaise réponse)</span>}
+                    {isRight && <span className="visually-hidden">{t.quiz.right}</span>}
+                    {isWrong && <span className="visually-hidden">{t.quiz.wrong}</span>}
                   </button>
                 )
               })}
@@ -83,19 +85,17 @@ export function Quiz({ questions, onComplete }: QuizProps) {
             <div role="status" aria-live="polite" className={styles.feedback}>
               {state.solved && (
                 <p>
-                  <strong>Bravo !</strong> {question.explanation}
+                  <strong>{t.quiz.bravo}</strong> {question.explanation}
                 </p>
               )}
-              {lastWrong && <p>Pas tout à fait… Relis l'histoire et essaie encore !</p>}
+              {lastWrong && <p>{t.quiz.tryAgain}</p>}
             </div>
           </fieldset>
         )
       })}
 
       <p className={styles.score} aria-live="polite">
-        {allSolved
-          ? 'Toutes les réponses sont trouvées : la carte de ce héros rejoint ta collection !'
-          : `${solvedCount} / ${questions.length} réponses trouvées`}
+        {allSolved ? t.quiz.allFound : t.quiz.progress(solvedCount, questions.length)}
       </p>
     </div>
   )

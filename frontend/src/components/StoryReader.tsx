@@ -1,7 +1,9 @@
 import { ArrowLeft, ArrowRight, SpeakerHigh, SpeakerSlash } from '@phosphor-icons/react'
 import { useState } from 'react'
 
-import { useSpeech } from '../hooks/useSpeech'
+import { useNarration } from '../hooks/useNarration'
+import { useI18n } from '../i18n/useI18n'
+import { formatDate } from '../lib/format'
 import ui from '../styles/ui.module.css'
 import type { StoryChapter } from '../types/api'
 import styles from './StoryReader.module.css'
@@ -13,49 +15,50 @@ interface StoryReaderProps {
 }
 
 /**
- * Lecture de l'histoire chapitre par chapitre, comme les pages d'un livre, avec lecture à voix haute.
- * Un seul chapitre à la fois : des textes courts conviennent mieux à de jeunes lecteurs.
+ * Lecture de l'histoire étape par étape, comme les pages d'un livre, avec narration
+ * (voix ElevenLabs si disponible, sinon voix du navigateur).
  *
- * Pour repartir du premier chapitre quand on change de héros, le parent passe une `key` différente.
+ * Pour repartir de la première étape quand on change de héros, le parent passe une `key` différente.
  */
 export function StoryReader({ chapters, nextSectionId }: StoryReaderProps) {
+  const { t, language } = useI18n()
   const [index, setIndex] = useState(0)
-  const speech = useSpeech()
+  const narration = useNarration()
   const chapter = chapters[index]
 
   if (!chapter) return null
 
   const isFirst = index === 0
   const isLast = index === chapters.length - 1
+  const date = formatDate(chapter.date, t.locale, chapter.date_precision)
 
   function goTo(nextIndex: number) {
-    speech.stop() // la voix ne doit pas continuer à lire l'ancien chapitre
+    narration.stop() // la voix ne doit pas continuer à lire l'étape précédente
     setIndex(nextIndex)
   }
 
-  function toggleSpeech() {
+  function toggleNarration() {
     if (!chapter) return
-    if (speech.speaking) speech.stop()
-    else speech.speak(`${chapter.title}. ${chapter.body}`)
+    if (narration.speaking) narration.stop()
+    else narration.speak({ text: `${chapter.title}. ${chapter.body}`, audio: chapter.audio, language })
   }
 
   return (
     <div className={styles.reader}>
       <div className={styles.pageHeader}>
         <p className={ui.eyebrow}>
-          Chapitre {index + 1} sur {chapters.length}
+          {t.story.chapterOf(index + 1, chapters.length)}
+          {date && ` · ${date}`}
         </p>
-        {speech.supported && (
-          <button type="button" className={styles.listen} onClick={toggleSpeech} aria-pressed={speech.speaking}>
-            {speech.speaking ? <SpeakerSlash aria-hidden="true" /> : <SpeakerHigh aria-hidden="true" />}
-            {speech.speaking ? 'Arrêter' : 'Écouter'}
-          </button>
-        )}
+        <button type="button" className={styles.listen} onClick={toggleNarration} aria-pressed={narration.speaking}>
+          {narration.speaking ? <SpeakerSlash aria-hidden="true" /> : <SpeakerHigh aria-hidden="true" />}
+          {narration.speaking ? t.story.stop : t.story.listen}
+        </button>
       </div>
 
       {/* La région live reste en place ; seul son contenu change (sinon le lecteur d'écran n'annonce rien). */}
       <div aria-live="polite">
-        {/* La clé relance l'animation d'entrée à chaque changement de chapitre. */}
+        {/* La clé relance l'animation d'entrée à chaque changement d'étape. */}
         <div key={index} className={styles.page}>
           <h3>{chapter.title}</h3>
           <p className={styles.body}>{chapter.body}</p>
@@ -70,17 +73,17 @@ export function StoryReader({ chapters, nextSectionId }: StoryReaderProps) {
 
       <div className={styles.controls}>
         <button type="button" className={ui.buttonGhost} onClick={() => goTo(index - 1)} disabled={isFirst}>
-          <ArrowLeft aria-hidden="true" /> Précédent
+          <ArrowLeft aria-hidden="true" /> {t.story.previous}
         </button>
         {isLast ? (
           nextSectionId && (
-            <a href={`#${nextSectionId}`} className={ui.button} onClick={() => speech.stop()}>
-              Je relève le défi <ArrowRight aria-hidden="true" />
+            <a href={`#${nextSectionId}`} className={ui.button} onClick={() => narration.stop()}>
+              {t.story.challenge} <ArrowRight aria-hidden="true" />
             </a>
           )
         ) : (
           <button type="button" className={ui.button} onClick={() => goTo(index + 1)}>
-            Suivant <ArrowRight aria-hidden="true" />
+            {t.story.next} <ArrowRight aria-hidden="true" />
           </button>
         )}
       </div>

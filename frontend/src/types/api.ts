@@ -51,10 +51,40 @@ export interface EquipmentSummary {
   mission_end_date: IsoDate | null
 }
 
+/** Pièce de la machine que la caméra 3D montre pendant une étape. */
+export type MachineFocus =
+  | 'overview'
+  | 'body'
+  | 'wheels'
+  | 'arm'
+  | 'mast'
+  | 'panels'
+  | 'legs'
+  | 'rotor'
+  | 'antenna'
+  | 'mirror'
+  | 'engine'
+
+export type DatePrecision = 'day' | 'month' | 'year'
+
+/** Étape datée de la mission, racontée par la machine. */
 export interface StoryChapter {
   order: number
+  date: IsoDate | null
+  date_precision: DatePrecision
+  focus: MachineFocus
   title: string
   body: string
+  /** URL du MP3 ElevenLabs dans la langue demandée, ou null (repli : voix du navigateur). */
+  audio: string | null
+}
+
+/** Étape de la visite d'accueil de Sankofa. */
+export interface GuideStep {
+  key: string
+  order: number
+  text: string
+  audio: string | null
 }
 
 export interface QuizQuestion {

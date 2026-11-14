@@ -1,7 +1,11 @@
 /** Appels typés vers les routes de l'API des héros. */
 
-import type { BodySlug, CelestialBody, EquipmentDetail, EquipmentSummary } from '../types/api'
+import type { BodySlug, CelestialBody, EquipmentDetail, EquipmentSummary, GuideStep } from '../types/api'
 import { apiGet } from './client'
+
+export function fetchGuide(signal?: AbortSignal): Promise<GuideStep[]> {
+  return apiGet<GuideStep[]>('guide/', {}, signal)
+}
 
 export function fetchBodies(signal?: AbortSignal): Promise<CelestialBody[]> {
   return apiGet<CelestialBody[]>('bodies/', {}, signal)

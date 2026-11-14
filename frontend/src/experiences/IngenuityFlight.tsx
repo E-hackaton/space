@@ -1,9 +1,10 @@
 import { useId, useState, type CSSProperties } from 'react'
 
+import { useI18n } from '../i18n/useI18n'
 import { hoverRpm, liftNewtons, weightNewtons, type Planet } from '../lib/physics'
 import styles from './Experience.module.css'
 
-const PLANET_LABELS: Record<Planet, string> = { earth: 'Sur Terre', mars: 'Sur Mars' }
+const PLANETS: readonly Planet[] = ['earth', 'mars']
 const MAX_RPM = 3000
 
 /** Altitude d'affichage (0 à 1) : plus la portance dépasse le poids, plus l'hélicoptère monte. */
@@ -17,6 +18,8 @@ function altitudeRatio(lift: number, weight: number): number {
  * Elle fait comprendre pourquoi voler sur Mars est si difficile : l'air y est environ 100 fois moins dense.
  */
 export function IngenuityFlight() {
+  const { t } = useI18n()
+  const text = t.experiences.ingenuity
   const sliderId = useId()
   const [planet, setPlanet] = useState<Planet>('mars')
   const [rpm, setRpm] = useState(1200)
@@ -32,11 +35,11 @@ export function IngenuityFlight() {
   return (
     <div className={styles.experience}>
       <fieldset className={styles.choiceGroup}>
-        <legend>Où veux-tu voler ?</legend>
-        {(Object.keys(PLANET_LABELS) as Planet[]).map((value) => (
+        <legend>{text.where}</legend>
+        {PLANETS.map((value) => (
           <label key={value} className={styles.choice}>
             <input type="radio" name="ingenuity-planet" checked={planet === value} onChange={() => setPlanet(value)} />
-            {PLANET_LABELS[value]}
+            {text.planets[value]}
           </label>
         ))}
       </fieldset>
@@ -61,7 +64,7 @@ export function IngenuityFlight() {
       </div>
 
       <label htmlFor={sliderId} className={styles.sliderLabel}>
-        Vitesse des pales : <strong>{rpm.toLocaleString('fr-FR')} tours par minute</strong>
+        <strong>{text.speed(rpm.toLocaleString(t.locale))}</strong>
       </label>
       <input
         id={sliderId}
@@ -75,25 +78,20 @@ export function IngenuityFlight() {
       />
 
       <div className={styles.gauges} aria-hidden="true">
-        <span>Portance (pousse vers le haut)</span>
+        <span>{text.lift}</span>
         <span className={styles.gauge}>
           <span className={styles.gaugeLift} style={{ width: `${(lift / gaugeMax) * 100}%` }} />
         </span>
-        <span>Poids (tire vers le bas)</span>
+        <span>{text.weight}</span>
         <span className={styles.gauge}>
           <span className={styles.gaugeWeight} style={{ width: `${(weight / gaugeMax) * 100}%` }} />
         </span>
       </div>
 
       <p aria-live="polite" className={flying ? styles.success : undefined}>
-        {flying
-          ? `Décollage ! ${PLANET_LABELS[planet]}, il faut au moins ${neededRpm.toLocaleString('fr-FR')} tours par minute.`
-          : `Encore au sol : la portance est plus faible que le poids. Fais tourner les pales plus vite !`}
+        {flying ? text.takeoff(text.planets[planet], neededRpm.toLocaleString(t.locale)) : text.grounded}
       </p>
-      <p className={styles.note}>
-        Sur Mars, la gravité est plus faible, mais l'air est environ 100 fois moins dense : les pales doivent tourner
-        environ 6 fois plus vite que sur Terre. Modèle simplifié.
-      </p>
+      <p className={styles.note}>{text.note}</p>
     </div>
   )
 }

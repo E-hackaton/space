@@ -55,6 +55,13 @@
   color: var(--color-text-muted);
 }
 
+.headerActions {
+  display: flex;
+  align-items: center;
+  gap: var(--space-4);
+  flex-wrap: wrap;
+}
+
 .nav {
   display: flex;
   gap: var(--space-2);

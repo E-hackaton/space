@@ -5,10 +5,9 @@
  * en développement, le proxy Vite redirige /api vers Django (voir vite.config.ts).
  */
 
-const API_BASE_URL = import.meta.env.VITE_API_URL ?? ''
+import { getLanguage } from '../i18n/languageStore'
 
-/** Langue des textes demandés à l'API. L'interface est en français pour le MVP. */
-export const CONTENT_LANGUAGE = 'fr'
+const API_BASE_URL = import.meta.env.VITE_API_URL ?? ''
 
 /** Erreur HTTP explicite, pour distinguer « introuvable » (404) d'une panne réseau. */
 export class ApiError extends Error {
@@ -24,7 +23,8 @@ export class ApiError extends Error {
 type QueryParams = Record<string, string | undefined>
 
 function buildUrl(path: string, params: QueryParams): string {
-  const query = new URLSearchParams({ lang: CONTENT_LANGUAGE })
+  // Chaque requête demande les textes (et les voix) dans la langue choisie par l'utilisateur.
+  const query = new URLSearchParams({ lang: getLanguage() })
   for (const [key, value] of Object.entries(params)) {
     if (value !== undefined) query.set(key, value)
   }

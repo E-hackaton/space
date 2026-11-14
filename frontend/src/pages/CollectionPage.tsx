@@ -7,10 +7,13 @@ import { LoadError, Loading } from '../components/StatusMessage'
 import { rankFor } from '../content/ranks'
 import { useApi } from '../hooks/useApi'
 import { useCollection } from '../hooks/useCollection'
+import type { Messages } from '../i18n/messages/fr'
+import { useI18n } from '../i18n/useI18n'
 import ui from '../styles/ui.module.css'
 import styles from './CollectionPage.module.css'
 
 export function CollectionPage() {
+  const { t } = useI18n()
   const equipment = useApi('equipment:all', (signal) => fetchEquipmentList(undefined, signal))
   const { has } = useCollection()
 
@@ -25,32 +28,32 @@ export function CollectionPage() {
 
   return (
     <>
-      <h1>Ma collection</h1>
+      <h1>{t.collection.title}</h1>
 
       <section className={styles.rank} aria-labelledby="grade">
         <Medal size={48} weight="duotone" aria-hidden="true" className={styles.medal} />
         <div className={styles.rankText}>
-          <p className={ui.eyebrow}>Ton grade</p>
-          <h2 id="grade">{current.title}</h2>
+          <p className={ui.eyebrow}>{t.collection.rankEyebrow}</p>
+          <h2 id="grade">{t.collection.ranks[current]}</h2>
           <div
             className={styles.progress}
             role="progressbar"
             aria-valuenow={unlockedCount}
             aria-valuemin={0}
             aria-valuemax={total}
-            aria-label="Cartes gagnées"
+            aria-label={t.collection.cardsLabel}
           >
             <span style={{ width: `${percent}%` }} />
           </div>
           <p className={ui.muted}>
-            {unlockedCount} carte{unlockedCount > 1 ? 's' : ''} sur {total}
-            {next && ` · Prochain grade : ${next.title}`}
+            {t.collection.cards(unlockedCount, total)}
+            {next !== null && t.collection.nextRank(t.collection.ranks[next] ?? '')}
           </p>
         </div>
       </section>
 
       <SankofaSays>
-        <p>{collectionMessage(unlockedCount, total)}</p>
+        <p>{collectionMessage(unlockedCount, total, t)}</p>
       </SankofaSays>
 
       <ul className={ui.grid}>
@@ -64,8 +67,8 @@ export function CollectionPage() {
   )
 }
 
-function collectionMessage(unlocked: number, total: number): string {
-  if (unlocked === 0) return `Tu n'as encore aucune carte. Il y en a ${total} à gagner : lis l'histoire d'un héros et réussis son défi !`
-  if (unlocked === total) return `Incroyable : tu as les ${total} cartes ! Grâce à toi, aucun de ces héros ne sera oublié.`
-  return `Tu as ${unlocked} carte${unlocked > 1 ? 's' : ''} sur ${total}. Continue l'exploration !`
+function collectionMessage(unlocked: number, total: number, t: Messages): string {
+  if (unlocked === 0) return t.collection.messageNone(total)
+  if (unlocked === total) return t.collection.messageAll(total)
+  return t.collection.messageSome(unlocked, total)
 }

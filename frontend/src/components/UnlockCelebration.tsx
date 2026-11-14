@@ -1,6 +1,7 @@
 import { useEffect, useRef } from 'react'
 import { Link } from 'react-router-dom'
 
+import { useI18n } from '../i18n/useI18n'
 import ui from '../styles/ui.module.css'
 import type { EquipmentSummary } from '../types/api'
 import { CollectibleCard } from './CollectibleCard'
@@ -22,6 +23,7 @@ const CONFETTI_COUNT = 28
  * la ferme, et le reste de la page est rendu inerte. Le navigateur gère toute l'accessibilité.
  */
 export function UnlockCelebration({ equipment, onClose }: UnlockCelebrationProps) {
+  const { t } = useI18n()
   const dialogRef = useRef<HTMLDialogElement>(null)
 
   // Pas de fermeture dans un nettoyage : retirer le <dialog> du DOM suffit à le fermer.
@@ -47,21 +49,19 @@ export function UnlockCelebration({ equipment, onClose }: UnlockCelebrationProps
       </div>
 
       <h2 id="celebration-title" className={styles.title}>
-        Nouvelle carte débloquée !
+        {t.celebration.title}
       </h2>
       <div className={styles.card}>
         <CollectibleCard equipment={equipment} unlocked />
       </div>
-      <p>
-        {equipment.name} rejoint ta collection. Merci de ne pas l'avoir oublié !
-      </p>
+      <p>{t.celebration.joined(equipment.name)}</p>
 
       <div className={styles.actions}>
         <Link to="/collection" className={ui.button}>
-          Voir ma collection
+          {t.celebration.seeCollection}
         </Link>
         <button type="button" className={ui.buttonGhost} onClick={() => dialogRef.current?.close()}>
-          Continuer
+          {t.celebration.continue}
         </button>
       </div>
     </dialog>

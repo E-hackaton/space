@@ -1,10 +1,10 @@
 import { Link } from 'react-router-dom'
 
-import { KIND_LABELS } from '../content/labels'
+import { useI18n } from '../i18n/useI18n'
 import { yearOf } from '../lib/format'
 import type { EquipmentSummary } from '../types/api'
-import { KindIcon } from './KindIcon'
 import styles from './HeroTile.module.css'
+import { KindIcon } from './KindIcon'
 import { StatusBadge } from './StatusBadge'
 
 interface HeroTileProps {
@@ -17,6 +17,7 @@ interface HeroTileProps {
 
 /** Vignette d'un héros dans une liste. Toute la carte est cliquable. */
 export function HeroTile({ equipment, timeNote, dimmed = false }: HeroTileProps) {
+  const { t } = useI18n()
   const year = yearOf(equipment.arrival_date ?? equipment.launch_date)
 
   return (
@@ -33,10 +34,10 @@ export function HeroTile({ equipment, timeNote, dimmed = false }: HeroTileProps)
         </Link>
       </h3>
       <p className={styles.meta}>
-        {KIND_LABELS[equipment.kind]} · {equipment.mission}
+        {t.kinds[equipment.kind]} · {equipment.mission}
         {year && ` · ${year}`}
       </p>
-      <p className={styles.tagline}>« {equipment.tagline} »</p>
+      <p className={styles.tagline}>{t.common.quote(equipment.tagline)}</p>
     </article>
   )
 }

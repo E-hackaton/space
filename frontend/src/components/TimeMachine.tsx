@@ -2,25 +2,19 @@ import { CaretLeft, CaretRight, ClockCounterClockwise, Pause, Play } from '@phos
 import { useEffect, useId, useState } from 'react'
 import { Link } from 'react-router-dom'
 
+import { useI18n } from '../i18n/useI18n'
 import {
   eventsInYear,
   milestoneYears,
   phaseAt,
   TIMELINE_END_YEAR,
   TIMELINE_START_YEAR,
-  type TimelineEventKind,
 } from '../lib/timeline'
 import type { EquipmentSummary } from '../types/api'
 import styles from './TimeMachine.module.css'
 
 /** Durée d'une année pendant la lecture automatique. */
 const PLAY_STEP_MS = 450
-
-const EVENT_LABELS: Record<TimelineEventKind, string> = {
-  launch: 'Décollage de',
-  arrival: 'Arrivée de',
-  end: 'Fin de mission pour',
-}
 
 interface TimeMachineProps {
   heroes: EquipmentSummary[]
@@ -33,6 +27,7 @@ interface TimeMachineProps {
  * On choisit une année : la carte montre qui est en route, qui travaille, qui s'est tu.
  */
 export function TimeMachine({ heroes, year, onYearChange }: TimeMachineProps) {
+  const { t } = useI18n()
   const [playing, setPlaying] = useState(false)
   const sliderId = useId()
   const milestones = milestoneYears(heroes)
@@ -77,10 +72,10 @@ export function TimeMachine({ heroes, year, onYearChange }: TimeMachineProps) {
     <section className={styles.machine} aria-labelledby={`${sliderId}-title`}>
       <div className={styles.header}>
         <h2 id={`${sliderId}-title`} className={styles.title}>
-          <ClockCounterClockwise aria-hidden="true" weight="bold" /> Machine à remonter le temps
+          <ClockCounterClockwise aria-hidden="true" weight="bold" /> {t.timeMachine.title}
         </h2>
         <p className={styles.year} aria-live="polite">
-          <span className="visually-hidden">Année affichée : </span>
+          <span className="visually-hidden">{t.timeMachine.yearShown}</span>
           {year}
         </p>
       </div>
@@ -88,7 +83,7 @@ export function TimeMachine({ heroes, year, onYearChange }: TimeMachineProps) {
       <div className={styles.controls}>
         <button type="button" className={styles.playButton} onClick={togglePlay}>
           {isPlaying ? <Pause aria-hidden="true" weight="fill" /> : <Play aria-hidden="true" weight="fill" />}
-          <span className="visually-hidden">{isPlaying ? 'Mettre en pause' : 'Lancer le voyage dans le temps'}</span>
+          <span className="visually-hidden">{isPlaying ? t.timeMachine.pause : t.timeMachine.play}</span>
         </button>
         <button
           type="button"
@@ -97,11 +92,11 @@ export function TimeMachine({ heroes, year, onYearChange }: TimeMachineProps) {
           disabled={previousMilestone === undefined}
         >
           <CaretLeft aria-hidden="true" weight="bold" />
-          <span className="visually-hidden">Événement précédent</span>
+          <span className="visually-hidden">{t.timeMachine.previous}</span>
         </button>
 
         <label htmlFor={sliderId} className="visually-hidden">
-          Choisir une année entre {TIMELINE_START_YEAR} et {TIMELINE_END_YEAR}
+          {t.timeMachine.sliderLabel(TIMELINE_START_YEAR, TIMELINE_END_YEAR)}
         </label>
         <input
           id={sliderId}
@@ -127,26 +122,26 @@ export function TimeMachine({ heroes, year, onYearChange }: TimeMachineProps) {
           disabled={nextMilestone === undefined}
         >
           <CaretRight aria-hidden="true" weight="bold" />
-          <span className="visually-hidden">Événement suivant</span>
+          <span className="visually-hidden">{t.timeMachine.next}</span>
         </button>
         <button type="button" className={styles.todayButton} onClick={() => jumpTo(TIMELINE_END_YEAR)}>
-          Aujourd'hui
+          {t.timeMachine.today}
         </button>
       </div>
 
       <p className={styles.summary}>
-        <span className={styles.chipWorking}>{working} en mission</span>
-        {traveling > 0 && <span className={styles.chipTraveling}>{traveling} en route</span>}
-        <span className={styles.chipEnded}>{ended} fantôme{ended > 1 ? 's' : ''}</span>
+        <span className={styles.chipWorking}>{t.timeMachine.working(working)}</span>
+        {traveling > 0 && <span className={styles.chipTraveling}>{t.timeMachine.traveling(traveling)}</span>}
+        <span className={styles.chipEnded}>{t.timeMachine.ghosts(ended)}</span>
       </p>
 
       <ul className={styles.events} aria-live="polite">
         {events.length === 0 ? (
-          <li className={styles.quiet}>Rien de nouveau cette année… Les héros poursuivent leur route.</li>
+          <li className={styles.quiet}>{t.timeMachine.quiet}</li>
         ) : (
           events.map((event) => (
             <li key={`${event.kind}-${event.hero.slug}`} className={styles[event.kind]}>
-              {EVENT_LABELS[event.kind]} <Link to={`/heros/${event.hero.slug}`}>{event.hero.name}</Link>
+              {t.timeMachine.events[event.kind]} <Link to={`/heros/${event.hero.slug}`}>{event.hero.name}</Link>
             </li>
           ))
         )}

@@ -1,8 +1,9 @@
 import type { CSSProperties } from 'react'
 import { Link } from 'react-router-dom'
 
-import { STATUS_LABELS } from '../content/labels'
 import type { MapAsset } from '../content/maps'
+import type { Messages } from '../i18n/messages/fr'
+import { useI18n } from '../i18n/useI18n'
 import { stackIndexes, toMapPosition } from '../lib/geo'
 import { phaseAt, type HeroPhase } from '../lib/timeline'
 import type { EquipmentSummary } from '../types/api'
@@ -25,8 +26,8 @@ function isPlaced(item: EquipmentSummary): item is PlacedEquipment {
 }
 
 /** Ce qu'un lecteur d'écran annonce pour un marqueur, selon l'année affichée. */
-function describe(item: EquipmentSummary, phase: HeroPhase): string {
-  const state = phase === 'working' ? 'en mission' : STATUS_LABELS[item.status].toLowerCase()
+function describe(item: EquipmentSummary, phase: HeroPhase, t: Messages): string {
+  const state = phase === 'working' ? t.map.working : t.status.labels[item.status].toLowerCase()
   return `${item.name} (${item.mission}), ${state}`
 }
 
@@ -38,6 +39,7 @@ function describe(item: EquipmentSummary, phase: HeroPhase): string {
  * La page affiche aussi la liste des héros en texte, pour ceux qui ne voient pas la carte.
  */
 export function PlanetMap({ map, bodyName, equipment, year }: PlanetMapProps) {
+  const { t } = useI18n()
   const placed = equipment.filter(isPlaced)
   const positions = placed.map((item) => toMapPosition(item.latitude, item.longitude))
   const stacks = stackIndexes(positions)
@@ -45,7 +47,7 @@ export function PlanetMap({ map, bodyName, equipment, year }: PlanetMapProps) {
   return (
     <figure className={styles.figure}>
       <div className={styles.map}>
-        <img src={map.src} alt={`Carte de ${bodyName}`} className={styles.image} />
+        <img src={map.src} alt={t.map.alt(bodyName)} className={styles.image} />
 
         {/* Méridiens et parallèles tous les 30° : un repère « scientifique », purement décoratif. */}
         <svg className={styles.graticule} viewBox="0 0 360 180" preserveAspectRatio="none" aria-hidden="true">
@@ -73,7 +75,7 @@ export function PlanetMap({ map, bodyName, equipment, year }: PlanetMapProps) {
                 <Link
                   to={`/heros/${item.slug}`}
                   className={`${styles.marker} ${look}`}
-                  aria-label={describe(item, phase)}
+                  aria-label={describe(item, phase, t)}
                 >
                   <span className={styles.ghost} aria-hidden="true" />
                   <span className={styles.label} aria-hidden="true">
@@ -87,12 +89,12 @@ export function PlanetMap({ map, bodyName, equipment, year }: PlanetMapProps) {
       </div>
 
       <figcaption className={styles.caption}>
-        <ul className={styles.legend} aria-label="Légende">
-          <li className={styles.legendWorking}>En mission</li>
-          <li className={styles.legendSilent}>Fantôme : mission terminée</li>
+        <ul className={styles.legend} aria-label={t.map.legend}>
+          <li className={styles.legendWorking}>{t.map.legendWorking}</li>
+          <li className={styles.legendSilent}>{t.map.legendGhost}</li>
         </ul>
         <a href={map.sourceUrl} target="_blank" rel="noreferrer" className={styles.credit}>
-          {map.credit}
+          {t.maps[map.creditKey]}
         </a>
       </figcaption>
     </figure>

@@ -1,4 +1,4 @@
-import { STATUS_DESCRIPTIONS, STATUS_LABELS } from '../content/labels'
+import { useI18n } from '../i18n/useI18n'
 import type { EquipmentStatus } from '../types/api'
 import styles from './StatusBadge.module.css'
 
@@ -8,10 +8,12 @@ interface StatusBadgeProps {
 
 /** Badge d'état actuel. La couleur n'est jamais seule : le libellé est toujours écrit. */
 export function StatusBadge({ status }: StatusBadgeProps) {
+  const { t } = useI18n()
+
   return (
-    <span className={`${styles.badge} ${styles[status]}`} title={STATUS_DESCRIPTIONS[status]}>
+    <span className={`${styles.badge} ${styles[status]}`} title={t.status.descriptions[status]}>
       <span className={styles.dot} aria-hidden="true" />
-      {STATUS_LABELS[status]}
+      {t.status.labels[status]}
     </span>
   )
 }

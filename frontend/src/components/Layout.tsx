@@ -1,6 +1,8 @@
 import { NavLink, Outlet, ScrollRestoration, useMatch } from 'react-router-dom'
 
 import { useCollection } from '../hooks/useCollection'
+import { useI18n } from '../i18n/useI18n'
+import { LanguageSwitch } from './LanguageSwitch'
 import styles from './Layout.module.css'
 import { SankofaAvatar } from './SankofaAvatar'
 import { Starfield } from './Starfield'
@@ -9,6 +11,7 @@ const activeClassName = (isActive: boolean) => (isActive ? `${styles.navLink} ${
 
 /** Structure commune à toutes les pages : en-tête, contenu, pied de page. */
 export function Layout() {
+  const { t } = useI18n()
   const { collected } = useCollection()
   // Le lien « Atlas » mène à la Lune, mais il doit rester actif sur tous les lieux de l'Atlas.
   const inAtlas = useMatch('/atlas/:bodySlug') !== null
@@ -19,7 +22,7 @@ export function Layout() {
 
       {/* Lien d'évitement : les utilisateurs au clavier sautent directement au contenu. */}
       <a href="#contenu" className={styles.skipLink}>
-        Aller au contenu
+        {t.common.skipToContent}
       </a>
 
       <header className={styles.header}>
@@ -28,32 +31,35 @@ export function Layout() {
             <SankofaAvatar size={40} />
             <span>
               Sankofa
-              <span className={styles.brandTagline}>Les héros oubliés de l'espace</span>
+              <span className={styles.brandTagline}>{t.common.appTagline}</span>
             </span>
           </NavLink>
 
-          <nav aria-label="Navigation principale">
-            <ul className={styles.nav}>
-              <li>
-                <NavLink
-                  to="/atlas/moon"
-                  className={() => activeClassName(inAtlas)}
-                  aria-current={inAtlas ? 'page' : undefined}
-                >
-                  Atlas
-                </NavLink>
-              </li>
-              <li>
-                <NavLink to="/collection" className={({ isActive }) => activeClassName(isActive)}>
-                  Ma collection
-                  <span className={styles.counter}>
-                    {collected.length}
-                    <span className="visually-hidden"> cartes gagnées</span>
-                  </span>
-                </NavLink>
-              </li>
-            </ul>
-          </nav>
+          <div className={styles.headerActions}>
+            <nav aria-label={t.nav.label}>
+              <ul className={styles.nav}>
+                <li>
+                  <NavLink
+                    to="/atlas/moon"
+                    className={() => activeClassName(inAtlas)}
+                    aria-current={inAtlas ? 'page' : undefined}
+                  >
+                    {t.nav.atlas}
+                  </NavLink>
+                </li>
+                <li>
+                  <NavLink to="/collection" className={({ isActive }) => activeClassName(isActive)}>
+                    {t.nav.collection}
+                    <span className={styles.counter}>
+                      {collected.length}
+                      <span className="visually-hidden">{t.nav.cardsWon}</span>
+                    </span>
+                  </NavLink>
+                </li>
+              </ul>
+            </nav>
+            <LanguageSwitch />
+          </div>
         </div>
       </header>
 
@@ -63,14 +69,8 @@ export function Layout() {
 
       <footer className={styles.footer}>
         <div className={styles.inner}>
-          <p>
-            Projet réalisé par l'équipe G. Bugs (Abidjan) pour le NASA Space Apps Challenge 2026. Ce site n'est
-            ni approuvé ni soutenu par la NASA.
-          </p>
-          <p>
-            Données et images : NASA (NSSDCA, NASA Science, Scientific Visualization Studio) et USGS. Les sources
-            de chaque héros sont citées sur sa fiche.
-          </p>
+          <p>{t.footer.team}</p>
+          <p>{t.footer.data}</p>
         </div>
       </footer>
 

@@ -1,5 +1,7 @@
 import { useEffect, useEffectEvent, useState } from 'react'
 
+import { useI18n } from '../i18n/useI18n'
+
 export type ApiState<T> =
   | { status: 'loading' }
   | { status: 'error'; error: Error }
@@ -15,7 +17,11 @@ type Settled<T> = Exclude<ApiState<T>, { status: 'loading' }>
  * @param fetcher fonction qui effectue la requête. Elle peut changer à chaque rendu sans
  *                relancer le chargement : seul `key` compte.
  */
-export function useApi<T>(key: string, fetcher: (signal: AbortSignal) => Promise<T>): ApiState<T> {
+export function useApi<T>(resourceKey: string, fetcher: (signal: AbortSignal) => Promise<T>): ApiState<T> {
+  // La langue fait partie de la clé : changer de langue recharge automatiquement le contenu.
+  const { language } = useI18n()
+  const key = `${language}:${resourceKey}`
+
   // On mémorise la clé avec le résultat : si la clé change, l'ancien résultat est ignoré
   // et l'on renvoie « loading », sans appeler setState pendant le rendu ou l'effet.
   const [result, setResult] = useState<{ key: string; state: Settled<T> } | null>(null)

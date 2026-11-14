@@ -1,7 +1,7 @@
 import { Lock } from '@phosphor-icons/react'
 import { Link } from 'react-router-dom'
 
-import { KIND_LABELS } from '../content/labels'
+import { useI18n } from '../i18n/useI18n'
 import { yearOf } from '../lib/format'
 import type { EquipmentSummary } from '../types/api'
 import styles from './CollectibleCard.module.css'
@@ -19,6 +19,7 @@ interface CollectibleCardProps {
  * Verrouillée, elle reste visible en « fantôme » pour donner envie de la débloquer.
  */
 export function CollectibleCard({ equipment, unlocked }: CollectibleCardProps) {
+  const { t } = useI18n()
   const year = yearOf(equipment.arrival_date ?? equipment.launch_date)
 
   return (
@@ -40,13 +41,13 @@ export function CollectibleCard({ equipment, unlocked }: CollectibleCardProps) {
       {unlocked ? (
         <>
           <p className={styles.meta}>
-            {KIND_LABELS[equipment.kind]} · {equipment.mission}
+            {t.kinds[equipment.kind]} · {equipment.mission}
             {year && ` · ${year}`}
           </p>
           <StatusBadge status={equipment.status} />
         </>
       ) : (
-        <p className={styles.meta}>Réussis son quiz pour débloquer cette carte.</p>
+        <p className={styles.meta}>{t.collection.locked}</p>
       )}
     </article>
   )

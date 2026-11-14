@@ -40,9 +40,18 @@ export function stackIndexes(positions: MapPosition[], threshold = 2): number[] 
   )
 }
 
-/** Formate une coordonnée pour l'affichage, ex. « 22,27° N ». */
-export function formatCoordinate(value: number, axis: 'lat' | 'lon'): string {
-  const hemisphere = axis === 'lat' ? (value >= 0 ? 'N' : 'S') : value >= 0 ? 'E' : 'O'
-  const amount = Math.abs(value).toLocaleString('fr-FR', { maximumFractionDigits: 2 })
+/** Lettres des points cardinaux, qui changent selon la langue (Ouest = « O » ou « W »). */
+export interface CardinalLetters {
+  north: string
+  south: string
+  east: string
+  west: string
+}
+
+/** Formate une coordonnée pour l'affichage, ex. « 22,27° N » ou « 47.95° W ». */
+export function formatCoordinate(value: number, axis: 'lat' | 'lon', locale: string, letters: CardinalLetters): string {
+  const hemisphere =
+    axis === 'lat' ? (value >= 0 ? letters.north : letters.south) : value >= 0 ? letters.east : letters.west
+  const amount = Math.abs(value).toLocaleString(locale, { maximumFractionDigits: 2 })
   return `${amount}° ${hemisphere}`
 }
