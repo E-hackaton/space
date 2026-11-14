@@ -399,5 +399,12 @@
   },
   "home": {
     "hello": "Hi, I'm Sankofa. Machines are sleeping up there, on the Moon and on Mars. Shall we go and find them?"
+  },
+  "carnet": {
+    "summary_one": "You found {{found}} machines out of {{total}} and earned {{count}} badge.",
+    "summary_other": "You found {{found}} machines out of {{total}} and earned {{count}} badges.",
+    "next_one": "{{count}} is still waiting on {{body}}.",
+    "next_other": "{{count}} are still waiting on {{body}}.",
+    "done": "No machine is forgotten any more. Well done, explorer."
   }
 }

@@ -149,3 +149,14 @@
 .visit-option { font-family: var(--font-display); font-weight: 800; text-transform: uppercase; font-size: 1.6rem; line-height: 1.15; color: rgba(255,255,255,.45); border-bottom: 2px solid transparent; transition: color .25s, border-color .25s; }
 .visit-option:hover { color: #fff; }
 .visit-option-on { color: #fff; border-color: var(--color-active); }
+
+/* Carnet : médaillons */
+.medallion { display: flex; flex-direction: column; align-items: center; gap: .55rem; text-align: center; color: #fff; transition: transform .3s; }
+.medallion:hover { transform: translateY(-6px); }
+.medallion-disc { display: grid; place-items: center; width: 5.2rem; height: 5.2rem; border-radius: 9999px; background: radial-gradient(circle at 35% 30%, #2a3a66, #0b1230 70%); box-shadow: inset -6px -8px 16px rgba(0,0,0,.6), inset 4px 4px 10px rgba(255,255,255,.08), 0 10px 24px -10px #000; transition: box-shadow .3s; }
+.medallion-badge .medallion-disc { background: radial-gradient(circle at 35% 30%, #3b5a3f, #0d2a1a 70%); box-shadow: inset -6px -8px 16px rgba(0,0,0,.6), 0 0 0 2px rgba(75,224,138,.6), 0 0 30px -6px rgba(75,224,138,.8); }
+.medallion-found .medallion-disc { box-shadow: inset -6px -8px 16px rgba(0,0,0,.6), 0 0 0 2px rgba(255,255,255,.35); }
+.medallion-check { font-size: 2rem; font-weight: 800; color: var(--color-active); }
+.medallion-q { font-family: var(--font-display); font-size: 2.4rem; font-weight: 800; color: rgba(255,255,255,.18); }
+.medallion-unknown .medallion-name { color: #64748b; }
+.medallion-name { font-family: var(--font-display); font-weight: 800; text-transform: uppercase; font-size: 1.05rem; line-height: 1.05; }

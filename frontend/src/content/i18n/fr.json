@@ -399,5 +399,12 @@
   },
   "home": {
     "hello": "Salut, moi c'est Sankofa. Des machines dorment là-haut, sur la Lune et sur Mars. On part les retrouver ?"
+  },
+  "carnet": {
+    "summary_one": "Tu as retrouvé {{found}} machines sur {{total}} et gagné {{count}} badge.",
+    "summary_other": "Tu as retrouvé {{found}} machines sur {{total}} et gagné {{count}} badges.",
+    "next_one": "Il en reste {{count}} sur {{body}}.",
+    "next_other": "Il en reste {{count}} sur {{body}}.",
+    "done": "Plus aucune machine n'est oubliée. Bravo, explorateur."
   }
 }
