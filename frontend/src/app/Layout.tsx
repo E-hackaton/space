@@ -2,9 +2,26 @@ import { Link, NavLink, Outlet } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import { LanguageSwitch } from '../components/ui/LanguageSwitch';
 import { webglAvailable } from '../lib/device';
+import { useEffect } from 'react';
+import { Icon } from '../components/ui/Glyphs';
+import { setSfxEnabled, unlockSfx } from '../audio/sfx';
+import { useStore } from '../store/useStore';
 
 export function Layout() {
   const { t } = useTranslation();
+  const sfxOn = useStore((s) => s.sfxOn);
+  const setSfxOn = useStore((s) => s.setSfxOn);
+  // Le son se débloque au premier geste (règle des navigateurs).
+  useEffect(() => {
+    const unlock = () => unlockSfx();
+    window.addEventListener('pointerdown', unlock);
+    window.addEventListener('keydown', unlock);
+    return () => {
+      window.removeEventListener('pointerdown', unlock);
+      window.removeEventListener('keydown', unlock);
+    };
+  }, []);
+  useEffect(() => setSfxEnabled(sfxOn), [sfxOn]);
   const linkClass = ({ isActive }: { isActive: boolean }) =>
     `rounded px-2 py-1 hover:text-white ${isActive ? 'text-white underline underline-offset-4' : 'text-slate-300'}`;
   return (
@@ -23,6 +40,10 @@ export function Layout() {
           <NavLink to="/visite" className={linkClass}>{t('nav.tour')}</NavLink>
           <NavLink to="/carnet" className={linkClass}>{t('nav.logbook')}</NavLink>
           <NavLink to="/sources" className={linkClass}>{t('nav.sources')}</NavLink>
+          <button type="button" onClick={() => setSfxOn(!sfxOn)} aria-pressed={sfxOn} className="rounded-full p-1.5 text-slate-300 hover:text-white" title={t('app.sfx')}>
+            <Icon name={sfxOn ? 'sound' : 'mute'} />
+            <span className="sr-only">{t('app.sfx')}</span>
+          </button>
           <LanguageSwitch />
         </nav>
       </header>

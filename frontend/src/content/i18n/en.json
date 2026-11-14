@@ -5,7 +5,8 @@
     "start": "Start the journey",
     "continue": "Resume the journey",
     "skip": "Skip to content",
-    "notToScale": "Sizes and distances not to scale."
+    "notToScale": "Sizes and distances not to scale.",
+    "sfx": "Sound effects"
   },
   "nav": {
     "home": "Home",
@@ -342,6 +343,53 @@
       "laser": "Fire a laser from Earth and time its return.",
       "fly": "Spin the blades and take off in the Martian air.",
       "call": "Try to reach it one last time."
+    }
+  },
+  "expedition": {
+    "map": "Map · {{body}}",
+    "mapSize": "Enlarge or shrink the map",
+    "found": "found",
+    "heading": "Heading to {{name}}",
+    "continue": "Continue the expedition",
+    "leaveStory": "Leave",
+    "quiz": "Earn the badge",
+    "pickBody": "Where shall we search for the forgotten machines?",
+    "objects_one": "{{count}} forgotten object",
+    "objects_other": "{{count}} forgotten objects",
+    "pickMode": "{{body}}! Shall I fly, or will you take the controls?",
+    "modes": {
+      "auto": "Autopilot",
+      "manual": "Manual pilot"
+    },
+    "modeHint": {
+      "auto": "I take you from machine to machine and each one tells you its life.",
+      "manual": "You fly the probe. The map shows where the lost objects are."
+    },
+    "otherBody": "Change world",
+    "introAuto": "Welcome to {{body}}. {{count}} machines are waiting for us. Hold on, I'm flying.",
+    "introManual": "Welcome to {{body}}. {{count}} machines are hidden here. Pick one on the map, then follow the compass.",
+    "foundIt": "You found {{name}}! Come closer and listen to its story.",
+    "allFound": "You found every machine on {{body}}. They are no longer forgotten.",
+    "waypoint": "Beacon set on {{name}}. Follow the arrow.",
+    "pilot": "Pilot",
+    "headingTo": "Heading to",
+    "listen": "Hear its story",
+    "enter": "Enter: listen",
+    "nudged": "neighbouring sites spread apart for readability",
+    "nextUp": "Next stop: {{name}}.",
+    "lastOne": "That was the last machine on this world.",
+    "deepIntro": "No ground under our feet here. These two machines travel or sleep far from everything.",
+    "layoutNote": "Machines placed by their real latitude and longitude, scaled down. Sizes not to scale."
+  },
+  "atlas": {
+    "goThere": "Go there and hear its story",
+    "back": "Whole view"
+  },
+  "visit": {
+    "vehicle": "Vehicle",
+    "vehicles": {
+      "rover": "FORBITS rover",
+      "lrv": "Lunar Roving Vehicle"
     }
   }
 }

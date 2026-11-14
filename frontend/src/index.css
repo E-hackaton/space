@@ -42,3 +42,93 @@
 .callout-active .callout-label { background: var(--color-active); color: var(--color-space); transform: scale(1.12); }
 @keyframes callout-pulse { 50% { transform: scale(1.5); } }
 @media (prefers-reduced-motion: reduce) { .callout-active .callout-dot { animation: none; } }
+
+/* ===================================================== interface vivante */
+
+.btn-primary { display: inline-flex; align-items: center; gap: .4rem; border-radius: 9999px; padding: .5rem 1.1rem; font-weight: 700; font-size: .9rem; background: var(--color-active); color: var(--color-space); box-shadow: 0 0 0 0 rgba(75,224,138,.5); transition: transform .2s, box-shadow .3s, filter .2s; }
+.btn-primary:hover { transform: translateY(-2px); box-shadow: 0 8px 26px -6px rgba(75,224,138,.7); filter: brightness(1.08); }
+.btn-ghost { display: inline-flex; align-items: center; gap: .4rem; border-radius: 9999px; padding: .5rem 1.1rem; font-weight: 600; font-size: .9rem; color: #fff; box-shadow: inset 0 0 0 1px rgba(255,255,255,.3); background: rgba(6,11,26,.45); backdrop-filter: blur(8px); transition: background .2s, transform .2s; }
+.btn-ghost:hover { background: rgba(255,255,255,.12); transform: translateY(-1px); }
+.chip { display: inline-flex; align-items: center; gap: .3rem; border-radius: 9999px; padding: .25rem .7rem; font-size: .85rem; color: #fff; background: rgba(6,11,26,.6); box-shadow: inset 0 0 0 1px rgba(255,255,255,.22); backdrop-filter: blur(8px); transition: background .2s; }
+.chip:hover { background: rgba(255,255,255,.14); }
+.chip:disabled { opacity: .35; }
+.hud-pill { border-radius: 9999px; padding: .2rem .9rem; background: rgba(6,11,26,.65); box-shadow: inset 0 0 0 1px rgba(255,255,255,.15); backdrop-filter: blur(10px); }
+
+.stage-center { position: absolute; inset: 0; display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 1.5rem 1rem; overflow-y: auto; perspective: 1200px; }
+
+/* Cartes 3D (destination, pilote) */
+.dest-card, .mode-card { position: relative; display: block; width: 100%; border-radius: 1.75rem; padding: 1.6rem 1.2rem; text-align: center; color: #fff; background: radial-gradient(120% 90% at 50% 0%, rgba(155,123,255,.18), rgba(6,11,26,.85) 60%); box-shadow: inset 0 0 0 1px rgba(255,255,255,.12), 0 30px 60px -30px rgba(0,0,0,.8); transform-style: preserve-3d; transition: transform .35s cubic-bezier(.2,.8,.2,1), box-shadow .35s; overflow: hidden; }
+.dest-card::after, .mode-card::after { content: ""; position: absolute; inset: -40%; background: conic-gradient(from 0deg, transparent 0 70%, rgba(75,224,138,.35) 80%, transparent 90%); animation: card-sheen 6s linear infinite; opacity: 0; transition: opacity .3s; pointer-events: none; }
+.dest-card:hover, .mode-card:hover { transform: translateY(-8px) rotateX(6deg); box-shadow: inset 0 0 0 1px rgba(75,224,138,.6), 0 40px 70px -30px rgba(75,224,138,.45); }
+.dest-card:hover::after, .mode-card:hover::after { opacity: 1; }
+.dest-card > *, .mode-card > * { position: relative; z-index: 1; }
+@keyframes card-sheen { to { transform: rotate(360deg); } }
+
+/* Planète vivante en CSS */
+.living-planet { display: inline-block; border-radius: 9999px; background-size: 200% 100%; background-repeat: repeat-x; animation: planet-spin 60s linear infinite; box-shadow: inset -28px -10px 60px 10px rgba(0,0,0,.92), inset 6px 4px 18px rgba(255,255,255,.2), 0 0 40px -4px var(--glow), 0 0 110px -30px var(--glow); }
+.living-planet-deep { background: radial-gradient(circle at 30% 30%, #b9a4ff 0 2%, transparent 3%), radial-gradient(circle at 70% 60%, #fff 0 1.2%, transparent 2%), radial-gradient(circle at 45% 75%, #9fd8ff 0 1.5%, transparent 2.5%), radial-gradient(circle at 50% 50%, #3b2a7a, #0b0820 70%); background-size: 100% 100%; animation: deep-pulse 6s ease-in-out infinite; }
+@keyframes planet-spin { from { background-position: 0 0; } to { background-position: -200% 0; } }
+@keyframes deep-pulse { 50% { filter: hue-rotate(25deg) brightness(1.2); } }
+
+/* Étiquettes du globe */
+.atlas-tag { white-space: nowrap; border-radius: 9999px; padding: 2px 9px; font-size: 12px; font-weight: 700; color: #fff; background: rgba(6,11,26,.72); box-shadow: inset 0 0 0 1px currentColor; backdrop-filter: blur(6px); transform: translateY(-60%); transition: opacity .25s, transform .2s; cursor: pointer; }
+.atlas-tag:hover { transform: translateY(-70%) scale(1.06); }
+.atlas-tag-active { color: var(--color-active); }
+.atlas-tag-dormant { color: var(--color-dormant); }
+.atlas-tag-selected { background: #fff; color: var(--color-space); box-shadow: 0 0 24px rgba(255,255,255,.6); }
+
+/* Carte plate des objets oubliés */
+.atlas-map { border-radius: 1rem; padding: .25rem .35rem .4rem; background: rgba(6,11,26,.78); box-shadow: inset 0 0 0 1px rgba(255,255,255,.14), 0 20px 40px -20px #000; backdrop-filter: blur(10px); transition: width .3s; }
+.atlas-map-big { position: fixed; left: 50%; top: 50%; width: min(56rem, calc(100vw - 2rem)); transform: translate(-50%, -50%); z-index: 60; }
+.atlas-map-grid { position: absolute; inset: 0; background-image: linear-gradient(rgba(255,255,255,.08) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,.08) 1px, transparent 1px); background-size: 8.333% 16.666%; box-shadow: inset 0 0 40px rgba(0,0,0,.6); }
+.atlas-pin { position: absolute; width: 14px; height: 14px; transform: translate(-50%, -50%); border-radius: 9999px; display: grid; place-items: center; font-size: 9px; font-weight: 800; color: var(--color-space); border: 2px solid #fff; transition: transform .2s; }
+.atlas-pin:hover { transform: translate(-50%, -50%) scale(1.4); }
+.atlas-pin-active { background: var(--color-active); animation: pin-pulse 1.6s ease-out infinite; }
+.atlas-pin-dormant { background: var(--color-dormant); }
+.atlas-pin-target { outline: 2px solid #fff; outline-offset: 3px; }
+.atlas-pin-label { position: absolute; left: 10px; top: -8px; white-space: nowrap; font-size: 11px; font-weight: 700; text-shadow: 0 1px 3px #000; pointer-events: none; }
+@keyframes pin-pulse { 0% { box-shadow: 0 0 0 0 rgba(75,224,138,.8); } 100% { box-shadow: 0 0 0 10px rgba(75,224,138,0); } }
+.atlas-scout { position: absolute; width: 12px; height: 12px; transform: translate(-50%, -50%); border-radius: 9999px; background: #fff; box-shadow: 0 0 0 3px rgba(95,210,255,.6), 0 0 16px #5fd2ff; pointer-events: none; }
+.atlas-scout::after { content: ""; position: absolute; inset: -10px; border-radius: 9999px; border: 1px solid rgba(95,210,255,.7); animation: scout-ping 1.8s ease-out infinite; }
+@keyframes scout-ping { from { transform: scale(.4); opacity: 1; } to { transform: scale(1.6); opacity: 0; } }
+
+/* Boussole */
+.compass { display: flex; align-items: center; gap: .7rem; border-radius: 9999px; padding: .35rem 1rem .35rem .35rem; background: rgba(6,11,26,.8); box-shadow: inset 0 0 0 1px rgba(75,224,138,.5); backdrop-filter: blur(10px); max-width: 80vw; }
+.compass-dial { display: grid; place-items: center; width: 2.6rem; height: 2.6rem; border-radius: 9999px; background: radial-gradient(circle, rgba(75,224,138,.25), transparent 70%); box-shadow: inset 0 0 0 1px rgba(255,255,255,.25); }
+.compass-arrow { color: var(--color-active); font-size: 1.2rem; transition: transform .1s linear; }
+
+/* Récit sur place : sous-titres de cinéma */
+.story-head { position: absolute; left: .75rem; top: .75rem; z-index: 30; max-width: calc(100% - 1.5rem); padding: .6rem .9rem; border-radius: 1rem; background: linear-gradient(90deg, rgba(6,11,26,.8), rgba(6,11,26,0)); }
+.story-shell { position: absolute; inset-inline: 0; bottom: 0; z-index: 30; padding: 4.5rem 1rem 1rem; background: linear-gradient(to top, rgba(6,11,26,.95) 15%, rgba(6,11,26,.6) 60%, transparent); }
+.story-shell > * { max-width: 52rem; margin-inline: auto; }
+.story-subtitle { margin-top: .5rem; text-align: center; font-size: clamp(1.05rem, 1.2vw + .8rem, 1.6rem); line-height: 1.45; font-weight: 500; text-shadow: 0 2px 12px rgba(0,0,0,.9); }
+
+/* Fond vivant du site (pages 2D) */
+.living-bg { position: fixed; inset: 0; z-index: -1; pointer-events: none; background: radial-gradient(60% 50% at 15% 10%, rgba(91,63,190,.35), transparent 70%), radial-gradient(50% 40% at 90% 80%, rgba(75,224,138,.12), transparent 70%), #060B1A; }
+.living-bg::before, .living-bg::after { content: ""; position: absolute; inset: -50%; background-image: radial-gradient(1.5px 1.5px at 20px 30px, #fff, transparent), radial-gradient(1px 1px at 120px 80px, #cfe0ff, transparent), radial-gradient(1.2px 1.2px at 200px 160px, #fff, transparent), radial-gradient(1px 1px at 60px 200px, #ffe9c4, transparent); background-size: 240px 240px; animation: stars-drift 120s linear infinite; opacity: .7; }
+.living-bg::after { background-size: 380px 380px; animation-duration: 200s; opacity: .45; }
+@keyframes stars-drift { to { transform: translate(240px, 120px); } }
+
+@media (prefers-reduced-motion: reduce) {
+  .living-planet, .living-planet-deep, .living-bg::before, .living-bg::after, .atlas-pin-active, .atlas-scout::after, .dest-card::after, .mode-card::after { animation: none; }
+}
+
+/* Choix sans cadres : les planètes et le texte suffisent */
+.planet-pick { display: flex; flex-direction: column; align-items: center; gap: .2rem; color: #fff; transition: transform .5s cubic-bezier(.2,.8,.2,1); }
+.planet-pick:hover { transform: translateY(-10px) scale(1.04); }
+.planet-pick-name { margin-top: 1rem; font-family: var(--font-display); font-size: 2rem; font-weight: 800; text-transform: uppercase; letter-spacing: .04em; }
+.planet-pick:hover .planet-pick-name { color: var(--color-active); }
+.mode-pick { max-width: 34rem; text-align: center; color: #fff; padding: .25rem 1rem; border-bottom: 1px solid transparent; transition: border-color .3s, transform .3s; }
+.mode-pick:hover { border-color: var(--color-active); transform: translateY(-2px); }
+.mode-pick-name { display: block; font-family: var(--font-display); font-size: clamp(2rem, 4vw, 3rem); font-weight: 800; text-transform: uppercase; line-height: 1; }
+.mode-pick:hover .mode-pick-name { color: var(--color-active); }
+
+/* Minicarte 3D (façon jeu de course) */
+.minimap { position: absolute; left: 1rem; bottom: 1rem; z-index: 30; width: 13rem; height: 13rem; border-radius: 9999px; overflow: hidden; box-shadow: 0 0 0 3px rgba(255,255,255,.85), 0 0 0 7px rgba(6,11,26,.55), 0 18px 40px -10px #000; transition: all .45s cubic-bezier(.2,.8,.2,1); }
+.minimap-big { left: 50%; bottom: 50%; width: min(60rem, calc(100vw - 2rem)); height: min(36rem, calc(100vh - 8rem)); border-radius: 1.5rem; transform: translate(-50%, 50%); z-index: 60; }
+.minimap-toggle { position: absolute; right: 50%; bottom: .6rem; transform: translateX(50%); display: grid; place-items: center; width: 2rem; height: 2rem; border-radius: 9999px; color: #fff; background: rgba(6,11,26,.75); box-shadow: inset 0 0 0 1px rgba(255,255,255,.35); }
+.minimap-big .minimap-toggle { right: 1rem; bottom: 1rem; transform: none; }
+@media (max-width: 640px) { .minimap { width: 9.5rem; height: 9.5rem; } }
+.ground-tag { white-space: nowrap; border-radius: 9999px; padding: 3px 11px; font-size: 13px; font-weight: 700; background: rgba(6,11,26,.7); box-shadow: inset 0 0 0 1px currentColor; backdrop-filter: blur(6px); transition: opacity .3s; }
+.ground-tag-active { color: var(--color-active); }
+.ground-tag-dormant { color: var(--color-dormant); }

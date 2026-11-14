@@ -18,10 +18,38 @@ import { MODELS, type ModelId } from '../components/3d/NasaModel';
 import { partsFromLabels } from '../content/anatomy';
 import { speak } from '../audio/speech';
 import { useStore } from '../store/useStore';
+import { player } from '../world/Player';
+import { engineStop, engineUpdate, playBump, playDetect, playLanding, playLiftoff, type SoundWorld } from '../audio/sfx';
+
+const SOUND_WORLD: Record<WorldId, SoundWorld> = { earth: 'earth', moon: 'moon', jezero: 'mars', gale: 'mars' };
+
+/** Sons de l'exploration : moteur du rover, chocs, fusée, détection des machines. */
+function useExplorerSounds(world: WorldId, phase: string, near: string | null) {
+  useEffect(() => {
+    let raf = 0;
+    let lastBump = 0;
+    const tick = () => {
+      engineUpdate(SOUND_WORLD[world], player.speed, phase === 'drive');
+      if (player.bump > 0.6 && lastBump <= 0.6) playBump(SOUND_WORLD[world]);
+      lastBump = player.bump;
+      raf = requestAnimationFrame(tick);
+    };
+    raf = requestAnimationFrame(tick);
+    return () => cancelAnimationFrame(raf);
+  }, [world, phase]);
+  useEffect(() => () => engineStop(), []);
+  useEffect(() => {
+    if (phase === 'liftoff') playLiftoff(SOUND_WORLD[world]);
+    if (phase === 'landing') playLanding(SOUND_WORLD[world]);
+  }, [phase]); // eslint-disable-line react-hooks/exhaustive-deps
+  useEffect(() => {
+    if (near) playDetect();
+  }, [near]);
+}
+import { Icon, PlanetGlyph } from '../components/ui/Glyphs';
 
 const ExplorerCanvas = lazy(() => import('../world/ExplorerCanvas'));
 
-const WORLD_ICON: Record<WorldId, string> = { earth: '🌍', moon: '🌙', jezero: '🔴', gale: '🔴' };
 
 /** Étiquettes 3D de chaque machine de l'Explorer : ce sont les pièces de son anatomie. */
 const modelLabels = (id: ModelId) => MODELS[id].annotations.map((a) => a.key);
@@ -83,6 +111,7 @@ export default function ExplorerPage() {
   const siteData = useSiteData(site ?? 'jezero');
 
   useKeyboardDrive(phase === 'drive');
+  useExplorerSounds(world, phase, near);
 
   // Voyage : décollage → espace → atterrissage, animé avec GSAP.
   useEffect(() => {
@@ -193,27 +222,14 @@ export default function ExplorerPage() {
         </Suspense>
         <div ref={flash} className="pointer-events-none absolute inset-0 z-40 bg-white opacity-0" aria-hidden="true" />
 
-        {/* Où suis-je */}
-        <div className="absolute left-3 top-3 z-30 flex items-center gap-2 rounded-full bg-space/70 px-3 py-1.5 text-sm ring-1 ring-white/15 backdrop-blur">
-          <span aria-hidden="true">{WORLD_ICON[world]}</span>
-          <span className="font-display text-lg font-extrabold uppercase tracking-wider">{t(`explorer.worlds.${world}`)}</span>
-        </div>
-
-        {/* Destinations : toujours accessibles au clavier, en plus des clics sur les planètes */}
+        {/* Destinations pour le clavier : invisibles, elles n'apparaissent qu'au focus (on clique sinon sur les planètes du ciel). */}
         {phase === 'drive' && (
-          <nav aria-label={t('explorer.destinations')} className="absolute right-3 top-3 z-30 flex gap-1.5">
+          <nav aria-label={t('explorer.destinations')} className="sr-only focus-within:not-sr-only focus-within:absolute focus-within:right-3 focus-within:top-3 focus-within:z-30 focus-within:flex focus-within:gap-3">
             {(['earth', 'moon', 'jezero', 'gale'] as WorldId[])
               .filter((w) => w !== world)
               .map((w) => (
-                <button
-                  key={w}
-                  type="button"
-                  onClick={() => pick(w)}
-                  title={t(`explorer.worlds.${w}`)}
-                  className="flex items-center gap-1.5 rounded-full bg-space/70 px-3 py-1.5 text-sm ring-1 ring-white/20 backdrop-blur transition hover:bg-white/15"
-                >
-                  <span aria-hidden="true">🚀</span>
-                  <span>{t(`explorer.worlds.${w}`)}</span>
+                <button key={w} type="button" onClick={() => pick(w)} className="text-sm text-white underline-offset-4 hover:underline">
+                  {t(`explorer.worlds.${w}`)}
                 </button>
               ))}
           </nav>
@@ -229,14 +245,14 @@ export default function ExplorerPage() {
               className="absolute inset-x-0 bottom-24 z-30 mx-auto flex w-fit items-end gap-3"
             >
               <SankofaAvatar size={64} talking />
-              <div className="rounded-2xl bg-white/95 p-3 text-slate-900 shadow-xl">
-                <p className="px-1 pb-2 text-sm font-semibold">{t('explorer.where')}</p>
-                <div className="flex gap-2">
+              <div className="rounded-3xl bg-gradient-to-t from-space/90 to-space/40 px-5 pb-3 pt-4 backdrop-blur-md">
+                <p className="pb-3 font-display text-xl font-extrabold uppercase tracking-wider text-white">{t('explorer.where')}</p>
+                <div className="flex gap-6">
                   {(['moon', 'jezero', 'gale'] as WorldId[]).map((w) => (
-                    <button key={w} type="button" onClick={() => pick(w)} className="flex flex-col items-center rounded-xl bg-slate-900 px-4 py-2 text-white transition hover:bg-slate-700">
-                      <span className="text-2xl" aria-hidden="true">{WORLD_ICON[w]}</span>
-                      <span className="text-xs font-semibold">{t(`explorer.worlds.${w}`)}</span>
-                      <span className="text-[10px] text-slate-300">{t(`explorer.who.${w}`)}</span>
+                    <button key={w} type="button" onClick={() => pick(w)} className="group flex flex-col items-center text-white transition hover:-translate-y-1">
+                      <PlanetGlyph body={w} size={72} className="transition group-hover:scale-110" />
+                      <span className="mt-1 font-display text-lg font-extrabold uppercase leading-none group-hover:text-active">{t(`explorer.worlds.${w}`)}</span>
+                      <span className="text-[11px] text-slate-400">{t(`explorer.who.${w}`)}</span>
                     </button>
                   ))}
                 </div>
@@ -273,12 +289,12 @@ export default function ExplorerPage() {
                     }}
                     className="rounded-full bg-active px-3 py-1 text-sm font-semibold text-space"
                   >
-                    ⚡ {t('explorer.fireLaser')}
+                    <Icon name="bolt" /> {t('explorer.fireLaser')}
                   </button>
                 )}
                 {card.story && (
                   <Link to={card.story} className="rounded-full px-3 py-1 text-sm ring-1 ring-white/30 hover:bg-white/10">
-                    📖 {t('explorer.story')}
+                    <Icon name="book" /> {t('explorer.story')}
                   </Link>
                 )}
               </div>
@@ -295,7 +311,7 @@ export default function ExplorerPage() {
         {site && phase === 'drive' && siteData && (
           <div className="absolute inset-x-0 bottom-3 z-30 mx-auto flex w-fit items-center gap-3 rounded-full bg-space/80 px-3 py-1.5 text-sm ring-1 ring-white/15 backdrop-blur">
             <button type="button" onClick={() => useWorld.getState().setPlaying(!playing)} aria-label={playing ? t('explorer.pause') : t('explorer.play')} className="grid h-8 w-8 place-items-center rounded-full bg-white/15">
-              {playing ? '⏸' : '▶'}
+              <Icon name={playing ? 'pause' : 'play'} />
             </button>
             <span className="min-w-28 font-display text-lg font-extrabold tabular-nums">
               {t('explorer.sol')} {Math.floor(sol)}
@@ -326,19 +342,20 @@ export default function ExplorerPage() {
         {/* Aide de conduite (discrète) */}
         {phase === 'drive' && (
           <p className="pointer-events-none absolute bottom-3 left-3 z-20 hidden rounded-full bg-space/60 px-3 py-1 text-xs text-slate-300 sm:block">
-            ⌨ ↑ ↓ ← → · {t('explorer.brake')} · {t('app.notToScale')}
+            <Icon name="keys" size={14} /> ↑ ↓ ← → · {t('explorer.brake')} · {t('app.notToScale')}
           </p>
         )}
         {/* Astuce scientifique : la poussière ne retombe pas pareil sur la Lune et sur Mars. */}
         {phase === 'drive' && world !== 'earth' && !card && (
           <p className="pointer-events-none absolute left-3 top-14 z-20 max-w-xs rounded-xl bg-space/70 px-3 py-1.5 text-xs text-slate-200 ring-1 ring-white/10">
-            💨 {t(world === 'moon' ? 'explorer.dustMoon' : 'explorer.dustMars')}
+            <Icon name="wind" size={14} /> {t(world === 'moon' ? 'explorer.dustMoon' : 'explorer.dustMars')}
           </p>
         )}
         {phase === 'drive' && <TouchPad />}
         {phase !== 'drive' && target && (
           <p className="absolute inset-x-0 bottom-6 z-30 text-center font-display text-3xl font-extrabold uppercase tracking-widest drop-shadow">
-            {WORLD_ICON[target]} {t(`explorer.worlds.${target}`)}
+            <PlanetGlyph body={target} size={40} className="mr-2 inline-block align-middle" />
+            {t(`explorer.worlds.${target}`)}
           </p>
         )}
       </div>

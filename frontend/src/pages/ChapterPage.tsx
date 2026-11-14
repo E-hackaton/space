@@ -7,6 +7,7 @@ import { Loading } from '../components/ui/Loading';
 import NotFound from './NotFound';
 import { webglAvailable } from '../lib/device';
 import { usePrefersReducedMotion } from '../lib/hooks';
+import { Icon } from '../components/ui/Glyphs';
 
 const PlanetView = lazy(() => import('../components/3d/PlanetView'));
 const SolarTour = lazy(() => import('../scenes/SolarTour'));
@@ -30,7 +31,7 @@ export default function ChapterPage() {
     return (
       <section className="mx-auto max-w-xl px-4 py-16 text-center">
         <p className="text-lg">
-          <span aria-hidden="true">🔒 </span>
+          <Icon name="lock" size={14} /> 
           {t('map.lockedHint')}
         </p>
         <Link to="/carte" className="mt-6 inline-block underline">{t('nav.back')}</Link>

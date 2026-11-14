@@ -3,6 +3,7 @@ import { useTranslation } from 'react-i18next';
 import { StatusPill } from '../components/story/StatusPill';
 import { useCatalog } from '../lib/machines';
 import { useStore } from '../store/useStore';
+import { MedalGlyph } from '../components/ui/Glyphs';
 
 /** Carnet d'explorateur : les machines rencontrées et les badges gagnés aux quiz. */
 export default function Logbook() {
@@ -26,7 +27,7 @@ export default function Logbook() {
             <li key={m.id} className={`rounded-xl p-4 ring-1 ${hasBadge ? 'bg-active/10 ring-active/50' : 'ring-slate-300 dark:ring-white/15'}`}>
               <div className="flex items-start justify-between gap-2">
                 <p className="font-display text-xl font-extrabold uppercase">
-                  {hasBadge && <span aria-hidden="true">🏅 </span>}
+                  {hasBadge && <MedalGlyph size={20} />} 
                   {m.name}
                 </p>
                 <StatusPill active={m.status === 'active'} />

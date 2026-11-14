@@ -2,7 +2,7 @@ import { useEffect, useRef } from 'react';
 import { useFrame } from '@react-three/fiber';
 import * as THREE from 'three';
 import { LunarRover, PlayerRover } from './props/Vehicles';
-import { drive } from './state';
+import { drive, useWorld } from './state';
 import type { HeightField } from './terrain';
 
 /** Position partagée du joueur (lue par les autres éléments du monde). */
@@ -15,6 +15,9 @@ export const player = {
   /** Secousse après un choc contre un obstacle (0 → 1), qui s'atténue toute seule. */
   bump: 0,
 };
+
+/** Obstacles du monde en cours (lus par le pilote automatique). */
+export const worldObstacles: { list: Obstacle[] } = { list: [] };
 
 /** Demi-largeur du rover du joueur, pour les collisions (en mètres). */
 const ROVER_RADIUS = 1.1;
@@ -50,7 +53,10 @@ const Y = new THREE.Vector3(0, 1, 0);
  * Le rover du joueur : conduite « arcade » (pas de moteur physique, pour rester léger),
  * qui épouse le relief, et caméra de trois quarts qui le suit.
  */
-export function Player({ field, start, startHeading = 0, obstacles = [], enabled, followCamera, animate, visible = true, vehicle = 'rover' }: Props) {
+export function Player({ field, start, startHeading = 0, obstacles = [], enabled, followCamera, animate, visible = true, vehicle: vehicleProp }: Props) {
+  const chosen = useWorld((s) => s.vehicle);
+  const vehicle = vehicleProp ?? chosen;
+  worldObstacles.list = obstacles;
   const group = useRef<THREE.Group>(null!);
   const spin = useRef(0);
   const steer = useRef(0);

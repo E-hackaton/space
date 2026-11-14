@@ -172,7 +172,7 @@ export default function MoonWorld({ animate }: { animate: boolean }) {
       <group ref={lander} position={[LANDING[0], landingY, LANDING[1]]}>
         <ToonLander flame={flame} />
       </group>
-      <Player vehicle="lrv" field={field} start={START} startHeading={START_HEADING} obstacles={obstacles} enabled={phase === 'drive'} followCamera={phase === 'drive'} animate={animate} visible={phase === 'drive'} />
+      <Player field={field} start={START} startHeading={START_HEADING} obstacles={obstacles} enabled={phase === 'drive'} followCamera={phase === 'drive'} animate={animate} visible={phase === 'drive'} />
       {phase !== 'drive' && <ShipCamera at={[LANDING[0], landingY, LANDING[1]]} ship={ship} animate={animate} />}
     </>
   );

@@ -5,7 +5,8 @@
     "start": "Commencer le voyage",
     "continue": "Reprendre le voyage",
     "skip": "Aller au contenu",
-    "notToScale": "Tailles et distances non à l'échelle."
+    "notToScale": "Tailles et distances non à l'échelle.",
+    "sfx": "Effets sonores"
   },
   "nav": {
     "home": "Accueil",
@@ -342,6 +343,53 @@
       "laser": "Tire un laser depuis la Terre et mesure le temps du retour.",
       "fly": "Fais tourner les pales et décolle dans l'air martien.",
       "call": "Essaie de la contacter une dernière fois."
+    }
+  },
+  "expedition": {
+    "map": "Carte · {{body}}",
+    "mapSize": "Agrandir ou réduire la carte",
+    "found": "retrouvée",
+    "heading": "Cap sur {{name}}",
+    "continue": "Continuer l'expédition",
+    "leaveStory": "Quitter",
+    "quiz": "Gagner le badge",
+    "pickBody": "Où partons-nous à la recherche des machines oubliées ?",
+    "objects_one": "{{count}} objet oublié",
+    "objects_other": "{{count}} objets oubliés",
+    "pickMode": "{{body}} ! Je pilote, ou tu prends les commandes ?",
+    "modes": {
+      "auto": "Pilote auto",
+      "manual": "Pilote manuel"
+    },
+    "modeHint": {
+      "auto": "Je t'emmène de machine en machine et chacune te raconte sa vie.",
+      "manual": "Tu conduis la sonde. La carte te montre où sont les objets perdus."
+    },
+    "otherBody": "Changer d'astre",
+    "introAuto": "Bienvenue sur {{body}}. {{count}} machines nous attendent. Accroche-toi, je pilote.",
+    "introManual": "Bienvenue sur {{body}}. {{count}} machines sont cachées ici. Choisis-en une sur la carte, puis suis la boussole.",
+    "foundIt": "Tu as trouvé {{name}} ! Approche et écoute son histoire.",
+    "allFound": "Tu as retrouvé toutes les machines de {{body}}. Elles ne sont plus oubliées.",
+    "waypoint": "Balise posée sur {{name}}. Suis la flèche.",
+    "pilot": "Pilote",
+    "headingTo": "Cap sur",
+    "listen": "Écouter son histoire",
+    "enter": "Entrée : écouter",
+    "nudged": "sites voisins écartés pour rester lisibles",
+    "nextUp": "Prochaine étape : {{name}}.",
+    "lastOne": "C'était la dernière machine de cet astre.",
+    "deepIntro": "Ici, plus de sol sous nos pieds. Ces deux machines voyagent ou dorment loin de tout.",
+    "layoutNote": "Machines placées d'après leur vraie latitude et longitude, à échelle réduite. Tailles non à l'échelle."
+  },
+  "atlas": {
+    "goThere": "Y aller et écouter son histoire",
+    "back": "Vue d'ensemble"
+  },
+  "visit": {
+    "vehicle": "Engin",
+    "vehicles": {
+      "rover": "Rover FORBITS",
+      "lrv": "Rover lunaire LRV"
     }
   }
 }

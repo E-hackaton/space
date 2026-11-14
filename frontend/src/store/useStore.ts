@@ -13,6 +13,9 @@ interface AppState {
   /** Machines dont le quiz est réussi : leur badge est gagné (carnet d'explorateur). */
   badges: string[];
   voiceOn: boolean;
+  /** Effets sonores (moteurs, fusée, détection). */
+  sfxOn: boolean;
+  setSfxOn: (on: boolean) => void;
   autoplay: boolean;
   setVoiceOn: (on: boolean) => void;
   setAutoplay: (on: boolean) => void;
@@ -33,6 +36,8 @@ export const useStore = create<AppState>()(
       badges: [],
       // Voix activée par défaut : les narrations ElevenLabs sont au cœur de l'expérience.
       voiceOn: true,
+      sfxOn: true,
+      setSfxOn: (sfxOn) => set({ sfxOn }),
       autoplay: false,
       setVoiceOn: (voiceOn) => set({ voiceOn }),
       setAutoplay: (autoplay) => set({ autoplay }),
@@ -48,7 +53,7 @@ export const useStore = create<AppState>()(
       name: 'veilleurs-progress',
       version: 3,
       // v3 : ajout des badges ; les anciennes sauvegardes repartent avec une liste vide.
-      migrate: (state) => ({ badges: [], ...(state as Partial<AppState>) }) as AppState,
+      migrate: (state) => ({ badges: [], sfxOn: true, ...(state as Partial<AppState>) }) as AppState,
     },
   ),
 );

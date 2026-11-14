@@ -152,19 +152,22 @@ interface Props extends Options {
   annotated?: boolean;
   labels?: Label[];
   focusPart?: string | null;
+  /** Met le modèle à cette taille (plus grande dimension, en unités de scène) au lieu des vraies cotes. */
+  fit?: number;
   /** Reçoit les articulations une fois le modèle construit (ex. roues du rover). */
   onReady?: (b: Built) => void;
   children?: ReactNode;
 }
 
-function Inner({ id, annotated, labels = [], focusPart, onReady, children, ...options }: Props) {
+function Inner({ id, annotated, labels = [], focusPart, onReady, fit, children, ...options }: Props) {
   const { t } = useTranslation();
   const built = useAnatomy(id, options);
   useEffect(() => {
     onReady?.(built);
   }, [built, onReady]);
+  const k = fit ? fit / Math.max(built.size.x, built.size.y, built.size.z) : 1;
   return (
-    <group>
+    <group scale={k}>
       <primitive object={built.root} />
       {annotated &&
         labels.map((l) =>
