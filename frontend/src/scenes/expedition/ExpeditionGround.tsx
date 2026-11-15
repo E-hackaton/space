@@ -17,7 +17,6 @@ import type { HeightField } from '../../world/terrain';
 import type { SurfaceBody } from '../../lib/atlas';
 import { useExpedition } from './expedition';
 import { ToonLander } from '../../world/props/Vehicles';
-import { ShipCamera } from '../../world/props/Environment';
 import { playLanding } from '../../audio/sfx';
 
 const NO_FLAME = { current: 0 };
@@ -155,37 +154,94 @@ interface Props {
 
 /** L'expédition au sol : on roule de machine en machine sur la Lune ou sur Mars. */
 /**
- * Atterrissage à l'arrivée : le module descend sur sa rétrofusée, se pose, puis le rover en sort.
- * Durée : ~4,5 s (presque instantané si les animations sont réduites).
+ * Arrivée en plusieurs temps, sans précipitation :
+ *  1. descente du module sur sa rétrofusée (caméra de côté, qui le suit) ;
+ *  2. contact avec le sol : moteur coupé, nuage de poussière ;
+ *  3. le rover sort du module et roule lentement jusqu'à son point de départ ;
+ *  4. courte pause, puis l'expédition commence (pilote auto ou manuel).
  */
-function Landing({ field, at, animate, onDone }: { field: HeightField; at: [number, number]; animate: boolean; onDone: () => void }) {
+const T_DESCENT = 5.5;
+const T_SETTLE = 7.2;
+const T_ROLL = 10.5;
+const T_END = 12;
+
+function Landing({ field, at, to, animate, onStage }: { field: HeightField; at: [number, number]; to: [number, number]; animate: boolean; onStage: (s: 'deploy' | 'done') => void }) {
   const lander = useRef<THREE.Group>(null!);
   const flame = useRef(1);
-  const ship = useRef({ y: 70 });
+  const dust = useRef<THREE.Group>(null!);
   const t0 = useRef<number | null>(null);
-  const done = useRef(false);
+  const stage = useRef<'descent' | 'deploy' | 'done'>('descent');
+  const look = useRef(new THREE.Vector3());
   const ground = field.heightAt(at[0], at[1]);
+  // Point de vue latéral, qui voit à la fois le module et le chemin du rover.
+  const side = useMemo(() => {
+    const dx = to[0] - at[0];
+    const dz = to[1] - at[1];
+    const len = Math.hypot(dx, dz) || 1;
+    const nx = -dz / len;
+    const nz = dx / len;
+    const mid = [(at[0] + to[0]) / 2, (at[1] + to[1]) / 2] as const;
+    return new THREE.Vector3(mid[0] + nx * 17 - (dx / len) * 4, ground + 6, mid[1] + nz * 17 - (dz / len) * 4);
+  }, [at, to, ground]);
+  const heading = Math.atan2(-(to[0] - at[0]), -(to[1] - at[1]));
   useEffect(() => {
     if (animate) playLanding(soundWorld.current);
   }, []); // eslint-disable-line react-hooks/exhaustive-deps
-  useFrame(({ clock }) => {
+
+  useFrame(({ clock, camera }, dt) => {
     t0.current ??= clock.elapsedTime;
-    const t = (clock.elapsedTime - t0.current) / (animate ? 1 : 0.1);
-    const k = Math.min(1, t / 3.6);
-    ship.current.y = 70 * Math.pow(1 - k, 2.2);
-    flame.current = t < 3.6 ? 1 : Math.max(0, 1 - (t - 3.6) / 0.6);
-    lander.current.position.y = ground + ship.current.y;
-    if (t > 4.3 && !done.current) {
-      done.current = true;
-      onDone();
+    const t = (clock.elapsedTime - t0.current) / (animate ? 1 : 0.12);
+    // 1. Descente : rapide en haut, freinée près du sol.
+    const k = Math.min(1, t / T_DESCENT);
+    const y = 80 * Math.pow(1 - k, 2.4);
+    lander.current.position.y = ground + y;
+    flame.current = t < T_DESCENT ? 1 : Math.max(0, 1 - (t - T_DESCENT) / 0.7);
+    // 2. Poussière soulevée au contact.
+    const puff = THREE.MathUtils.clamp((t - (T_DESCENT - 0.4)) / 1.8, 0, 1);
+    dust.current.visible = puff > 0 && puff < 1;
+    dust.current.scale.setScalar(1 + puff * 3);
+    dust.current.children.forEach((c) => (((c as THREE.Mesh).material as THREE.MeshBasicMaterial).opacity = 0.45 * (1 - puff)));
+    // 3. Le rover sort du module et roule jusqu'à son point de départ.
+    if (t >= T_SETTLE && stage.current === 'descent') {
+      stage.current = 'deploy';
+      onStage('deploy');
     }
+    if (stage.current !== 'descent') {
+      const r = THREE.MathUtils.smoothstep(t, T_SETTLE, T_ROLL);
+      player.x = THREE.MathUtils.lerp(at[0], to[0], r);
+      player.z = THREE.MathUtils.lerp(at[1], to[1], r);
+      player.heading = heading;
+      player.speed = r > 0 && r < 1 ? 2 : 0;
+    }
+    if (t >= T_END && stage.current === 'deploy') {
+      stage.current = 'done';
+      onStage('done');
+    }
+    // Caméra : suit la descente de côté, puis cadre le module et le rover.
+    const want =
+      stage.current === 'descent'
+        ? new THREE.Vector3(at[0] + 24, ground + 6 + y * 0.6, at[1] + 24)
+        : side;
+    const target = stage.current === 'descent' ? new THREE.Vector3(at[0], ground + y + 3, at[1]) : new THREE.Vector3(player.x, ground + 1.5, player.z).lerp(new THREE.Vector3(at[0], ground + 2, at[1]), 0.35);
+    const s = animate ? 1 - Math.exp(-dt * 2.5) : 1;
+    camera.position.lerp(want, s);
+    look.current.lerp(target, s);
+    camera.up.set(0, 1, 0);
+    camera.lookAt(look.current);
   });
   return (
     <>
-      <group ref={lander} position={[at[0], ground + 70, at[1]]}>
+      <group ref={lander} position={[at[0], ground + 80, at[1]]}>
         <ToonLander flame={flame} />
       </group>
-      {!done.current && <ShipCamera at={[at[0], ground, at[1]]} ship={ship.current} animate={animate} />}
+      <group ref={dust} position={[at[0], ground + 0.4, at[1]]} visible={false}>
+        {[0, 1, 2].map((i) => (
+          <mesh key={i} rotation={[-Math.PI / 2, 0, i]} position={[0, i * 0.3, 0]}>
+            <ringGeometry args={[1.2 + i * 0.8, 3 + i * 1.2, 40]} />
+            <meshBasicMaterial color={soundWorld.current === 'moon' ? '#c9ccd2' : '#c98a5a'} transparent opacity={0.4} depthWrite={false} side={THREE.DoubleSide} />
+          </mesh>
+        ))}
+      </group>
     </>
   );
 }
@@ -194,8 +250,9 @@ const soundWorld = { current: 'mars' as 'mars' | 'moon' };
 export default function ExpeditionGround({ body, sites, start, startHeading, animate }: Props) {
   soundWorld.current = body;
   // Le module se pose à côté du point de départ ; le rover en sort une fois posé.
-  const [landed, setLanded] = useState(false);
-  const landerAt = useMemo<[number, number]>(() => [start[0] + 6, start[1] + 4], [start]);
+  const [arrival, setArrival] = useState<'descent' | 'deploy' | 'done'>('descent');
+  const landed = arrival === 'done';
+  const landerAt = useMemo<[number, number]>(() => [start[0] + 9, start[1] + 6], [start]);
   // Terrain détaillé (zone des machines), prolongé à l'infini par un relief lointain.
   const inner = useMemo(() => expeditionField(body, sites), [body, sites]);
   const field = useMemo(() => extendField(inner, { amp: body === 'moon' ? 7 : 10, freq: 0.004, craterCell: 220, roam: 1900, seed: body === 'moon' ? 11 : 3 }), [inner, body]);
@@ -299,9 +356,9 @@ export default function ExpeditionGround({ body, sites, start, startHeading, ani
           <ToonLander flame={NO_FLAME} />
         </group>
       ) : (
-        <Landing field={field} at={landerAt} animate={animate} onDone={() => setLanded(true)} />
+        <Landing field={field} at={landerAt} to={start} animate={animate} onStage={setArrival} />
       )}
-      <Player field={field} start={start} startHeading={startHeading} obstacles={[...obstacles, { x: landerAt[0], z: landerAt[1], r: 2.4 }]} enabled={landed && !story} followCamera={landed && !story} visible={landed} animate={animate} />
+      <Player field={field} start={start} startHeading={startHeading} obstacles={landed ? [...obstacles, { x: landerAt[0], z: landerAt[1], r: 2.4 }] : []} enabled={landed && !story} followCamera={landed && !story} visible={arrival !== 'descent'} animate={animate} />
       {storySite && <StoryCamera site={storySite} field={field} animate={animate} />}
     </Canvas>
   );
