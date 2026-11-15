@@ -18,9 +18,21 @@ const PYLON_X = -L * 0.18; // pied du pylône
 const PYLON_H = 62; // hauteur du pylône
 const LEAN = 0.24; // inclinaison vers l'arrière (rad)
 
-const concrete = () => smooth('#f2f1ec', { rough: 0.55, clearcoat: 0.2 });
-const road = () => smooth('#4a4d55', { rough: 0.9 });
-const steel = () => smooth('#e8eaee', { metal: 0.6, rough: 0.3 });
+/** Matériaux propres au pont, sans brume : il reste net au large. */
+const noFog = (m: THREE.MeshPhysicalMaterial) => {
+  const c = m.clone();
+  c.fog = false;
+  return c;
+};
+const MATS = {
+  concrete: noFog(smooth('#f2f1ec', { rough: 0.55, clearcoat: 0.2 })),
+  road: noFog(smooth('#4a4d55', { rough: 0.9 })),
+  steel: noFog(smooth('#e8eaee', { metal: 0.6, rough: 0.3 })),
+  paint: noFog(smooth('#f4f1e6', { rough: 0.6 })),
+};
+const concrete = () => MATS.concrete;
+const road = () => MATS.road;
+const steel = () => MATS.steel;
 
 /** Un câble (cylindre fin) entre deux points. */
 function cable(a: THREE.Vector3, b: THREE.Vector3, r: number) {
@@ -87,7 +99,7 @@ export function AdoBridge() {
             <boxGeometry args={[L, 0.9, 0.12]} />
           </mesh>
           {/* lignes de marquage */}
-          <mesh position={[0, DECK_Y + 0.07, sd * 2.6]} material={smooth('#f4f1e6', { rough: 0.6 })}>
+          <mesh position={[0, DECK_Y + 0.07, sd * 2.6]} material={MATS.paint}>
             <boxGeometry args={[L, 0.02, 0.12]} />
           </mesh>
         </group>
