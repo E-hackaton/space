@@ -21,7 +21,6 @@ import { MiniMap3D } from '../components/expedition/MiniMap3D';
 import { FIND_DIST, layoutSites, type Site } from '../world/expeditionLayout';
 import { resetDrive, useAutopilot } from '../world/autopilot';
 import { player } from '../world/Player';
-import { useWorld, type Vehicle } from '../world/state';
 import { PlanetGlyph } from '../components/ui/Glyphs';
 import { engineStop, engineUpdate, playDetect, playFound } from '../audio/sfx';
 import { Icon } from '../components/ui/Glyphs';
@@ -175,7 +174,6 @@ function SurfaceExpedition({ body, mode, machines, first, onBack, onMode }: Surf
   const { t } = useTranslation();
   const reduced = usePrefersReducedMotion();
   const say = useSankofa();
-  const vehicle = useWorld((s) => s.vehicle);
   const { sites } = useMemo(() => layoutSites(machines, body), [machines, body]);
   const points = useMemo(() => atlasPoints(machines, body), [machines, body]);
   const byId = useMemo(() => new Map(sites.map((s) => [s.machine.id, s])), [sites]);
@@ -314,11 +312,11 @@ function SurfaceExpedition({ body, mode, machines, first, onBack, onMode }: Surf
     <>
       {start && (
         <Suspense fallback={<Loading />}>
-          <ExpeditionGround key={`${body}-${vehicle}`} body={body} sites={sites} start={start.pos} startHeading={start.heading} animate={!reduced} />
+          <ExpeditionGround key={body} body={body} sites={sites} start={start.pos} startHeading={start.heading} animate={!reduced} />
         </Suspense>
       )}
 
-      {/* Où suis-je, qui pilote, quel engin */}
+      {/* Où suis-je, et qui pilote */}
       {!story && (
         <div className="absolute left-3 top-3 z-30 flex flex-wrap items-center gap-2">
           <button type="button" onClick={onBack} className="chip" aria-label={t('expedition.otherBody')}>←</button>
@@ -332,7 +330,6 @@ function SurfaceExpedition({ body, mode, machines, first, onBack, onMode }: Surf
               </button>
             ))}
           </div>
-          <VehicleSwitch />
         </div>
       )}
 
@@ -418,22 +415,6 @@ function SurfaceExpedition({ body, mode, machines, first, onBack, onMode }: Surf
         )}
       </AnimatePresence>
     </>
-  );
-}
-
-/** Choix de l'engin conduit : le rover FORBITS ou le rover lunaire LRV. */
-function VehicleSwitch() {
-  const { t } = useTranslation();
-  const vehicle = useWorld((s) => s.vehicle);
-  const setVehicle = useWorld((s) => s.setVehicle);
-  return (
-    <div className="hud-pill flex gap-1 p-1" role="group" aria-label={t('visit.vehicle')}>
-      {(['rover', 'lrv'] as Vehicle[]).map((v) => (
-        <button key={v} type="button" onClick={() => setVehicle(v)} aria-pressed={vehicle === v} className={`rounded-[3px] px-3 py-0.5 text-sm ${vehicle === v ? 'bg-white text-space' : 'hover:bg-white/10'}`}>
-          {t(`visit.vehicles.${v}`)}
-        </button>
-      ))}
-    </div>
   );
 }
 

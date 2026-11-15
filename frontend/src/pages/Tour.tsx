@@ -6,25 +6,23 @@ import { PlanetGlyph } from '../components/ui/Glyphs';
 import { SankofaAvatar } from '../components/guide/SankofaAvatar';
 import { speak } from '../audio/speech';
 import { useStore } from '../store/useStore';
-import type { Vehicle, WorldId } from '../world/state';
+import type { WorldId } from '../world/state';
 
 const SITES: WorldId[] = ['moon', 'jezero', 'gale'];
-const VEHICLES: Vehicle[] = ['rover', 'lrv'];
 type Pilot = 'auto' | 'manual';
 
-/** Visite 3D : choisir le site, l'engin et le pilote, puis on arrive directement au sol. */
+/** Visite 3D : choisir le site et le pilote, puis on arrive directement au sol avec le rover. */
 export default function Tour() {
   const { t, i18n } = useTranslation();
   const navigate = useNavigate();
   const voiceOn = useStore((s) => s.voiceOn);
   const [site, setSite] = useState<WorldId>('moon');
-  const [vehicle, setVehicle] = useState<Vehicle>('lrv');
   const [pilot, setPilot] = useState<Pilot>('auto');
   useEffect(() => {
     if (voiceOn) speak(t('visit.hello'), i18n.language);
   }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
-  const go = () => navigate(`/explorer?monde=${site}&engin=${vehicle}&pilote=${pilot}`);
+  const go = () => navigate(`/explorer?monde=${site}&pilote=${pilot}`);
   const option = (on: boolean) => `visit-option ${on ? 'visit-option-on' : ''}`;
 
   return (
@@ -49,14 +47,6 @@ export default function Tour() {
 
       <div className="relative flex flex-wrap justify-center gap-12">
         <fieldset className="flex flex-col items-center gap-1">
-          <legend className="visit-legend">{t('visit.vehicle')}</legend>
-          {VEHICLES.map((v) => (
-            <button key={v} type="button" onClick={() => setVehicle(v)} aria-pressed={vehicle === v} className={option(vehicle === v)}>
-              {t(`visit.vehicles.${v}`)}
-            </button>
-          ))}
-        </fieldset>
-        <fieldset className="flex flex-col items-center gap-1">
           <legend className="visit-legend">{t('expedition.pilot')}</legend>
           {(['auto', 'manual'] as Pilot[]).map((p) => (
             <button key={p} type="button" onClick={() => setPilot(p)} aria-pressed={pilot === p} className={option(pilot === p)}>
@@ -69,7 +59,6 @@ export default function Tour() {
       <button type="button" onClick={go} className="hero-cta relative">
         <span>{t('visit.go')}</span>
       </button>
-      {vehicle === 'lrv' && site !== 'moon' && <p className="relative -mt-6 max-w-md text-center text-xs text-slate-400">{t('visit.lrvNote')}</p>}
     </section>
   );
 }

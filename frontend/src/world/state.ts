@@ -2,7 +2,6 @@ import { create } from 'zustand';
 
 export type WorldId = 'earth' | 'moon' | 'jezero' | 'gale';
 export type Phase = 'drive' | 'liftoff' | 'space' | 'landing';
-export type Vehicle = 'rover' | 'lrv';
 
 interface WorldState {
   world: WorldId;
@@ -20,9 +19,6 @@ interface WorldState {
   part: string | null;
   /** Le joueur est sur le pas de tir. */
   onPad: boolean;
-  /** Engin conduit par le joueur. */
-  vehicle: Vehicle;
-  setVehicle: (v: Vehicle) => void;
   /** Pose directement le joueur sur un monde (Visite 3D : pas de voyage). */
   landOn: (world: WorldId) => void;
   travelTo: (target: WorldId) => void;
@@ -46,8 +42,6 @@ export const useWorld = create<WorldState>()((set, get) => ({
   near: null,
   part: null,
   onPad: false,
-  vehicle: 'rover',
-  setVehicle: (vehicle) => set({ vehicle }),
   landOn: (world) => set({ world, phase: 'drive', target: null, near: null, part: null, sol: 0, playing: true, onPad: false }),
   travelTo: (target) => {
     if (get().phase !== 'drive' || target === get().world) return;

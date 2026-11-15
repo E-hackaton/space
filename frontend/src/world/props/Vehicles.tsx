@@ -3,7 +3,6 @@ import { useFrame } from '@react-three/fiber';
 import { RoundedBox } from '@react-three/drei';
 import * as THREE from 'three';
 import { smooth } from '../materials';
-import { AnatomyModel, type Built } from '../anatomy/AnatomyModel';
 
 /*
  * Engins originaux dessinés en formes lisses (profils tournés, arrondis, tores).
@@ -85,36 +84,6 @@ export const PlayerRover = forwardRef<THREE.Group, { spin: { current: number }; 
           </group>
         )),
       )}
-    </group>
-  );
-});
-
-/** Rayon des roues du rover lunaire (Ø 81,8 cm, fiche LRV) et du rover générique. */
-const LRV_WHEEL_R = 0.409;
-const TOY_WHEEL_R = 0.32;
-
-/**
- * Le rover lunaire LRV (Apollo 15 à 17), dessiné pièce par pièce d'après la figure Anatomy :
- * direction sur les quatre roues (l'arrière braque à l'opposé de l'avant) et roues qui tournent.
- */
-export const LunarRover = forwardRef<THREE.Group, { spin: { current: number }; steer: { current: number } }>(function LunarRover({ spin, steer }, ref) {
-  const joints = useRef<Built['joints'] | null>(null);
-  useFrame(() => {
-    const j = joints.current;
-    if (!j) return;
-    const roll = (-spin.current * TOY_WHEEL_R) / LRV_WHEEL_R;
-    for (const w of ['FL', 'FR', 'RL', 'RR']) {
-      j[`s${w}`].node.rotation.y = (w[0] === 'F' ? 1 : -1) * steer.current * 0.8;
-      const wheel = j[`w${w}`];
-      wheel.node.quaternion.setFromAxisAngle(wheel.axis, roll);
-    }
-  });
-  return (
-    <group ref={ref}>
-      {/* La figure regarde vers +x ; le joueur avance vers −z. */}
-      <group rotation={[0, Math.PI / 2, 0]}>
-        <AnatomyModel id="lunar-rover" onReady={(b) => (joints.current = b.joints)} />
-      </group>
     </group>
   );
 });

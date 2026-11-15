@@ -16,7 +16,6 @@ import { useSiteData } from '../world/worlds/MarsWorld';
 import { laser, moonMachines } from '../world/worlds/MoonWorld';
 import { machinePositions } from '../world/Replay';
 import { useAutopilot } from '../world/autopilot';
-import type { Vehicle } from '../world/state';
 import { AnatomyPanel } from '../components/guide/AnatomyPanel';
 import { MODELS, type ModelId } from '../components/3d/NasaModel';
 import { partsFromLabels } from '../content/anatomy';
@@ -123,13 +122,11 @@ export default function ExplorerPage() {
   const site = world === 'jezero' || world === 'gale' ? world : null;
   const siteData = useSiteData(site ?? 'jezero');
 
-  // Visite 3D : on arrive directement sur le site choisi, avec l'engin choisi.
+  // Visite 3D : on arrive directement sur le site choisi.
   const [params, setParams] = useSearchParams();
   const pilot = params.get('pilote') === 'auto' ? 'auto' : params.get('pilote') === 'manual' ? 'manual' : null;
   useEffect(() => {
     const monde = params.get('monde') as WorldId | null;
-    const engin = params.get('engin') as Vehicle | null;
-    if (engin === 'rover' || engin === 'lrv') useWorld.getState().setVehicle(engin);
     if (monde && ['earth', 'moon', 'jezero', 'gale'].includes(monde)) useWorld.getState().landOn(monde);
   }, [params]);
 

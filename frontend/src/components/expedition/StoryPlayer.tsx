@@ -3,7 +3,6 @@ import { useTranslation } from 'react-i18next';
 import { AnimatePresence, motion } from 'motion/react';
 import { SpeechText } from '../guide/SpeechText';
 import { SankofaAvatar } from '../guide/SankofaAvatar';
-import { VitalsPanel } from '../story/VitalsPanel';
 import { Quiz } from '../story/Quiz';
 import { formatDate, useMachine } from '../../lib/machines';
 import { speak, stopSpeaking } from '../../audio/speech';
@@ -100,7 +99,6 @@ export function StoryPlayer({ slug, mode, onDone, nextLine }: Props) {
   }
   if (!machine || !current) return <div className="story-shell animate-pulse text-slate-300">{t('chapter.loading')}</div>;
 
-  const progress = outro ? 1 : step / Math.max(1, total - 1);
 
   return (
     <>
@@ -118,12 +116,6 @@ export function StoryPlayer({ slug, mode, onDone, nextLine }: Props) {
           </button>
         </div>
       </motion.div>
-
-      {machine.vitals.length > 0 && (
-        <div className="absolute right-3 top-3 z-30 hidden w-56 md:block">
-          <VitalsPanel machine={machine} progress={progress} />
-        </div>
-      )}
 
       {/* Sous-titres */}
       <div className="story-shell">

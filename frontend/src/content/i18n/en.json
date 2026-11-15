@@ -391,15 +391,9 @@
     "back": "Whole view"
   },
   "visit": {
-    "vehicle": "Vehicle",
-    "vehicles": {
-      "rover": "FORBITS rover",
-      "lrv": "Lunar Roving Vehicle"
-    },
-    "hello": "Pick a site, your vehicle and who drives. We land right on the ground.",
+    "hello": "Pick a site and who drives. We land right on the ground.",
     "where": "Site",
     "go": "Land and drive",
-    "lrvNote": "The Lunar Roving Vehicle only drove on the Moon (Apollo 15, 16 and 17): on Mars, it's just for fun.",
     "takeOver": "Take the controls"
   },
   "home": {
