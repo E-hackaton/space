@@ -4,8 +4,8 @@ import { motion } from 'motion/react';
 import { Icon } from '../ui/Glyphs';
 
 /*
- * Figures 3D interactives des engins (docs/mars1) : un SVG autonome par machine, qui contient le
- * modèle officiel de la NASA (NASA 3D Resources) et ses pièces annotées. On le fait tourner,
+ * Figures 3D interactives des engins : un SVG autonome par machine (docs/mars1 pour Mars, avec les
+ * modèles NASA 3D Resources ; docs/lune1 pour la Lune, d'après les figures Anatomy), pièces annotées. On le fait tourner,
  * on zoome, on survole une pièce pour lire son nom et son rôle.
  */
 const FIGURES: Record<string, string> = {
@@ -15,6 +15,15 @@ const FIGURES: Record<string, string> = {
   opportunity: '/engins/05-opportunity.svg',
   'near-shoemaker': '/engins/06-near.svg',
   'pioneer-10': '/engins/07-pioneer.svg',
+  // Lune : figures construites avec le même outil (docs/lune1) à partir des figures Anatomy.
+  'surveyor-3': '/engins/10-surveyor.svg',
+  'apollo-11-eagle': '/engins/11-eagle.svg',
+  'apollo-11-lm': '/engins/11-eagle.svg',
+  'apollo-15-lrv': '/engins/12-lrv.svg',
+  // Réflecteur et sismomètre du site d'Apollo 11 (Explorer). Le réflecteur d'Apollo 15, plus grand,
+  // n'a pas de figure : celle d'Apollo 11 ne le représente pas.
+  'apollo-11': '/engins/13-lrrr-apollo11.svg',
+  'apollo-11-easep': '/engins/14-psep-apollo11.svg',
 };
 
 export const figureOf = (id: string): string | undefined => FIGURES[id];

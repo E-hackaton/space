@@ -105,6 +105,12 @@
       "what": "Figures 3D interactives (InSight, Ingenuity, Viking, Opportunity, NEAR, Pioneer 10) : modèles NASA et pièces annotées",
       "credit": "NASA 3D Resources ; figures construites par l'équipe (docs/mars1)",
       "source": "https://science.nasa.gov/3d-resources/"
+    },
+    {
+      "file": "public/engins/1*-*.svg",
+      "what": "Figures 3D interactives de la Lune (Surveyor 3, Eagle, LRV, réflecteur et sismomètre d'Apollo 11)",
+      "credit": "Figures FORBITS Anatomy (docs/lm-anatomy, cotes des rapports de mission NASA) ; visualiseur de docs/mars1",
+      "source": "docs/lune1"
     }
   ]
 }
