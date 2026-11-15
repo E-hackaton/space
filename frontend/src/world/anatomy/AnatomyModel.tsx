@@ -50,7 +50,7 @@ export interface Built {
   anchors: Record<string, THREE.Vector3>;
   size: THREE.Vector3;
   /** Pièces présentes dans ce modèle, avec leurs noms (fr/en). */
-  pieces: { id: string; fr: string; en: string }[];
+  pieces: { id: string; fr: string; en: string; sayFr?: string; sayEn?: string }[];
 }
 
 function build(data: AnatomyData, { pieces, exclude, excludeGroups }: Options): Built {
@@ -148,6 +148,7 @@ export function useAnatomy(id: AnatomyId, options: Options = {}) {
 export interface Label {
   piece: string;
   label: string;
+  desc?: string;
 }
 
 interface Props extends Options {
@@ -171,14 +172,15 @@ function Inner({ id, annotated, labels: given = [], autoLabels, focusPart, onRea
     onReady?.(built);
   }, [built, onReady]);
   const k = fit ? fit / Math.max(built.size.x, built.size.y, built.size.z) : 1;
-  const labels = autoLabels ? built.pieces.map((p) => ({ piece: p.id, label: i18n.language === 'en' ? p.en : p.fr })) : given;
+  const en = i18n.language === 'en';
+  const labels: Label[] = autoLabels ? built.pieces.map((p) => ({ piece: p.id, label: en ? p.en : p.fr, desc: en ? p.sayEn : p.sayFr })) : given;
   return (
     <group scale={k}>
       <primitive object={built.root} />
       {annotated &&
         labels.map((l) =>
           built.anchors[l.piece] ? (
-            <Callout key={l.label} position={built.anchors[l.piece]} label={l.label.startsWith('parts.') ? t(l.label) : l.label} side={built.anchors[l.piece].x < 0 ? 'left' : 'right'} focus={calloutFocus(l.label, focusPart)} />
+            <Callout key={l.label} position={built.anchors[l.piece]} label={l.label.startsWith('parts.') ? t(l.label) : l.label} desc={l.desc} side={built.anchors[l.piece].x < 0 ? 'left' : 'right'} focus={calloutFocus(l.label, focusPart)} />
           ) : null,
         )}
       {children}

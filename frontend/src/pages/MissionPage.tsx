@@ -235,6 +235,14 @@ function SurfaceExpedition({ body, mode, machines, first, onBack, onMode }: Surf
     say(t(mode === 'auto' ? 'expedition.introAuto' : 'expedition.introManual', { body: t(`bodies.${body}.name`), count: sites.length }));
   }, [sites]); // eslint-disable-line react-hooks/exhaustive-deps
 
+  // Pilote auto : une machine pas encore retrouvée croisée en chemin passe d'abord (on s'y arrête,
+  // on écoute son histoire), puis le trajet reprend vers la plus proche des machines restantes.
+  useEffect(() => {
+    if (mode !== 'auto' || story || !near || near === target) return;
+    if (useExpedition.getState().found.includes(near)) return;
+    setTarget(near);
+  }, [mode, near, story, target, setTarget]);
+
   // Pilote auto : il conduit le véhicule jusqu'à la cible, puis l'histoire commence.
   useAutopilot({
     enabled: mode === 'auto' && !story && !finished,

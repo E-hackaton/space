@@ -39,7 +39,7 @@ export interface AnatomyGroup {
 export interface AnatomyData {
   id: string;
   unitsPerMetre: number;
-  pieces: { id: string; fr: string; en: string }[];
+  pieces: { id: string; fr: string; en: string; sayFr?: string; sayEn?: string }[];
   groups: AnatomyGroup[];
   parts: AnatomyPart[];
 }

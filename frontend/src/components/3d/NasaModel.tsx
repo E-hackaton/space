@@ -1,4 +1,4 @@
-import { Suspense, useMemo, type ReactNode } from 'react';
+import { Suspense, useMemo, useState, type ReactNode } from 'react';
 import { useFrame } from '@react-three/fiber';
 import { Html, useGLTF } from '@react-three/drei';
 import * as THREE from 'three';
@@ -99,14 +99,34 @@ export function calloutFocus(label: string, focusPart: string | null | undefined
   return label === focusPart ? 'active' : 'dim';
 }
 
-/** Une légende façon schéma NASA : point, trait et étiquette. */
-export function Callout({ position, label, side, focus = 'normal' }: { position: THREE.Vector3; label: string; side: 'left' | 'right'; focus?: CalloutFocus }) {
+/**
+ * Légende d'une pièce, comme dans les figures de docs/mars1 : un point orange sur la pièce ;
+ * au survol (ou au toucher), son nom et son rôle apparaissent. Un clic garde la bulle ouverte.
+ */
+export function Callout({ position, label, desc, side, focus = 'normal' }: { position: THREE.Vector3; label: string; desc?: string; side: 'left' | 'right'; focus?: CalloutFocus }) {
+  const [hover, setHover] = useState(false);
+  const [pinned, setPinned] = useState(false);
+  const open = hover || pinned || focus === 'active';
   return (
-    <Html position={position} zIndexRange={[20, 0]} style={{ pointerEvents: 'none' }}>
-      <div className={`callout callout-${side} ${focus === 'normal' ? '' : `callout-${focus}`}`}>
-        <span className="callout-dot" />
-        <span className="callout-line" />
-        <span className="callout-label">{label}</span>
+    <Html position={position} zIndexRange={[open ? 40 : 20, 0]} center>
+      <div className={`pin pin-${side} ${open ? 'pin-open' : ''} ${focus === 'dim' ? 'pin-dim' : ''}`}>
+        <button
+          type="button"
+          className="pin-dot"
+          aria-label={label}
+          aria-expanded={open}
+          onPointerEnter={() => setHover(true)}
+          onPointerLeave={() => setHover(false)}
+          onFocus={() => setHover(true)}
+          onBlur={() => setHover(false)}
+          onClick={() => setPinned((p) => !p)}
+        />
+        {open && (
+          <span className="pin-card" role="tooltip">
+            <span className="pin-name">{label}</span>
+            {desc && <span className="pin-desc">{desc}</span>}
+          </span>
+        )}
       </div>
     </Html>
   );

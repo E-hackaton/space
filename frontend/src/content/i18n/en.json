@@ -416,6 +416,7 @@
     "title": "{{name}}: interactive NASA 3D model",
     "close": "Close",
     "open": "Inspect in 3D",
-    "hint": "Drag to rotate, scroll to zoom, hover a part to read what it does (labels in French). Model: NASA 3D Resources."
+    "hint": "Drag to rotate, scroll to zoom, hover a part to read what it does (labels in French). Model: NASA 3D Resources.",
+    "enlarge": "Enlarge"
   }
 }

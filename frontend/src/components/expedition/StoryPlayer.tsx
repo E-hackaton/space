@@ -11,7 +11,7 @@ import { speak, stopSpeaking } from '../../audio/speech';
 import { useStore } from '../../store/useStore';
 import { useExpedition, type GuideMode } from '../../scenes/expedition/expedition';
 import { Icon, MedalGlyph } from '../ui/Glyphs';
-import { FigureOverlay, figureOf } from '../figures/EngineFigure';
+import { EngineFigure, FigureOverlay, figureOf } from '../figures/EngineFigure';
 
 /** Distance Terre-Lune déduite du temps d'aller-retour de la lumière (c ≈ 300 000 km/s). */
 const LASER_SECONDS = 2.56;
@@ -120,7 +120,7 @@ export function StoryPlayer({ slug, mode, onDone, nextLine }: Props) {
             <span className="sr-only">{voiceOn ? t('guide.mute') : t('guide.unmute')}</span>
           </button>
           {figureOf(machine.id) && (
-            <button type="button" className="chip" onClick={() => setFigure(true)}>
+            <button type="button" className="chip sm:hidden" onClick={() => setFigure(true)}>
               {t('figure.open')}
             </button>
           )}
@@ -132,8 +132,18 @@ export function StoryPlayer({ slug, mode, onDone, nextLine }: Props) {
 
       <AnimatePresence>{figure && <FigureOverlay id={machine.id} name={machine.name} onClose={() => setFigure(false)} />}</AnimatePresence>
 
+      {/* La figure 3D interactive de la machine (docs/mars1), affichée pendant tout le récit */}
+      {figureOf(machine.id) && (
+        <motion.div initial={{ opacity: 0, x: 30 }} animate={{ opacity: 1, x: 0 }} className="story-figure">
+          <EngineFigure id={machine.id} name={machine.name} />
+          <button type="button" className="chip absolute right-2 top-2" onClick={() => setFigure(true)}>
+            {t('figure.enlarge')}
+          </button>
+        </motion.div>
+      )}
+
       {machine.vitals.length > 0 && (
-        <div className="absolute right-3 top-3 z-30 hidden w-56 md:block">
+        <div className={`absolute z-30 hidden w-56 md:block ${figureOf(machine.id) ? 'left-3 top-36' : 'right-3 top-3'}`}>
           <VitalsPanel machine={machine} progress={progress} />
         </div>
       )}
