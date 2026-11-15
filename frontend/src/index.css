@@ -186,6 +186,6 @@ html[data-motion="reduce"] *, html[data-motion="reduce"] *::before, html[data-mo
 .menu-button:hover, .menu-button[aria-expanded="true"] { background: rgba(255,255,255,.16); }
 .menu-bar { display: block; width: 1.15rem; height: 2px; border-radius: 2px; background: #fff; transition: transform .3s cubic-bezier(.2,.8,.2,1), opacity .2s; }
 .menu-panel { position: absolute; right: .75rem; top: calc(100% + .4rem); width: min(17rem, calc(100vw - 1.5rem)); padding: .6rem; border-radius: 1.25rem; background: rgba(10,16,36,.96); box-shadow: 0 0 0 1px rgba(255,255,255,.12), 0 24px 50px -16px rgba(0,0,0,.8); backdrop-filter: blur(14px); }
-.menu-item { display: block; padding: .7rem .9rem; border-radius: .85rem; font-size: 1rem; color: #cbd5e1; transition: background .2s, color .2s; }
+.menu-item { display: flex; align-items: center; gap: .75rem; padding: .7rem .9rem; border-radius: .85rem; font-size: 1rem; color: #cbd5e1; transition: background .2s, color .2s; }
 .menu-item:hover { background: rgba(255,255,255,.08); color: #fff; }
 .menu-item-active { background: rgba(75,224,138,.16); color: #fff; box-shadow: inset 3px 0 0 var(--color-active); }

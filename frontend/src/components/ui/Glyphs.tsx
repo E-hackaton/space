@@ -126,10 +126,33 @@ const PATHS: Record<string, ReactNode> = {
   wind: <path d="M3 9h11a3 3 0 1 0-3-3M3 13h15a3 3 0 1 1-3 3M3 17h7" />,
   lock: <path d="M6 11h12v9H6zM8.5 11V8a3.5 3.5 0 0 1 7 0v3" />,
   keys: <path d="M3 7h18v10H3zM6 10h1M9 10h1M12 10h1M15 10h1M18 10h0M7 14h10" />,
+  compass: (
+    <>
+      <circle cx="12" cy="12" r="9" />
+      <path d="M15.5 8.5l-2 5-5 2 2-5z" fill="currentColor" fillOpacity="0.25" />
+    </>
+  ),
+  rocket: <path d="M12 3c3 2 4.5 5.5 4 10l-2 3h-4l-2-3c-.5-4.5 1-8 4-10zM10 16l-2.5 3 .5-4M14 16l2.5 3-.5-4M12 9.5a1.4 1.4 0 1 0 0 .1" />,
+  image: (
+    <>
+      <rect x="3" y="5" width="18" height="14" rx="2" />
+      <circle cx="9" cy="10" r="1.6" />
+      <path d="M4 17l5-5 4 4 3-3 4 4" />
+    </>
+  ),
+  notebook: <path d="M6 3h11a1 1 0 0 1 1 1v16a1 1 0 0 1-1 1H6zM6 3v18M9 7h6M9 11h6M4 7h2M4 12h2M4 17h2" />,
+  gear: (
+    <>
+      <circle cx="12" cy="12" r="3" />
+      <path d="M12 2.5v3M12 18.5v3M21.5 12h-3M5.5 12h-3M18.7 5.3l-2.1 2.1M7.4 16.6l-2.1 2.1M18.7 18.7l-2.1-2.1M7.4 7.4L5.3 5.3" />
+    </>
+  ),
 };
 
 /** Icône au trait (même épaisseur partout), héritant de la couleur du texte. */
-export function Icon({ name, size = 18, className = '' }: { name: keyof typeof PATHS; size?: number; className?: string }) {
+export type IconName = keyof typeof PATHS;
+
+export function Icon({ name, size = 18, className = '' }: { name: IconName; size?: number; className?: string }) {
   return (
     <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" className={`inline-block shrink-0 align-[-0.2em] ${className}`} aria-hidden="true">
       {PATHS[name]}
