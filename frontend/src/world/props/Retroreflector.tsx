@@ -2,6 +2,7 @@ import { useEffect, useMemo, useRef, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import * as THREE from 'three';
 import { RoundedBox } from '@react-three/drei';
+import { findingOf } from '../../content/findings';
 import { PartPins, ownMaterials, partHandlers, useHighlight, type PartDef } from '../../components/3d/InteractiveParts';
 import { grainNormal } from '../anatomy/surfaces';
 
@@ -56,7 +57,7 @@ const prismMat = new THREE.MeshPhysicalMaterial({
 });
 
 export function Retroreflector({ variant, size, annotated = false }: { variant: ReflectorVariant; size?: number; annotated?: boolean }) {
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
   const s = SPEC[variant];
   const group = useRef<THREE.Group>(null);
   const cubes = useRef<THREE.InstancedMesh>(null);
@@ -113,6 +114,7 @@ export function Retroreflector({ variant, size, annotated = false }: { variant: 
         key: 'cubes',
         name: t('reflector.cubes'),
         desc: variant === 'a11' ? t('reflector.cubesA11') : t('reflector.cubesA15'),
+        finding: ((f) => (f ? (i18n.language === 'en' ? f.en : f.fr) : undefined))(findingOf('reflector', 'cubes')),
         anchors: [panelCentre],
         reach: Math.max(s.w, s.h) * 0.6,
         zoom: Math.max(s.w, s.h) * 2.2 * k,
@@ -128,7 +130,7 @@ export function Retroreflector({ variant, size, annotated = false }: { variant: 
         meshes: supportMeshes,
       },
     ];
-  }, [ready, annotated, s, variant, t, k]);
+  }, [ready, annotated, s, variant, t, k, i18n.language]);
   useHighlight(parts);
   const handlers = useMemo(() => (parts.length ? partHandlers(parts, group) : {}), [parts]);
 

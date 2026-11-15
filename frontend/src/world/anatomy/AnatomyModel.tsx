@@ -2,6 +2,7 @@ import { Suspense, useEffect, useMemo, useRef, type ReactNode } from 'react';
 import { useLoader } from '@react-three/fiber';
 import * as THREE from 'three';
 import { useTranslation } from 'react-i18next';
+import { findingOf } from '../../content/findings';
 import { PartPins, ownMaterials, partHandlers, useHighlight, type PartDef } from '../../components/3d/InteractiveParts';
 import { Mesher, addShape, expandBox, toThree, type AnatomyData } from './geometry';
 import { boxUVs, foilNormal, grainNormal } from './surfaces';
@@ -213,6 +214,7 @@ function Inner({ id, annotated, labels: given = [], autoLabels: _auto, focusPart
           key: p.id,
           name: en ? p.en : p.fr,
           desc: en ? p.sayEn : p.sayFr,
+          finding: ((f) => (f ? (en ? f.en : f.fr) : undefined))(findingOf(id, p.id)),
           anchors: [b.getCenter(new THREE.Vector3())],
           reach: Math.max(size.x, size.y, size.z) * 0.6,
           zoom: Math.max(1.2, size.length() * k * 1.8),

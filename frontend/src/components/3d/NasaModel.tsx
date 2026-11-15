@@ -5,6 +5,7 @@ import * as THREE from 'three';
 import { useTranslation } from 'react-i18next';
 import modelsData from '../../content/models.json';
 import figuresData from '../../content/figures.json';
+import { findingOf } from '../../content/findings';
 import { PartPins, ownMaterials, partHandlers, useHighlight, type PartDef } from './InteractiveParts';
 
 export interface Annotation {
@@ -192,9 +193,10 @@ function Inner({ id, scale = 1, annotated = false, focusPart, spinning, children
                 break;
               }
           });
-        return { key: p.id, name: en ? p.name.en : p.name.fr, desc: en ? p.desc?.en : p.desc?.fr, anchors: [p.at, ...(p.more ?? [])].map(norm), reach: (p.reach ?? 0.12) * R, zoom: (p.zoom ?? 1.2) * R, meshes };
+        const f = findingOf(id, p.id);
+        return { key: p.id, name: en ? p.name.en : p.name.fr, desc: en ? p.desc?.en : p.desc?.fr, finding: f ? (en ? f.en : f.fr) : undefined, anchors: [p.at, ...(p.more ?? [])].map(norm), reach: (p.reach ?? 0.12) * R, zoom: (p.zoom ?? 1.2) * R, meshes };
       });
-    return info.annotations.map((a) => ({ key: a.key, name: t(a.key), anchors: [anchor(a)], reach: 0.15 * R, zoom: 1.4 * R, meshes: [] }));
+    return info.annotations.map((a) => ({ key: a.key, name: t(a.key), finding: ((f) => (f ? (en ? f.en : f.fr) : undefined))(findingOf(id, a.key)), anchors: [anchor(a)], reach: 0.15 * R, zoom: 1.4 * R, meshes: [] }));
   }, [annotated, root, radius, k, lift, id, i18n.language]); // eslint-disable-line react-hooks/exhaustive-deps
   useHighlight(parts, focusPart ?? null);
   const handlers = useMemo(() => (parts.length ? partHandlers(parts, group) : {}), [parts]);

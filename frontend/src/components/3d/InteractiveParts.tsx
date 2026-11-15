@@ -15,6 +15,8 @@ export interface PartDef {
   key: string;
   name: string;
   desc?: string;
+  /** Ce que la pièce a permis de découvrir (fil rouge ingénierie → science). */
+  finding?: string;
   /** Repères de la pièce, dans le repère local du groupe de la machine. */
   anchors: THREE.Vector3[];
   /** Rayon de détection autour des repères (même repère). */
@@ -153,6 +155,7 @@ export function PartPins({ parts, group, extra = null }: { parts: PartDef[]; gro
                 <span className="pin-card" role="tooltip">
                   <span className="pin-name">{p.name}</span>
                   {p.desc && <span className="pin-desc">{p.desc}</span>}
+                  {p.finding && <span className="pin-finding">{p.finding}</span>}
                 </span>
               )}
             </div>

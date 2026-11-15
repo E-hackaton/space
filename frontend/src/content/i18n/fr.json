@@ -519,5 +519,8 @@
     "resetHint": "Efface les machines retrouvées et les badges du carnet.",
     "confirm": "Oui, tout effacer",
     "cancel": "Annuler"
+  },
+  "findings": {
+    "title": "De la pièce à la découverte"
   }
 }

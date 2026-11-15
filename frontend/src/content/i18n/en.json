@@ -519,5 +519,8 @@
     "resetHint": "Clears the machines you found and the logbook badges.",
     "confirm": "Yes, erase everything",
     "cancel": "Cancel"
+  },
+  "findings": {
+    "title": "From the part to the discovery"
   }
 }

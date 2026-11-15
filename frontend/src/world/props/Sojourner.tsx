@@ -2,6 +2,7 @@ import { useEffect, useMemo, useRef, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import * as THREE from 'three';
 import { RoundedBox } from '@react-three/drei';
+import { findingOf } from '../../content/findings';
 import { PartPins, partHandlers, useHighlight, type PartDef } from '../../components/3d/InteractiveParts';
 import { foilNormal, grainNormal } from '../anatomy/surfaces';
 
@@ -89,7 +90,7 @@ function Link({ a, b, z, mat }: { a: [number, number]; b: [number, number]; z: n
 const MAT_SHARED = { dark: MAT.dark() };
 
 export function Sojourner({ size, annotated = false }: { size?: number; annotated?: boolean }) {
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
   const k = size ? size / L : 1;
   const group = useRef<THREE.Group>(null);
   const refs = {
@@ -125,6 +126,7 @@ export function Sojourner({ size, annotated = false }: { size?: number; annotate
       key,
       name: t(`sojourner.${key}.name`),
       desc: t(`sojourner.${key}.desc`),
+      finding: ((f) => (f ? (i18n.language === 'en' ? f.en : f.fr) : undefined))(findingOf('sojourner', key)),
       anchors: [new THREE.Vector3(...at)],
       reach,
       zoom: Math.max(0.5, reach * 4 * k),
@@ -139,7 +141,7 @@ export function Sojourner({ size, annotated = false }: { size?: number; annotate
       def('antenna', [-0.12, 0.5, W / 2 - 0.06], 0.12),
       def('mae', [L / 2 - 0.07, 0.305, W / 2 - 0.07], 0.06),
     ];
-  }, [ready, annotated, t, k]); // eslint-disable-line react-hooks/exhaustive-deps
+  }, [ready, annotated, t, k, i18n.language]); // eslint-disable-line react-hooks/exhaustive-deps
   useHighlight(parts);
   const handlers = useMemo(() => (parts.length ? partHandlers(parts, group) : {}), [parts]);
 

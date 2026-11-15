@@ -1,10 +1,13 @@
-import { useCallback, useEffect, useState } from 'react';
+import { useCallback, useEffect, useMemo, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { AnimatePresence, motion } from 'motion/react';
 import { SpeechText } from '../guide/SpeechText';
 import { SankofaAvatar } from '../guide/SankofaAvatar';
 import { Quiz } from '../story/Quiz';
 import { formatDate, useMachine } from '../../lib/machines';
+import { lookOf } from '../../lib/atlas';
+import { findingPartsOf, findingsOf } from '../../content/findings';
+import { useParts } from '../3d/InteractiveParts';
 import { speak, stopSpeaking } from '../../audio/speech';
 import { useStore } from '../../store/useStore';
 import { useExpedition, type GuideMode } from '../../scenes/expedition/expedition';
@@ -43,11 +46,30 @@ export function StoryPlayer({ slug, mode, onDone, nextLine }: Props) {
   const [spokenDone, setSpokenDone] = useState<string | null>(null);
 
   const total = machine?.story.length ?? 0;
+  const en = i18n.language === 'en';
+  // Pièces clés de cette machine et ce qu'elles ont permis de découvrir.
+  const chain = useMemo(() => {
+    const look = lookOf(slug);
+    const model = look.kind === 'nasa' || look.kind === 'anatomy' ? look.id : look.kind === 'sojourner' ? 'sojourner' : look.kind === 'reflector' ? 'reflector' : '';
+    return model ? findingsOf(model) : [];
+  }, [slug]);
+  const chainParts = useMemo(() => {
+    const look = lookOf(slug);
+    const model = look.kind === 'nasa' || look.kind === 'anatomy' ? look.id : look.kind === 'sojourner' ? 'sojourner' : look.kind === 'reflector' ? 'reflector' : '';
+    return model ? findingPartsOf(model) : [];
+  }, [slug]);
   const current = machine?.story[step];
 
   useEffect(() => {
     if (current) setStep(step, current.effect, current.phase);
   }, [current, step, setStep]);
+  // Au moment de la découverte (et à la fin), la pièce qui l'a rendue possible s'allume sur la machine.
+  useEffect(() => {
+    if (!chainParts.length) return;
+    const show = outro || current?.phase === 'discovery' || current?.phase === 'work';
+    const idx = current?.phase === 'work' ? chainParts.length - 1 : 0;
+    useParts.setState({ pinned: show ? chainParts[Math.min(idx, chainParts.length - 1)] : null });
+  }, [current?.phase, outro, chainParts]);
 
   const next = useCallback(() => {
     if (!machine) return;
@@ -151,6 +173,25 @@ export function StoryPlayer({ slug, mode, onDone, nextLine }: Props) {
                   <p className="text-base sm:text-lg">{machine.discovery}</p>
                 </div>
               </div>
+              {/* Le fil rouge : de la pièce à la découverte */}
+              {chain.length > 0 && (
+                <div className="rounded-2xl bg-white/5 p-3 ring-1 ring-active/30">
+                  <p className="font-display text-sm font-extrabold uppercase tracking-widest text-active">{t('findings.title')}</p>
+                  <ul className="mt-2 space-y-2">
+                    {chain.map((f) => (
+                      <li key={f.partFr} className="flex flex-col gap-0.5 sm:flex-row sm:items-baseline sm:gap-3">
+                        <span className="shrink-0 font-semibold text-white sm:w-44">{en ? f.partEn : f.partFr}</span>
+                        <span className="text-sm text-slate-200">
+                          → {en ? f.en : f.fr}{' '}
+                          <a href={f.source} target="_blank" rel="noreferrer" className="whitespace-nowrap text-xs text-sky-300 underline underline-offset-2">
+                            NASA
+                          </a>
+                        </span>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              )}
               {quiz && machine.quiz.length > 0 && (
                 <div className="rounded-2xl bg-white/5 p-3 ring-1 ring-white/10">
                   <Quiz key={`${machine.id}-${i18n.language}`} questions={machine.quiz} onComplete={() => earnBadge(machine.id)} />
