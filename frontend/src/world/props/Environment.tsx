@@ -86,7 +86,7 @@ export interface RockField {
 }
 
 /** Taille (échelle) à partir de laquelle un rocher bloque le rover au lieu d'être franchi. */
-const BLOCKING_ROCK = 0.55;
+const BLOCKING_ROCK = 0.3;
 
 /**
  * Disperse des rochers sur le terrain (tirage pseudo-aléatoire reproductible) et renvoie
@@ -110,7 +110,8 @@ export function scatterRocks(field: HeightField, count: number, seed: number, av
     m.compose(new THREE.Vector3(x, field.heightAt(x, z) + sc * 0.15, z), q, new THREE.Vector3(sc, sc * 0.65, sc));
     matrices.push(m.clone());
     // La géométrie fait environ 1 unité de rayon : l'empreinte au sol vaut à peu près l'échelle.
-    if (sc >= BLOCKING_ROCK) obstacles.push({ x, z, r: sc * 0.95 });
+    // Rayon au sol du rocher (sa forme bosselée déborde un peu de l'échelle) : le rover le heurte, ne le traverse pas.
+    if (sc >= BLOCKING_ROCK) obstacles.push({ x, z, r: sc * 1.15 });
   }
   return { matrices, obstacles };
 }

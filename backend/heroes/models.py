@@ -80,6 +80,64 @@ class VoicedContent(models.Model):
 # Phrases de présentation d'une machine (« Bonjour, je suis Sojourner… »), dans chaque langue.
 # Elles sont composées ici, côté serveur, pour pouvoir être lues par la voix ElevenLabs.
 GREETING = {"fr": "Bonjour, je suis {name}.", "en": "Hello, I'm {name}."}
+
+# Première phrase de chaque machine : un ton différent à chaque fois (tendresse, humour, mélancolie…),
+# pour que les présentations ne commencent pas toutes par « Bonjour ». Aucun fait nouveau ici :
+# les faits viennent de l'accroche et des étapes, sourcées. Machine absente : GREETING.
+OPENINGS = {
+    "surveyor-3": {
+        "fr": "On dit que les vieux amis finissent toujours par revenir. Moi, c'est Surveyor 3.",
+        "en": "They say old friends always come back. I'm Surveyor 3.",
+    },
+    "apollo-11-eagle": {
+        "fr": "Approche, et parle doucement : tu es devant Eagle.",
+        "en": "Come closer, and speak softly: you're standing before Eagle.",
+    },
+    "apollo-15-lrv": {
+        "fr": "Ni permis, ni bouchons, ni stationnement interdit : je suis le rover lunaire d'Apollo 15.",
+        "en": "No licence, no traffic jams, no parking tickets: I'm Apollo 15's lunar rover.",
+    },
+    "apollo-15-retroreflector": {
+        "fr": "Psst… regarde-moi bien, je suis peut-être en train de travailler en ce moment. Je suis le réflecteur laser d'Apollo 15.",
+        "en": "Psst… look closely, I might be working right now. I'm Apollo 15's laser reflector.",
+    },
+    "viking-1": {
+        "fr": "Bien avant ta naissance, j'étais déjà là, à regarder le ciel rose de Mars. Je suis Viking 1.",
+        "en": "Long before you were born, I was already here, watching the pink Martian sky. I'm Viking 1.",
+    },
+    "opportunity": {
+        "fr": "Ne sois pas triste de me voir immobile : j'ai une belle histoire à te raconter. Je m'appelle Opportunity.",
+        "en": "Don't be sad to see me standing still: I have a wonderful story to tell you. My name is Opportunity.",
+    },
+    "insight": {
+        "fr": "Chut… écoute bien. Je m'appelle InSight.",
+        "en": "Shh… listen carefully. My name is InSight.",
+    },
+    "ingenuity": {
+        "fr": "Des ailes ? Pas besoin, j'ai des pales ! Je suis Ingenuity.",
+        "en": "Wings? Who needs wings, I've got blades! I'm Ingenuity.",
+    },
+    "near-shoemaker": {
+        "fr": "On m'avait dit : surtout, ne te pose pas. Je suis NEAR Shoemaker.",
+        "en": "They told me: whatever you do, don't land. I'm NEAR Shoemaker.",
+    },
+    "pioneer-10": {
+        "fr": "Si tu lèves les yeux ce soir, je suis quelque part là-haut, très, très loin. Je suis Pioneer 10.",
+        "en": "If you look up tonight, I'm somewhere out there, very, very far away. I'm Pioneer 10.",
+    },
+    "sojourner": {
+        "fr": "Je suis petit, c'est vrai. Mais c'est moi qui ai ouvert la route. Je m'appelle Sojourner.",
+        "en": "I'm small, it's true. But I'm the one who opened the way. My name is Sojourner.",
+    },
+    "curiosity": {
+        "fr": "Pardon, je ne peux pas m'arrêter longtemps : j'ai une montagne à grimper ! Je suis Curiosity.",
+        "en": "Sorry, I can't stop for long: I have a mountain to climb! I'm Curiosity.",
+    },
+    "perseverance": {
+        "fr": "Mon nom dit déjà tout de moi : je suis Perseverance.",
+        "en": "My name already says it all: I'm Perseverance.",
+    },
+}
 WHO_AM_I = {"fr": "Je suis {kind} de la mission {mission}.", "en": "I'm {kind} from the {mission} mission."}
 KIND_WITH_ARTICLE = {
     "fr": {
@@ -241,12 +299,13 @@ class Equipment(VoicedContent):
 
     def presentation(self, language: str) -> tuple[str, str]:
         """
-        Titre et texte de la présentation, ex. (« Bonjour, je suis Curiosity. »,
+        Titre et texte de la présentation, ex. (« Pardon, je ne peux pas m'arrêter longtemps… Je suis Curiosity. »,
         « Je suis un rover de la mission Mars Science Laboratory. <accroche> »).
         L'accroche se replie sur le français si elle n'est pas traduite, comme dans l'API.
         """
         tagline = getattr(self, f"tagline_{language}") or self.tagline_fr
-        title = GREETING[language].format(name=self.name)
+        opening = OPENINGS.get(self.slug, {}).get(language)
+        title = opening or GREETING[language].format(name=self.name)
         who = WHO_AM_I[language].format(kind=KIND_WITH_ARTICLE[language][self.kind], mission=self.mission)
         return title, f"{who} {tagline}"
 

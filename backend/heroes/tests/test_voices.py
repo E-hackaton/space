@@ -48,7 +48,7 @@ class PresentationApiTests(APITestCase):
         fr = self.client.get(url).json()["presentation"]
         en = self.client.get(url, {"lang": "en"}).json()["presentation"]
 
-        self.assertEqual(fr["title"], "Bonjour, je suis Opportunity.")
+        self.assertEqual(fr["title"], "Ne sois pas triste de me voir immobile : j'ai une belle histoire à te raconter. Je m'appelle Opportunity.")
         self.assertEqual(fr["body"], "Je suis un rover de la mission MER. Je devais vivre 90 jours.")
         self.assertEqual(en["body"], "I'm a rover from the MER mission. I was meant to live 90 days.")
         self.assertIsNone(fr["audio"])  # pas encore généré : le navigateur lira le texte
@@ -89,7 +89,7 @@ class GenerateVoicesTests(TestCase):
 
         self.assertEqual(synthesize.call_count, 4)  # le second passage ne régénère rien
         self.assertIn(
-            mock.call("Bonjour, je suis Opportunity. Je suis un rover de la mission MER. Je devais vivre 90 jours.",
+            mock.call("Ne sois pas triste de me voir immobile : j'ai une belle histoire à te raconter. Je m'appelle Opportunity. Je suis un rover de la mission MER. Je devais vivre 90 jours.",
                       "voice-machine", mock.ANY),
             synthesize.call_args_list,
         )

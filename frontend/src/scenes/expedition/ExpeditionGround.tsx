@@ -323,7 +323,7 @@ export default function ExpeditionGround({ body, sites, start, startHeading, ani
       {/* Le sol continue jusqu'à l'horizon */}
       <TerrainMesh field={field} extent={2400} warp holeHalf={inner.half - 1} range={range} colors={pal.ground} segments={160} detail={body === 'moon' ? 'regolith' : 'sand'} tile={6} />
       <Rocks rocks={rocks} color={pal.rock} seed={body === 'moon' ? 9 : 4} />
-      <Pebbles field={inner} color={pal.rock} count={body === 'moon' ? 2500 : 3500} seed={body === 'moon' ? 3 : 8} minSize={0.15} maxSize={1.1} avoid={sites.map((s) => [s.x, s.z, 8] as [number, number, number])} />
+      <Pebbles field={inner} color={pal.rock} count={body === 'moon' ? 2500 : 3500} seed={body === 'moon' ? 3 : 8} minSize={0.08} maxSize={0.4} avoid={sites.map((s) => [s.x, s.z, 8] as [number, number, number])} />
       {body === 'moon' ? (
         <DustTrail field={field} color="#c3c6cc" gravity={1.62} drag={0} active={!story} />
       ) : (

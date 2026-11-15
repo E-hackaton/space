@@ -136,7 +136,7 @@ function MarsSite({ data, site, animate }: { data: SiteData; site: 'jezero' | 'g
       {/* Poussière en suspension qui suit le joueur */}
       <DustMotes animate={animate} />
       <Rocks rocks={rocks} color={PALETTES.mars.rock} seed={site === 'gale' ? 5 : 2} />
-      <Pebbles field={inner} color={PALETTES.mars.rock} count={3000} minSize={0.12} maxSize={0.9} seed={site === 'gale' ? 6 : 9} />
+      <Pebbles field={inner} color={PALETTES.mars.rock} count={3000} minSize={0.08} maxSize={0.4} seed={site === 'gale' ? 6 : 9} />
       {/* Poussière des roues : l'air martien, très léger, la freine un peu (pesanteur 3,71 m/s²). */}
       <DustTrail field={field} color="#b97a4e" gravity={3.71} drag={0.8} active={phase === 'drive'} />
 
