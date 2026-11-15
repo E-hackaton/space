@@ -35,11 +35,18 @@ export default defineConfig({
         // Pré-cache : le code, les styles et les icônes. Les textures, modèles 3D et trajets (lourds)
         // sont mis en cache au premier usage seulement, pour ne pas consommer la data mobile d'avance.
         globPatterns: ['**/*.{js,css,html,svg,png,woff2}'],
+        // Figures 3D interactives des engins (1 à 5 Mo chacune) : en cache seulement après la première ouverture.
+        globIgnores: ['engins/**'],
         maximumFileSizeToCacheInBytes: 3 * 1024 * 1024,
         navigateFallback: '/index.html',
         // Routes servies par Django : jamais remplacées par l'app.
         navigateFallbackDenylist: [/^\/api\//, /^\/admin/, /^\/static\//, /^\/media\//],
         runtimeCaching: [
+          {
+            urlPattern: ({ url }) => url.pathname.startsWith('/engins/'),
+            handler: 'CacheFirst',
+            options: { cacheName: 'forbits-engins', expiration: { maxEntries: 12 }, cacheableResponse: { statuses: [0, 200] } },
+          },
           {
             // Textes de l'API : le réseau d'abord (contenu à jour), le cache si on est hors ligne.
             urlPattern: ({ url }) => url.pathname.startsWith('/api/'),

@@ -87,6 +87,24 @@
       "what": "Pioneer 10, optimisé par l'équipe",
       "credit": "NASA 3D Resources",
       "source": "https://science.nasa.gov/3d-resources/pioneer/"
+    },
+    {
+      "file": "public/models/viking.glb",
+      "what": "Viking Lander, optimisé par l'équipe",
+      "credit": "NASA 3D Resources ; figures construites par l'équipe (docs/mars1)",
+      "source": "https://science.nasa.gov/3d-resources/viking-lander/"
+    },
+    {
+      "file": "public/models/opportunity.glb",
+      "what": "Mars Exploration Rover Opportunity (MER-B), optimisé par l'équipe",
+      "credit": "NASA 3D Resources ; figures construites par l'équipe (docs/mars1)",
+      "source": "https://science.nasa.gov/3d-resources/mars-exploration-rover-opportunity-mer-b/"
+    },
+    {
+      "file": "public/engins/*.svg",
+      "what": "Figures 3D interactives (InSight, Ingenuity, Viking, Opportunity, NEAR, Pioneer 10) : modèles NASA et pièces annotées",
+      "credit": "NASA 3D Resources ; figures construites par l'équipe (docs/mars1)",
+      "source": "https://science.nasa.gov/3d-resources/"
     }
   ]
 }

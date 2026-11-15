@@ -11,6 +11,7 @@ import { speak, stopSpeaking } from '../../audio/speech';
 import { useStore } from '../../store/useStore';
 import { useExpedition, type GuideMode } from '../../scenes/expedition/expedition';
 import { Icon, MedalGlyph } from '../ui/Glyphs';
+import { FigureOverlay, figureOf } from '../figures/EngineFigure';
 
 /** Distance Terre-Lune déduite du temps d'aller-retour de la lumière (c ≈ 300 000 km/s). */
 const LASER_SECONDS = 2.56;
@@ -41,6 +42,7 @@ export function StoryPlayer({ slug, mode, onDone, nextLine }: Props) {
   const [step, setLocal] = useState(0);
   const [outro, setOutro] = useState(false);
   const [quiz, setQuiz] = useState(false);
+  const [figure, setFigure] = useState(false);
   const [spokenDone, setSpokenDone] = useState<string | null>(null);
 
   const total = machine?.story.length ?? 0;
@@ -73,12 +75,12 @@ export function StoryPlayer({ slug, mode, onDone, nextLine }: Props) {
 
   // Pilote auto : on enchaîne quand la voix a fini (ou après un temps de lecture si le son est coupé).
   useEffect(() => {
-    if (mode !== 'auto' || !text || quiz) return;
+    if (mode !== 'auto' || !text || quiz || figure) return;
     if (voiceOn && spokenDone !== text) return;
     const wait = voiceOn ? (outro ? 2500 : 900) : Math.max(4200, text.length * 55);
     const id = window.setTimeout(outro ? onDone : next, wait);
     return () => window.clearTimeout(id);
-  }, [mode, text, voiceOn, spokenDone, outro, quiz, next, onDone]);
+  }, [mode, text, voiceOn, spokenDone, outro, quiz, figure, next, onDone]);
 
   // Clavier : → suivant, ← précédent, Échap pour quitter.
   useEffect(() => {
@@ -117,11 +119,18 @@ export function StoryPlayer({ slug, mode, onDone, nextLine }: Props) {
             <Icon name={voiceOn ? 'sound' : 'mute'} />
             <span className="sr-only">{voiceOn ? t('guide.mute') : t('guide.unmute')}</span>
           </button>
+          {figureOf(machine.id) && (
+            <button type="button" className="chip" onClick={() => setFigure(true)}>
+              {t('figure.open')}
+            </button>
+          )}
           <button type="button" className="chip" onClick={onDone}>
             <Icon name="close" /> <span className="sr-only sm:not-sr-only">{t('expedition.leaveStory')}</span>
           </button>
         </div>
       </motion.div>
+
+      <AnimatePresence>{figure && <FigureOverlay id={machine.id} name={machine.name} onClose={() => setFigure(false)} />}</AnimatePresence>
 
       {machine.vitals.length > 0 && (
         <div className="absolute right-3 top-3 z-30 hidden w-56 md:block">

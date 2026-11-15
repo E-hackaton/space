@@ -225,7 +225,9 @@
     "lander": "Our landing module",
     "heatProbe": "HP3 heat probe",
     "imager": "Multispectral imager",
-    "magnetometer": "Magnetometer"
+    "magnetometer": "Magnetometer",
+    "meteo": "Weather mast",
+    "cameras": "Cameras"
   },
   "quiz": {
     "title": "Mission quiz",
@@ -409,5 +411,11 @@
     "next_one": "{{count}} is still waiting on {{body}}.",
     "next_other": "{{count}} are still waiting on {{body}}.",
     "done": "No machine is forgotten any more. Well done, explorer."
+  },
+  "figure": {
+    "title": "{{name}}: interactive NASA 3D model",
+    "close": "Close",
+    "open": "Inspect in 3D",
+    "hint": "Drag to rotate, scroll to zoom, hover a part to read what it does (labels in French). Model: NASA 3D Resources."
   }
 }

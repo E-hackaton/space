@@ -49,6 +49,8 @@ export interface Built {
   /** Centre haut de chaque pièce (« descent ») ou sous-pièce (« gear.pad0 »), pour les légendes. */
   anchors: Record<string, THREE.Vector3>;
   size: THREE.Vector3;
+  /** Pièces présentes dans ce modèle, avec leurs noms (fr/en). */
+  pieces: { id: string; fr: string; en: string }[];
 }
 
 function build(data: AnatomyData, { pieces, exclude, excludeGroups }: Options): Built {
@@ -123,7 +125,8 @@ function build(data: AnatomyData, { pieces, exclude, excludeGroups }: Options): 
     const c = b.getCenter(new THREE.Vector3());
     anchors[piece] = new THREE.Vector3(c.x, b.max.y, c.z).add(shift).multiplyScalar(k);
   }
-  return { root, joints, anchors, size: box.getSize(new THREE.Vector3()).multiplyScalar(k) };
+  const present = new Set(parts.map((p) => pieceOf(p.n)));
+  return { root, joints, anchors, size: box.getSize(new THREE.Vector3()).multiplyScalar(k), pieces: data.pieces.filter((p) => present.has(p.id)) };
 }
 
 export function useAnatomy(id: AnatomyId, options: Options = {}) {
@@ -152,6 +155,8 @@ interface Props extends Options {
   annotated?: boolean;
   labels?: Label[];
   focusPart?: string | null;
+  /** Légende automatiquement chaque pièce présente (nom de la fiche Anatomy, dans la langue du site). */
+  autoLabels?: boolean;
   /** Met le modèle à cette taille (plus grande dimension, en unités de scène) au lieu des vraies cotes. */
   fit?: number;
   /** Reçoit les articulations une fois le modèle construit (ex. roues du rover). */
@@ -159,20 +164,21 @@ interface Props extends Options {
   children?: ReactNode;
 }
 
-function Inner({ id, annotated, labels = [], focusPart, onReady, fit, children, ...options }: Props) {
-  const { t } = useTranslation();
+function Inner({ id, annotated, labels: given = [], autoLabels, focusPart, onReady, fit, children, ...options }: Props) {
+  const { t, i18n } = useTranslation();
   const built = useAnatomy(id, options);
   useEffect(() => {
     onReady?.(built);
   }, [built, onReady]);
   const k = fit ? fit / Math.max(built.size.x, built.size.y, built.size.z) : 1;
+  const labels = autoLabels ? built.pieces.map((p) => ({ piece: p.id, label: i18n.language === 'en' ? p.en : p.fr })) : given;
   return (
     <group scale={k}>
       <primitive object={built.root} />
       {annotated &&
         labels.map((l) =>
           built.anchors[l.piece] ? (
-            <Callout key={l.label} position={built.anchors[l.piece]} label={t(l.label)} side={built.anchors[l.piece].x < 0 ? 'left' : 'right'} focus={calloutFocus(l.label, focusPart)} />
+            <Callout key={l.label} position={built.anchors[l.piece]} label={l.label.startsWith('parts.') ? t(l.label) : l.label} side={built.anchors[l.piece].x < 0 ? 'left' : 'right'} focus={calloutFocus(l.label, focusPart)} />
           ) : null,
         )}
       {children}

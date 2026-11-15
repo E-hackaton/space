@@ -1,6 +1,6 @@
-import { Suspense, useMemo, useRef, useState } from 'react';
+import { Suspense, useEffect, useMemo, useRef, useState } from 'react';
 import { Canvas, useFrame, useThree } from '@react-three/fiber';
-import { AdaptiveDpr, Html, PerformanceMonitor, Sparkles, Stars, useTexture } from '@react-three/drei';
+import { AdaptiveDpr, Html, OrbitControls, PerformanceMonitor, Sparkles, Stars, useTexture } from '@react-three/drei';
 import * as THREE from 'three';
 import { Player, player, type Obstacle } from '../../world/Player';
 import { TerrainMesh } from '../../world/TerrainMesh';
@@ -14,35 +14,32 @@ import type { HeightField } from '../../world/terrain';
 import type { SurfaceBody } from '../../lib/atlas';
 import { useExpedition } from './expedition';
 
-/** Balise d'un objet : colonne de lumière visible de loin, anneau au sol, nom quand on approche. */
+/**
+ * Repère d'un objet : un petit losange suspendu bien au-dessus de la machine, visible de loin,
+ * qui s'efface quand on approche (rien autour de la machine elle-même, pour bien la voir).
+ */
 function Checkpoint({ site, y, selected, found, animate }: { site: Site; y: number; selected: boolean; found: boolean; animate: boolean }) {
   const active = site.machine.status === 'active';
   const color = selected ? '#ffffff' : active ? '#4BE08A' : '#E0A458';
-  const ring = useRef<THREE.Mesh>(null!);
-  const pillar = useRef<THREE.Mesh>(null!);
+  const gem = useRef<THREE.Mesh>(null!);
   const tag = useRef<HTMLDivElement>(null);
+  const top = sizeOf(site.machine.id) + 9;
   useFrame(({ clock }) => {
-    const t = clock.elapsedTime;
-    const k = animate && active ? (t * 0.6) % 1 : 0.4;
-    ring.current.scale.setScalar(1 + k * 1.2);
-    (ring.current.material as THREE.MeshBasicMaterial).opacity = 0.9 * (1 - k);
-    (pillar.current.material as THREE.MeshBasicMaterial).opacity = (found ? 0.12 : 0.28) + (active && animate ? Math.sin(t * 3) * 0.08 : 0) + (selected ? 0.2 : 0);
-    if (tag.current) {
-      const d = Math.hypot(site.x - player.x, site.z - player.z);
-      tag.current.style.opacity = d < 140 ? String(Math.min(1, (140 - d) / 40)) : '0';
-    }
+    const d = Math.hypot(site.x - player.x, site.z - player.z);
+    const far = THREE.MathUtils.clamp((d - 20) / 15, 0, 1);
+    gem.current.visible = far > 0.02;
+    gem.current.scale.setScalar(far * (selected ? 1.6 : 1.1));
+    gem.current.rotation.y = animate ? clock.elapsedTime * 1.2 : 0;
+    gem.current.position.y = top + (animate && active ? Math.sin(clock.elapsedTime * 2) * 0.4 : 0);
+    if (tag.current) tag.current.style.opacity = d < 140 && d > 6 ? String(Math.min(1, (140 - d) / 40)) : '0';
   });
   return (
     <group position={[site.x, y, site.z]}>
-      <mesh ref={ring} rotation={[-Math.PI / 2, 0, 0]} position={[0, 0.15, 0]}>
-        <ringGeometry args={[5, 5.6, 64]} />
-        <meshBasicMaterial color={color} transparent depthWrite={false} toneMapped={false} side={THREE.DoubleSide} />
+      <mesh ref={gem}>
+        <octahedronGeometry args={[1, 0]} />
+        <meshBasicMaterial color={color} toneMapped={false} transparent opacity={found ? 0.55 : 1} />
       </mesh>
-      <mesh ref={pillar} position={[0, 30, 0]}>
-        <cylinderGeometry args={[0.35, 1.2, 60, 16, 1, true]} />
-        <meshBasicMaterial color={color} transparent depthWrite={false} toneMapped={false} blending={THREE.AdditiveBlending} side={THREE.DoubleSide} />
-      </mesh>
-      <Html position={[0, sizeOf(site.machine.id) + 3, 0]} center zIndexRange={[20, 0]} style={{ pointerEvents: 'none' }}>
+      <Html position={[0, top + 2.2, 0]} center zIndexRange={[20, 0]} style={{ pointerEvents: 'none' }}>
         <div ref={tag} className={`ground-tag ${active ? 'ground-tag-active' : 'ground-tag-dormant'}`}>
           <span aria-hidden="true">{active ? '●' : '◐'}</span> {site.machine.name}
           {found && <span aria-hidden="true"> ✓</span>}
@@ -52,25 +49,48 @@ function Checkpoint({ site, y, selected, found, animate }: { site: Site; y: numb
   );
 }
 
-/** Pendant une histoire : la caméra tourne lentement autour de la machine qui parle. */
+/**
+ * Pendant une histoire : la caméra vient se placer près de la machine, puis on la manipule
+ * soi-même (glisser pour tourner, molette ou pincement pour zoomer) ; sinon elle tourne lentement.
+ */
 function StoryCamera({ site, field, animate }: { site?: Site; field: HeightField; animate: boolean }) {
   const { camera } = useThree();
-  const a = useRef(0);
+  const [settled, setSettled] = useState(false);
+  const [spin, setSpin] = useState(true);
   const look = useRef(new THREE.Vector3());
+  const s = site ? sizeOf(site.machine.id) : 3;
+  const centre = useMemo(() => (site ? new THREE.Vector3(site.x, field.heightAt(site.x, site.z) + s * 0.35, site.z) : new THREE.Vector3()), [site, field, s]);
+  useEffect(() => {
+    setSettled(false);
+    setSpin(true);
+  }, [site]);
   useFrame((_, dt) => {
-    if (!site) return;
-    a.current += dt * (animate ? 0.12 : 0);
-    const s = sizeOf(site.machine.id);
-    const r = 6 + s * 1.6;
-    const y = field.heightAt(site.x, site.z);
-    const want = new THREE.Vector3(site.x + Math.cos(a.current + 0.7) * r, y + 2.5 + s * 0.7, site.z + Math.sin(a.current + 0.7) * r);
-    const k = 1 - Math.exp(-dt * 1.8);
+    if (!site || settled) return;
+    const r = 4 + s * 1.4;
+    const want = new THREE.Vector3(site.x + Math.cos(0.7) * r, centre.y + 1.5 + s * 0.5, site.z + Math.sin(0.7) * r);
+    const k = 1 - Math.exp(-dt * 2.4);
     camera.position.lerp(want, k);
-    look.current.lerp(new THREE.Vector3(site.x, y + s * 0.4, site.z), k);
+    look.current.lerp(centre, k);
     camera.up.set(0, 1, 0);
     camera.lookAt(look.current);
+    if (camera.position.distanceTo(want) < 0.3) setSettled(true);
   });
-  return null;
+  if (!site || !settled) return null;
+  return (
+    <OrbitControls
+      makeDefault
+      target={centre}
+      enablePan={false}
+      enableDamping
+      minDistance={Math.max(1.5, s * 0.6)}
+      maxDistance={s * 6 + 10}
+      maxPolarAngle={Math.PI * 0.49}
+      autoRotate={animate && spin}
+      onStart={() => setSpin(false)}
+      autoRotateSpeed={0.5}
+      zoomSpeed={0.8}
+    />
+  );
 }
 
 function EarthInSky() {
@@ -189,7 +209,7 @@ export default function ExpeditionGround({ body, sites, start, startHeading, ani
             <group position={[s.x, y, s.z]} rotation={[0, (s.machine.id.length * 1.3) % (Math.PI * 2), 0]}>
               <Suspense fallback={null}>
                 <group position={[0, flying ? 2 : 0, 0]}>
-                  <Machine3D id={s.machine.id} kind={s.machine.kind} active={s.machine.status === 'active'} size={sizeOf(s.machine.id)} flying={flying} />
+                  <Machine3D id={s.machine.id} kind={s.machine.kind} active={s.machine.status === 'active'} size={sizeOf(s.machine.id)} flying={flying} annotated={s.machine.id === story} />
                 </group>
               </Suspense>
             </group>

@@ -177,14 +177,106 @@
   "opportunity": {
     "file": "/models/opportunity.glb",
     "size": 2.3,
-    "source": "https://github.com/nasa/NASA-3D-Resources/tree/master/3D%20Models/Mars%20Exploration%20Rover%20-%20Opportunity%20(MER-B)",
-    "annotations": []
+    "source": "https://science.nasa.gov/3d-resources/mars-exploration-rover-opportunity-mer-b/",
+    "annotations": [
+      {
+        "key": "parts.cameras",
+        "at": [
+          -0.066,
+          0.389,
+          -0.169
+        ],
+        "norm": true
+      },
+      {
+        "key": "parts.hga",
+        "at": [
+          0.195,
+          -0.001,
+          -0.538
+        ],
+        "norm": true
+      },
+      {
+        "key": "parts.solarPanel",
+        "at": [
+          0.316,
+          -0.067,
+          -0.563
+        ],
+        "norm": true
+      },
+      {
+        "key": "parts.wheels",
+        "at": [
+          0.348,
+          -0.365,
+          0.061
+        ],
+        "norm": true
+      },
+      {
+        "key": "parts.arm",
+        "at": [
+          0.006,
+          -0.164,
+          0.564
+        ],
+        "norm": true
+      }
+    ]
   },
   "viking": {
     "file": "/models/viking.glb",
     "size": 3,
-    "source": "https://github.com/nasa/NASA-3D-Resources/tree/master/3D%20Models/Viking%20Lander",
-    "annotations": []
+    "source": "https://science.nasa.gov/3d-resources/viking-lander/",
+    "annotations": [
+      {
+        "key": "parts.hga",
+        "at": [
+          -0.487,
+          0.291,
+          0.068
+        ],
+        "norm": true
+      },
+      {
+        "key": "parts.meteo",
+        "at": [
+          -0.281,
+          0.258,
+          -0.48
+        ],
+        "norm": true
+      },
+      {
+        "key": "parts.cameras",
+        "at": [
+          -0.112,
+          0.11,
+          -0.123
+        ],
+        "norm": true
+      },
+      {
+        "key": "parts.arm",
+        "at": [
+          0.478,
+          -0.1,
+          0.029
+        ],
+        "norm": true
+      },
+      {
+        "key": "parts.footpad",
+        "at": [
+          0.24,
+          -0.367,
+          0.401
+        ],
+        "norm": true
+      }
+    ]
   },
   "messenger": {
     "file": "/models/messenger.glb",

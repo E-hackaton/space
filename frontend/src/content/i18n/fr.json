@@ -225,7 +225,9 @@
     "lander": "Module qui nous a posés",
     "heatProbe": "Sonde de chaleur HP3",
     "imager": "Imageur multispectral",
-    "magnetometer": "Magnétomètre"
+    "magnetometer": "Magnétomètre",
+    "meteo": "Mât météo",
+    "cameras": "Caméras"
   },
   "quiz": {
     "title": "Le quiz de la mission",
@@ -409,5 +411,11 @@
     "next_one": "Il en reste {{count}} sur {{body}}.",
     "next_other": "Il en reste {{count}} sur {{body}}.",
     "done": "Plus aucune machine n'est oubliée. Bravo, explorateur."
+  },
+  "figure": {
+    "title": "{{name}} : modèle 3D interactif de la NASA",
+    "close": "Fermer",
+    "open": "Examiner en 3D",
+    "hint": "Glisser pour tourner, molette pour zoomer, survoler une pièce pour lire son rôle. Modèle : NASA 3D Resources."
   }
 }

@@ -54,6 +54,7 @@ function useExplorerSounds(world: WorldId, phase: string, near: string | null) {
   }, [near]);
 }
 import { Icon, PlanetGlyph } from '../components/ui/Glyphs';
+import { FigureOverlay, figureOf } from '../components/figures/EngineFigure';
 
 const ExplorerCanvas = lazy(() => import('../world/ExplorerCanvas'));
 
@@ -113,6 +114,7 @@ export default function ExplorerPage() {
   const speed = useWorld((s) => s.speed);
   const travelTo = useWorld((s) => s.travelTo);
   const [chooser, setChooser] = useState(false);
+  const [figure, setFigure] = useState<string | null>(null);
   /** Astre déplié dans le sélecteur du pas de tir. */
   const [openBody, setOpenBody] = useState<'moon' | 'mars' | null>(null);
   const catalog = useCatalog();
@@ -386,6 +388,11 @@ export default function ExplorerPage() {
                     <Icon name="bolt" /> {t('explorer.fireLaser')}
                   </button>
                 )}
+                {near && figureOf(near) && (
+                  <button type="button" onClick={() => setFigure(near)} className="rounded-[3px] px-3 py-1 text-sm ring-1 ring-white/30 hover:bg-white/10">
+                    {t('figure.open')}
+                  </button>
+                )}
                 {card.story && (
                   <Link to={card.story} className="rounded-[3px] px-3 py-1 text-sm ring-1 ring-white/30 hover:bg-white/10">
                     <Icon name="book" /> {t('explorer.story')}
@@ -400,6 +407,8 @@ export default function ExplorerPage() {
             </motion.div>
           )}
         </AnimatePresence>
+
+        <AnimatePresence>{figure && <FigureOverlay id={figure} name={card?.name ?? figure} onClose={() => setFigure(null)} />}</AnimatePresence>
 
         {/* Relecture des trajets (Mars) */}
         {site && phase === 'drive' && siteData && (

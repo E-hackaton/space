@@ -12,6 +12,7 @@ import { webglAvailable } from '../lib/device';
 import { usePrefersReducedMotion } from '../lib/hooks';
 import { useStore } from '../store/useStore';
 import { playDetect } from '../audio/sfx';
+import { EngineFigure, figureOf } from '../components/figures/EngineFigure';
 
 const AtlasScene = lazy(() => import('../scenes/atlas/AtlasScene'));
 
@@ -55,7 +56,7 @@ export default function JourneyMap() {
         {/* Fiche courte de l'objet choisi */}
         <AnimatePresence>
           {m && (
-            <motion.div key={m.id} initial={{ opacity: 0, x: 30 }} animate={{ opacity: 1, x: 0 }} exit={{ opacity: 0, x: 20 }} className="absolute right-4 top-1/2 z-30 w-[min(20rem,calc(100%-2rem))] -translate-y-1/2">
+            <motion.div key={m.id} initial={{ opacity: 0, x: 30 }} animate={{ opacity: 1, x: 0 }} exit={{ opacity: 0, x: 20 }} className="absolute right-4 top-1/2 z-30 w-[min(24rem,calc(100%-2rem))] -translate-y-1/2">
               <p className="text-[11px] uppercase tracking-[0.3em] text-slate-400">{m.mission}</p>
               <p className="font-display text-4xl font-extrabold uppercase leading-none">{m.name}</p>
               <div className="mt-2">
@@ -63,6 +64,11 @@ export default function JourneyMap() {
               </div>
               <p className="mt-3 text-slate-200">{m.location}</p>
               {m.arrivalDate && <p className="text-sm text-slate-400">{formatDate(m.arrivalDate, i18n.language)}</p>}
+              {figureOf(m.id) && (
+                <div className="mt-3 h-72 overflow-hidden rounded-[4px] ring-1 ring-white/15">
+                  <EngineFigure id={m.id} name={m.name} />
+                </div>
+              )}
               <div className="mt-4 flex flex-wrap gap-2">
                 <Link to={`/mission?astre=${body}&mode=auto&machine=${m.id}`} className="btn-primary">
                   {t('atlas.goThere')}
