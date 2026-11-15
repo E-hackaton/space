@@ -1,6 +1,7 @@
 import { MODELS, NasaModel } from './NasaModel';
 import { MachineModel } from './Craft';
 import { AnatomyModel } from '../../world/anatomy/AnatomyModel';
+import { Retroreflector } from '../../world/props/Retroreflector';
 import { lookOf } from '../../lib/atlas';
 import type { MachineKind } from '../../lib/machines';
 
@@ -11,6 +12,7 @@ import type { MachineKind } from '../../lib/machines';
 export function Machine3D({ id, kind, active, size = 1, flying = false, annotated = false }: { id: string; kind: MachineKind; active: boolean; size?: number; flying?: boolean; annotated?: boolean }) {
   const look = lookOf(id);
   if (look.kind === 'nasa') return <NasaModel id={look.id} scale={size / MODELS[look.id].size} spinning={flying ? { current: true } : undefined} annotated={annotated} />;
+  if (look.kind === 'reflector') return <Retroreflector variant={look.variant} size={size} annotated={annotated} />;
   if (look.kind === 'anatomy')
     return <AnatomyModel id={look.id} fit={size} pieces={look.pieces} exclude={look.exclude} excludeGroups={look.excludeGroups} annotated={annotated} autoLabels />;
   return (

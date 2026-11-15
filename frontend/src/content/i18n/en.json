@@ -412,5 +412,12 @@
     "open": "Inspect in 3D",
     "hint": "Drag to rotate, scroll to zoom, hover a part to read what it does (labels in French). Model: NASA 3D Resources.",
     "enlarge": "Enlarge"
+  },
+  "reflector": {
+    "cubes": "Corner cubes",
+    "cubesA11": "100 fused silica prisms: each one sends the laser straight back to where it came from, on Earth.",
+    "cubesA15": "Fused silica prisms send the laser straight back to where it came from, on Earth.",
+    "support": "Base and legs",
+    "supportDesc": "They set the reflector on the ground and tilt the panel towards Earth."
   }
 }

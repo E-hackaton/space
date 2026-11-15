@@ -50,13 +50,14 @@ export const GLOBE_R = 10;
 export type Look3D =
   | { kind: 'nasa'; id: ModelId }
   | { kind: 'anatomy'; id: AnatomyId; pieces?: string[]; exclude?: string[]; excludeGroups?: string[] }
+  | { kind: 'reflector'; variant: 'a11' | 'a15' }
   | { kind: 'craft' };
 
 export const LOOKS: Record<string, Look3D> = {
   'surveyor-3': { kind: 'anatomy', id: 'surveyor' },
   'apollo-11-eagle': { kind: 'anatomy', id: 'lunar-module', excludeGroups: ['asc', 'flag'], exclude: ['lrrr', 'psep'] },
   'apollo-15-lrv': { kind: 'anatomy', id: 'lunar-rover' },
-  'apollo-15-retroreflector': { kind: 'anatomy', id: 'lunar-module', pieces: ['lrrr'] },
+  'apollo-15-retroreflector': { kind: 'reflector', variant: 'a15' },
   'viking-1': { kind: 'nasa', id: 'viking' },
   opportunity: { kind: 'nasa', id: 'opportunity' },
   curiosity: { kind: 'nasa', id: 'curiosity' },

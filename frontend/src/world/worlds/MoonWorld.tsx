@@ -11,6 +11,7 @@ import { moonField } from '../terrain';
 import { PALETTES } from '../toon';
 import { Atmosphere } from '../../components/3d/Atmosphere';
 import { AnatomyModel, type Label } from '../anatomy/AnatomyModel';
+import { Retroreflector } from '../props/Retroreflector';
 import { ship, useWorld } from '../state';
 
 /*
@@ -42,7 +43,6 @@ const LM_LABELS: Label[] = [
   { piece: 'gear.pad0', label: 'parts.footpad' },
   { piece: 'ladder', label: 'parts.ladder' },
 ];
-const LRRR_LABELS: Label[] = [{ piece: 'lrrr.panel', label: 'parts.reflectorPanel' }];
 const PSEP_LABELS: Label[] = [
   { piece: 'psep.body', label: 'parts.seismometer' },
   { piece: 'psep.panel1', label: 'parts.seismoPanels' },
@@ -165,7 +165,7 @@ export default function MoonWorld({ animate }: { animate: boolean }) {
         <AnatomyModel id="lunar-module" pieces={['psep']} labels={PSEP_LABELS} annotated={near === 'apollo-11-easep'} focusPart={near === 'apollo-11-easep' ? part : null} />
       </group>
       <group position={at(LRRR)}>
-        <AnatomyModel id="lunar-module" pieces={['lrrr']} labels={LRRR_LABELS} annotated={near === 'apollo-11'} focusPart={near === 'apollo-11' ? part : null} />
+        <Retroreflector variant="a11" annotated={near === 'apollo-11'} />
         <Beacon active y={1.4} />
       </group>
 

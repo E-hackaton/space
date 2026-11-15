@@ -6,6 +6,7 @@ import { Look } from '../world/Look';
 import { AnatomyModel, type AnatomyId } from '../world/anatomy/AnatomyModel';
 import { Grass, Trees } from '../world/props/Nature';
 import { ToonRocket } from '../world/props/Vehicles';
+import { Retroreflector } from '../world/props/Retroreflector';
 
 const NO_FLAME = { current: 0 };
 import { earthField } from '../world/terrain';
@@ -42,6 +43,16 @@ export default function ModelLab() {
           );
         })}
         {params.has('rocket') && <ToonRocket flame={NO_FLAME} />}
+        {params.has('refl') && (
+          <group scale={2.6}>
+            <group position={[-0.8, 0, 0]}>
+              <Retroreflector variant="a11" annotated />
+            </group>
+            <group position={[0.7, 0, 0]}>
+              <Retroreflector variant="a15" />
+            </group>
+          </group>
+        )}
         {params.has('nature') && (
           <group position={[0, -LAB_FIELD.heightAt(0, 0), 0]}>
             <Trees field={LAB_FIELD} trees={LAB_TREES} animate />
