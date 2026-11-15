@@ -23,7 +23,6 @@ import { resetDrive, useAutopilot } from '../world/autopilot';
 import { player } from '../world/Player';
 import { useWorld, type Vehicle } from '../world/state';
 import { PlanetGlyph } from '../components/ui/Glyphs';
-import { FigureOverlay, figureOf } from '../components/figures/EngineFigure';
 import { engineStop, engineUpdate, playDetect, playFound } from '../audio/sfx';
 import { Icon } from '../components/ui/Glyphs';
 
@@ -188,7 +187,6 @@ function SurfaceExpedition({ body, mode, machines, first, onBack, onMode }: Surf
   const openStory = useExpedition((s) => s.openStory);
   const closeStory = useExpedition((s) => s.closeStory);
   const [finished, setFinished] = useState(false);
-  const [figure, setFigure] = useState<string | null>(null);
 
   // Départ : un peu à l'écart de la première machine, tourné vers elle.
   const start = useMemo((): { pos: [number, number]; heading: number } | null => {
@@ -368,16 +366,10 @@ function SurfaceExpedition({ body, mode, machines, first, onBack, onMode }: Surf
             <button type="button" className="btn-primary" onClick={() => openStory(nearSite.machine.id)} autoFocus>
               <Icon name="book" /> {t('expedition.listen')}
             </button>
-            {figureOf(nearSite.machine.id) && (
-              <button type="button" className="btn-ghost" onClick={() => setFigure(nearSite.machine.id)}>
-                {t('figure.open')}
-              </button>
-            )}
+
           </motion.div>
         )}
       </AnimatePresence>
-
-      <AnimatePresence>{figure && <FigureOverlay id={figure} name={byId.get(figure)?.machine.name ?? ''} onClose={() => setFigure(null)} />}</AnimatePresence>
 
       {/* Minicarte 3D */}
       {!story && <MiniMap3D body={body} sites={sites} target={target} found={found} onPick={pick} />}

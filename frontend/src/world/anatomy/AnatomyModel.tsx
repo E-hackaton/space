@@ -1,10 +1,10 @@
-import { Suspense, useEffect, useMemo, type ReactNode } from 'react';
+import { Suspense, useEffect, useMemo, useRef, type ReactNode } from 'react';
 import { useLoader } from '@react-three/fiber';
 import * as THREE from 'three';
 import { useTranslation } from 'react-i18next';
-import { smooth } from '../materials';
-import { Callout, calloutFocus } from '../../components/3d/NasaModel';
+import { PartPins, ownMaterials, partHandlers, useHighlight, type PartDef } from '../../components/3d/InteractiveParts';
 import { Mesher, addShape, expandBox, toThree, type AnatomyData } from './geometry';
+import { boxUVs, foilNormal, grainNormal } from './surfaces';
 
 /*
  * Machines dessinées pièce par pièce (figures FORBITS Anatomy), en vrais maillages 3D.
@@ -13,22 +13,37 @@ import { Mesher, addShape, expandBox, toThree, type AnatomyData } from './geomet
 
 export type AnatomyId = 'lunar-module' | 'lunar-rover' | 'surveyor';
 
-/** Teintes des matériaux des figures (feuille d'or, laiton, acier, chrome, peinture). */
+const matCache = new Map<string, THREE.MeshPhysicalMaterial>();
+
+/** Matières des figures, avec relief : feuille d'or froissée, laiton, acier brossé, chrome, peinture. */
 function materialOf(m: string | null, tone: string) {
+  const key = `${m}|${tone}`;
+  const hit = matCache.get(key);
+  if (hit) return hit;
+  const mk = (color: string, metal: number, rough: number, normal: THREE.Texture, ns: number, extra: Partial<THREE.MeshPhysicalMaterialParameters> = {}) =>
+    new THREE.MeshPhysicalMaterial({ color, metalness: metal, roughness: rough, normalMap: normal, normalScale: new THREE.Vector2(ns, ns), ...extra });
+  let mat: THREE.MeshPhysicalMaterial;
   switch (m) {
-    case 'gold':
-      return smooth('#d9a640', { metal: 0.85, rough: 0.32 });
+    case 'gold': // couverture isolante (feuille d'or froissée) : reflets éclatés
+      mat = mk('#d4a03a', 0.95, 0.28, foilNormal(), 0.9);
+      break;
     case 'brass':
-      return smooth('#b98d4f', { metal: 0.8, rough: 0.35 });
+      mat = mk('#b98d4f', 0.85, 0.32, grainNormal(true), 0.3);
+      break;
     case 'chrome':
-      return smooth('#e3e7ec', { metal: 1, rough: 0.14 });
+      mat = mk('#e3e7ec', 1, 0.12, grainNormal(true), 0.15);
+      break;
     case 'steel':
-      return smooth(tone === 'hi' ? '#c3c8cd' : '#8d939a', { metal: 0.75, rough: 0.35 });
+      mat = mk(tone === 'hi' ? '#c3c8cd' : '#8d939a', 0.8, 0.34, grainNormal(true), 0.35);
+      break;
     case 'gunmetal':
-      return smooth(tone === 'hi' ? '#5b616a' : '#3d424a', { metal: 0.6, rough: 0.42 });
-    default:
-      return smooth(tone === 'hi' ? '#ebe8e1' : tone === 'mid' ? '#aeaaa2' : '#64615c', { rough: 0.55, clearcoat: tone === 'hi' ? 0.4 : 0 });
+      mat = mk(tone === 'hi' ? '#5b616a' : '#3d424a', 0.65, 0.42, grainNormal(true), 0.3);
+      break;
+    default: // peinture
+      mat = mk(tone === 'hi' ? '#ebe8e1' : tone === 'mid' ? '#aeaaa2' : '#64615c', 0, 0.6, grainNormal(false), 0.12, { clearcoat: tone === 'hi' ? 0.35 : 0, clearcoatRoughness: 0.4 });
   }
+  matCache.set(key, mat);
+  return mat;
 }
 
 const pieceOf = (name: string) => name.split('.')[0];
@@ -49,6 +64,8 @@ export interface Built {
   /** Centre haut de chaque pièce (« descent ») ou sous-pièce (« gear.pad0 »), pour les légendes. */
   anchors: Record<string, THREE.Vector3>;
   size: THREE.Vector3;
+  /** Boîte de chaque pièce, dans le repère du modèle posé au sol. */
+  boxes: Record<string, THREE.Box3>;
   /** Pièces présentes dans ce modèle, avec leurs noms (fr/en). */
   pieces: { id: string; fr: string; en: string; sayFr?: string; sayEn?: string }[];
 }
@@ -96,21 +113,24 @@ function build(data: AnatomyData, { pieces, exclude, excludeGroups }: Options): 
   });
   data.groups.forEach((g, i) => (g.parent >= 0 ? nodes[g.parent] : inner).add(nodes[i]));
 
-  // Une géométrie fusionnée par (groupe, matériau) : peu d'appels de dessin.
-  const buckets = new Map<string, { m: Mesher; parent: THREE.Object3D; mat: THREE.Material }>();
+  // Une géométrie par (groupe, matériau, pièce) : chaque pièce peut s'allumer seule au survol.
+  const buckets = new Map<string, { m: Mesher; parent: THREE.Object3D; mat: THREE.Material; piece: string }>();
   const zero = new THREE.Vector3();
   for (const p of parts) {
-    const key = `${p.g}|${p.m}|${p.t}`;
+    const key = `${p.g}|${p.m}|${p.t}|${pieceOf(p.n)}`;
     let b = buckets.get(key);
     if (!b) {
-      b = { m: new Mesher(), parent: p.g >= 0 ? nodes[p.g] : inner, mat: materialOf(p.m, p.t) };
+      b = { m: new Mesher(), parent: p.g >= 0 ? nodes[p.g] : inner, mat: materialOf(p.m, p.t), piece: pieceOf(p.n) };
       buckets.set(key, b);
     }
     const origin = p.g >= 0 ? origins[p.g] : zero;
     for (const s of p.s) addShape(b.m, s, origin);
   }
   for (const b of buckets.values()) {
-    const mesh = new THREE.Mesh(b.m.geometry(), b.mat);
+    const geo = b.m.geometry();
+    boxUVs(geo, 1 / 20); // une répétition de texture tous les 20 unités (50 cm)
+    const mesh = new THREE.Mesh(geo, b.mat);
+    mesh.userData.piece = b.piece;
     mesh.castShadow = true;
     mesh.receiveShadow = true;
     b.parent.add(mesh);
@@ -121,12 +141,14 @@ function build(data: AnatomyData, { pieces, exclude, excludeGroups }: Options): 
     joints[g.name] = { node: nodes[i], axis: g.kind === 'hinge' && g.axis ? toThree(g.axis).normalize() : new THREE.Vector3(0, 1, 0) };
   });
   const anchors: Built['anchors'] = {};
+  const boxes: Built['boxes'] = {};
   for (const [piece, b] of Object.entries(pieceBoxes)) {
     const c = b.getCenter(new THREE.Vector3());
     anchors[piece] = new THREE.Vector3(c.x, b.max.y, c.z).add(shift).multiplyScalar(k);
+    boxes[piece] = b.clone().translate(shift).applyMatrix4(new THREE.Matrix4().makeScale(k, k, k));
   }
   const present = new Set(parts.map((p) => pieceOf(p.n)));
-  return { root, joints, anchors, size: box.getSize(new THREE.Vector3()).multiplyScalar(k), pieces: data.pieces.filter((p) => present.has(p.id)) };
+  return { root, joints, anchors, boxes, size: box.getSize(new THREE.Vector3()).multiplyScalar(k), pieces: data.pieces.filter((p) => present.has(p.id)) };
 }
 
 export function useAnatomy(id: AnatomyId, options: Options = {}) {
@@ -165,24 +187,47 @@ interface Props extends Options {
   children?: ReactNode;
 }
 
-function Inner({ id, annotated, labels: given = [], autoLabels, focusPart, onReady, fit, children, ...options }: Props) {
-  const { t, i18n } = useTranslation();
+function Inner({ id, annotated, labels: given = [], autoLabels: _auto, focusPart, onReady, fit, children, ...options }: Props) {
+  const { i18n } = useTranslation();
   const built = useAnatomy(id, options);
   useEffect(() => {
     onReady?.(built);
   }, [built, onReady]);
   const k = fit ? fit / Math.max(built.size.x, built.size.y, built.size.z) : 1;
   const en = i18n.language === 'en';
-  const labels: Label[] = autoLabels ? built.pieces.map((p) => ({ piece: p.id, label: en ? p.en : p.fr, desc: en ? p.sayEn : p.sayFr })) : given;
+  const group = useRef<THREE.Group>(null);
+  // Pièces interactives : toutes les pièces présentes, avec leur nom et leur rôle (fiches Anatomy).
+  const parts = useMemo<PartDef[]>(() => {
+    if (!annotated) return [];
+    ownMaterials(built.root);
+    return built.pieces
+      .filter((p) => built.boxes[p.id])
+      .map((p) => {
+        const b = built.boxes[p.id];
+        const size = b.getSize(new THREE.Vector3());
+        const meshes: THREE.Mesh[] = [];
+        built.root.traverse((o) => {
+          if ((o as THREE.Mesh).isMesh && o.userData.piece === p.id) meshes.push(o as THREE.Mesh);
+        });
+        return {
+          key: p.id,
+          name: en ? p.en : p.fr,
+          desc: en ? p.sayEn : p.sayFr,
+          anchors: [b.getCenter(new THREE.Vector3())],
+          reach: Math.max(size.x, size.y, size.z) * 0.6,
+          zoom: Math.max(1.2, size.length() * k * 1.8),
+          meshes,
+        };
+      });
+  }, [annotated, built, en, k]);
+  // Pièce mise en avant depuis le panneau d'anatomie (étiquette « parts.… » → pièce).
+  const extra = given.find((l) => l.label === focusPart)?.piece ?? null;
+  useHighlight(parts, extra);
+  const handlers = useMemo(() => (parts.length ? partHandlers(parts, group) : {}), [parts]);
   return (
-    <group scale={k}>
-      <primitive object={built.root} />
-      {annotated &&
-        labels.map((l) =>
-          built.anchors[l.piece] ? (
-            <Callout key={l.label} position={built.anchors[l.piece]} label={l.label.startsWith('parts.') ? t(l.label) : l.label} desc={l.desc} side={built.anchors[l.piece].x < 0 ? 'left' : 'right'} focus={calloutFocus(l.label, focusPart)} />
-          ) : null,
-        )}
+    <group ref={group} scale={k}>
+      <primitive object={built.root} {...handlers} />
+      {annotated && <PartPins parts={parts} group={group} extra={extra} />}
       {children}
     </group>
   );

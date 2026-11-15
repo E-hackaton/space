@@ -1,9 +1,11 @@
-import { Suspense, useMemo, useState, type ReactNode } from 'react';
+import { Suspense, useMemo, useRef, useState, type ReactNode } from 'react';
 import { useFrame } from '@react-three/fiber';
 import { Html, useGLTF } from '@react-three/drei';
 import * as THREE from 'three';
 import { useTranslation } from 'react-i18next';
 import modelsData from '../../content/models.json';
+import figuresData from '../../content/figures.json';
+import { PartPins, ownMaterials, partHandlers, useHighlight, type PartDef } from './InteractiveParts';
 
 export interface Annotation {
   key: string;
@@ -144,9 +146,22 @@ interface Props {
   children?: ReactNode;
 }
 
+interface FigurePart {
+  id: string;
+  name: { fr: string; en: string };
+  desc?: { fr?: string; en?: string };
+  at: [number, number, number];
+  more?: [number, number, number][];
+  match?: string;
+  reach?: number;
+  zoom?: number;
+}
+const FIGURES = figuresData as unknown as Record<string, { parts: FigurePart[] }>;
+
 function Inner({ id, scale = 1, annotated = false, focusPart, spinning, children }: Props) {
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
   const { root, k, center, lift, scaledBox, spinners, radius } = useNormalized(id, scale);
+  const group = useRef<THREE.Group>(null);
   const anchor = (a: Annotation) => (a.norm ? new THREE.Vector3(...a.at).multiplyScalar(radius * k).add(new THREE.Vector3(0, lift, 0)) : anchorPosition(scaledBox, lift, a.at));
   useFrame((_, dt) => {
     if (!spinning?.current) return;
@@ -154,21 +169,42 @@ function Inner({ id, scale = 1, annotated = false, focusPart, spinning, children
     spinners.forEach((o, i) => (o.rotation.y += dt * 38 * (i % 2 ? -1 : 1)));
   });
   const info = MODELS[id];
+
+  // Pièces interactives : celles de la figure (docs/mars1) si elle existe, sinon les légendes du modèle.
+  const parts = useMemo<PartDef[]>(() => {
+    if (!annotated) return [];
+    ownMaterials(root);
+    const R = radius * k;
+    const norm = (v: [number, number, number]) => new THREE.Vector3(...v).multiplyScalar(R).add(new THREE.Vector3(0, lift, 0));
+    const fig = FIGURES[id];
+    const en = i18n.language === 'en';
+    if (fig)
+      return fig.parts.map((p) => {
+        const re = p.match ? new RegExp(p.match) : null;
+        const meshes: THREE.Mesh[] = [];
+        if (re)
+          root.traverse((o) => {
+            const m = o as THREE.Mesh;
+            if (!m.isMesh) return;
+            for (let n: THREE.Object3D | null = m; n; n = n.parent)
+              if (re.test(n.name)) {
+                meshes.push(m);
+                break;
+              }
+          });
+        return { key: p.id, name: en ? p.name.en : p.name.fr, desc: en ? p.desc?.en : p.desc?.fr, anchors: [p.at, ...(p.more ?? [])].map(norm), reach: (p.reach ?? 0.12) * R, zoom: (p.zoom ?? 1.2) * R, meshes };
+      });
+    return info.annotations.map((a) => ({ key: a.key, name: t(a.key), anchors: [anchor(a)], reach: 0.15 * R, zoom: 1.4 * R, meshes: [] }));
+  }, [annotated, root, radius, k, lift, id, i18n.language]); // eslint-disable-line react-hooks/exhaustive-deps
+  useHighlight(parts, focusPart ?? null);
+  const handlers = useMemo(() => (parts.length ? partHandlers(parts, group) : {}), [parts]);
+
   return (
-    <group>
-      <group position={[-center.x * k, -center.y * k + lift, -center.z * k]} scale={k}>
+    <group ref={group}>
+      <group position={[-center.x * k, -center.y * k + lift, -center.z * k]} scale={k} {...handlers}>
         <primitive object={root} />
       </group>
-      {annotated &&
-        info.annotations.map((a) => (
-          <Callout
-            key={a.key}
-            position={anchor(a)}
-            label={t(a.key)}
-            side={a.at[0] < (a.norm ? 0 : 0.5) ? 'left' : 'right'}
-            focus={calloutFocus(a.key, focusPart)}
-          />
-        ))}
+      {annotated && <PartPins parts={parts} group={group} extra={focusPart ?? null} />}
       {children}
     </group>
   );

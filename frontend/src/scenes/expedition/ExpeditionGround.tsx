@@ -13,6 +13,7 @@ import { expeditionField, FIND_DIST, sizeOf, type Site } from '../../world/exped
 import type { HeightField } from '../../world/terrain';
 import type { SurfaceBody } from '../../lib/atlas';
 import { useExpedition } from './expedition';
+import { useParts } from '../../components/3d/InteractiveParts';
 
 /**
  * Repère d'un objet : un petit losange suspendu bien au-dessus de la machine, visible de loin,
@@ -75,6 +76,18 @@ function StoryCamera({ site, field, animate }: { site?: Site; field: HeightField
     camera.lookAt(look.current);
     if (camera.position.distanceTo(want) < 0.3) setSettled(true);
   });
+  // Double-clic sur une pièce : la caméra vole vers elle (comme dans les figures de docs/mars1).
+  const controls = useThree((st) => st.controls) as unknown as { target: THREE.Vector3; update: () => void } | null;
+  useFrame((_, dt) => {
+    const f = useParts.getState().focus;
+    if (!f || !controls || !settled) return;
+    const k = 1 - Math.exp(-dt * 3);
+    controls.target.lerp(f.point, k);
+    const dir = camera.position.clone().sub(controls.target).normalize();
+    camera.position.lerp(controls.target.clone().addScaledVector(dir, f.dist), k);
+    controls.update();
+    if (controls.target.distanceTo(f.point) < 0.02) useParts.getState().setFocus(null);
+  });
   if (!site || !settled) return null;
   return (
     <OrbitControls
@@ -82,7 +95,7 @@ function StoryCamera({ site, field, animate }: { site?: Site; field: HeightField
       target={centre}
       enablePan={false}
       enableDamping
-      minDistance={Math.max(1.5, s * 0.6)}
+      minDistance={0.6}
       maxDistance={s * 6 + 10}
       maxPolarAngle={Math.PI * 0.49}
       autoRotate={animate && spin}

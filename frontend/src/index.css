@@ -168,7 +168,3 @@
 .pin-left .pin-card { left: auto; right: 14px; }
 .pin-name { display: block; font-size: 13px; font-weight: 700; }
 .pin-desc { display: block; margin-top: 2px; font-size: 12px; line-height: 1.35; color: #475069; }
-
-/* Figure 3D de la machine pendant le récit (à droite, au-dessus des sous-titres) */
-.story-figure { position: absolute; z-index: 29; right: .75rem; top: .75rem; bottom: 13.5rem; width: min(36rem, 46vw); overflow: hidden; border-radius: 6px; box-shadow: 0 0 0 1px rgba(255,255,255,.15), 0 24px 50px -20px #000; display: none; }
-@media (min-width: 640px) { .story-figure { display: block; } }

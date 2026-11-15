@@ -1,0 +1,1322 @@
+{
+  "_note": "Pièces annotées des machines de Mars, reprises de docs/mars1/outils/engins (positions dans le modèle normalisé : centré, rayon 1, Y vers le haut). Noms traduits en anglais par l'équipe ; rôles en français seulement.",
+  "ingenuity": {
+    "source": "https://science.nasa.gov/3d-resources/ingenuity-mars-helicopter/",
+    "r": 0.05,
+    "parts": [
+      {
+        "id": "blades",
+        "name": {
+          "fr": "Pales",
+          "en": "Rotor blades"
+        },
+        "desc": {
+          "fr": "Deux rotors coaxiaux de 1,2 m qui tournent en sens opposés à environ 2 400 tr/min. Pales en mousse gainée de fibre de carbone. Cliquez sur les pales pour les faire tourner."
+        },
+        "at": [
+          -0.295,
+          0.069,
+          0.257
+        ],
+        "more": [
+          [
+            0.214,
+            0.201,
+            0.439
+          ]
+        ],
+        "match": "^rotors_",
+        "reach": 0.05,
+        "zoom": 1.6
+      },
+      {
+        "id": "antenna",
+        "name": {
+          "fr": "Antenne",
+          "en": "Antenna"
+        },
+        "desc": {
+          "fr": "Petite antenne radio dressée sur le panneau solaire. Elle dialogue avec le rover Perseverance, qui relaie vers les orbiteurs martiens puis la Terre."
+        },
+        "at": [
+          0.001,
+          0.31,
+          -0.055
+        ],
+        "match": "FILLET5003_3$",
+        "reach": 0.035,
+        "zoom": 0.7
+      },
+      {
+        "id": "solar",
+        "name": {
+          "fr": "Panneau solaire",
+          "en": "Solar panel"
+        },
+        "desc": {
+          "fr": "Placé au-dessus des rotors, il recharge la batterie pendant la journée martienne."
+        },
+        "at": [
+          0.1,
+          0.258,
+          0.04
+        ],
+        "match": "^solar_panel",
+        "reach": 0.05,
+        "zoom": 1
+      },
+      {
+        "id": "mast",
+        "name": {
+          "fr": "Mât et plateaux cycliques",
+          "en": "Mast and swashplates"
+        },
+        "desc": {
+          "fr": "Le mât porte les moteurs des deux rotors. Des servomoteurs inclinent les plateaux cycliques pour changer le pas des pales et diriger l’hélicoptère."
+        },
+        "at": [
+          0.003,
+          0.148,
+          0.016
+        ],
+        "more": [
+          [
+            0.014,
+            0.03,
+            0.012
+          ]
+        ],
+        "match": "^parts_",
+        "reach": 0.03,
+        "zoom": 0.8
+      },
+      {
+        "id": "body",
+        "name": {
+          "fr": "Avionique et fuselage",
+          "en": "Avionics and fuselage"
+        },
+        "desc": {
+          "fr": "Le « cerveau » : l’avionique fait voler et naviguer l’hélicoptère. Le fuselage isolé et chauffé garde l’électronique au chaud pendant les nuits martiennes glaciales."
+        },
+        "at": [
+          0.097,
+          -0.085,
+          -0.035
+        ],
+        "match": "^bus",
+        "reach": 0.045,
+        "zoom": 1
+      },
+      {
+        "id": "battery",
+        "name": {
+          "fr": "Batteries (dans le fuselage)",
+          "en": "Batteries (inside the fuselage)"
+        },
+        "desc": {
+          "fr": "Six cellules lithium-ion logées dans le fuselage alimentent les moteurs et les réchauffeurs. Un vol dure au plus environ trois minutes."
+        },
+        "at": [
+          -0.01,
+          -0.1,
+          0.097
+        ],
+        "reach": 0.045,
+        "zoom": 1
+      },
+      {
+        "id": "sensors",
+        "name": {
+          "fr": "Capteurs et caméras",
+          "en": "Sensors and cameras"
+        },
+        "desc": {
+          "fr": "Sous le ventre : centrale inertielle, altimètre laser et caméra de navigation mesurent vitesse, hauteur et cap. Une caméra couleur photographie le terrain."
+        },
+        "at": [
+          0.076,
+          -0.172,
+          -0.025
+        ],
+        "more": [
+          [
+            0.002,
+            -0.174,
+            0.002
+          ]
+        ],
+        "match": "^(cams|Cube012_2)",
+        "reach": 0.03,
+        "zoom": 0.8
+      },
+      {
+        "id": "legs",
+        "name": {
+          "fr": "Jambes",
+          "en": "Legs"
+        },
+        "desc": {
+          "fr": "Quatre jambes ultralégères en tube de fibre de carbone, terminées par des patins, amortissent l’atterrissage."
+        },
+        "at": [
+          0.365,
+          -0.302,
+          0.375
+        ],
+        "match": "^leg_",
+        "reach": 0.05,
+        "zoom": 1.4
+      }
+    ]
+  },
+  "insight": {
+    "source": "https://science.nasa.gov/3d-resources/insight-cruise-lander/",
+    "r": 0.045,
+    "parts": [
+      {
+        "id": "solar",
+        "name": {
+          "fr": "Panneaux solaires",
+          "en": "Solar arrays"
+        },
+        "desc": {
+          "fr": "Deux panneaux décagonaux de 2,15 m de diamètre, dépliés en éventail après l’atterrissage. Ils donnent à InSight 6 m d’envergure et l’alimentent en électricité."
+        },
+        "at": [
+          0.55,
+          -0.01,
+          -0.05
+        ],
+        "more": [
+          [
+            -0.55,
+            -0.01,
+            -0.05
+          ]
+        ],
+        "match": "^panel_",
+        "reach": 0.06,
+        "zoom": 1.6
+      },
+      {
+        "id": "arm",
+        "name": {
+          "fr": "Bras robotisé (IDA)",
+          "en": "Robotic arm (IDA)"
+        },
+        "desc": {
+          "fr": "Bras de 1,8 m à quatre moteurs. Il a soulevé du pont le sismomètre, son bouclier et la sonde de chaleur pour les poser sur le sol martien."
+        },
+        "at": [
+          -0.106,
+          0.158,
+          0.254
+        ],
+        "match": "^arm_",
+        "reach": 0.04,
+        "zoom": 1.2
+      },
+      {
+        "id": "idc",
+        "name": {
+          "fr": "Caméra du bras (IDC)",
+          "en": "Arm camera (IDC)"
+        },
+        "desc": {
+          "fr": "Caméra couleur fixée sur l'avant-bras. Elle photographie les instruments, le sol et le paysage en panorama."
+        },
+        "at": [
+          -0.165,
+          0.28,
+          0.353
+        ],
+        "match": "^(IDC|lens_cap_IDC)",
+        "reach": 0.03,
+        "zoom": 0.6
+      },
+      {
+        "id": "shovel",
+        "name": {
+          "fr": "Pelle",
+          "en": "Scoop"
+        },
+        "desc": {
+          "fr": "Petite pelle au bout du bras. Elle a servi à tasser et à ramener du sol sur la sonde de chaleur, puis sur le câble du sismomètre."
+        },
+        "at": [
+          -0.277,
+          0.204,
+          0.438
+        ],
+        "match": "^shovel",
+        "reach": 0.03,
+        "zoom": 0.6
+      },
+      {
+        "id": "grapple",
+        "name": {
+          "fr": "Grappin",
+          "en": "Grapple"
+        },
+        "desc": {
+          "fr": "Pince à cinq doigts au bout d'un câble. Elle saisit chaque instrument par sa poignée pour le soulever du pont et le poser au sol."
+        },
+        "at": [
+          -0.277,
+          0.134,
+          0.449
+        ],
+        "match": "^(grapple|claw_)",
+        "reach": 0.03,
+        "zoom": 0.6
+      },
+      {
+        "id": "icc",
+        "name": {
+          "fr": "Caméra de contexte (ICC)",
+          "en": "Context camera (ICC)"
+        },
+        "desc": {
+          "fr": "Caméra grand angle fixée sous le pont. Elle surveille en permanence la zone où les instruments sont déposés."
+        },
+        "at": [
+          -0.145,
+          -0.06,
+          0.197
+        ],
+        "match": "^(ICC|lens_cap_ICC)",
+        "reach": 0.03,
+        "zoom": 0.6
+      },
+      {
+        "id": "twins",
+        "name": {
+          "fr": "Capteurs TWINS",
+          "en": "TWINS sensors"
+        },
+        "desc": {
+          "fr": "Deux petits mâts opposés qui mesurent la température et le vent. Ils servent à retirer le bruit du vent des mesures du sismomètre."
+        },
+        "at": [
+          -0.145,
+          0.044,
+          0.042
+        ],
+        "more": [
+          [
+            0.152,
+            0.048,
+            0.01
+          ]
+        ],
+        "match": "^TWINS",
+        "reach": 0.03,
+        "zoom": 0.7
+      },
+      {
+        "id": "rise",
+        "name": {
+          "fr": "Antennes RISE",
+          "en": "RISE antennas"
+        },
+        "desc": {
+          "fr": "Deux cornets en bande X. En suivant très précisément leur signal depuis la Terre, on mesure l'oscillation de l'axe de Mars, donc la taille de son noyau."
+        },
+        "at": [
+          0.163,
+          0.029,
+          0.038
+        ],
+        "more": [
+          [
+            -0.18,
+            0.024,
+            0.002
+          ]
+        ],
+        "match": "^RISE",
+        "reach": 0.03,
+        "zoom": 0.7
+      },
+      {
+        "id": "uhf",
+        "name": {
+          "fr": "Antenne UHF",
+          "en": "UHF antenna"
+        },
+        "desc": {
+          "fr": "Antenne hélicoïdale qui envoie les données vers les orbiteurs martiens, relais vers la Terre."
+        },
+        "at": [
+          0.125,
+          0.063,
+          0.131
+        ],
+        "match": "^UHF",
+        "reach": 0.035,
+        "zoom": 0.7
+      },
+      {
+        "id": "wts",
+        "name": {
+          "fr": "Bouclier vent et chaleur (WTS)",
+          "en": "Wind and thermal shield (WTS)"
+        },
+        "desc": {
+          "fr": "Cloche que le bras a posée par-dessus le sismomètre. Elle le protège du vent et des écarts de température, qui fausseraient ses mesures."
+        },
+        "at": [
+          0.092,
+          0.059,
+          -0.041
+        ],
+        "match": "^WTS",
+        "reach": 0.05,
+        "zoom": 0.8
+      },
+      {
+        "id": "seis",
+        "name": {
+          "fr": "Sismomètre SEIS",
+          "en": "SEIS seismometer"
+        },
+        "desc": {
+          "fr": "Sismomètre français (CNES) ultrasensible : il détecte des mouvements du sol plus petits qu’un atome. Il a enregistré plus de 1 300 séismes martiens."
+        },
+        "at": [
+          0.031,
+          0.069,
+          0.128
+        ],
+        "match": "^SEIS",
+        "reach": 0.04,
+        "zoom": 0.7
+      },
+      {
+        "id": "hp3",
+        "name": {
+          "fr": "Sonde de chaleur HP3",
+          "en": "HP3 heat probe"
+        },
+        "desc": {
+          "fr": "Sa « taupe » devait s’enfoncer à 5 m pour mesurer la chaleur qui s’échappe de Mars. Le sol trop peu adhérent l’a bloquée à environ 40 cm."
+        },
+        "at": [
+          -0.078,
+          0.073,
+          -0.007
+        ],
+        "match": "^HP3",
+        "reach": 0.04,
+        "zoom": 0.8
+      },
+      {
+        "id": "tether",
+        "name": {
+          "fr": "Câbles plats (tethers)",
+          "en": "Flat cables (tethers)"
+        },
+        "desc": {
+          "fr": "Rubans souples qui relient chaque instrument posé au sol à l’atterrisseur, pour l’énergie et les données."
+        },
+        "at": [
+          -0.046,
+          0.004,
+          0.226
+        ],
+        "more": [
+          [
+            -0.068,
+            -0.058,
+            0.287
+          ]
+        ],
+        "match": "^cable_0[12]",
+        "reach": 0.03,
+        "zoom": 0.8
+      },
+      {
+        "id": "deck",
+        "name": {
+          "fr": "Pont et corps",
+          "en": "Deck and body"
+        },
+        "desc": {
+          "fr": "Plateau d’environ 1,5 m qui portait les instruments pendant le voyage. Dessous, le corps isolé abrite l’ordinateur, les batteries et l’électronique."
+        },
+        "at": [
+          0.079,
+          -0.001,
+          0.144
+        ],
+        "more": [
+          [
+            -0.118,
+            0,
+            0.035
+          ]
+        ],
+        "match": "^deck$",
+        "reach": 0.05,
+        "zoom": 1.1
+      },
+      {
+        "id": "body",
+        "name": {
+          "fr": "Réservoirs d’hydrazine",
+          "en": "Hydrazine tanks"
+        },
+        "desc": {
+          "fr": "Sous le pont, des réservoirs sphériques contenaient l’hydrazine qui alimentait les moteurs de descente."
+        },
+        "at": [
+          0.124,
+          -0.074,
+          0.22
+        ],
+        "reach": 0.05,
+        "zoom": 0.9
+      },
+      {
+        "id": "engines",
+        "name": {
+          "fr": "Propulseurs de descente",
+          "en": "Descent thrusters"
+        },
+        "desc": {
+          "fr": "Douze moteurs-fusées pulsés ont freiné l’atterrisseur pendant les dernières secondes de la descente."
+        },
+        "at": [
+          0.138,
+          -0.143,
+          0.098
+        ],
+        "reach": 0.04,
+        "zoom": 0.8
+      },
+      {
+        "id": "legs",
+        "name": {
+          "fr": "Jambes",
+          "en": "Legs"
+        },
+        "desc": {
+          "fr": "Trois jambes à amortisseur, héritées de l’atterrisseur Phoenix, ont encaissé le contact avec le sol."
+        },
+        "at": [
+          0.291,
+          -0.278,
+          0.166
+        ],
+        "match": "^leg_",
+        "reach": 0.05,
+        "zoom": 1.1
+      }
+    ]
+  },
+  "viking": {
+    "source": "https://science.nasa.gov/3d-resources/viking-lander/",
+    "r": 0.05,
+    "parts": [
+      {
+        "id": "hga",
+        "name": {
+          "fr": "Antenne grand gain (bande S)",
+          "en": "High-gain antenna (S-band)"
+        },
+        "desc": {
+          "fr": "Parabole orientable de 76 cm pointée vers la Terre : liaison directe, sans relais par l'orbiteur."
+        },
+        "at": [
+          -0.487,
+          0.291,
+          0.068
+        ],
+        "more": [
+          [
+            -0.443,
+            0.291,
+            0.088
+          ],
+          [
+            -0.453,
+            0.2,
+            0.103
+          ],
+          [
+            -0.453,
+            0.12,
+            0.103
+          ]
+        ],
+        "reach": 0.11,
+        "zoom": 1.2
+      },
+      {
+        "id": "meteo",
+        "name": {
+          "fr": "Mât et capteurs météo",
+          "en": "Weather mast and sensors"
+        },
+        "desc": {
+          "fr": "Mât déployé après l'atterrissage ; à son extrémité, des capteurs mesurent la température, la vitesse et la direction du vent."
+        },
+        "at": [
+          -0.281,
+          0.258,
+          -0.48
+        ],
+        "more": [
+          [
+            -0.257,
+            0.124,
+            -0.383
+          ],
+          [
+            -0.27,
+            0.19,
+            -0.43
+          ],
+          [
+            -0.24,
+            0.06,
+            -0.34
+          ]
+        ],
+        "reach": 0.07,
+        "zoom": 1.1
+      },
+      {
+        "id": "cams",
+        "name": {
+          "fr": "Caméras (2)",
+          "en": "Cameras (2)"
+        },
+        "desc": {
+          "fr": "Deux caméras à balayage : un miroir tournant explore le paysage ligne par ligne, et le couple donne des vues en relief."
+        },
+        "at": [
+          -0.112,
+          0.11,
+          -0.123
+        ],
+        "more": [
+          [
+            0.037,
+            0.111,
+            0.184
+          ],
+          [
+            0.04,
+            0.07,
+            0.18
+          ],
+          [
+            -0.1,
+            0.06,
+            -0.15
+          ]
+        ],
+        "reach": 0.06,
+        "zoom": 1
+      },
+      {
+        "id": "lga",
+        "name": {
+          "fr": "Antenne à faible gain (bande S)",
+          "en": "Low-gain antenna (S-band)"
+        },
+        "desc": {
+          "fr": "Petite antenne omnidirectionnelle : elle reçoit les commandes de la Terre quelle que soit l'orientation de l'atterrisseur."
+        },
+        "at": [
+          -0.315,
+          0.024,
+          0.321
+        ],
+        "match": "^polySurfa2_[23]$",
+        "reach": 0.05,
+        "zoom": 0.8
+      },
+      {
+        "id": "rtg",
+        "name": {
+          "fr": "Capots des générateurs RTG",
+          "en": "RTG generator covers"
+        },
+        "desc": {
+          "fr": "Deux capots pare-vent abritent chacun un générateur au plutonium 238 : de l'électricité, et de la chaleur pour l'électronique."
+        },
+        "at": [
+          -0.34,
+          0.022,
+          0.043
+        ],
+        "more": [
+          [
+            -0.266,
+            0.034,
+            -0.003
+          ],
+          [
+            -0.405,
+            0.023,
+            -0.147
+          ],
+          [
+            -0.129,
+            0.032,
+            0.308
+          ],
+          [
+            -0.202,
+            0.028,
+            0.378
+          ]
+        ],
+        "reach": 0.09,
+        "zoom": 1.2
+      },
+      {
+        "id": "body",
+        "name": {
+          "fr": "Corps de l'atterrisseur",
+          "en": "Lander body"
+        },
+        "desc": {
+          "fr": "Caisson hexagonal en aluminium : ordinateur, enregistreurs et laboratoires de biologie, de chimie (GCMS) et d'analyse aux rayons X."
+        },
+        "at": [
+          0.057,
+          -0.082,
+          0.359
+        ],
+        "more": [
+          [
+            0.035,
+            -0.067,
+            0.284
+          ],
+          [
+            -0.302,
+            -0.053,
+            0.34
+          ],
+          [
+            0.04,
+            -0.168,
+            0.267
+          ],
+          [
+            0.011,
+            -0.178,
+            0.318
+          ],
+          [
+            -0.307,
+            -0.178,
+            0.34
+          ],
+          [
+            0.044,
+            -0.045,
+            0.3
+          ],
+          [
+            0.05,
+            -0.145,
+            -0.011
+          ],
+          [
+            -0.485,
+            -0.105,
+            0.048
+          ],
+          [
+            -0.508,
+            -0.051,
+            0.075
+          ]
+        ],
+        "reach": 0.08,
+        "zoom": 1.3
+      },
+      {
+        "id": "tank",
+        "name": {
+          "fr": "Réservoirs d'ergols",
+          "en": "Propellant tanks"
+        },
+        "desc": {
+          "fr": "Deux réservoirs sphériques d'hydrazine pour la descente finale ; leurs petites tuyères sont les moteurs de roulis."
+        },
+        "at": [
+          0.007,
+          -0.047,
+          0.513
+        ],
+        "more": [
+          [
+            -0.545,
+            -0.054,
+            -0.23
+          ],
+          [
+            -0.45,
+            -0.06,
+            -0.34
+          ],
+          [
+            -0.471,
+            -0.107,
+            -0.341
+          ]
+        ],
+        "reach": 0.12,
+        "zoom": 1.1
+      },
+      {
+        "id": "engine",
+        "name": {
+          "fr": "Moteur de descente finale",
+          "en": "Terminal descent engine"
+        },
+        "desc": {
+          "fr": "Un des trois moteurs d'atterrissage à 18 petites tuyères : le jet étalé ne creuse ni ne pollue le sol à étudier."
+        },
+        "at": [
+          0.01,
+          -0.13,
+          -0.182
+        ],
+        "more": [
+          [
+            -0.006,
+            -0.107,
+            -0.225
+          ]
+        ],
+        "reach": 0.06,
+        "zoom": 0.9
+      },
+      {
+        "id": "boom",
+        "name": {
+          "fr": "Bras échantillonneur",
+          "en": "Sampler arm"
+        },
+        "desc": {
+          "fr": "Bras télescopique de près de 3 m : il creuse le sol et livre les échantillons aux laboratoires de bord."
+        },
+        "at": [
+          0.478,
+          -0.1,
+          0.029
+        ],
+        "more": [
+          [
+            0.114,
+            0.022,
+            0.096
+          ],
+          [
+            0.3,
+            -0.03,
+            0.06
+          ],
+          [
+            0.58,
+            -0.15,
+            0.02
+          ]
+        ],
+        "match": "^polySurfa1_[23]$",
+        "reach": 0.07,
+        "zoom": 1.4
+      },
+      {
+        "id": "head",
+        "name": {
+          "fr": "Tête collectrice",
+          "en": "Collector head"
+        },
+        "desc": {
+          "fr": "Petite pelle au bout du bras : elle ramasse sol et cailloux, et ses aimants retiennent les grains magnétiques."
+        },
+        "at": [
+          0.694,
+          -0.19,
+          0.012
+        ],
+        "more": [
+          [
+            0.719,
+            -0.198,
+            0.009
+          ]
+        ],
+        "reach": 0.05,
+        "zoom": 0.7
+      },
+      {
+        "id": "shock",
+        "name": {
+          "fr": "Jambes et amortisseurs",
+          "en": "Legs and shock absorbers"
+        },
+        "desc": {
+          "fr": "Chacune des trois jambes cache un amortisseur en nid d'abeilles d'aluminium qui s'écrase à l'impact pour absorber le choc."
+        },
+        "at": [
+          -0.501,
+          -0.047,
+          0.297
+        ],
+        "more": [
+          [
+            -0.505,
+            0.04,
+            0.266
+          ],
+          [
+            -0.505,
+            -0.14,
+            0.266
+          ],
+          [
+            0.127,
+            0.022,
+            0.281
+          ],
+          [
+            0.123,
+            -0.1,
+            0.26
+          ],
+          [
+            -0.21,
+            -0.061,
+            -0.307
+          ],
+          [
+            -0.21,
+            0.04,
+            -0.307
+          ],
+          [
+            0.226,
+            -0.255,
+            0.334
+          ],
+          [
+            -0.596,
+            -0.257,
+            0.338
+          ],
+          [
+            -0.212,
+            -0.256,
+            -0.411
+          ],
+          [
+            0.12,
+            -0.276,
+            0.347
+          ],
+          [
+            0.205,
+            -0.287,
+            0.255
+          ],
+          [
+            -0.575,
+            -0.282,
+            0.235
+          ],
+          [
+            -0.41,
+            -0.221,
+            0.331
+          ],
+          [
+            -0.21,
+            -0.29,
+            -0.36
+          ]
+        ],
+        "reach": 0.08,
+        "zoom": 1.2
+      },
+      {
+        "id": "foot",
+        "name": {
+          "fr": "Patins",
+          "en": "Footpads"
+        },
+        "desc": {
+          "fr": "Trois larges patins répartissent le poids de l'engin sur le sol martien."
+        },
+        "at": [
+          0.24,
+          -0.367,
+          0.401
+        ],
+        "more": [
+          [
+            -0.643,
+            -0.362,
+            0.37
+          ],
+          [
+            -0.205,
+            -0.37,
+            -0.48
+          ]
+        ],
+        "reach": 0.12,
+        "zoom": 1.2
+      }
+    ]
+  },
+  "opportunity": {
+    "source": "https://science.nasa.gov/3d-resources/mars-exploration-rover-opportunity-mer-b/",
+    "r": 0.05,
+    "parts": [
+      {
+        "id": "cams",
+        "name": {
+          "fr": "Caméras Pancam et Navcam",
+          "en": "Pancam and Navcam cameras"
+        },
+        "desc": {
+          "fr": "En haut du mât, vers 1,5 m du sol : deux caméras panoramiques couleur (Pancam) aux extrémités, deux caméras de navigation (Navcam) au centre."
+        },
+        "at": [
+          -0.066,
+          0.389,
+          -0.169
+        ],
+        "more": [
+          [
+            -0.085,
+            0.338,
+            -0.121
+          ],
+          [
+            0.105,
+            0.357,
+            -0.142
+          ],
+          [
+            -0.15,
+            0.33,
+            -0.13
+          ],
+          [
+            0.14,
+            0.33,
+            -0.13
+          ],
+          [
+            -0.007,
+            0.3,
+            -0.13
+          ]
+        ],
+        "reach": 0.1,
+        "zoom": 1
+      },
+      {
+        "id": "mast",
+        "name": {
+          "fr": "Mât et Mini-TES",
+          "en": "Mast and Mini-TES"
+        },
+        "desc": {
+          "fr": "Le mât sert aussi de périscope au spectromètre infrarouge Mini-TES, logé dans le corps, qui identifie les minéraux à distance."
+        },
+        "at": [
+          0.018,
+          0.12,
+          -0.165
+        ],
+        "more": [
+          [
+            0.018,
+            0.026,
+            -0.178
+          ],
+          [
+            0.018,
+            0.2,
+            -0.17
+          ],
+          [
+            -0.007,
+            0.07,
+            -0.14
+          ],
+          [
+            0.018,
+            -0.04,
+            -0.17
+          ],
+          [
+            -0.007,
+            -0.04,
+            -0.14
+          ]
+        ],
+        "reach": 0.06,
+        "zoom": 1.1
+      },
+      {
+        "id": "lga",
+        "name": {
+          "fr": "Antenne à faible gain",
+          "en": "Low-gain antenna"
+        },
+        "desc": {
+          "fr": "Antenne fixe qui émet dans toutes les directions : un lien lent mais sûr avec la Terre."
+        },
+        "at": [
+          0.068,
+          0.15,
+          -0.42
+        ],
+        "more": [
+          [
+            0.068,
+            0.025,
+            -0.412
+          ],
+          [
+            0.082,
+            -0.07,
+            -0.412
+          ],
+          [
+            0.068,
+            0.25,
+            -0.425
+          ],
+          [
+            0.072,
+            -0.026,
+            -0.46
+          ],
+          [
+            0.057,
+            0.069,
+            -0.46
+          ],
+          [
+            0.069,
+            0.17,
+            -0.45
+          ]
+        ],
+        "reach": 0.055,
+        "zoom": 0.9
+      },
+      {
+        "id": "hga",
+        "name": {
+          "fr": "Antenne à grand gain",
+          "en": "High-gain antenna"
+        },
+        "desc": {
+          "fr": "Disque orientable sur deux axes, pointé vers la Terre pour un lien direct plus rapide."
+        },
+        "at": [
+          0.195,
+          -0.001,
+          -0.538
+        ],
+        "more": [
+          [
+            0.112,
+            0.001,
+            -0.544
+          ],
+          [
+            0.2,
+            0.04,
+            -0.54
+          ],
+          [
+            0.2,
+            -0.04,
+            -0.54
+          ]
+        ],
+        "reach": 0.07,
+        "zoom": 0.9
+      },
+      {
+        "id": "solar",
+        "name": {
+          "fr": "Panneaux solaires",
+          "en": "Solar arrays"
+        },
+        "desc": {
+          "fr": "Environ 900 Wh par jour à l'arrivée. Le vent martien les a dépoussiérés plusieurs fois, d'où en partie la longévité du rover."
+        },
+        "at": [
+          0.316,
+          -0.067,
+          -0.563
+        ],
+        "match": "^Mesh_2$",
+        "reach": 0.05,
+        "zoom": 1.6
+      },
+      {
+        "id": "web",
+        "name": {
+          "fr": "Boîte électronique chaude",
+          "en": "Warm electronics box"
+        },
+        "desc": {
+          "fr": "Caisson doré isolé à l'aérogel : il garde l'ordinateur et les batteries au chaud pendant les nuits à −100 °C."
+        },
+        "at": [
+          0.094,
+          -0.168,
+          -0.094
+        ],
+        "more": [
+          [
+            -0.121,
+            -0.19,
+            -0.094
+          ],
+          [
+            0.197,
+            -0.192,
+            -0.094
+          ],
+          [
+            -0.066,
+            -0.251,
+            -0.094
+          ],
+          [
+            0.254,
+            -0.197,
+            -0.3
+          ],
+          [
+            -0.052,
+            -0.218,
+            -0.554
+          ],
+          [
+            -0.238,
+            -0.216,
+            -0.554
+          ],
+          [
+            0.126,
+            -0.234,
+            -0.554
+          ],
+          [
+            -0.269,
+            -0.16,
+            -0.3
+          ]
+        ],
+        "reach": 0.1,
+        "zoom": 1.3
+      },
+      {
+        "id": "wheels",
+        "name": {
+          "fr": "Roues et suspension",
+          "en": "Wheels and suspension"
+        },
+        "desc": {
+          "fr": "Six roues motrices en aluminium sur une suspension « rocker-bogie », capable de franchir des obstacles de la taille d'une roue (~25 cm)."
+        },
+        "at": [
+          0.348,
+          -0.365,
+          0.061
+        ],
+        "match": "^Mesh_4$",
+        "reach": 0.04,
+        "zoom": 1.3
+      },
+      {
+        "id": "arm",
+        "name": {
+          "fr": "Bras robotisé",
+          "en": "Robotic arm"
+        },
+        "desc": {
+          "fr": "Bras à cinq articulations, replié sous l'avant du rover pendant la route, qui pose les instruments contre les roches et le sol."
+        },
+        "at": [
+          0.006,
+          -0.164,
+          0.564
+        ],
+        "more": [
+          [
+            -0.002,
+            -0.134,
+            0.451
+          ],
+          [
+            0.002,
+            -0.12,
+            0.36
+          ],
+          [
+            0.02,
+            -0.093,
+            0.306
+          ],
+          [
+            0.038,
+            -0.179,
+            0.127
+          ]
+        ],
+        "reach": 0.07,
+        "zoom": 1.1
+      },
+      {
+        "id": "tools",
+        "name": {
+          "fr": "Instruments du bras",
+          "en": "Arm instruments"
+        },
+        "desc": {
+          "fr": "Tourelle à quatre outils : spectromètres APXS et Mössbauer, microscope imageur et outil d'abrasion des roches (RAT)."
+        },
+        "at": [
+          -0.001,
+          -0.193,
+          0.694
+        ],
+        "more": [
+          [
+            0.009,
+            -0.194,
+            0.665
+          ],
+          [
+            0.015,
+            -0.219,
+            0.716
+          ]
+        ],
+        "reach": 0.06,
+        "zoom": 0.8
+      }
+    ]
+  }
+}
