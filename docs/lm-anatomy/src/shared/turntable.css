@@ -1,0 +1,16 @@
+/* 360° version: the live layer takes hover, the stage takes drag */
+.lm-stage.iso-turn { cursor: grab; }
+.lm-stage[data-drag] { cursor: grabbing; }
+.lm-stage .iso-live [data-name] { pointer-events: visiblePainted; }
+.lm-stage .iso-live [data-name^="ground."] { pointer-events: none; }
+.lm-over { overflow: hidden; }
+.lm-screw { fill: var(--anatomy-dot); opacity: .5; }
+.lm-cell { fill: var(--anatomy-hi); opacity: .55; }
+.lm-foil-lines .iso-line { stroke: var(--lm-foil-line); }
+.lm-foil-lines .iso-line[data-tone="faint"] { stroke: var(--lm-foil-faint); }
+.lm-foil-lines .lm-screw { fill: var(--lm-foil-line); }
+.lm-stage .iso-live [data-on] {
+  --tn-0: var(--anatomy-lit-shade); --tn-1: var(--anatomy-lit-shade); --tn-2: var(--anatomy-lit-shade); --tn-3: var(--anatomy-lit-shade); --tn-4: var(--anatomy-lit-top);
+  --anatomy-hi: var(--anatomy-lit); --anatomy-mid: var(--anatomy-hi); --anatomy-paper: var(--anatomy-lit-shade);
+}
+.lm-stage .iso-live [data-on] .iso-edge, .lm-stage .iso-live [data-on] [class*="edge"] { stroke: var(--anatomy-lit); }

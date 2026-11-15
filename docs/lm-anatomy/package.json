@@ -1,0 +1,16 @@
+{
+  "name": "forbits-anatomy",
+  "private": true,
+  "type": "module",
+  "description": "FORBITS : figures interactives (style Anatomy) des machines laissées sur la Lune",
+  "scripts": {
+    "build": "npm run build:lunar-module && npm run build:lunar-rover && npm run build:surveyor",
+    "build:lunar-module": "node src/lunar-module/build-2d.mjs && node src/lunar-module/build-2d.mjs --light && node src/lunar-module/build-3d.mjs && node src/lunar-module/build-3d.mjs --light",
+    "build:lunar-rover": "node src/lunar-rover/build-3d.mjs && node src/lunar-rover/build-3d.mjs --light",
+    "build:surveyor": "node src/surveyor/build-3d.mjs && node src/surveyor/build-3d.mjs --light",
+    "audit:lunar-module": "node src/lunar-module/build-2d.mjs --audit && node src/lunar-module/build-3d.mjs --audit --quick",
+    "audit:lunar-rover": "node src/lunar-rover/build-3d.mjs --audit --quick",
+    "audit:surveyor": "node src/surveyor/build-3d.mjs --audit --quick"
+  },
+  "engines": { "node": ">=20" }
+}

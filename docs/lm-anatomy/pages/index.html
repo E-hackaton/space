@@ -1,0 +1,53 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>FORBITS · Machines de la Lune</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible:wght@400;700&family=Bricolage+Grotesque:wght@700&display=swap" rel="stylesheet">
+<style>
+:root { --surface: #0e1320; --raised: #171e2e; --ink: #eef2f8; --muted: #b3bccb; --mark: #6d7a92; --brand: #ffc83d; --moon: #9ec3f0; }
+@media (prefers-color-scheme: light) { :root:not([data-theme="dark"]) { --surface: #eef2f8; --raised: #ffffff; --ink: #141a24; --muted: #525b69; --mark: #75808f; --moon: #1f4f8f; } }
+* { box-sizing: border-box; }
+body { margin: 0; background: var(--surface); color: var(--ink); font: 16px/1.55 "Atkinson Hyperlegible", system-ui, sans-serif; }
+main { width: min(880px, 100% - 32px); margin: 56px auto 80px; }
+h1 { font: 700 clamp(36px, 7vw, 56px)/1.05 "Bricolage Grotesque", system-ui, sans-serif; letter-spacing: -0.02em; margin: 0 0 8px; }
+.tag { color: var(--muted); margin: 0 0 40px; }
+.list { display: grid; gap: 14px; }
+.card { display: grid; grid-template-columns: 1fr auto; gap: 6px 16px; align-items: center; padding: 18px 20px; border-radius: 18px; background: var(--raised); border: 1px solid color-mix(in srgb, var(--mark) 35%, transparent); }
+.card h2 { margin: 0; font: 700 20px/1.2 "Bricolage Grotesque", system-ui, sans-serif; }
+.card p { margin: 0; color: var(--muted); font-size: 14px; grid-column: 1; }
+.links { grid-row: 1 / span 2; grid-column: 2; display: flex; gap: 8px; flex-wrap: wrap; justify-content: flex-end; }
+.links a { display: inline-flex; align-items: center; min-height: 40px; padding: 0 14px; border-radius: 999px; border: 1px solid var(--mark); color: var(--ink); text-decoration: none; font-weight: 700; font-size: 14px; }
+.links a:hover, .links a:focus-visible { border-color: var(--brand); outline: none; }
+.links a.main { background: var(--brand); border-color: var(--brand); color: #1a1408; }
+footer { margin-top: 40px; color: var(--mark); font-size: 13px; }
+@media (max-width: 560px) { .card { grid-template-columns: 1fr; } .links { grid-row: auto; grid-column: 1; justify-content: flex-start; } }
+</style>
+</head>
+<body>
+<main>
+  <h1>Machines de la Lune</h1>
+  <p class="tag">FORBITS · Their missions ended. Their stories live on.</p>
+  <div class="list">
+    <section class="card">
+      <h2>Module lunaire Eagle · Apollo 11</h2>
+      <p>Tourner à 360°, survoler les pièces, faire décoller l'étage de remontée. L'étage de descente reste sur la Lune.</p>
+      <div class="links"><a class="main" href="lunar-module-3d.html">360°</a><a href="lunar-module-3d-light.html">Clair</a><a href="lunar-module.html">Vue 2D</a></div>
+    </section>
+    <section class="card">
+      <h2>Rover lunaire LRV · Apollo 17</h2>
+      <p>Tourner à 360°, faire rouler le rover au rayon de braquage réel de 3,1 m, roues avant et arrière qui braquent ensemble.</p>
+      <div class="links"><a class="main" href="lunar-rover-3d.html">360°</a><a href="lunar-rover-3d-light.html">Clair</a></div>
+    </section>
+    <section class="card">
+      <h2>Surveyor 3 · 1967</h2>
+      <p>Tourner à 360°, creuser une tranchée avec le bras, puis passer en 1969 : Apollo 12 a emporté la caméra et la pelle.</p>
+      <div class="links"><a class="main" href="surveyor-3d.html">360°</a><a href="surveyor-3d-light.html">Clair</a></div>
+    </section>
+  </div>
+  <footer>Chaque page est autonome : un seul fichier HTML, sans serveur. Bouton FR/EN dans chaque figure.</footer>
+</main>
+</body>
+</html>

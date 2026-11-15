@@ -1,0 +1,181 @@
+/* FORBITS · nuit-lune tokens mapped onto the anatomy kit */
+.iso {
+  --anatomy-page: #090d16;
+  --anatomy-card: #0e1320;
+  --anatomy-text: #b3bccb;
+  --anatomy-strong: #eef2f8;
+  --anatomy-muted: #6d7a92;
+  --anatomy-paper: #0e1320;
+  --anatomy-face: #172036;
+  --anatomy-top: #1a2338;
+  --anatomy-shade-0: #0b101b;
+  --anatomy-shade-1: #0e1421;
+  --anatomy-shade-2: #121928;
+  --anatomy-shade-3: #151d2f;
+  --anatomy-lit-top: #2a3a5c;
+  --anatomy-lit-shade: #1f2c47;
+  --anatomy-hi: #dfe7f3;
+  --anatomy-mid: #6f7e99;
+  --anatomy-lo: #3b465f;
+  --anatomy-faint: #252f45;
+  --anatomy-lit: #ffffff;
+  --anatomy-halo: #02040a;
+  --anatomy-dot: #dfe7f3;
+  --lm-moon: #9ec3f0;
+  --lm-brand: #ffc83d;
+  --lm-foil-0: #2a2210;
+  --lm-foil-1: #352a12;
+  --lm-foil-2: #423414;
+  --lm-foil-3: #4f3e17;
+  --lm-foil-top: #5a4719;
+  --lm-foil-line: #b8913a;
+  --lm-foil-faint: #5f4a1c;
+  --lm-glass: #04070d;
+  --lm-void: #05080f;
+  --lm-cells: #121c33;
+  --lm-crater: #0b101b;
+  --lm-bezel: #121a2b;
+  --lm-cloth: #2a3550;
+  --lm-blend: screen;
+  font-family: "Atkinson Hyperlegible", system-ui, sans-serif;
+}
+.iso[data-theme="light"] {
+  --anatomy-page: #e2e8f1;
+  --anatomy-card: #eef2f8;
+  --anatomy-text: #525b69;
+  --anatomy-strong: #141a24;
+  --anatomy-muted: #75808f;
+  --anatomy-paper: #eef2f8;
+  --anatomy-face: #ffffff;
+  --anatomy-top: #ffffff;
+  --anatomy-shade-0: #cfd7e3;
+  --anatomy-shade-1: #d9e0ea;
+  --anatomy-shade-2: #e3e9f1;
+  --anatomy-shade-3: #ebf0f6;
+  --anatomy-lit-top: #ffffff;
+  --anatomy-lit-shade: #dde8f8;
+  --anatomy-hi: #141a24;
+  --anatomy-mid: #75808f;
+  --anatomy-lo: #a7b1bf;
+  --anatomy-faint: #cbd3de;
+  --anatomy-lit: #1f4f8f;
+  --anatomy-halo: #4b5a75;
+  --anatomy-dot: #2a3240;
+  --lm-moon: #1f4f8f;
+  --lm-foil-0: #c99a2e;
+  --lm-foil-1: #d6a93e;
+  --lm-foil-2: #e2b952;
+  --lm-foil-3: #ecc867;
+  --lm-foil-top: #f3d687;
+  --lm-foil-line: #7a5513;
+  --lm-foil-faint: #b88a2a;
+  --lm-glass: #2b3546;
+  --lm-void: #3a4558;
+  --lm-cells: #9fb2d6;
+  --lm-crater: #dfe5ee;
+  --lm-bezel: #e4e9f1;
+  --lm-cloth: #ffffff;
+  --lm-blend: normal;
+}
+
+.iso-page { width: min(1080px, 100% - 32px); }
+.lm .iso-plate { position: relative; padding: 48px 20px 64px; overflow: hidden; }
+.lm .iso-plate-corner { font-family: "Atkinson Hyperlegible", system-ui, sans-serif; }
+.lm .iso-plate-corner[data-corner="title"] { font-family: "Bricolage Grotesque", system-ui, sans-serif; font-weight: 700; letter-spacing: -0.01em; color: var(--anatomy-strong); }
+
+/* gold Kapton on the descent stage, black blanket on its top band */
+.lm-foil {
+  --anatomy-paper: var(--lm-foil-1);
+  --anatomy-shade-0: var(--lm-foil-0);
+  --anatomy-shade-1: var(--lm-foil-1);
+  --anatomy-shade-2: var(--lm-foil-2);
+  --anatomy-shade-3: var(--lm-foil-3);
+  --anatomy-top: var(--lm-foil-top);
+  --anatomy-hi: var(--lm-foil-line);
+  --anatomy-lo: var(--lm-foil-line);
+  --anatomy-faint: var(--lm-foil-faint);
+}
+.lm-black {
+  --anatomy-shade-0: #06080d;
+  --anatomy-shade-1: #080b12;
+  --anatomy-shade-2: #0a0e16;
+  --anatomy-shade-3: #0c111a;
+  --anatomy-top: #10151f;
+}
+.iso[data-theme="light"] .lm-black {
+  --anatomy-shade-0: #3b4251;
+  --anatomy-shade-1: #454d5d;
+  --anatomy-shade-2: #4f5868;
+  --anatomy-shade-3: #5a6373;
+  --anatomy-top: #677081;
+  --anatomy-paper: #4f5868;
+}
+.lm-glass { fill: var(--lm-glass); stroke: none; }
+.lm-void { fill: var(--lm-void); stroke: none; }
+.lm-cells { fill: var(--lm-cells); stroke: none; }
+.lm-crater { fill: var(--lm-crater); stroke: none; }
+.lm-bezel { fill: var(--lm-bezel); stroke: none; }
+.lm-flag-cloth { fill: var(--lm-cloth); stroke: none; }
+.lm-flag-foot { fill: var(--anatomy-hi); }
+.lm-debris circle { fill: var(--lm-brand); }
+.iso[data-theme="light"] .lm-debris circle { fill: #b07a0c; }
+
+/* stage and layers */
+.lm-stage { position: relative; touch-action: pan-y; -webkit-tap-highlight-color: transparent; user-select: none; -webkit-user-select: none; border-radius: 10px; }
+.lm-stage:focus-visible { outline: 1px solid var(--anatomy-muted); outline-offset: 6px; }
+.lm-stage > svg, .lm-stage > canvas, .lm-stage > div { display: block; width: 100%; height: auto; }
+.lm-front, .lm-gl, .lm-flash { position: absolute; inset: 0; height: 100% !important; }
+.lm-gl, .lm-flash { pointer-events: none; mix-blend-mode: var(--lm-blend); }
+.lm-front { pointer-events: none; overflow: hidden; }
+.lm-front .it { pointer-events: visiblePainted; }
+.lm-back .it[data-piece="stand"] { pointer-events: none; }
+.lm-flash { opacity: 0; background: radial-gradient(circle closest-side at var(--gx, 50%) var(--gy, 50%), #fff6dc 0%, #ffd27acc 22%, #ff9c4a55 52%, #ff9c4a00 100%); }
+.iso[data-theme="light"] .lm-flash { mix-blend-mode: multiply; background: radial-gradient(circle closest-side at var(--gx, 50%) var(--gy, 50%), #ffd36b 0%, #ffbf4dcc 24%, #ffb24a44 56%, #ffb24a00 100%); }
+.lm-stage[data-gl] .lm-fallback { display: none; }
+
+/* selection: one assembly lit, everything else one step down */
+.it { transition: opacity 240ms var(--anatomy-ease); }
+.lm-stage[data-focus] .it:not([data-on]) { --anatomy-hi: var(--anatomy-mid); --anatomy-mid: var(--anatomy-lo); }
+.lm-stage[data-focus] .it:not([data-on]) .lm-foil { --lm-foil-line: var(--lm-foil-faint); }
+.it[data-on] { --anatomy-hi: var(--anatomy-lit); --anatomy-mid: var(--anatomy-hi); }
+.it[data-on] .iso-top, .it[data-on] .tb-shine { fill: var(--anatomy-lit-top); }
+.it[data-on] .iso-shade, .it[data-on] .tb-body { fill: var(--anatomy-lit-shade); }
+.it[data-on] [data-seamless] > .iso-shade { stroke: var(--anatomy-lit-shade); }
+.it[data-on] [data-seamless] > .iso-top { stroke: var(--anatomy-lit-top); }
+.it[data-on] .lm-foil { --lm-foil-line: #ffe7a6; --lm-foil-top: #7a6124; --lm-foil-3: #6a5420; }
+.iso[data-theme="light"] .it[data-on] .lm-foil { --lm-foil-line: #3d2a05; }
+.it[data-gone] { opacity: 0; }
+
+/* controls */
+.lm-controls { position: absolute; left: 20px; bottom: 16px; right: 20px; display: flex; align-items: center; gap: 14px; flex-wrap: wrap; }
+.lm-fire { display: inline-flex; align-items: center; gap: 8px; min-height: 36px; padding: 0 14px; border-radius: 999px; border: 1px solid var(--anatomy-lo); background: var(--anatomy-face); color: var(--anatomy-strong); font: 700 13px/1 "Atkinson Hyperlegible", system-ui, sans-serif; cursor: pointer; }
+.lm-fire:hover { border-color: var(--anatomy-mid); }
+.lm-fire:focus-visible { outline: 2px solid var(--lm-brand); outline-offset: 2px; }
+.lm-lamp { width: 8px; height: 8px; border-radius: 50%; background: var(--anatomy-lo); transition: background 200ms, box-shadow 200ms; }
+.lm-fire[data-state="burn"] .lm-lamp { background: var(--lm-brand); box-shadow: 0 0 10px var(--lm-brand); }
+.lm-fire[data-state="left"] .lm-lamp { background: var(--lm-moon); }
+.lm-hint { font-size: 12px; color: var(--anatomy-muted); }
+.lm-live { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); }
+.lm .iso-plate-corner[data-corner="readout"] { bottom: 22px; font-variant-numeric: tabular-nums; }
+.lm-lang { position: absolute; top: 14px; left: 50%; transform: translateX(-50%); display: inline-flex; border: 1px solid var(--anatomy-faint); border-radius: 999px; overflow: hidden; z-index: 2; }
+.lm-lang button { min-width: 40px; min-height: 26px; border: 0; background: transparent; color: var(--anatomy-muted); font: 700 11px/1 "Atkinson Hyperlegible", system-ui, sans-serif; letter-spacing: 0.06em; cursor: pointer; }
+.lm-lang button[aria-pressed="true"] { background: var(--anatomy-face); color: var(--anatomy-strong); }
+
+/* legend: the parts as buttons */
+.lm-parts { display: flex; flex-wrap: wrap; gap: 6px 8px; margin-bottom: 12px; }
+.lm-part { display: inline-flex; align-items: center; gap: 6px; min-height: 30px; padding: 0 10px; border: 1px solid var(--anatomy-faint); border-radius: 999px; background: transparent; color: var(--anatomy-text); font: 400 12.5px/1 "Atkinson Hyperlegible", system-ui, sans-serif; cursor: pointer; }
+.lm-part:hover { border-color: var(--anatomy-lo); color: var(--anatomy-strong); }
+.lm-part[data-on] { border-color: var(--anatomy-mid); color: var(--anatomy-strong); background: var(--anatomy-face); }
+.lm-num { font-variant-numeric: tabular-nums; color: var(--anatomy-muted); font-size: 11px; }
+.lm .iso-caption { max-width: 72ch; }
+
+@media (max-width: 640px) {
+  .lm .iso-plate { padding: 44px 8px 92px; }
+  .lm-stage { margin: 0 -8%; width: 116%; }
+  .lm-hint { display: none; }
+  .lm .iso-plate-corner[data-corner="readout"] { bottom: 62px; }
+  .lm-lang { top: auto; bottom: 20px; left: auto; right: 16px; transform: none; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .it { transition: none; }
+}

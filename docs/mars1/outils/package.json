@@ -1,0 +1,14 @@
+{
+  "name": "engins-svg-outils",
+  "private": true,
+  "type": "module",
+  "description": "Outils de construction des SVG 3D (node build.mjs)",
+  "dependencies": {
+    "esbuild": "0.28.2",
+    "three": "0.160.0",
+    "@gltf-transform/core": "4.5.1",
+    "@gltf-transform/extensions": "4.5.1",
+    "@gltf-transform/functions": "4.5.1",
+    "draco3dgltf": "1.5.7"
+  }
+}

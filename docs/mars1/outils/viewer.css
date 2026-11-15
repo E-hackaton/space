@@ -1,0 +1,21 @@
+svg.engin{display:block;font-family:"Segoe UI",system-ui,-apple-system,Helvetica,Arial,sans-serif;background:#07080c;user-select:none;-webkit-user-select:none}
+.bg{fill:url(#fond)}
+#scene{position:absolute;inset:0;margin:0;padding:0}
+#scene canvas{display:block;cursor:grab;touch-action:none}
+#scene canvas:active{cursor:grabbing}
+.t-title{font-size:22px;font-weight:700;fill:#f1f3f8;letter-spacing:-.01em}
+.t-sub{font-size:13px;fill:#8b93a7}
+.t-credit,.t-hint{font-size:11.5px;fill:#737b8e}
+.t-hint{transition:opacity .6s}
+#loading{font-size:14px;fill:#f1f3f8;text-anchor:middle;transition:opacity .4s}
+.off{opacity:0;pointer-events:none}
+.dot{fill:#ff7a2e;stroke:#fff;stroke-width:1.6;opacity:.85;cursor:pointer;transition:opacity .25s,r .2s;outline:none}
+.dot.hidden{opacity:.15}
+.dot.on{opacity:1;r:6.5}
+#label{pointer-events:none;transition:opacity .15s}
+#label .lead{fill:none;stroke:#ff7a2e;stroke-width:1.5}
+#label .pin{fill:#ff7a2e;stroke:#fff;stroke-width:1.8}
+#label .card{fill:#0d1017;fill-opacity:.92;stroke:#ff7a2e;stroke-width:1.2}
+#label .name{font-size:15px;font-weight:700;fill:#fff}
+#label .desc{font-size:12.5px;fill:#c3c9d6}
+@media (prefers-reduced-motion:reduce){.dot,#label,.t-hint{transition:none}}
