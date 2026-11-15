@@ -126,13 +126,13 @@ function MarsSite({ data, site, animate }: { data: SiteData; site: 'jezero' | 'g
       <hemisphereLight args={['#ffd9b0', '#5a2a18', 0.85]} />
       <SunLight color="#ffe2c2" intensity={2.3} dir={[-0.7, 0.6, 0.45]} />
 
-      <TerrainMesh field={field} colors={PALETTES.mars.ground} segments={200} />
+      <TerrainMesh field={field} colors={PALETTES.mars.ground} segments={200} detail="sand" tile={0.15} />
       {/* Poussière en suspension qui suit le joueur */}
       <DustMotes animate={animate} />
       <Rocks rocks={rocks} color={PALETTES.mars.rock} seed={site === 'gale' ? 5 : 2} />
       <Pebbles field={field} color={PALETTES.mars.rock} count={6000} minSize={0.12} maxSize={0.9} seed={site === 'gale' ? 6 : 9} />
       {/* Poussière des roues : l'air martien, très léger, la freine un peu (pesanteur 3,71 m/s²). */}
-      <DustTrail field={field} color="#c98a5a" gravity={3.71} drag={0.8} active={phase === 'drive'} />
+      <DustTrail field={field} color="#b97a4e" gravity={3.71} drag={0.8} active={phase === 'drive'} />
 
       {machines.rovers.map((r, i) => (
         <Traverse key={r.id} id={r.id} data={data} field={field} model={r.model} trackColor={PALETTES.mars.track} obstacle={obstacles[i + 1]} />

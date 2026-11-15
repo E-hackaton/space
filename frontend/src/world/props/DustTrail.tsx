@@ -1,7 +1,6 @@
 import { useMemo, useRef } from 'react';
 import { useFrame } from '@react-three/fiber';
 import * as THREE from 'three';
-import { glowTexture } from '../../components/3d/glow';
 import { player } from '../Player';
 import type { HeightField } from '../terrain';
 
@@ -11,8 +10,9 @@ interface Props {
   /** Pesanteur du monde (m/s²) : 1,62 sur la Lune, 3,71 sur Mars. */
   gravity: number;
   /**
-   * Freinage par l'air (1/s). Sur la Lune, il n'y a pas d'air : 0. La poussière suit alors
-   * une parabole parfaite et retombe d'un coup, au lieu de flotter en nuage comme sur Terre.
+   * Freinage par l'air (1/s). Sur la Lune, il n'y a pas d'air : 0. Les grains suivent alors une
+   * parabole parfaite et retombent d'un coup ; aucun nuage ne flotte. Sur Mars, l'air ténu freine
+   * la poussière et la laisse gonfler en volutes qui dérivent.
    */
   drag: number;
   /** Faut-il émettre (le joueur conduit) ? */
@@ -26,33 +26,113 @@ const WHEELS: [number, number][] = [
   [0.75, 0.9],
 ];
 
+/** Volute de poussière : bords irréguliers et grumeleux (aucun disque net), générée une fois. */
+let puffTex: THREE.Texture | null = null;
+function puffTexture() {
+  if (puffTex) return puffTex;
+  const n = 128;
+  const cv = document.createElement('canvas');
+  cv.width = cv.height = n;
+  const g = cv.getContext('2d')!;
+  let s = 17;
+  const rnd = () => ((s = (s * 9301 + 49297) % 233280) / 233280);
+  // Une douzaine de taches floues décalées : la silhouette d'un petit nuage de poussière.
+  for (let i = 0; i < 14; i++) {
+    const a = rnd() * Math.PI * 2;
+    const d = rnd() * n * 0.22;
+    const x = n / 2 + Math.cos(a) * d;
+    const y = n / 2 + Math.sin(a) * d;
+    const r = n * (0.12 + rnd() * 0.18);
+    const grad = g.createRadialGradient(x, y, 0, x, y, r);
+    const k = 0.18 + rnd() * 0.22;
+    grad.addColorStop(0, `rgba(255,255,255,${k})`);
+    grad.addColorStop(1, 'rgba(255,255,255,0)');
+    g.fillStyle = grad;
+    g.fillRect(0, 0, n, n);
+  }
+  // Grain : de petits trous et mottes dans la volute.
+  const img = g.getImageData(0, 0, n, n);
+  for (let i = 0; i < img.data.length; i += 4) img.data[i + 3] *= 0.6 + rnd() * 0.6;
+  g.putImageData(img, 0, 0);
+  puffTex = new THREE.CanvasTexture(cv);
+  return puffTex;
+}
+
+const vertexShader = /* glsl */ `
+  attribute float aSize;
+  attribute float aAlpha;
+  attribute float aRot;
+  varying float vAlpha;
+  varying float vRot;
+  uniform float uScale;
+  void main() {
+    vec4 mv = modelViewMatrix * vec4(position, 1.0);
+    gl_Position = projectionMatrix * mv;
+    gl_PointSize = aSize * uScale / -mv.z;
+    vAlpha = aAlpha;
+    vRot = aRot;
+  }
+`;
+const fragmentShader = /* glsl */ `
+  uniform sampler2D uMap;
+  uniform vec3 uColor;
+  varying float vAlpha;
+  varying float vRot;
+  void main() {
+    vec2 p = gl_PointCoord - 0.5;
+    float c = cos(vRot), s = sin(vRot);
+    vec2 uv = vec2(c * p.x - s * p.y, s * p.x + c * p.y) + 0.5;
+    float a = texture2D(uMap, uv).a * vAlpha;
+    if (a < 0.01) discard;
+    gl_FragColor = vec4(uColor, a);
+  }
+`;
+
 /**
- * Poussière soulevée par les roues du rover. Chaque grain est lancé vers le haut et l'arrière,
- * puis suit la vraie pesanteur du monde jusqu'à retoucher le sol.
+ * Poussière soulevée par les roues du rover, selon la physique du monde :
+ * grains balistiques fins (toujours) et volutes qui gonflent et dérivent (seulement s'il y a de l'air).
  */
-export function DustTrail({ field, color, gravity, drag, active, count = 500 }: Props) {
-  // Halo blanc teinté par la couleur du matériau (évite de teinter deux fois).
-  const sprite = useMemo(() => glowTexture('#ffffff'), []);
-  const geometry = useMemo(() => {
+export function DustTrail({ field, color, gravity, drag, active, count = 700 }: Props) {
+  const airy = drag > 0;
+  const { geometry, material } = useMemo(() => {
     const g = new THREE.BufferGeometry();
     g.setAttribute('position', new THREE.BufferAttribute(new Float32Array(count * 3).fill(-9999), 3));
-    return g;
-  }, [count]);
-  // État de chaque grain : vitesse et durée de vie restante (0 = libre).
-  const velocity = useMemo(() => new Float32Array(count * 3), [count]);
+    g.setAttribute('aSize', new THREE.BufferAttribute(new Float32Array(count), 1));
+    g.setAttribute('aAlpha', new THREE.BufferAttribute(new Float32Array(count), 1));
+    g.setAttribute('aRot', new THREE.BufferAttribute(new Float32Array(count), 1));
+    const m = new THREE.ShaderMaterial({
+      vertexShader,
+      fragmentShader,
+      transparent: true,
+      depthWrite: false,
+      uniforms: { uMap: { value: puffTexture() }, uColor: { value: new THREE.Color(color) }, uScale: { value: 600 } },
+    });
+    return { geometry: g, material: m };
+  }, [count, color]);
+
+  // État de chaque particule : vitesse, âge, durée de vie, taille de départ et de fin, volute ou grain.
+  const vel = useMemo(() => new Float32Array(count * 3), [count]);
+  const age = useMemo(() => new Float32Array(count), [count]);
   const life = useMemo(() => new Float32Array(count), [count]);
+  const size0 = useMemo(() => new Float32Array(count), [count]);
+  const size1 = useMemo(() => new Float32Array(count), [count]);
+  const spin = useMemo(() => new Float32Array(count), [count]);
+  const puff = useMemo(() => new Uint8Array(count), [count]);
   const cursor = useRef(0);
   const toEmit = useRef(0);
 
-  useFrame((_, rawDt) => {
+  useFrame(({ size }, rawDt) => {
     const dt = Math.min(rawDt, 1 / 20);
-    const pos = geometry.attributes.position as THREE.BufferAttribute;
-    const arr = pos.array as Float32Array;
+    material.uniforms.uScale.value = size.height * 0.9;
+    const pos = geometry.attributes.position.array as Float32Array;
+    const sz = geometry.attributes.aSize.array as Float32Array;
+    const al = geometry.attributes.aAlpha.array as Float32Array;
+    const rot = geometry.attributes.aRot.array as Float32Array;
 
     // Émission proportionnelle à la vitesse du rover.
     const speed = Math.abs(player.speed);
     if (active && speed > 1.2) {
-      toEmit.current += speed * 9 * dt;
+      toEmit.current += speed * (airy ? 7 : 12) * dt;
       const sin = Math.sin(player.heading);
       const cos = Math.cos(player.heading);
       while (toEmit.current >= 1) {
@@ -60,43 +140,67 @@ export function DustTrail({ field, color, gravity, drag, active, count = 500 }: 
         const i = cursor.current;
         cursor.current = (cursor.current + 1) % count;
         const [lx, lz] = WHEELS[i % 2];
-        // Repère local → monde (rotation autour de Y par `heading`).
         const x = player.x + lx * cos + lz * sin;
         const z = player.z - lx * sin + lz * cos;
-        arr[i * 3] = x;
-        arr[i * 3 + 1] = field.heightAt(x, z) + 0.15;
-        arr[i * 3 + 2] = z;
-        // Vers l'arrière (opposé au mouvement), vers le haut, et un peu sur les côtés.
-        const back = Math.sign(player.speed) * (0.25 + Math.random() * 0.35) * speed;
-        velocity[i * 3] = sin * back + (Math.random() - 0.5) * 1.6;
-        velocity[i * 3 + 1] = 1.2 + Math.random() * (1 + speed * 0.18);
-        velocity[i * 3 + 2] = cos * back + (Math.random() - 0.5) * 1.6;
-        life[i] = 6;
+        // Sur Mars, une particule sur deux est une volute ; sur la Lune, presque tout est grain.
+        const isPuff = airy ? Math.random() < 0.55 : Math.random() < 0.08;
+        puff[i] = isPuff ? 1 : 0;
+        pos[i * 3] = x;
+        pos[i * 3 + 1] = field.heightAt(x, z) + 0.12;
+        pos[i * 3 + 2] = z;
+        const back = Math.sign(player.speed) * (0.25 + Math.random() * 0.4) * speed;
+        const up = isPuff ? 0.4 + Math.random() * 0.8 : 1.4 + Math.random() * (1.2 + speed * 0.2);
+        vel[i * 3] = sin * back + (Math.random() - 0.5) * 1.8;
+        vel[i * 3 + 1] = up;
+        vel[i * 3 + 2] = cos * back + (Math.random() - 0.5) * 1.8;
+        age[i] = 0;
+        life[i] = isPuff ? (airy ? 2.2 + Math.random() * 1.6 : 0.6) : 6;
+        size0[i] = isPuff ? 0.35 + Math.random() * 0.3 : 0.07 + Math.random() * 0.08;
+        size1[i] = isPuff ? (airy ? 2.2 + Math.random() * 1.8 : 0.6) : size0[i];
+        spin[i] = (Math.random() - 0.5) * 1.2;
+        rot[i] = Math.random() * Math.PI * 2;
       }
     }
 
-    // Mouvement : pesanteur, éventuel freinage par l'air, arrêt au contact du sol.
     const damping = Math.exp(-drag * dt);
     for (let i = 0; i < count; i++) {
       if (life[i] <= 0) continue;
-      life[i] -= dt;
-      velocity[i * 3] *= damping;
-      velocity[i * 3 + 2] *= damping;
-      velocity[i * 3 + 1] = velocity[i * 3 + 1] * damping - gravity * dt;
-      const x = (arr[i * 3] += velocity[i * 3] * dt);
-      const y = (arr[i * 3 + 1] += velocity[i * 3 + 1] * dt);
-      const z = (arr[i * 3 + 2] += velocity[i * 3 + 2] * dt);
-      if (life[i] <= 0 || y < field.heightAt(x, z)) {
+      age[i] += dt;
+      const t = age[i] / life[i];
+      if (puff[i] && airy) {
+        // Volute : freinée par l'air, elle gonfle, monte un peu et dérive avec le vent.
+        vel[i * 3] = vel[i * 3] * damping + 0.25 * dt;
+        vel[i * 3 + 1] = vel[i * 3 + 1] * damping - gravity * 0.05 * dt;
+        vel[i * 3 + 2] *= damping;
+      } else {
+        // Grain (et volute lunaire) : pure balistique, sans freinage s'il n'y a pas d'air.
+        vel[i * 3] *= damping;
+        vel[i * 3 + 2] *= damping;
+        vel[i * 3 + 1] = vel[i * 3 + 1] * damping - gravity * dt;
+      }
+      const x = (pos[i * 3] += vel[i * 3] * dt);
+      const y = (pos[i * 3 + 1] += vel[i * 3 + 1] * dt);
+      const z = (pos[i * 3 + 2] += vel[i * 3 + 2] * dt);
+      const ground = field.heightAt(x, z);
+      if (y < ground) {
+        if (puff[i] && airy) pos[i * 3 + 1] = ground; // la volute rampe au sol
+        else age[i] = life[i]; // le grain retombe et disparaît
+      }
+      rot[i] += spin[i] * dt;
+      sz[i] = size0[i] + (size1[i] - size0[i]) * Math.sqrt(Math.min(1, t));
+      // Apparition rapide puis effacement progressif.
+      al[i] = puff[i] ? Math.min(1, t * 6) * (1 - t) * (airy ? 0.55 : 0.35) : (1 - t * t) * 0.9;
+      if (age[i] >= life[i]) {
         life[i] = 0;
-        arr[i * 3 + 1] = -9999; // retombé : on le cache sous le sol
+        al[i] = 0;
+        pos[i * 3 + 1] = -9999;
       }
     }
-    pos.needsUpdate = true;
+    geometry.attributes.position.needsUpdate = true;
+    geometry.attributes.aSize.needsUpdate = true;
+    geometry.attributes.aAlpha.needsUpdate = true;
+    geometry.attributes.aRot.needsUpdate = true;
   });
 
-  return (
-    <points geometry={geometry} frustumCulled={false}>
-      <pointsMaterial map={sprite} color={color} size={0.75} sizeAttenuation transparent opacity={0.95} depthWrite={false} />
-    </points>
-  );
+  return <points geometry={geometry} material={material} frustumCulled={false} />;
 }

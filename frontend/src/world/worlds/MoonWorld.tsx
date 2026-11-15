@@ -149,10 +149,10 @@ export default function MoonWorld({ animate }: { animate: boolean }) {
       <Stars radius={300} depth={60} count={4000} factor={5} fade speed={animate ? 0.3 : 0} />
       <hemisphereLight args={['#c9d4ff', '#202024', 0.35]} />
       <SunLight color="#ffffff" intensity={3.2} dir={[0.85, 0.5, 0.25]} />
-      <TerrainMesh field={field} colors={PALETTES.moon.ground} segments={200} />
+      <TerrainMesh field={field} colors={PALETTES.moon.ground} segments={200} detail="regolith" tile={5} />
       <Rocks rocks={rocks} color={PALETTES.moon.rock} seed={9} />
       {/* Poussière des roues : sans air, elle suit une parabole parfaite (pesanteur lunaire 1,62 m/s²). */}
-      <DustTrail field={field} color="#f4f6fb" gravity={1.62} drag={0} active={phase === 'drive'} />
+      <DustTrail field={field} color="#c3c6cc" gravity={1.62} drag={0} active={phase === 'drive'} />
       <EarthInSky />
       {/* Fine poussière de régolithe soulevée, très discrète */}
       <Sparkles count={60} scale={[60, 3, 60]} position={[0, 1.5, 0]} size={2} speed={animate ? 0.15 : 0} color="#e8ecf5" opacity={0.5} />

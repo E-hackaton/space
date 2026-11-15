@@ -14,7 +14,7 @@ function rng(seed: number) {
 }
 
 /** Convertit une carte de hauteur (0..1) en carte de normales. */
-function heightToNormal(h: Float32Array, n: number, strength: number) {
+export function heightToNormal(h: Float32Array, n: number, strength: number) {
   const data = new Uint8Array(n * n * 4);
   for (let y = 0; y < n; y++)
     for (let x = 0; x < n; x++) {

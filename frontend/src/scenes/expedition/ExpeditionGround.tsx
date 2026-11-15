@@ -205,13 +205,13 @@ export default function ExpeditionGround({ body, sites, start, startHeading, ani
       )}
       <Look tint={body === 'moon' ? '#ffffff' : '#ffd9b0'} ground={body === 'moon' ? '#3a3c42' : '#6a3420'} bloom={0.55} effects={shadows} />
 
-      <TerrainMesh field={field} colors={pal.ground} segments={360} />
+      <TerrainMesh field={field} colors={pal.ground} segments={360} detail={body === 'moon' ? 'regolith' : 'sand'} tile={6} />
       <Rocks rocks={rocks} color={pal.rock} seed={body === 'moon' ? 9 : 4} />
       <Pebbles field={field} color={pal.rock} count={body === 'moon' ? 6000 : 8000} seed={body === 'moon' ? 3 : 8} minSize={0.15} maxSize={1.1} avoid={sites.map((s) => [s.x, s.z, 8] as [number, number, number])} />
       {body === 'moon' ? (
-        <DustTrail field={field} color="#f4f6fb" gravity={1.62} drag={0} active={!story} />
+        <DustTrail field={field} color="#c3c6cc" gravity={1.62} drag={0} active={!story} />
       ) : (
-        <DustTrail field={field} color="#c98a5a" gravity={3.71} drag={0.8} active={!story} />
+        <DustTrail field={field} color="#b97a4e" gravity={3.71} drag={0.8} active={!story} />
       )}
 
       {sites.map((s) => {

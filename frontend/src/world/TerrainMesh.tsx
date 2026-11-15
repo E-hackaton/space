@@ -2,16 +2,21 @@ import { useMemo } from 'react';
 import * as THREE from 'three';
 import { fbm } from './noise';
 import type { HeightField } from './terrain';
+import { groundTextures, type GroundDetail } from './groundTextures';
 
 interface Props {
   field: HeightField;
   /** Trois teintes du bas vers le haut (couleurs logiques du monde). */
   colors: readonly [string, string, string] | readonly string[];
   segments?: number;
+  /** Détail du sol (texture de près) : régolithe lunaire ou sable martien. */
+  detail?: GroundDetail;
+  /** Taille d'une répétition de la texture (m). */
+  tile?: number;
 }
 
 /** Sol lisse, teinté selon l'altitude et la pente, avec des taches de couleur. */
-export function TerrainMesh({ field, colors, segments = 180 }: Props) {
+export function TerrainMesh({ field, colors, segments = 180, detail, tile = 6 }: Props) {
   const geometry = useMemo(() => {
     const size = field.half * 2;
     const g = new THREE.PlaneGeometry(size, size, segments, segments);
@@ -46,9 +51,22 @@ export function TerrainMesh({ field, colors, segments = 180 }: Props) {
     return g;
   }, [field, colors, segments]);
 
+  const tex = useMemo(() => {
+    if (!detail) return null;
+    const { map, normal } = groundTextures(detail);
+    const rep = (field.half * 2) / tile;
+    const m = map.clone();
+    const nm = normal.clone();
+    for (const t of [m, nm]) {
+      t.repeat.set(rep, rep);
+      t.needsUpdate = true;
+    }
+    return { map: m, normal: nm };
+  }, [detail, tile, field.half]);
+
   return (
     <mesh geometry={geometry} receiveShadow>
-      <meshStandardMaterial vertexColors roughness={0.95} metalness={0} />
+      <meshStandardMaterial vertexColors roughness={0.95} metalness={0} map={tex?.map ?? null} normalMap={tex?.normal ?? null} normalScale={new THREE.Vector2(0.9, 0.9)} />
     </mesh>
   );
 }
