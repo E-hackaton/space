@@ -16,6 +16,11 @@ import { expeditionField, FIND_DIST, sizeOf, type Site } from '../../world/exped
 import type { HeightField } from '../../world/terrain';
 import type { SurfaceBody } from '../../lib/atlas';
 import { useExpedition } from './expedition';
+import { ToonLander } from '../../world/props/Vehicles';
+import { ShipCamera } from '../../world/props/Environment';
+import { playLanding } from '../../audio/sfx';
+
+const NO_FLAME = { current: 0 };
 import { useParts } from '../../components/3d/InteractiveParts';
 
 /**
@@ -149,7 +154,48 @@ interface Props {
 }
 
 /** L'expédition au sol : on roule de machine en machine sur la Lune ou sur Mars. */
+/**
+ * Atterrissage à l'arrivée : le module descend sur sa rétrofusée, se pose, puis le rover en sort.
+ * Durée : ~4,5 s (presque instantané si les animations sont réduites).
+ */
+function Landing({ field, at, animate, onDone }: { field: HeightField; at: [number, number]; animate: boolean; onDone: () => void }) {
+  const lander = useRef<THREE.Group>(null!);
+  const flame = useRef(1);
+  const ship = useRef({ y: 70 });
+  const t0 = useRef<number | null>(null);
+  const done = useRef(false);
+  const ground = field.heightAt(at[0], at[1]);
+  useEffect(() => {
+    if (animate) playLanding(soundWorld.current);
+  }, []); // eslint-disable-line react-hooks/exhaustive-deps
+  useFrame(({ clock }) => {
+    t0.current ??= clock.elapsedTime;
+    const t = (clock.elapsedTime - t0.current) / (animate ? 1 : 0.1);
+    const k = Math.min(1, t / 3.6);
+    ship.current.y = 70 * Math.pow(1 - k, 2.2);
+    flame.current = t < 3.6 ? 1 : Math.max(0, 1 - (t - 3.6) / 0.6);
+    lander.current.position.y = ground + ship.current.y;
+    if (t > 4.3 && !done.current) {
+      done.current = true;
+      onDone();
+    }
+  });
+  return (
+    <>
+      <group ref={lander} position={[at[0], ground + 70, at[1]]}>
+        <ToonLander flame={flame} />
+      </group>
+      {!done.current && <ShipCamera at={[at[0], ground, at[1]]} ship={ship.current} animate={animate} />}
+    </>
+  );
+}
+const soundWorld = { current: 'mars' as 'mars' | 'moon' };
+
 export default function ExpeditionGround({ body, sites, start, startHeading, animate }: Props) {
+  soundWorld.current = body;
+  // Le module se pose à côté du point de départ ; le rover en sort une fois posé.
+  const [landed, setLanded] = useState(false);
+  const landerAt = useMemo<[number, number]>(() => [start[0] + 6, start[1] + 4], [start]);
   // Terrain détaillé (zone des machines), prolongé à l'infini par un relief lointain.
   const inner = useMemo(() => expeditionField(body, sites), [body, sites]);
   const field = useMemo(() => extendField(inner, { amp: body === 'moon' ? 7 : 10, freq: 0.004, craterCell: 220, roam: 1900, seed: body === 'moon' ? 11 : 3 }), [inner, body]);
@@ -248,7 +294,14 @@ export default function ExpeditionGround({ body, sites, start, startHeading, ani
       )}
 
       <NearWatcher sites={sites} />
-      <Player field={field} start={start} startHeading={startHeading} obstacles={obstacles} enabled={!story} followCamera={!story} animate={animate} />
+      {landed ? (
+        <group position={[landerAt[0], field.heightAt(landerAt[0], landerAt[1]), landerAt[1]]}>
+          <ToonLander flame={NO_FLAME} />
+        </group>
+      ) : (
+        <Landing field={field} at={landerAt} animate={animate} onDone={() => setLanded(true)} />
+      )}
+      <Player field={field} start={start} startHeading={startHeading} obstacles={[...obstacles, { x: landerAt[0], z: landerAt[1], r: 2.4 }]} enabled={landed && !story} followCamera={landed && !story} visible={landed} animate={animate} />
       {storySite && <StoryCamera site={storySite} field={field} animate={animate} />}
     </Canvas>
   );
