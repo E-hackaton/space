@@ -28,10 +28,10 @@ import { engineStop, engineUpdate, playDetect, playFound } from '../audio/sfx';
 import { Icon } from '../components/ui/Glyphs';
 
 const ExpeditionGround = lazy(() => import('../scenes/expedition/ExpeditionGround'));
-const DeepSpaceStage = lazy(() => import('../scenes/expedition/DeepSpaceStage'));
 
-type Destination = SurfaceBody | 'deep-space';
-const DESTINATIONS: Destination[] = ['moon', 'mars', 'deep-space'];
+/** Destinations des missions : uniquement la Lune et Mars. */
+type Destination = SurfaceBody;
+const DESTINATIONS: Destination[] = ['moon', 'mars'];
 
 /** Sankofa parle (si la voix est activée). */
 function useSankofa() {
@@ -43,7 +43,7 @@ function useSankofa() {
 export default function MissionPage() {
   const [params, setParams] = useSearchParams();
   const raw = params.get('astre');
-  const dest: Destination | null = isSurfaceBody(raw) || raw === 'deep-space' ? raw : null;
+  const dest: Destination | null = isSurfaceBody(raw) ? raw : null;
   const mode = (params.get('mode') as GuideMode | null) ?? null;
   const first = params.get('machine');
   const catalog = useCatalog();
@@ -52,7 +52,7 @@ export default function MissionPage() {
   useEffect(() => {
     if (dest || !first || catalog.status !== 'ready') return;
     const m = catalog.machines.find((x) => x.id === first);
-    if (m) setParams({ astre: m.body === 'deep-space' ? 'deep-space' : m.body, machine: first }, { replace: true });
+    if (m && isSurfaceBody(m.body)) setParams({ astre: m.body, machine: first }, { replace: true });
   }, [dest, first, catalog, setParams]);
 
   useEffect(() => () => stopSpeaking(), []);
@@ -67,8 +67,6 @@ export default function MissionPage() {
           <ChooseDestination machines={catalog.machines} onPick={(d) => set({ astre: d, ...(first ? { machine: first } : {}) })} />
         ) : !mode ? (
           <ChooseMode dest={dest} onPick={(m) => set({ astre: dest, mode: m, ...(first ? { machine: first } : {}) })} onBack={() => set({})} />
-        ) : dest === 'deep-space' ? (
-          <DeepSpaceExpedition mode={mode} machines={machinesOn(catalog.machines, 'deep-space')} first={first} onBack={() => set({})} />
         ) : (
           <SurfaceExpedition key={dest} body={dest} mode={mode} machines={catalog.machines} first={first} onBack={() => set({})} onMode={(m) => set({ astre: dest, mode: m })} />
         )}
@@ -109,7 +107,7 @@ function ChooseDestination({ machines, onPick }: { machines: MachineSummary[]; o
           return (
             <motion.li key={d} initial={{ opacity: 0, y: 40 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.15 * i, type: 'spring', stiffness: 70 }}>
               <button type="button" onClick={() => onPick(d)} className="planet-pick">
-                <LivingPlanet body={d} size={d === 'deep-space' ? 150 : d === 'mars' ? 200 : 180} />
+                <LivingPlanet body={d} size={d === 'mars' ? 220 : 200} />
                 <span className="planet-pick-name">{t(`bodies.${d}.name`)}</span>
                 <span className="block text-sm text-slate-400">
                   {done}/{list.length}
@@ -461,57 +459,3 @@ function LiteList({ points, onBack }: { points: AtlasPoint[]; onBack: () => void
     </div>
   );
 }
-
-/* ----------------------------------------------------------- espace lointain */
-
-function DeepSpaceExpedition({ mode, machines, first, onBack }: { mode: GuideMode; machines: MachineSummary[]; first: string | null; onBack: () => void }) {
-  const { t } = useTranslation();
-  const reduced = usePrefersReducedMotion();
-  const say = useSankofa();
-  const [current, setCurrent] = useState<string | null>(first ?? (mode === 'auto' ? (machines[0]?.id ?? null) : null));
-  const [listening, setListening] = useState(mode === 'auto' || !!first);
-  const m = machines.find((x) => x.id === current);
-  useEffect(() => {
-    if (!current && mode === 'auto' && machines[0]) {
-      setCurrent(machines[0].id);
-      setListening(true);
-    }
-  }, [machines, current, mode]);
-  useEffect(() => {
-    say(t('expedition.deepIntro'));
-  }, []); // eslint-disable-line react-hooks/exhaustive-deps
-  const after = () => {
-    setListening(false);
-    if (mode !== 'auto') return;
-    const i = machines.findIndex((x) => x.id === current);
-    const next = machines[i + 1];
-    if (next) {
-      setCurrent(next.id);
-      setListening(true);
-    }
-  };
-  return (
-    <>
-      {m && webglAvailable && (
-        <Suspense fallback={<Loading />}>
-          <DeepSpaceStage key={m.id} id={m.id} kind={m.kind} active={m.status === 'active'} animate={!reduced} />
-        </Suspense>
-      )}
-      <div className="absolute left-3 top-3 z-30 flex items-center gap-2">
-        <button type="button" onClick={onBack} className="chip">←</button>
-        <span className="hud-pill font-display text-lg font-extrabold uppercase tracking-wider">{t('bodies.deep-space.name')}</span>
-      </div>
-      {!listening && (
-        <div className="absolute inset-x-0 bottom-4 z-30 mx-auto flex w-fit flex-wrap justify-center gap-2 px-3">
-          {machines.map((x) => (
-            <button key={x.id} type="button" className={x.id === current ? 'btn-primary' : 'btn-ghost'} onClick={() => (setCurrent(x.id), setListening(true))}>
-              {x.name}
-            </button>
-          ))}
-        </div>
-      )}
-      {m && listening && <StoryPlayer key={m.id} slug={m.id} mode={mode} onDone={after} />}
-    </>
-  );
-}
-

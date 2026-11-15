@@ -84,20 +84,15 @@ export default function Home() {
       </div>
 
       <motion.div animate={leaving ? { opacity: 0, scale: 0.96 } : { opacity: 1 }} transition={{ duration: 0.6 }} className="relative z-10 mx-auto flex h-full min-h-screen max-w-3xl flex-col items-center justify-center gap-8 px-6 text-center">
-        <h1 className="hero-title" aria-label={title}>
-          {title.split('').map((ch, i) => (
-            <motion.span
-              key={i}
-              aria-hidden="true"
-              initial={{ opacity: 0, y: 60, rotateX: -90, filter: 'blur(12px)' }}
-              animate={{ opacity: 1, y: 0, rotateX: 0, filter: 'blur(0px)' }}
-              transition={{ delay: 0.15 + i * 0.07, duration: 0.9, ease: [0.2, 0.8, 0.2, 1] }}
-              className="inline-block"
-            >
-              {ch}
-            </motion.span>
-          ))}
-        </h1>
+        {/* Le titre s'ouvre depuis le centre pendant que ses lettres se resserrent. */}
+        <motion.h1
+          className="hero-title"
+          initial={reduced ? false : { opacity: 0, letterSpacing: '0.55em', clipPath: 'inset(0 50% 0 50%)' }}
+          animate={{ opacity: 1, letterSpacing: '0.02em', clipPath: 'inset(0 0% 0 0%)' }}
+          transition={{ duration: 1.6, ease: [0.16, 1, 0.3, 1] }}
+        >
+          {title}
+        </motion.h1>
         <motion.p initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.9, duration: 0.8 }} className="max-w-xl text-lg leading-relaxed text-slate-200 sm:text-xl">
           {t('app.tagline')}
         </motion.p>

@@ -9,7 +9,7 @@ import { machinesOn, useCatalog } from '../lib/machines';
 import { speak } from '../audio/speech';
 import { useStore } from '../store/useStore';
 
-const BODIES = ['moon', 'mars', 'deep-space'] as const;
+const BODIES = ['moon', 'mars'] as const;
 
 /** Anneau de progression en volume. */
 function Ring({ value, total }: { value: number; total: number }) {
@@ -53,7 +53,10 @@ function Ring({ value, total }: { value: number; total: number }) {
 /** Carnet d'explorateur : ce que tu as retrouvé, raconté par Sankofa. */
 export default function Logbook() {
   const { t, i18n } = useTranslation();
-  const { machines, status } = useCatalog();
+  const catalog = useCatalog();
+  const status = catalog.status;
+  // Le carnet ne compte que les machines de la Lune et de Mars.
+  const machines = useMemo(() => catalog.machines.filter((m) => m.body === 'moon' || m.body === 'mars'), [catalog.machines]);
   const badges = useStore((s) => s.badges);
   const heard = useStore((s) => s.completedMachines);
   const voiceOn = useStore((s) => s.voiceOn);

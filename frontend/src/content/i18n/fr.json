@@ -1,7 +1,7 @@
 {
   "app": {
     "title": "FORBITS",
-    "tagline": "Leur mission est terminée. Leur histoire continue. Pars à la rencontre des machines que la NASA a laissées sur la Lune, sur Mars et au-delà.",
+    "tagline": "Leur mission est terminée. Leur histoire continue. Pars à la rencontre des machines que la NASA a laissées sur la Lune et sur Mars.",
     "start": "Commencer le voyage",
     "continue": "Reprendre le voyage",
     "skip": "Aller au contenu",
