@@ -66,7 +66,7 @@ export function SunLight({ color = '#fff1d6', intensity = 2.4, dir = [0.6, 1, 0.
 
 /** Géométrie de rocher : une sphère bosselée et lisse (déformée par du bruit). */
 function rockGeometry(seed: number) {
-  const g = new THREE.IcosahedronGeometry(1, 3);
+  const g = new THREE.IcosahedronGeometry(1, 2); // 320 triangles : lisse, mais léger
   const pos = g.attributes.position as THREE.BufferAttribute;
   const v = new THREE.Vector3();
   for (let i = 0; i < pos.count; i++) {
@@ -166,7 +166,7 @@ export function ShipCamera({ at, ship, animate }: { at: [number, number, number]
  */
 export function Pebbles({ field, color, count = 2500, seed = 5, minSize = 0.06, maxSize = 0.4, avoid = [] as [number, number, number][] }: { field: HeightField; color: string; count?: number; seed?: number; minSize?: number; maxSize?: number; avoid?: [number, number, number][] }) {
   const geometry = useMemo(() => {
-    const g = new THREE.IcosahedronGeometry(1, 1);
+    const g = new THREE.IcosahedronGeometry(1, 0); // 20 triangles : ce sont de petits cailloux
     const pos = g.attributes.position as THREE.BufferAttribute;
     const v = new THREE.Vector3();
     for (let i = 0; i < pos.count; i++) {

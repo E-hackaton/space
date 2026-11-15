@@ -9,6 +9,7 @@ import MarsWorld from './worlds/MarsWorld';
 import MoonWorld from './worlds/MoonWorld';
 import SpaceScene from './worlds/SpaceScene';
 import { Look } from './Look';
+import { ContextGuard, useCanvasGeneration } from '../components/3d/ContextGuard';
 
 const LOOK: Record<WorldId | 'space', { tint: string; ground: string; bloom: number }> = {
   earth: { tint: '#ffe6c4', ground: '#2b4a2b', bloom: 0.7 },
@@ -23,11 +24,13 @@ export default function ExplorerCanvas({ animate, onPickPlanet }: { animate: boo
   const world = useWorld((s) => s.world);
   const phase = useWorld((s) => s.phase);
   const target = useWorld((s) => s.target);
-  const [dpr, setDpr] = useState(1.5);
+  const [dpr, setDpr] = useState(Math.min(1.25, window.devicePixelRatio || 1));
+  const [gen, bump] = useCanvasGeneration();
   const [shadows, setShadows] = useState(true);
 
   return (
     <Canvas
+      key={gen}
       shadows={shadows ? { type: THREE.PCFSoftShadowMap } : false}
       dpr={dpr}
       camera={{ fov: 42, near: 0.1, far: 3000, position: [0, 20, 30] }}
@@ -40,9 +43,10 @@ export default function ExplorerCanvas({ animate, onPickPlanet }: { animate: boo
           setDpr(1);
           setShadows(false);
         }}
-        onIncline={() => setDpr(1.5)}
+        onIncline={() => setDpr(Math.min(1.25, window.devicePixelRatio || 1))}
       />
       <AdaptiveDpr pixelated />
+      <ContextGuard onLost={bump} />
       <Look {...LOOK[phase === 'space' ? 'space' : world]} effects={shadows} />
       <Suspense fallback={null}>
         {phase === 'space' && target ? (

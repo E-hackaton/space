@@ -82,7 +82,7 @@ function MarsSite({ data, site, animate }: { data: SiteData; site: 'jezero' | 'g
   const start = useMemo<[number, number]>(() => [landing[0] - 6, landing[2] + 4], [landing]);
 
   const rocks = useMemo(
-    () => scatterRocks(inner, 850, site === 'gale' ? 5 : 2, [[landing[0], landing[2], 10], [start[0], start[1], 5]]),
+    () => scatterRocks(inner, 450, site === 'gale' ? 5 : 2, [[landing[0], landing[2], 10], [start[0], start[1], 5]]),
     [field, site, landing, start],
   );
   // Ordre important : [atterrisseur, rovers (positions mises à jour par Traverse), rochers].
@@ -132,11 +132,11 @@ function MarsSite({ data, site, animate }: { data: SiteData; site: 'jezero' | 'g
 
       <TerrainMesh field={field} extent={inner.half} range={range} colors={PALETTES.mars.ground} segments={200} detail="sand" tile={0.15} />
       {/* Le sol continue jusqu'à l'horizon */}
-      <TerrainMesh field={field} extent={900} warp holeHalf={inner.half - 0.5} range={range} colors={PALETTES.mars.ground} segments={240} detail="sand" tile={0.15} />
+      <TerrainMesh field={field} extent={900} warp holeHalf={inner.half - 0.5} range={range} colors={PALETTES.mars.ground} segments={150} detail="sand" tile={0.15} />
       {/* Poussière en suspension qui suit le joueur */}
       <DustMotes animate={animate} />
       <Rocks rocks={rocks} color={PALETTES.mars.rock} seed={site === 'gale' ? 5 : 2} />
-      <Pebbles field={inner} color={PALETTES.mars.rock} count={6000} minSize={0.12} maxSize={0.9} seed={site === 'gale' ? 6 : 9} />
+      <Pebbles field={inner} color={PALETTES.mars.rock} count={3000} minSize={0.12} maxSize={0.9} seed={site === 'gale' ? 6 : 9} />
       {/* Poussière des roues : l'air martien, très léger, la freine un peu (pesanteur 3,71 m/s²). */}
       <DustTrail field={field} color="#b97a4e" gravity={3.71} drag={0.8} active={phase === 'drive'} />
 

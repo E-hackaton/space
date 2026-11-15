@@ -155,7 +155,7 @@ export default function MoonWorld({ animate }: { animate: boolean }) {
       <SunLight color="#ffffff" intensity={3.2} dir={[0.85, 0.5, 0.25]} />
       <TerrainMesh field={field} extent={inner.half} range={range} colors={PALETTES.moon.ground} segments={200} detail="regolith" tile={5} />
       {/* Le sol continue jusqu'à l'horizon */}
-      <TerrainMesh field={field} extent={2200} warp holeHalf={inner.half - 1} range={range} colors={PALETTES.moon.ground} segments={260} detail="regolith" tile={5} />
+      <TerrainMesh field={field} extent={2200} warp holeHalf={inner.half - 1} range={range} colors={PALETTES.moon.ground} segments={160} detail="regolith" tile={5} />
       <Rocks rocks={rocks} color={PALETTES.moon.rock} seed={9} />
       {/* Poussière des roues : sans air, elle suit une parabole parfaite (pesanteur lunaire 1,62 m/s²). */}
       <DustTrail field={field} color="#c3c6cc" gravity={1.62} drag={0} active={phase === 'drive'} />

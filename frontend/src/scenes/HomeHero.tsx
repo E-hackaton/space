@@ -1,3 +1,4 @@
+import { ContextGuard, useCanvasGeneration } from '../components/3d/ContextGuard';
 import { Suspense, useMemo, useRef } from 'react';
 import { Canvas, useFrame, useThree } from '@react-three/fiber';
 import { Sparkles, useTexture } from '@react-three/drei';
@@ -206,9 +207,11 @@ function Rig({ animate }: { animate: boolean }) {
 }
 
 export default function HomeHero({ animate }: { animate: boolean }) {
+  const [gen, bump] = useCanvasGeneration();
   return (
-    <Canvas dpr={[1, 1.7]} camera={{ position: [2, 1.6, 22], fov: 42 }} gl={{ antialias: true, toneMapping: THREE.ACESFilmicToneMapping }} aria-hidden="true">
+    <Canvas key={gen} dpr={[1, 1.25]} camera={{ position: [2, 1.6, 22], fov: 42 }} gl={{ antialias: true, toneMapping: THREE.ACESFilmicToneMapping }} aria-hidden="true">
       <color attach="background" args={['#03050d']} />
+      <ContextGuard onLost={bump} />
       <ambientLight intensity={0.05} />
       <directionalLight position={SUN.clone().multiplyScalar(30)} intensity={3.2} color="#fff3e0" />
       {/* Le Soleil : un point très lumineux (le bloom fait le halo) */}

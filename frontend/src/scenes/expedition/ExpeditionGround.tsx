@@ -8,6 +8,7 @@ import { extendField } from '../../world/infiniteGround';
 import { Pebbles, Rocks, SkyDome, SunLight, scatterRocks, corridor } from '../../world/props/Environment';
 import { DustTrail } from '../../world/props/DustTrail';
 import { Look } from '../../world/Look';
+import { ContextGuard, useCanvasGeneration } from '../../components/3d/ContextGuard';
 import { PALETTES } from '../../world/toon';
 import { Machine3D } from '../../components/3d/Machine3D';
 import { expeditionField, FIND_DIST, sizeOf, type Site } from '../../world/expeditionLayout';
@@ -156,12 +157,13 @@ export default function ExpeditionGround({ body, sites, start, startHeading, ani
   const target = useExpedition((s) => s.target);
   const found = useExpedition((s) => s.found);
   const effect = useExpedition((s) => s.effect);
-  const [dpr, setDpr] = useState(1.5);
+  const [dpr, setDpr] = useState(Math.min(1.25, window.devicePixelRatio || 1));
+  const [gen, bump] = useCanvasGeneration();
   const [shadows, setShadows] = useState(true);
   const pal = PALETTES[body];
   const rocks = useMemo(
     () =>
-      scatterRocks(inner, body === 'moon' ? 420 : 900, body === 'moon' ? 9 : 4, [
+      scatterRocks(inner, body === 'moon' ? 300 : 450, body === 'moon' ? 9 : 4, [
         ...sites.map((s) => [s.x, s.z, 18] as [number, number, number]),
         [start[0], start[1], 12],
         ...sites.flatMap((s, i) => (i ? corridor([sites[i - 1].x, sites[i - 1].z], [s.x, s.z], 7) : [])),
@@ -174,6 +176,7 @@ export default function ExpeditionGround({ body, sites, start, startHeading, ani
 
   return (
     <Canvas
+      key={gen}
       shadows={shadows ? { type: THREE.PCFSoftShadowMap } : false}
       dpr={dpr}
       camera={{ fov: 46, near: 0.1, far: 3000, position: [start[0], 30, start[1] + 40] }}
@@ -187,6 +190,7 @@ export default function ExpeditionGround({ body, sites, start, startHeading, ani
         }}
       />
       <AdaptiveDpr pixelated />
+      <ContextGuard onLost={bump} />
       {body === 'moon' ? (
         <>
           <color attach="background" args={[pal.sky]} />
@@ -209,11 +213,11 @@ export default function ExpeditionGround({ body, sites, start, startHeading, ani
       )}
       <Look tint={body === 'moon' ? '#ffffff' : '#ffd9b0'} ground={body === 'moon' ? '#3a3c42' : '#6a3420'} bloom={0.55} effects={shadows} />
 
-      <TerrainMesh field={field} extent={inner.half} range={range} colors={pal.ground} segments={360} detail={body === 'moon' ? 'regolith' : 'sand'} tile={6} />
+      <TerrainMesh field={field} extent={inner.half} range={range} colors={pal.ground} segments={240} detail={body === 'moon' ? 'regolith' : 'sand'} tile={6} />
       {/* Le sol continue jusqu'à l'horizon */}
-      <TerrainMesh field={field} extent={2400} warp holeHalf={inner.half - 1} range={range} colors={pal.ground} segments={280} detail={body === 'moon' ? 'regolith' : 'sand'} tile={6} />
+      <TerrainMesh field={field} extent={2400} warp holeHalf={inner.half - 1} range={range} colors={pal.ground} segments={160} detail={body === 'moon' ? 'regolith' : 'sand'} tile={6} />
       <Rocks rocks={rocks} color={pal.rock} seed={body === 'moon' ? 9 : 4} />
-      <Pebbles field={inner} color={pal.rock} count={body === 'moon' ? 6000 : 8000} seed={body === 'moon' ? 3 : 8} minSize={0.15} maxSize={1.1} avoid={sites.map((s) => [s.x, s.z, 8] as [number, number, number])} />
+      <Pebbles field={inner} color={pal.rock} count={body === 'moon' ? 2500 : 3500} seed={body === 'moon' ? 3 : 8} minSize={0.15} maxSize={1.1} avoid={sites.map((s) => [s.x, s.z, 8] as [number, number, number])} />
       {body === 'moon' ? (
         <DustTrail field={field} color="#c3c6cc" gravity={1.62} drag={0} active={!story} />
       ) : (

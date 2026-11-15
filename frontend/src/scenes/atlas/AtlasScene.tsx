@@ -1,3 +1,4 @@
+import { ContextGuard, useCanvasGeneration } from '../../components/3d/ContextGuard';
 import { Suspense, useEffect, useRef, type RefObject } from 'react';
 import { Canvas, useFrame, useThree } from '@react-three/fiber';
 import { OrbitControls, Stars } from '@react-three/drei';
@@ -38,11 +39,13 @@ interface Props {
 
 /** Atlas 3D vivant : le globe tourne lentement, on le fait pivoter du doigt, chaque balise est cliquable. */
 export default function AtlasScene({ body, points, selected, found, animate, onSelect }: Props) {
+  const [gen, bump] = useCanvasGeneration();
   const controls = useRef<OrbitControlsImpl>(null);
   const point = points.find((p) => p.machine.id === selected);
   return (
-    <Canvas dpr={[1, 1.6]} camera={{ fov: 40, position: [0, 6, 34] }} gl={{ antialias: true, toneMapping: THREE.ACESFilmicToneMapping }} aria-hidden="true">
+    <Canvas key={gen} dpr={[1, 1.25]} camera={{ fov: 40, position: [0, 6, 34] }} gl={{ antialias: true, toneMapping: THREE.ACESFilmicToneMapping }} aria-hidden="true">
       <color attach="background" args={['#03050d']} />
+      <ContextGuard onLost={bump} />
       <Stars radius={200} depth={80} count={6000} factor={6} fade speed={animate ? 0.4 : 0} />
       <AtlasLights body={body} />
       <Suspense fallback={null}>
