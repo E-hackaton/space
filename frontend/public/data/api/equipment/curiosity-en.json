@@ -88,7 +88,7 @@
  ],
  "quiz": [
   {
-   "id": 23,
+   "id": 49,
    "question": "How did Curiosity land on Mars?",
    "choices": [
     "With airbags",
@@ -99,7 +99,7 @@
    "explanation": "Too heavy for airbags, it was lowered on cables by a rocket-powered \"sky crane\"."
   },
   {
-   "id": 24,
+   "id": 50,
    "question": "What did Curiosity discover in Gale crater?",
    "choices": [
     "Traces of an ancient lake",

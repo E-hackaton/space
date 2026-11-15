@@ -68,7 +68,7 @@
  ],
  "quiz": [
   {
-   "id": 15,
+   "id": 41,
    "question": "Combien de vols Ingenuity devait-il faire au départ ?",
    "choices": [
     "5",
@@ -79,7 +79,7 @@
    "explanation": "Il devait faire 5 vols de démonstration. Il en a fait 72 !"
   },
   {
-   "id": 16,
+   "id": 42,
    "question": "Pourquoi est-il difficile de voler sur Mars ?",
    "choices": [
     "Il y fait trop chaud",

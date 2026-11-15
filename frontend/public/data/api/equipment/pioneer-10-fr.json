@@ -58,7 +58,7 @@
  ],
  "quiz": [
   {
-   "id": 19,
+   "id": 45,
    "question": "Quelle zone Pioneer 10 a-t-il été le premier à traverser ?",
    "choices": [
     "La ceinture d'astéroïdes",
@@ -69,7 +69,7 @@
    "explanation": "Entre Mars et Jupiter, la ceinture d'astéroïdes inquiétait les ingénieurs. Pioneer 10 a prouvé qu'on pouvait la traverser."
   },
   {
-   "id": 20,
+   "id": 46,
    "question": "Que transporte Pioneer 10, au cas où quelqu'un le trouverait ?",
    "choices": [
     "Un disque de musique",

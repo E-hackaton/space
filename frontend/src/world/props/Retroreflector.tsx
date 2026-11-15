@@ -10,8 +10,8 @@ import { grainNormal } from '../anatomy/surfaces';
  * en silice fondue (trois faces en miroir à angle droit) renvoie la lumière exactement vers sa source.
  *
  * - Apollo 11 : 100 coins de cube, panneau d'environ 46 cm de côté (fiche Anatomy, d'après la NASA).
- * - Apollo 15 : 300 coins de cube sur un panneau plus grand. TODO: à vérifier (nombre, dimensions et
- *   disposition exacte) ; la disposition est ici une grille approchée et la bulle n'affiche pas de chiffre.
+ * - Apollo 15 : 300 coins de cube de 3,8 cm (NASA SP-289, Apollo 15 Preliminary Science Report, 1972).
+ *   Le vrai panneau est hexagonal ; ici, une grille de 20 × 15 (même nombre de cubes, forme approchée).
  *
  * Toutes les cotes en mètres ; avant du panneau vers −z, incliné vers le ciel (la Terre).
  */
@@ -35,7 +35,7 @@ export type ReflectorVariant = 'a11' | 'a15';
 
 const SPEC: Record<ReflectorVariant, { cols: number; rows: number; w: number; h: number; tilt: number }> = {
   a11: { cols: 10, rows: 10, w: 0.46, h: 0.46, tilt: 0.45 },
-  a15: { cols: 20, rows: 15, w: 1.05, h: 0.6, tilt: 0.45 }, // TODO: à vérifier
+  a15: { cols: 20, rows: 15, w: 1.05, h: 0.6, tilt: 0.45 }, // 300 cubes ; forme approchée (hexagonale en vrai)
 };
 
 const metal = new THREE.MeshPhysicalMaterial({ color: '#b9bec6', metalness: 0.85, roughness: 0.32, normalMap: grainNormal(true), normalScale: new THREE.Vector2(0.35, 0.35) });

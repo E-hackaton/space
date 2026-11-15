@@ -68,7 +68,7 @@
  ],
  "quiz": [
   {
-   "id": 9,
+   "id": 35,
    "question": "What was Viking 1's very first picture on Mars?",
    "choices": [
     "A sunset",
@@ -79,7 +79,7 @@
    "explanation": "Engineers wanted to check that the lander wasn't sinking into the ground."
   },
   {
-   "id": 10,
+   "id": 36,
    "question": "Why did Viking 1 lose contact with Earth?",
    "choices": [
     "A dust storm",

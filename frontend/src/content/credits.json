@@ -33,14 +33,14 @@
     {
       "file": "public/textures/mercury_color.jpg",
       "what": "Mosaïque globale de Mercure (MESSENGER), réduite à 2048×1024",
-      "credit": "NASA – TODO: à vérifier : ligne de crédit exacte sur la page PIA16298 (probablement NASA/Johns Hopkins University Applied Physics Laboratory/Carnegie Institution of Washington)",
-      "source": "https://photojournal.jpl.nasa.gov/catalog/PIA16298"
+      "credit": "NASA/Johns Hopkins University Applied Physics Laboratory/Carnegie Institution of Washington",
+      "source": "https://science.nasa.gov/photojournal/a-world-view"
     },
     {
       "file": "public/textures/jupiter_color.jpg",
       "what": "Carte cylindrique de Jupiter (Cassini, décembre 2000), réduite à 2048×1024",
-      "credit": "NASA – TODO: à vérifier : ligne de crédit exacte sur la page PIA07782 (probablement NASA/JPL/Space Science Institute)",
-      "source": "https://photojournal.jpl.nasa.gov/catalog/PIA07782"
+      "credit": "NASA/JPL/Space Science Institute",
+      "source": "https://science.nasa.gov/photojournal/cassinis-best-maps-of-jupiter-cylindrical-map"
     },
     {
       "file": "public/textures/venus_clouds.jpg",

@@ -15,8 +15,8 @@
  "arrival_date": "1971-07-30",
  "last_contact_date": null,
  "mission_end_date": null,
- "nssdca_id": "",
- "nssdca_url": "",
+ "nssdca_id": "1971-063C",
+ "nssdca_url": "https://nssdc.gsfc.nasa.gov/nmc/spacecraft/display.action?id=1971-063C",
  "discovery": "Observatories on Earth fire lasers at me and time how long the light takes to come back. As a result, we know the Earth–Moon distance to within a few millimetres, and we know the Moon is drifting away by about 3.8 cm per year.",
  "status_note": "Still useful: more than 50 years after I was set up, scientists still aim at my mirrors.",
  "presentation": {
@@ -58,7 +58,7 @@
  ],
  "quiz": [
   {
-   "id": 7,
+   "id": 33,
    "question": "How do scientists measure the Earth–Moon distance with this reflector?",
    "choices": [
     "By sending a laser and timing its return",
@@ -69,7 +69,7 @@
    "explanation": "Light makes the round trip in about 2.5 seconds. Knowing its speed, we calculate the distance."
   },
   {
-   "id": 8,
+   "id": 34,
    "question": "How far does the Moon drift away from Earth each year?",
    "choices": [
     "About 3.8 mm",
@@ -82,8 +82,13 @@
  ],
  "sources": [
   {
-   "label": "NSSDCA : ALSEP, Apollo Lunar Surface Experiments Package",
-   "url": "https://nssdc.gsfc.nasa.gov/nmc/spacecraft/display.action?id=1969-099C",
+   "label": "NASA SP-289, Apollo 15 Preliminary Science Report (1972)",
+   "url": "https://ntrs.nasa.gov/citations/19720015164",
+   "is_nasa": true
+  },
+  {
+   "label": "NSSDCA : Apollo 15 Lunar Module (Falcon) / ALSEP",
+   "url": "https://nssdc.gsfc.nasa.gov/nmc/spacecraft/display.action?id=1971-063C",
    "is_nasa": true
   }
  ]

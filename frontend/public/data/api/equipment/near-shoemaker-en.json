@@ -48,7 +48,7 @@
  ],
  "quiz": [
   {
-   "id": 17,
+   "id": 43,
    "question": "On what day did NEAR Shoemaker enter orbit around Eros?",
    "choices": [
     "Christmas Day",
@@ -59,7 +59,7 @@
    "explanation": "14 February 2000: a nod to Eros, the Greek god of love."
   },
   {
-   "id": 18,
+   "id": 44,
    "question": "What made NEAR Shoemaker's landing so surprising?",
    "choices": [
     "It wasn't designed to land",

@@ -15,8 +15,8 @@
  "arrival_date": "1971-07-30",
  "last_contact_date": null,
  "mission_end_date": null,
- "nssdca_id": "",
- "nssdca_url": "",
+ "nssdca_id": "1971-063C",
+ "nssdca_url": "https://nssdc.gsfc.nasa.gov/nmc/spacecraft/display.action?id=1971-063C",
  "discovery": "Des observatoires sur Terre envoient des lasers sur moi et chronomètrent le retour de la lumière. Résultat : on connaît la distance Terre-Lune à quelques millimètres près, et on sait que la Lune s'éloigne de nous d'environ 3,8 cm par an.",
  "status_note": "Encore utile : plus de 50 ans après mon installation, des scientifiques visent toujours mes miroirs.",
  "presentation": {
@@ -58,7 +58,7 @@
  ],
  "quiz": [
   {
-   "id": 7,
+   "id": 33,
    "question": "Comment les scientifiques mesurent-ils la distance Terre-Lune avec ce réflecteur ?",
    "choices": [
     "En envoyant un laser et en chronométrant son retour",
@@ -69,7 +69,7 @@
    "explanation": "La lumière fait l'aller-retour en environ 2,5 secondes. Connaissant sa vitesse, on calcule la distance."
   },
   {
-   "id": 8,
+   "id": 34,
    "question": "De combien la Lune s'éloigne-t-elle de la Terre chaque année ?",
    "choices": [
     "Environ 3,8 mm",
@@ -82,8 +82,13 @@
  ],
  "sources": [
   {
-   "label": "NSSDCA : ALSEP, Apollo Lunar Surface Experiments Package",
-   "url": "https://nssdc.gsfc.nasa.gov/nmc/spacecraft/display.action?id=1969-099C",
+   "label": "NASA SP-289, Apollo 15 Preliminary Science Report (1972)",
+   "url": "https://ntrs.nasa.gov/citations/19720015164",
+   "is_nasa": true
+  },
+  {
+   "label": "NSSDCA : Apollo 15 Lunar Module (Falcon) / ALSEP",
+   "url": "https://nssdc.gsfc.nasa.gov/nmc/spacecraft/display.action?id=1971-063C",
    "is_nasa": true
   }
  ]

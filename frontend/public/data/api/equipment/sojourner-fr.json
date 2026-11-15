@@ -78,7 +78,7 @@
  ],
  "quiz": [
   {
-   "id": 21,
+   "id": 47,
    "question": "Combien de jours martiens la mission de Sojourner devait-elle durer ?",
    "choices": [
     "7",
@@ -89,7 +89,7 @@
    "explanation": "Prévue pour 7 jours martiens, elle en a duré 83."
   },
   {
-   "id": 22,
+   "id": 48,
    "question": "Comment Mars Pathfinder s'est-il posé sur Mars ?",
    "choices": [
     "Avec de gros airbags qui rebondissent",

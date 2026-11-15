@@ -10,23 +10,19 @@ import { earthField } from '../terrain';
 import { PALETTES } from '../toon';
 import { smooth } from '../materials';
 import { Grass, Trees } from '../props/Nature';
-import { AdoBridge } from '../props/AdoBridge';
 import { Sun3D } from '../props/Sun3D';
 import { Atmosphere } from '../../components/3d/Atmosphere';
 import { ship, useWorld, type WorldId } from '../state';
 
 export const EARTH_PAD: [number, number] = [22, -18];
 const EARTH_START: [number, number] = [EARTH_PAD[0] - 12, EARTH_PAD[1] + 10];
-/** Direction du large vue depuis le pas de tir, où se trouve le pont. */
+/** Direction du large vue depuis le pas de tir (le Soleil s'y trouve). */
 const SEA_DIR = new THREE.Vector2(0.6, -0.8);
-const BRIDGE = { x: EARTH_PAD[0] + SEA_DIR.x * 115, z: EARTH_PAD[1] + SEA_DIR.y * 115 };
-/** Le tablier perpendiculaire au regard : on voit le pont en entier, de profil. */
-const BRIDGE_YAW = Math.atan2(-SEA_DIR.x, -SEA_DIR.y);
 const GRASS_AVOID: [number, number, number][] = [[EARTH_PAD[0], EARTH_PAD[1], 10]];
 
 /**
  * Sur le pas de tir : la caméra recule et se baisse pour cadrer la fusée au premier plan
- * et le pont en entier au large, derrière elle.
+ * et le large derrière elle.
  */
 function PadCamera({ padY, animate }: { padY: number; animate: boolean }) {
   const look = useRef(new THREE.Vector3());
@@ -130,15 +126,11 @@ export default function EarthWorld({ animate, onPickPlanet }: { animate: boolean
         <circleGeometry args={[400, 96]} />
       </mesh>
 
-      {/* Le Soleil, au large derrière le pont (vu depuis le pas de tir) */}
+      {/* Le Soleil, au large (vu depuis le pas de tir) */}
       <group position={[EARTH_PAD[0] + SEA_DIR.x * 430, 150, EARTH_PAD[1] + SEA_DIR.y * 430]}>
         <Sun3D radius={20} />
       </group>
 
-      {/* Le pont Alassane-Ouattara (Abidjan), au large dans l'axe du pas de tir, vu de profil */}
-      <group position={[BRIDGE.x, -1.2, BRIDGE.z]} rotation={[0, BRIDGE_YAW, 0]}>
-        <AdoBridge />
-      </group>
 
       {/* Pas de tir et fusée */}
       <group position={[EARTH_PAD[0], padY, EARTH_PAD[1]]}>

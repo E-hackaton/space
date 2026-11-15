@@ -68,7 +68,7 @@
  ],
  "quiz": [
   {
-   "id": 13,
+   "id": 39,
    "question": "What was InSight listening to on Mars?",
    "choices": [
     "The wind",
@@ -79,7 +79,7 @@
    "explanation": "Its seismometer recorded more than 1,300 marsquakes, which let scientists \"see\" inside the planet."
   },
   {
-   "id": 14,
+   "id": 40,
    "question": "Why couldn't InSight's \"mole\" dig deep?",
    "choices": [
     "The soil didn't grip it enough to move forward",

@@ -58,7 +58,7 @@
  ],
  "quiz": [
   {
-   "id": 5,
+   "id": 31,
    "question": "Pourquoi les pneus du rover lunaire n'étaient-ils pas gonflés à l'air ?",
    "choices": [
     "Pour supporter le vide et les températures extrêmes",
@@ -69,7 +69,7 @@
    "explanation": "Sur la Lune, il n'y a pas d'air et la température change énormément entre le jour et la nuit. Des mailles métalliques résistent mieux."
   },
   {
-   "id": 6,
+   "id": 32,
    "question": "Combien de rovers lunaires sont garés sur la Lune ?",
    "choices": [
     "Un",

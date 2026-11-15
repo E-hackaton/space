@@ -7,7 +7,6 @@ import { AnatomyModel, type AnatomyId } from '../world/anatomy/AnatomyModel';
 import { Grass, Trees } from '../world/props/Nature';
 import { ToonRocket } from '../world/props/Vehicles';
 import { Retroreflector } from '../world/props/Retroreflector';
-import { AdoBridge } from '../world/props/AdoBridge';
 import { Sojourner } from '../world/props/Sojourner';
 import { Sun3D } from '../world/props/Sun3D';
 
@@ -54,11 +53,6 @@ export default function ModelLab() {
         {params.has('sojourner') && (
           <group scale={4}>
             <Sojourner annotated />
-          </group>
-        )}
-        {params.has('bridge') && (
-          <group scale={0.05} rotation={[0, 0.35, 0]}>
-            <AdoBridge />
           </group>
         )}
         {params.has('refl') && (

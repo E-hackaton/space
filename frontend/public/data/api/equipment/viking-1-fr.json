@@ -68,7 +68,7 @@
  ],
  "quiz": [
   {
-   "id": 9,
+   "id": 35,
    "question": "Quelle a été la toute première photo de Viking 1 sur Mars ?",
    "choices": [
     "Un coucher de soleil",
@@ -79,7 +79,7 @@
    "explanation": "Les ingénieurs voulaient vérifier que l'atterrisseur ne s'enfonçait pas dans le sol."
   },
   {
-   "id": 10,
+   "id": 36,
    "question": "Pourquoi Viking 1 a-t-il perdu le contact avec la Terre ?",
    "choices": [
     "Une tempête de poussière",

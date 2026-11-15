@@ -68,7 +68,7 @@
  ],
  "quiz": [
   {
-   "id": 15,
+   "id": 41,
    "question": "How many flights was Ingenuity originally supposed to make?",
    "choices": [
     "5",
@@ -79,7 +79,7 @@
    "explanation": "It was meant to make 5 demonstration flights. It made 72!"
   },
   {
-   "id": 16,
+   "id": 42,
    "question": "Why is it hard to fly on Mars?",
    "choices": [
     "It is too hot",

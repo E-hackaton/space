@@ -78,7 +78,7 @@
  ],
  "quiz": [
   {
-   "id": 21,
+   "id": 47,
    "question": "How many Martian days was Sojourner's mission supposed to last?",
    "choices": [
     "7",
@@ -89,7 +89,7 @@
    "explanation": "Planned for 7 Martian days, it lasted 83."
   },
   {
-   "id": 22,
+   "id": 48,
    "question": "How did Mars Pathfinder land on Mars?",
    "choices": [
     "With big bouncing airbags",

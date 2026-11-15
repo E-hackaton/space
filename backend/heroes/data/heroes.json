@@ -361,7 +361,7 @@
       "body": "moon",
       "kind": "instrument",
       "status": "useful",
-      "nssdca_id": "",
+      "nssdca_id": "1971-063C",
       "launch_date": "1971-07-26",
       "arrival_date": "1971-07-30",
       "last_contact_date": null,
@@ -445,8 +445,13 @@
       ],
       "sources": [
         {
-          "label": "NSSDCA : ALSEP, Apollo Lunar Surface Experiments Package",
-          "url": "https://nssdc.gsfc.nasa.gov/nmc/spacecraft/display.action?id=1969-099C",
+          "label": "NSSDCA : Apollo 15 Lunar Module (Falcon) / ALSEP",
+          "url": "https://nssdc.gsfc.nasa.gov/nmc/spacecraft/display.action?id=1971-063C",
+          "is_nasa": true
+        },
+        {
+          "label": "NASA SP-289, Apollo 15 Preliminary Science Report (1972)",
+          "url": "https://ntrs.nasa.gov/citations/19720015164",
           "is_nasa": true
         }
       ]

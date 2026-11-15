@@ -58,7 +58,7 @@
  ],
  "quiz": [
   {
-   "id": 3,
+   "id": 29,
    "question": "Quelle partie du module lunaire d'Apollo 11 est restée sur la Lune ?",
    "choices": [
     "La partie haute (étage de remontée)",
@@ -69,7 +69,7 @@
    "explanation": "L'étage de descente a servi de rampe de lancement : seule la partie haute est repartie."
   },
   {
-   "id": 4,
+   "id": 30,
    "question": "Dans quelle région de la Lune Eagle s'est-il posé ?",
    "choices": [
     "La Mer de la Tranquillité",

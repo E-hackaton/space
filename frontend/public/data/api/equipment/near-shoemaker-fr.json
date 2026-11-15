@@ -48,7 +48,7 @@
  ],
  "quiz": [
   {
-   "id": 17,
+   "id": 43,
    "question": "Quel jour NEAR Shoemaker s'est-il mis en orbite autour d'Éros ?",
    "choices": [
     "Le jour de Noël",
@@ -59,7 +59,7 @@
    "explanation": "Le 14 février 2000 : un clin d'œil, car Éros est le dieu grec de l'amour."
   },
   {
-   "id": 18,
+   "id": 44,
    "question": "Qu'est-ce qui rendait l'atterrissage de NEAR Shoemaker si surprenant ?",
    "choices": [
     "Il n'avait pas été conçu pour atterrir",

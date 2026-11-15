@@ -68,7 +68,7 @@
  ],
  "quiz": [
   {
-   "id": 11,
+   "id": 37,
    "question": "Combien de temps la mission d'Opportunity devait-elle durer au départ ?",
    "choices": [
     "90 jours martiens",
@@ -79,7 +79,7 @@
    "explanation": "Prévue pour 90 jours martiens, la mission a duré près de 15 ans."
   },
   {
-   "id": 12,
+   "id": 38,
    "question": "Que révèlent les « myrtilles » d'hématite trouvées par Opportunity ?",
    "choices": [
     "Qu'il y a des plantes sur Mars",

@@ -58,7 +58,7 @@
  ],
  "quiz": [
   {
-   "id": 3,
+   "id": 29,
    "question": "Which part of the Apollo 11 lunar module stayed on the Moon?",
    "choices": [
     "The top half (ascent stage)",
@@ -69,7 +69,7 @@
    "explanation": "The descent stage served as a launch pad: only the top half left."
   },
   {
-   "id": 4,
+   "id": 30,
    "question": "In which region of the Moon did Eagle land?",
    "choices": [
     "The Sea of Tranquility",

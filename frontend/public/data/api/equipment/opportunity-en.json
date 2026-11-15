@@ -68,7 +68,7 @@
  ],
  "quiz": [
   {
-   "id": 11,
+   "id": 37,
    "question": "How long was Opportunity's mission originally supposed to last?",
    "choices": [
     "90 Martian days",
@@ -79,7 +79,7 @@
    "explanation": "Planned for 90 Martian days, the mission lasted almost 15 years."
   },
   {
-   "id": 12,
+   "id": 38,
    "question": "What do the hematite \"blueberries\" found by Opportunity reveal?",
    "choices": [
     "That there are plants on Mars",

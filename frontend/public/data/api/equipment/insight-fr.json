@@ -68,7 +68,7 @@
  ],
  "quiz": [
   {
-   "id": 13,
+   "id": 39,
    "question": "Qu'écoutait InSight sur Mars ?",
    "choices": [
     "Le vent",
@@ -79,7 +79,7 @@
    "explanation": "Son sismomètre a enregistré plus de 1 300 séismes martiens, ce qui a permis de « voir » l'intérieur de la planète."
   },
   {
-   "id": 14,
+   "id": 40,
    "question": "Pourquoi la « taupe » d'InSight n'a-t-elle pas pu creuser profondément ?",
    "choices": [
     "Le sol ne la retenait pas assez pour qu'elle avance",

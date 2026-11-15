@@ -421,7 +421,7 @@
   "reflector": {
     "cubes": "Coins de cube",
     "cubesA11": "100 prismes en silice fondue : chacun renvoie le laser exactement vers son point de départ, sur Terre.",
-    "cubesA15": "Des prismes en silice fondue renvoient le laser exactement vers son point de départ, sur Terre.",
+    "cubesA15": "300 prismes en silice fondue (100 sur ceux d'Apollo 11 et 14) : chacun renvoie le laser exactement vers son point de départ, sur Terre.",
     "support": "Socle et pieds",
     "supportDesc": "Ils posent le réflecteur sur le sol et inclinent le panneau vers la Terre."
   },

@@ -88,7 +88,7 @@
  ],
  "quiz": [
   {
-   "id": 25,
+   "id": 51,
    "question": "Quel passager Perseverance a-t-il emmené sur Mars ?",
    "choices": [
     "Un petit hélicoptère",
@@ -99,7 +99,7 @@
    "explanation": "Ingenuity voyageait sous son ventre. Il est devenu le premier engin à voler sur une autre planète."
   },
   {
-   "id": 26,
+   "id": 52,
    "question": "Qu'a fabriqué l'instrument MOXIE sur Mars ?",
    "choices": [
     "De l'eau",

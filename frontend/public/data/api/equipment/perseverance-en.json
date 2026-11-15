@@ -88,7 +88,7 @@
  ],
  "quiz": [
   {
-   "id": 25,
+   "id": 51,
    "question": "Which passenger did Perseverance take to Mars?",
    "choices": [
     "A small helicopter",
@@ -99,7 +99,7 @@
    "explanation": "Ingenuity travelled under its belly. It became the first aircraft to fly on another planet."
   },
   {
-   "id": 26,
+   "id": 52,
    "question": "What did the MOXIE instrument make on Mars?",
    "choices": [
     "Water",
