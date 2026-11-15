@@ -10,6 +10,7 @@ import { earthField } from '../terrain';
 import { PALETTES } from '../toon';
 import { smooth } from '../materials';
 import { Grass, Trees } from '../props/Nature';
+import { AdoBridge } from '../props/AdoBridge';
 import { Atmosphere } from '../../components/3d/Atmosphere';
 import { ship, useWorld, type WorldId } from '../state';
 
@@ -103,6 +104,11 @@ export default function EarthWorld({ animate, onPickPlanet }: { animate: boolean
       <mesh ref={water} rotation={[-Math.PI / 2, 0, 0]} position={[0, -1.2, 0]} material={smooth('#2a7fd6', { rough: 0.12, clearcoat: 1, opacity: 0.92 })}>
         <circleGeometry args={[400, 96]} />
       </mesh>
+
+      {/* Le pont Alassane-Ouattara (Abidjan), sur l'eau au nord-ouest : visible depuis la base de lancement */}
+      <group position={[-40, -1.2, -95]} rotation={[0, Math.PI / 4, 0]}>
+        <AdoBridge />
+      </group>
 
       {/* Pas de tir et fusée */}
       <group position={[EARTH_PAD[0], padY, EARTH_PAD[1]]}>

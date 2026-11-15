@@ -7,6 +7,7 @@ import { AnatomyModel, type AnatomyId } from '../world/anatomy/AnatomyModel';
 import { Grass, Trees } from '../world/props/Nature';
 import { ToonRocket } from '../world/props/Vehicles';
 import { Retroreflector } from '../world/props/Retroreflector';
+import { AdoBridge } from '../world/props/AdoBridge';
 
 const NO_FLAME = { current: 0 };
 import { earthField } from '../world/terrain';
@@ -43,6 +44,11 @@ export default function ModelLab() {
           );
         })}
         {params.has('rocket') && <ToonRocket flame={NO_FLAME} />}
+        {params.has('bridge') && (
+          <group scale={0.05} rotation={[0, 0.35, 0]}>
+            <AdoBridge />
+          </group>
+        )}
         {params.has('refl') && (
           <group scale={2.6}>
             <group position={[-0.8, 0, 0]}>
