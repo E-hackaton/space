@@ -32,24 +32,29 @@ class VoiceConfig:
     guide_voice_id: str
     machine_voice_id: str
     model_id: str = DEFAULT_MODEL
+    # Voix par langue (facultatives) : si l'une est définie, elle sert pour tous les textes de cette langue.
+    voices_by_language: tuple[tuple[str, str], ...] = ()
 
     @classmethod
     def from_env(cls) -> VoiceConfig:
-        missing = [
-            name
-            for name in ("ELEVENLABS_API_KEY", "ELEVENLABS_VOICE_GUIDE", "ELEVENLABS_VOICE_MACHINE")
-            if not os.environ.get(name)
-        ]
+        by_language = tuple((lang, os.environ[f"ELEVENLABS_VOICE_{lang.upper()}"]) for lang in ("fr", "en") if os.environ.get(f"ELEVENLABS_VOICE_{lang.upper()}"))
+        # Voix par rôle obligatoires, sauf si chaque langue a sa propre voix.
+        required = ["ELEVENLABS_API_KEY"] + ([] if len(by_language) == 2 else ["ELEVENLABS_VOICE_GUIDE", "ELEVENLABS_VOICE_MACHINE"])
+        missing = [name for name in required if not os.environ.get(name)]
         if missing:
             raise ElevenLabsError(f"Variables d'environnement manquantes : {', '.join(missing)}.")
         return cls(
             api_key=os.environ["ELEVENLABS_API_KEY"],
-            guide_voice_id=os.environ["ELEVENLABS_VOICE_GUIDE"],
-            machine_voice_id=os.environ["ELEVENLABS_VOICE_MACHINE"],
+            guide_voice_id=os.environ.get("ELEVENLABS_VOICE_GUIDE", ""),
+            machine_voice_id=os.environ.get("ELEVENLABS_VOICE_MACHINE", ""),
             model_id=os.environ.get("ELEVENLABS_MODEL", DEFAULT_MODEL),
+            voices_by_language=by_language,
         )
 
-    def voice_for(self, role: str) -> str:
+    def voice_for(self, role: str, language: str | None = None) -> str:
+        by_language = dict(self.voices_by_language)
+        if language and by_language.get(language):
+            return by_language[language]
         return self.guide_voice_id if role == "guide" else self.machine_voice_id
 
 

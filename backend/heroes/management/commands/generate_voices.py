@@ -52,7 +52,7 @@ class Command(BaseCommand):
                 if not text:
                     continue  # pas encore traduit : rien à lire
 
-                voice_id = config.voice_for(item.voice_role()) if config else item.voice_role()
+                voice_id = config.voice_for(item.voice_role(), language) if config else item.voice_role()
                 fingerprint = voice_fingerprint(text, voice_id, config.model_id if config else "")
                 audio_field = getattr(item, f"audio_{language}")
                 up_to_date = audio_field and getattr(item, f"audio_{language}_hash") == fingerprint

@@ -118,3 +118,13 @@ class GenerateVoicesTests(TestCase):
         with mock.patch.dict("os.environ", {}, clear=True), self.assertRaises(CommandError) as ctx:
             self._run()
         self.assertIn("ELEVENLABS_API_KEY", str(ctx.exception))
+
+
+class VoicePerLanguageTests(TestCase):
+    @mock.patch.dict("os.environ", {"ELEVENLABS_API_KEY": "k", "ELEVENLABS_VOICE_FR": "voice-fr", "ELEVENLABS_VOICE_EN": "voice-en"}, clear=True)
+    def test_language_voices_replace_role_voices(self) -> None:
+        from heroes.services.elevenlabs import VoiceConfig
+
+        config = VoiceConfig.from_env()
+        self.assertEqual(config.voice_for("guide", "fr"), "voice-fr")
+        self.assertEqual(config.voice_for("machine", "en"), "voice-en")
