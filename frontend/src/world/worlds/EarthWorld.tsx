@@ -1,6 +1,6 @@
 import { useMemo, useRef } from 'react';
 import { useFrame, type ThreeEvent } from '@react-three/fiber';
-import { Sparkles, Stars, useTexture } from '@react-three/drei';
+import { Stars, useTexture } from '@react-three/drei';
 import * as THREE from 'three';
 import { Player, player, type Obstacle } from '../Player';
 import { ToonRocket } from '../props/Vehicles';
@@ -16,37 +16,6 @@ import { ship, useWorld, type WorldId } from '../state';
 export const EARTH_PAD: [number, number] = [22, -18];
 const EARTH_START: [number, number] = [EARTH_PAD[0] - 12, EARTH_PAD[1] + 10];
 const GRASS_AVOID: [number, number, number][] = [[EARTH_PAD[0], EARTH_PAD[1], 10]];
-
-/** Petites fleurs lumineuses (instanciées). */
-function Flowers({ field }: { field: ReturnType<typeof earthField> }) {
-  const mats = useMemo(() => {
-    let s = 21;
-    const rnd = () => ((s = (s * 9301 + 49297) % 233280) / 233280);
-    const out: THREE.Matrix4[] = [];
-    while (out.length < 220) {
-      const a = rnd() * 6.28;
-      const r = 8 + Math.sqrt(rnd()) * 48;
-      const x = Math.cos(a) * r;
-      const z = Math.sin(a) * r;
-      if (Math.hypot(x - EARTH_PAD[0], z - EARTH_PAD[1]) < 11) continue;
-      out.push(new THREE.Matrix4().compose(new THREE.Vector3(x, field.heightAt(x, z) + 0.45, z), new THREE.Quaternion(), new THREE.Vector3(1, 1, 1).multiplyScalar(0.6 + rnd() * 0.6)));
-    }
-    return out;
-  }, [field]);
-  return (
-    <instancedMesh
-      ref={(r) => {
-        if (!r) return;
-        mats.forEach((m, i) => r.setMatrixAt(i, m));
-        r.instanceMatrix.needsUpdate = true;
-      }}
-      args={[undefined, undefined, mats.length]}
-      material={smooth('#ffd1f0', { emissive: '#ff7ad9', glow: 1.6 })}
-    >
-      <sphereGeometry args={[0.13, 12, 8]} />
-    </instancedMesh>
-  );
-}
 
 /** Planète cliquable dans le ciel : un clic lance le voyage. */
 function SkyPlanet({ texture, position, radius, glow, target, onPick }: { texture: string; position: [number, number, number]; radius: number; glow: string; target: WorldId; onPick: (t: WorldId) => void }) {
@@ -153,10 +122,7 @@ export default function EarthWorld({ animate, onPickPlanet }: { animate: boolean
 
       <Trees field={field} trees={trees} animate={animate} />
       <Grass field={field} avoid={GRASS_AVOID} animate={animate} />
-      <Flowers field={field} />
       <Rocks rocks={rocks} color={PALETTES.earth.rock} seed={3} />
-      {/* Lucioles */}
-      <Sparkles count={140} scale={[110, 8, 110]} position={[0, 4, 0]} size={4} speed={animate ? 0.4 : 0} color="#d8ff9c" opacity={0.9} />
 
       {/* L'univers au-dessus de l'île : la Lune et Mars, cliquables */}
       <SkyPlanet texture="/textures/moon_color.jpg" position={[-70, 70, -150]} radius={18} glow="#cfd8ff" target="moon" onPick={onPickPlanet} />

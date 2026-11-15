@@ -43,6 +43,12 @@ export default defineConfig({
         navigateFallbackDenylist: [/^\/api\//, /^\/admin/, /^\/static\//, /^\/media\//],
         runtimeCaching: [
           {
+            // Copie statique des voix (backend : manage.py export_static_api).
+            urlPattern: ({ url }) => url.pathname.startsWith('/static-media/'),
+            handler: 'CacheFirst',
+            options: { cacheName: 'forbits-static-media', expiration: { maxEntries: 300 }, cacheableResponse: { statuses: [0, 200] } },
+          },
+          {
             urlPattern: ({ url }) => url.pathname.startsWith('/engins/'),
             handler: 'CacheFirst',
             options: { cacheName: 'forbits-engins', expiration: { maxEntries: 12 }, cacheableResponse: { statuses: [0, 200] } },

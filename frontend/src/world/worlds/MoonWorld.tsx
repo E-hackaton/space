@@ -1,6 +1,6 @@
 import { useMemo, useRef } from 'react';
 import { useFrame } from '@react-three/fiber';
-import { Sparkles, Stars, useTexture } from '@react-three/drei';
+import { Stars, useTexture } from '@react-three/drei';
 import * as THREE from 'three';
 import { Player, player, type Obstacle } from '../Player';
 import { Beacon, ToonLander } from '../props/Vehicles';
@@ -154,8 +154,6 @@ export default function MoonWorld({ animate }: { animate: boolean }) {
       {/* Poussière des roues : sans air, elle suit une parabole parfaite (pesanteur lunaire 1,62 m/s²). */}
       <DustTrail field={field} color="#c3c6cc" gravity={1.62} drag={0} active={phase === 'drive'} />
       <EarthInSky />
-      {/* Fine poussière de régolithe soulevée, très discrète */}
-      <Sparkles count={60} scale={[60, 3, 60]} position={[0, 1.5, 0]} size={2} speed={animate ? 0.15 : 0} color="#e8ecf5" opacity={0.5} />
       <LaserShot field={field} />
 
       <group position={at(LM)}>
