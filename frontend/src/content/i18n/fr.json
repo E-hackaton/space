@@ -419,5 +419,35 @@
     "cubesA15": "Des prismes en silice fondue renvoient le laser exactement vers son point de départ, sur Terre.",
     "support": "Socle et pieds",
     "supportDesc": "Ils posent le réflecteur sur le sol et inclinent le panneau vers la Terre."
+  },
+  "sojourner": {
+    "solar": {
+      "name": "Panneau solaire",
+      "desc": "Il alimentait le rover en électricité pendant la journée martienne."
+    },
+    "web": {
+      "name": "Boîte électronique chaude",
+      "desc": "Elle gardait l'électronique et la batterie au chaud pendant les nuits glaciales de Mars."
+    },
+    "rocker": {
+      "name": "Suspension rocker-bogie",
+      "desc": "Six roues sur des bras articulés : le rover franchit les cailloux sans basculer."
+    },
+    "apxs": {
+      "name": "Spectromètre APXS",
+      "desc": "Posé contre une roche, il mesurait sa composition chimique."
+    },
+    "cams": {
+      "name": "Caméras et lasers",
+      "desc": "Ils repéraient les obstacles devant le rover pour qu'il se dirige seul."
+    },
+    "antenna": {
+      "name": "Antenne",
+      "desc": "Elle reliait Sojourner à l'atterrisseur Pathfinder, qui relayait vers la Terre."
+    },
+    "mae": {
+      "name": "Expérience d'adhérence des matériaux (MAE)",
+      "desc": "Elle mesurait la poussière qui se dépose sur les cellules solaires."
+    }
   }
 }

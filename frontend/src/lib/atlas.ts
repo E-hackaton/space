@@ -51,6 +51,7 @@ export type Look3D =
   | { kind: 'nasa'; id: ModelId }
   | { kind: 'anatomy'; id: AnatomyId; pieces?: string[]; exclude?: string[]; excludeGroups?: string[] }
   | { kind: 'reflector'; variant: 'a11' | 'a15' }
+  | { kind: 'sojourner' }
   | { kind: 'craft' };
 
 export const LOOKS: Record<string, Look3D> = {
@@ -59,6 +60,7 @@ export const LOOKS: Record<string, Look3D> = {
   'apollo-15-lrv': { kind: 'anatomy', id: 'lunar-rover' },
   'apollo-15-retroreflector': { kind: 'reflector', variant: 'a15' },
   'viking-1': { kind: 'nasa', id: 'viking' },
+  sojourner: { kind: 'sojourner' },
   opportunity: { kind: 'nasa', id: 'opportunity' },
   curiosity: { kind: 'nasa', id: 'curiosity' },
   ingenuity: { kind: 'nasa', id: 'ingenuity' },

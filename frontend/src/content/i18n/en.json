@@ -419,5 +419,35 @@
     "cubesA15": "Fused silica prisms send the laser straight back to where it came from, on Earth.",
     "support": "Base and legs",
     "supportDesc": "They set the reflector on the ground and tilt the panel towards Earth."
+  },
+  "sojourner": {
+    "solar": {
+      "name": "Solar panel",
+      "desc": "It powered the rover during the Martian day."
+    },
+    "web": {
+      "name": "Warm electronics box",
+      "desc": "It kept the electronics and battery warm through freezing Martian nights."
+    },
+    "rocker": {
+      "name": "Rocker-bogie suspension",
+      "desc": "Six wheels on jointed arms: the rover climbs over rocks without tipping."
+    },
+    "apxs": {
+      "name": "APXS spectrometer",
+      "desc": "Placed against a rock, it measured its chemical make-up."
+    },
+    "cams": {
+      "name": "Cameras and lasers",
+      "desc": "They spotted obstacles ahead so the rover could steer itself."
+    },
+    "antenna": {
+      "name": "Antenna",
+      "desc": "It linked Sojourner to the Pathfinder lander, which relayed to Earth."
+    },
+    "mae": {
+      "name": "Material Adherence Experiment (MAE)",
+      "desc": "It measured the dust settling on the solar cells."
+    }
   }
 }
