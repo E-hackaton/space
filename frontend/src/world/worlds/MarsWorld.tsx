@@ -7,7 +7,8 @@ import { ToonLander } from '../props/Vehicles';
 import { Pebbles, Rocks, ShipCamera, SkyDome, SunLight, scatterRocks } from '../props/Environment';
 import { DustTrail } from '../props/DustTrail';
 import { Flights, Traverse, machinePositions, replay } from '../Replay';
-import { TerrainMesh } from '../TerrainMesh';
+import { TerrainMesh, heightRange } from '../TerrainMesh';
+import { extendField } from '../infiniteGround';
 import { siteField, type SiteData } from '../terrain';
 import { PALETTES } from '../toon';
 import { preloadModel, type ModelId } from '../../components/3d/NasaModel';
@@ -62,7 +63,10 @@ export default function MarsWorld({ site, animate }: { site: 'jezero' | 'gale'; 
 }
 
 function MarsSite({ data, site, animate }: { data: SiteData; site: 'jezero' | 'gale'; animate: boolean }) {
-  const field = useMemo(() => siteField(data), [data]);
+  // Site martien (détaillé, 1 unité = 40 m), prolongé à l'infini par un relief lointain.
+  const inner = useMemo(() => siteField(data), [data]);
+  const field = useMemo(() => extendField(inner, { amp: 0.6, freq: 0.06, craterCell: 8, roam: 600, seed: 3 }), [inner]);
+  const range = useMemo(() => heightRange(field, inner.half), [field, inner]);
   const phase = useWorld((s) => s.phase);
   const setSol = useWorld((s) => s.setSol);
   const setNear = useWorld((s) => s.setNear);
@@ -78,7 +82,7 @@ function MarsSite({ data, site, animate }: { data: SiteData; site: 'jezero' | 'g
   const start = useMemo<[number, number]>(() => [landing[0] - 6, landing[2] + 4], [landing]);
 
   const rocks = useMemo(
-    () => scatterRocks(field, 850, site === 'gale' ? 5 : 2, [[landing[0], landing[2], 10], [start[0], start[1], 5]]),
+    () => scatterRocks(inner, 850, site === 'gale' ? 5 : 2, [[landing[0], landing[2], 10], [start[0], start[1], 5]]),
     [field, site, landing, start],
   );
   // Ordre important : [atterrisseur, rovers (positions mises à jour par Traverse), rochers].
@@ -126,11 +130,13 @@ function MarsSite({ data, site, animate }: { data: SiteData; site: 'jezero' | 'g
       <hemisphereLight args={['#ffd9b0', '#5a2a18', 0.85]} />
       <SunLight color="#ffe2c2" intensity={2.3} dir={[-0.7, 0.6, 0.45]} />
 
-      <TerrainMesh field={field} colors={PALETTES.mars.ground} segments={200} detail="sand" tile={0.15} />
+      <TerrainMesh field={field} extent={inner.half} range={range} colors={PALETTES.mars.ground} segments={200} detail="sand" tile={0.15} />
+      {/* Le sol continue jusqu'à l'horizon */}
+      <TerrainMesh field={field} extent={900} warp holeHalf={inner.half - 0.5} range={range} colors={PALETTES.mars.ground} segments={240} detail="sand" tile={0.15} />
       {/* Poussière en suspension qui suit le joueur */}
       <DustMotes animate={animate} />
       <Rocks rocks={rocks} color={PALETTES.mars.rock} seed={site === 'gale' ? 5 : 2} />
-      <Pebbles field={field} color={PALETTES.mars.rock} count={6000} minSize={0.12} maxSize={0.9} seed={site === 'gale' ? 6 : 9} />
+      <Pebbles field={inner} color={PALETTES.mars.rock} count={6000} minSize={0.12} maxSize={0.9} seed={site === 'gale' ? 6 : 9} />
       {/* Poussière des roues : l'air martien, très léger, la freine un peu (pesanteur 3,71 m/s²). */}
       <DustTrail field={field} color="#b97a4e" gravity={3.71} drag={0.8} active={phase === 'drive'} />
 

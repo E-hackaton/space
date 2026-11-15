@@ -3,7 +3,8 @@ import { Canvas, useFrame, useThree } from '@react-three/fiber';
 import { AdaptiveDpr, Html, OrbitControls, PerformanceMonitor, Sparkles, Stars, useTexture } from '@react-three/drei';
 import * as THREE from 'three';
 import { Player, player, type Obstacle } from '../../world/Player';
-import { TerrainMesh } from '../../world/TerrainMesh';
+import { TerrainMesh, heightRange } from '../../world/TerrainMesh';
+import { extendField } from '../../world/infiniteGround';
 import { Pebbles, Rocks, SkyDome, SunLight, scatterRocks, corridor } from '../../world/props/Environment';
 import { DustTrail } from '../../world/props/DustTrail';
 import { Look } from '../../world/Look';
@@ -147,7 +148,10 @@ interface Props {
 
 /** L'expédition au sol : on roule de machine en machine sur la Lune ou sur Mars. */
 export default function ExpeditionGround({ body, sites, start, startHeading, animate }: Props) {
-  const field = useMemo(() => expeditionField(body, sites), [body, sites]);
+  // Terrain détaillé (zone des machines), prolongé à l'infini par un relief lointain.
+  const inner = useMemo(() => expeditionField(body, sites), [body, sites]);
+  const field = useMemo(() => extendField(inner, { amp: body === 'moon' ? 7 : 10, freq: 0.004, craterCell: 220, roam: 1900, seed: body === 'moon' ? 11 : 3 }), [inner, body]);
+  const range = useMemo(() => heightRange(field, inner.half), [field, inner]);
   const story = useExpedition((s) => s.story);
   const target = useExpedition((s) => s.target);
   const found = useExpedition((s) => s.found);
@@ -157,7 +161,7 @@ export default function ExpeditionGround({ body, sites, start, startHeading, ani
   const pal = PALETTES[body];
   const rocks = useMemo(
     () =>
-      scatterRocks(field, body === 'moon' ? 420 : 900, body === 'moon' ? 9 : 4, [
+      scatterRocks(inner, body === 'moon' ? 420 : 900, body === 'moon' ? 9 : 4, [
         ...sites.map((s) => [s.x, s.z, 18] as [number, number, number]),
         [start[0], start[1], 12],
         ...sites.flatMap((s, i) => (i ? corridor([sites[i - 1].x, sites[i - 1].z], [s.x, s.z], 7) : [])),
@@ -172,7 +176,7 @@ export default function ExpeditionGround({ body, sites, start, startHeading, ani
     <Canvas
       shadows={shadows ? { type: THREE.PCFSoftShadowMap } : false}
       dpr={dpr}
-      camera={{ fov: 46, near: 0.1, far: 1400, position: [start[0], 30, start[1] + 40] }}
+      camera={{ fov: 46, near: 0.1, far: 3000, position: [start[0], 30, start[1] + 40] }}
       gl={{ antialias: true, toneMapping: THREE.ACESFilmicToneMapping, toneMappingExposure: body === 'moon' ? 0.82 : 1 }}
       aria-hidden="true"
     >
@@ -205,9 +209,11 @@ export default function ExpeditionGround({ body, sites, start, startHeading, ani
       )}
       <Look tint={body === 'moon' ? '#ffffff' : '#ffd9b0'} ground={body === 'moon' ? '#3a3c42' : '#6a3420'} bloom={0.55} effects={shadows} />
 
-      <TerrainMesh field={field} colors={pal.ground} segments={360} detail={body === 'moon' ? 'regolith' : 'sand'} tile={6} />
+      <TerrainMesh field={field} extent={inner.half} range={range} colors={pal.ground} segments={360} detail={body === 'moon' ? 'regolith' : 'sand'} tile={6} />
+      {/* Le sol continue jusqu'à l'horizon */}
+      <TerrainMesh field={field} extent={2400} warp holeHalf={inner.half - 1} range={range} colors={pal.ground} segments={280} detail={body === 'moon' ? 'regolith' : 'sand'} tile={6} />
       <Rocks rocks={rocks} color={pal.rock} seed={body === 'moon' ? 9 : 4} />
-      <Pebbles field={field} color={pal.rock} count={body === 'moon' ? 6000 : 8000} seed={body === 'moon' ? 3 : 8} minSize={0.15} maxSize={1.1} avoid={sites.map((s) => [s.x, s.z, 8] as [number, number, number])} />
+      <Pebbles field={inner} color={pal.rock} count={body === 'moon' ? 6000 : 8000} seed={body === 'moon' ? 3 : 8} minSize={0.15} maxSize={1.1} avoid={sites.map((s) => [s.x, s.z, 8] as [number, number, number])} />
       {body === 'moon' ? (
         <DustTrail field={field} color="#c3c6cc" gravity={1.62} drag={0} active={!story} />
       ) : (

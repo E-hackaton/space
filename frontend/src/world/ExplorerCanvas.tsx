@@ -30,7 +30,7 @@ export default function ExplorerCanvas({ animate, onPickPlanet }: { animate: boo
     <Canvas
       shadows={shadows ? { type: THREE.PCFSoftShadowMap } : false}
       dpr={dpr}
-      camera={{ fov: 42, near: 0.1, far: 900, position: [0, 20, 30] }}
+      camera={{ fov: 42, near: 0.1, far: 3000, position: [0, 20, 30] }}
       gl={{ antialias: true, powerPreference: 'high-performance', toneMapping: THREE.ACESFilmicToneMapping, toneMappingExposure: 1.05 }}
       aria-hidden="true"
     >

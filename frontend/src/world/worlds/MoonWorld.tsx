@@ -6,7 +6,8 @@ import { Player, player, type Obstacle } from '../Player';
 import { Beacon, ToonLander } from '../props/Vehicles';
 import { Rocks, ShipCamera, SunLight, corridor, scatterRocks } from '../props/Environment';
 import { DustTrail } from '../props/DustTrail';
-import { TerrainMesh } from '../TerrainMesh';
+import { TerrainMesh, heightRange } from '../TerrainMesh';
+import { extendField } from '../infiniteGround';
 import { moonField } from '../terrain';
 import { PALETTES } from '../toon';
 import { Atmosphere } from '../../components/3d/Atmosphere';
@@ -104,7 +105,10 @@ function LaserShot({ field }: { field: ReturnType<typeof moonField> }) {
 }
 
 export default function MoonWorld({ animate }: { animate: boolean }) {
-  const field = useMemo(() => moonField(), []);
+  // Site d'Apollo 11 (détaillé), prolongé à l'infini par un relief lointain.
+  const inner = useMemo(() => moonField(), []);
+  const field = useMemo(() => extendField(inner, { amp: 6, freq: 0.006, craterCell: 150, roam: 1500, seed: 11 }), [inner]);
+  const range = useMemo(() => heightRange(field, inner.half), [field, inner]);
   const phase = useWorld((s) => s.phase);
   const setNear = useWorld((s) => s.setNear);
   const near = useWorld((s) => s.near);
@@ -114,7 +118,7 @@ export default function MoonWorld({ animate }: { animate: boolean }) {
   const landingY = field.heightAt(...LANDING);
   // Rochers partout, sauf sur le site d'Apollo 11, autour du vaisseau et sur le chemin qui y mène.
   const rocks = useMemo(
-    () => scatterRocks(field, 220, 9, [[0, 8, 16], [LANDING[0], LANDING[1], 8], ...corridor(LANDING, START, 4), ...corridor(START, LM, 4)]),
+    () => scatterRocks(inner, 220, 9, [[0, 8, 16], [LANDING[0], LANDING[1], 8], ...corridor(LANDING, START, 4), ...corridor(START, LM, 4)]),
     [field],
   );
   const obstacles = useMemo<Obstacle[]>(
@@ -149,7 +153,9 @@ export default function MoonWorld({ animate }: { animate: boolean }) {
       <Stars radius={300} depth={60} count={4000} factor={5} fade speed={animate ? 0.3 : 0} />
       <hemisphereLight args={['#c9d4ff', '#202024', 0.35]} />
       <SunLight color="#ffffff" intensity={3.2} dir={[0.85, 0.5, 0.25]} />
-      <TerrainMesh field={field} colors={PALETTES.moon.ground} segments={200} detail="regolith" tile={5} />
+      <TerrainMesh field={field} extent={inner.half} range={range} colors={PALETTES.moon.ground} segments={200} detail="regolith" tile={5} />
+      {/* Le sol continue jusqu'à l'horizon */}
+      <TerrainMesh field={field} extent={2200} warp holeHalf={inner.half - 1} range={range} colors={PALETTES.moon.ground} segments={260} detail="regolith" tile={5} />
       <Rocks rocks={rocks} color={PALETTES.moon.rock} seed={9} />
       {/* Poussière des roues : sans air, elle suit une parabole parfaite (pesanteur lunaire 1,62 m/s²). */}
       <DustTrail field={field} color="#c3c6cc" gravity={1.62} drag={0} active={phase === 'drive'} />
