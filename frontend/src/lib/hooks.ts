@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react';
+import { useStore } from '../store/useStore';
 
 export function usePrefersReducedMotion(): boolean {
   const query = '(prefers-reduced-motion: reduce)';
@@ -9,5 +10,7 @@ export function usePrefersReducedMotion(): boolean {
     mq.addEventListener('change', onChange);
     return () => mq.removeEventListener('change', onChange);
   }, []);
-  return reduced;
+  // Le réglage « Animations » des Paramètres l'emporte sur celui du système.
+  const motion = useStore((s) => s.motion);
+  return motion === 'reduce' ? true : motion === 'full' ? false : reduced;
 }

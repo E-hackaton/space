@@ -1,6 +1,7 @@
 import { lazy, Suspense } from 'react';
 import { BrowserRouter, Navigate, Route, Routes } from 'react-router-dom';
 import { Layout } from './Layout';
+import { Preferences } from './Preferences';
 import { Loading } from '../components/ui/Loading';
 import Home from '../pages/Home';
 
@@ -12,10 +13,13 @@ const ExplorerPage = lazy(() => import('../pages/ExplorerPage'));
 const ModelLab = lazy(() => import('../pages/ModelLab'));
 const Sources = lazy(() => import('../pages/Sources'));
 const Logbook = lazy(() => import('../pages/Logbook'));
+const Gallery = lazy(() => import('../pages/Gallery'));
+const Settings = lazy(() => import('../pages/Settings'));
 const NotFound = lazy(() => import('../pages/NotFound'));
 
 export default function App() {
   return (
+    <Preferences>
     <BrowserRouter future={{ v7_startTransition: true, v7_relativeSplatPath: true }}>
       <Suspense fallback={<Loading />}>
         <Routes>
@@ -28,11 +32,14 @@ export default function App() {
             {import.meta.env.DEV && <Route path="/labo" element={<ModelLab />} />}
             <Route path="/chapitre/:id" element={<ChapterPage />} />
             <Route path="/carnet" element={<Logbook />} />
+            <Route path="/galerie" element={<Gallery />} />
+            <Route path="/parametres" element={<Settings />} />
             <Route path="/sources" element={<Sources />} />
             <Route path="*" element={<NotFound />} />
           </Route>
         </Routes>
       </Suspense>
     </BrowserRouter>
+    </Preferences>
   );
 }

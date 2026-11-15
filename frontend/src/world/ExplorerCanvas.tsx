@@ -3,6 +3,7 @@ import { Canvas } from '@react-three/fiber';
 import { AdaptiveDpr, PerformanceMonitor } from '@react-three/drei';
 import { useState } from 'react';
 import * as THREE from 'three';
+import { useStore } from '../store/useStore';
 import { useWorld, type WorldId } from './state';
 import EarthWorld from './worlds/EarthWorld';
 import MarsWorld from './worlds/MarsWorld';
@@ -24,9 +25,11 @@ export default function ExplorerCanvas({ animate, onPickPlanet }: { animate: boo
   const world = useWorld((s) => s.world);
   const phase = useWorld((s) => s.phase);
   const target = useWorld((s) => s.target);
-  const [dpr, setDpr] = useState(Math.min(1.25, window.devicePixelRatio || 1));
+  const quality = useStore((st) => st.quality);
+  const maxDpr = quality === 'high' ? Math.min(2, window.devicePixelRatio || 1) : quality === 'low' ? 1 : Math.min(1.25, window.devicePixelRatio || 1);
+  const [dpr, setDpr] = useState(maxDpr);
   const [gen, bump] = useCanvasGeneration();
-  const [shadows, setShadows] = useState(true);
+  const [shadows, setShadows] = useState(quality !== 'low');
 
   return (
     <Canvas
@@ -43,7 +46,7 @@ export default function ExplorerCanvas({ animate, onPickPlanet }: { animate: boo
           setDpr(1);
           setShadows(false);
         }}
-        onIncline={() => setDpr(Math.min(1.25, window.devicePixelRatio || 1))}
+        onIncline={() => setDpr(maxDpr)}
       />
       <AdaptiveDpr pixelated />
       <ContextGuard onLost={bump} />

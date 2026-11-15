@@ -2,6 +2,7 @@ import { Suspense, useEffect, useMemo, useRef, useState } from 'react';
 import { Canvas, useFrame, useThree } from '@react-three/fiber';
 import { AdaptiveDpr, Html, OrbitControls, PerformanceMonitor, Sparkles, Stars, useTexture } from '@react-three/drei';
 import * as THREE from 'three';
+import { useStore } from '../../store/useStore';
 import { Player, player, type Obstacle } from '../../world/Player';
 import { TerrainMesh, heightRange } from '../../world/TerrainMesh';
 import { extendField } from '../../world/infiniteGround';
@@ -157,9 +158,11 @@ export default function ExpeditionGround({ body, sites, start, startHeading, ani
   const target = useExpedition((s) => s.target);
   const found = useExpedition((s) => s.found);
   const effect = useExpedition((s) => s.effect);
-  const [dpr, setDpr] = useState(Math.min(1.25, window.devicePixelRatio || 1));
+  const quality = useStore((st) => st.quality);
+  const maxDpr = quality === 'high' ? Math.min(2, window.devicePixelRatio || 1) : quality === 'low' ? 1 : Math.min(1.25, window.devicePixelRatio || 1);
+  const [dpr, setDpr] = useState(maxDpr);
   const [gen, bump] = useCanvasGeneration();
-  const [shadows, setShadows] = useState(true);
+  const [shadows, setShadows] = useState(quality !== 'low');
   const pal = PALETTES[body];
   const rocks = useMemo(
     () =>

@@ -31,6 +31,7 @@ export function StoryPlayer({ slug, mode, onDone, nextLine }: Props) {
   const { t, i18n } = useTranslation();
   const { machine, status } = useMachine(slug);
   const voiceOn = useStore((s) => s.voiceOn);
+  const subtitleSize = useStore((s) => s.subtitleSize);
   const setVoiceOn = useStore((s) => s.setVoiceOn);
   const completeMachine = useStore((s) => s.completeMachine);
   const earnBadge = useStore((s) => s.earnBadge);
@@ -135,7 +136,7 @@ export function StoryPlayer({ slug, mode, onDone, nextLine }: Props) {
                 {current.date && <span className="text-slate-300">· {formatDate(current.date, i18n.language)}</span>}
               </div>
               <div aria-live="polite">
-                <SpeechText key={`${step}-${i18n.language}`} text={current.text} className="story-subtitle" />
+                <SpeechText key={`${step}-${i18n.language}`} text={current.text} className={`story-subtitle ${subtitleSize === 'large' ? 'story-subtitle-large' : ''}`} />
               </div>
               {current.effect === 'laser' && (
                 <p className="mt-2 text-center text-sm text-active"><Icon name="bolt" /> {t('actions.laserResult', { s: LASER_SECONDS.toLocaleString(i18n.language), km: MOON_KM.toLocaleString(i18n.language) })}</p>

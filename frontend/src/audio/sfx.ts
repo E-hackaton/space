@@ -25,7 +25,9 @@ let noise: AudioBuffer | null = null;
 let enabled = true;
 /** Narration en cours : les effets baissent pour laisser la voix nette. */
 let ducked = false;
-const level = () => (enabled ? (ducked ? 0.16 : 0.55) : 0);
+/** Volume choisi dans les Paramètres (0 à 1). */
+let volume = 1;
+const level = () => (enabled ? (ducked ? 0.16 : 0.55) * volume : 0);
 
 function audio(): AudioContext | null {
   if (!ctx) {
@@ -52,6 +54,12 @@ export function unlockSfx() {
 /** Coupe ou rétablit tous les effets. */
 export function setSfxEnabled(on: boolean) {
   enabled = on;
+  if (master && ctx) master.gain.setTargetAtTime(level(), ctx.currentTime, 0.05);
+}
+
+/** Volume des effets (Paramètres). */
+export function setSfxVolume(v: number) {
+  volume = Math.max(0, Math.min(1, v));
   if (master && ctx) master.gain.setTargetAtTime(level(), ctx.currentTime, 0.05);
 }
 

@@ -3,6 +3,7 @@ import { useFrame } from '@react-three/fiber';
 import { RoundedBox } from '@react-three/drei';
 import * as THREE from 'three';
 import { smooth } from '../materials';
+import { ROVER_COLORS, useStore } from '../../store/useStore';
 
 /*
  * Engins originaux dessinés en formes lisses (profils tournés, arrondis, tores).
@@ -40,6 +41,8 @@ export function Wheel({ r = 0.34, w = 0.26, spin, steer }: { r?: number; w?: num
 
 /** Le rover du joueur : un explorateur arrondi, carrosserie laquée et phares lumineux. */
 export const PlayerRover = forwardRef<THREE.Group, { spin: { current: number }; steer: { current: number } }>(function PlayerRover({ spin, steer }, ref) {
+  // Couleurs choisies dans les Paramètres.
+  const colors = ROVER_COLORS[useStore((s) => s.roverColor)] ?? ROVER_COLORS.lagon;
   const head = useRef<THREE.Group>(null!);
   useFrame(({ clock }) => {
     head.current.rotation.y = Math.sin(clock.elapsedTime * 0.7) * 0.5;
@@ -47,8 +50,8 @@ export const PlayerRover = forwardRef<THREE.Group, { spin: { current: number }; 
   return (
     <group ref={ref}>
       {/* Châssis et carrosserie */}
-      <RoundedBox args={[1.25, 0.42, 2.0]} radius={0.18} smoothness={4} position={[0, 0.66, 0]} material={smooth('#f4f6fa', { clearcoat: 1, rough: 0.35 })} castShadow />
-      <RoundedBox args={[1.0, 0.26, 1.2]} radius={0.12} smoothness={4} position={[0, 0.98, 0.18]} material={smooth('#21b3a8', { clearcoat: 1, rough: 0.3 })} castShadow />
+      <RoundedBox args={[1.25, 0.42, 2.0]} radius={0.18} smoothness={4} position={[0, 0.66, 0]} material={smooth(colors.body, { clearcoat: 1, rough: 0.35 })} castShadow />
+      <RoundedBox args={[1.0, 0.26, 1.2]} radius={0.12} smoothness={4} position={[0, 0.98, 0.18]} material={smooth(colors.accent, { clearcoat: 1, rough: 0.3 })} castShadow />
       {/* Bulle du cockpit */}
       <mesh position={[0, 1.05, -0.48]} scale={[0.48, 0.3, 0.42]} material={smooth('#9fe7ff', { rough: 0.05, metal: 0.1, clearcoat: 1, opacity: 0.75 })} castShadow>
         <sphereGeometry args={[1, 32, 24, 0, Math.PI * 2, 0, Math.PI / 2]} />
@@ -60,7 +63,7 @@ export const PlayerRover = forwardRef<THREE.Group, { spin: { current: number }; 
         <capsuleGeometry args={[0.045, 0.6, 6, 12]} />
       </mesh>
       <group ref={head} position={[0.36, 1.85, 0.55]}>
-        <RoundedBox args={[0.42, 0.22, 0.26]} radius={0.08} smoothness={4} material={smooth('#f4f6fa', { clearcoat: 1, rough: 0.35 })} castShadow />
+        <RoundedBox args={[0.42, 0.22, 0.26]} radius={0.08} smoothness={4} material={smooth(colors.body, { clearcoat: 1, rough: 0.35 })} castShadow />
         {[-0.1, 0.1].map((x) => (
           <mesh key={x} position={[x, 0, -0.14]} material={smooth('#0d1b2a', { emissive: '#62e6ff', glow: 1.6 })}>
             <sphereGeometry args={[0.055, 16, 12]} />

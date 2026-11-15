@@ -17,7 +17,12 @@
     "tour": "Visite 3D",
     "mission": "Missions",
     "explorer": "Explorer",
-    "logbook": "Carnet"
+    "logbook": "Carnet",
+    "gallery": "Galerie",
+    "settings": "Paramètres",
+    "main": "Navigation principale",
+    "open": "Ouvrir le menu",
+    "close": "Fermer le menu"
   },
   "map": {
     "title": "Carte du voyage",
@@ -449,5 +454,70 @@
       "name": "Expérience d'adhérence des matériaux (MAE)",
       "desc": "Elle mesurait la poussière qui se dépose sur les cellules solaires."
     }
+  },
+  "gallery": {
+    "title": "Galerie",
+    "all": "Tout",
+    "machine": "Machine",
+    "allMachines": "Toutes les machines",
+    "figureHint": "Figure interactive : ouvrir",
+    "figureCredit": "Figure 3D interactive (modèle NASA 3D Resources ou figure de l'équipe)",
+    "diagramCredit": "Schéma annoté NASA (docs/mars1)",
+    "offline": "La médiathèque de la NASA n'est pas joignable : seuls les médias du projet s'affichent.",
+    "source": "Fiche NASA",
+    "kinds": {
+      "image": "Photo NASA",
+      "video": "Vidéo NASA",
+      "figure": "Figure 3D",
+      "diagram": "Schéma"
+    }
+  },
+  "settings": {
+    "title": "Paramètres",
+    "display": "Affichage",
+    "theme": "Thème",
+    "themeHint": "La scène spatiale reste toujours sombre.",
+    "system": "Système",
+    "light": "Clair",
+    "dark": "Sombre",
+    "language": "Langue",
+    "motion": "Animations",
+    "motionHint": "Réduire les mouvements et les vols de caméra.",
+    "reduced": "Réduites",
+    "full": "Complètes",
+    "quality": "Qualité graphique",
+    "qualityHint": "« Économie » pour les appareils modestes.",
+    "auto": "Auto",
+    "high": "Élevée",
+    "low": "Économie",
+    "narration": "Narration",
+    "voiceOn": "Voix activée",
+    "voice": "Voix",
+    "voiceHint": "Voix disponibles sur cet appareil.",
+    "voiceAuto": "Automatique (la plus naturelle)",
+    "listen": "Écouter",
+    "sample": "Bonjour, je suis Sankofa. Voici la voix qui te racontera l'histoire des machines.",
+    "rate": "Vitesse de la voix",
+    "subtitles": "Taille des sous-titres",
+    "normal": "Normale",
+    "large": "Grande",
+    "sound": "Sons",
+    "volume": "Volume des effets",
+    "test": "Tester",
+    "rover": "Rover de parcours",
+    "roverColor": "Couleur",
+    "colors": {
+      "lagon": "Lagon",
+      "soleil": "Soleil",
+      "corail": "Corail",
+      "nuit": "Nuit",
+      "sable": "Sable",
+      "lilas": "Lilas"
+    },
+    "progress": "Progression",
+    "reset": "Remettre à zéro",
+    "resetHint": "Efface les machines retrouvées et les badges du carnet.",
+    "confirm": "Oui, tout effacer",
+    "cancel": "Annuler"
   }
 }

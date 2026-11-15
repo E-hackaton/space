@@ -17,7 +17,12 @@
     "tour": "3D tour",
     "mission": "Missions",
     "explorer": "Explore",
-    "logbook": "Logbook"
+    "logbook": "Logbook",
+    "gallery": "Gallery",
+    "settings": "Settings",
+    "main": "Main navigation",
+    "open": "Open the menu",
+    "close": "Close the menu"
   },
   "map": {
     "title": "Journey map",
@@ -449,5 +454,70 @@
       "name": "Material Adherence Experiment (MAE)",
       "desc": "It measured the dust settling on the solar cells."
     }
+  },
+  "gallery": {
+    "title": "Gallery",
+    "all": "All",
+    "machine": "Machine",
+    "allMachines": "All machines",
+    "figureHint": "Interactive figure: open",
+    "figureCredit": "Interactive 3D figure (NASA 3D Resources model or team figure)",
+    "diagramCredit": "NASA annotated diagram (docs/mars1)",
+    "offline": "The NASA media library can't be reached: only the project's media are shown.",
+    "source": "NASA page",
+    "kinds": {
+      "image": "NASA photo",
+      "video": "NASA video",
+      "figure": "3D figure",
+      "diagram": "Diagram"
+    }
+  },
+  "settings": {
+    "title": "Settings",
+    "display": "Display",
+    "theme": "Theme",
+    "themeHint": "The space scene always stays dark.",
+    "system": "System",
+    "light": "Light",
+    "dark": "Dark",
+    "language": "Language",
+    "motion": "Animations",
+    "motionHint": "Reduce motion and camera flights.",
+    "reduced": "Reduced",
+    "full": "Full",
+    "quality": "Graphics quality",
+    "qualityHint": "“Saver” for modest devices.",
+    "auto": "Auto",
+    "high": "High",
+    "low": "Saver",
+    "narration": "Narration",
+    "voiceOn": "Voice on",
+    "voice": "Voice",
+    "voiceHint": "Voices available on this device.",
+    "voiceAuto": "Automatic (most natural)",
+    "listen": "Listen",
+    "sample": "Hello, I'm Sankofa. This is the voice that will tell you the machines' stories.",
+    "rate": "Voice speed",
+    "subtitles": "Subtitle size",
+    "normal": "Normal",
+    "large": "Large",
+    "sound": "Sound",
+    "volume": "Effects volume",
+    "test": "Test",
+    "rover": "Exploration rover",
+    "roverColor": "Colour",
+    "colors": {
+      "lagon": "Lagoon",
+      "soleil": "Sun",
+      "corail": "Coral",
+      "nuit": "Night",
+      "sable": "Sand",
+      "lilas": "Lilac"
+    },
+    "progress": "Progress",
+    "reset": "Reset",
+    "resetHint": "Clears the machines you found and the logbook badges.",
+    "confirm": "Yes, erase everything",
+    "cancel": "Cancel"
   }
 }

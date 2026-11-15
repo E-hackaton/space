@@ -1,4 +1,5 @@
 import { duckSfx } from './sfx';
+import { useStore } from '../store/useStore';
 
 /**
  * Narration : voix ElevenLabs pré-générée (MP3 servi par Django) quand elle existe,
@@ -74,10 +75,27 @@ function score(v: SpeechSynthesisVoice): number {
 
 let cached: { lang: string; voice: SpeechSynthesisVoice | null } | null = null;
 
+/** Voix du navigateur disponibles pour une langue, de la plus naturelle à la moins naturelle. */
+export function listVoices(lang: string): SpeechSynthesisVoice[] {
+  const synth = window.speechSynthesis;
+  if (!synth) return [];
+  const code = lang === 'fr' ? 'fr' : 'en';
+  return synth
+    .getVoices()
+    .filter((v) => v.lang.toLowerCase().startsWith(code))
+    .sort((a, b) => score(b) - score(a));
+}
+
 function bestVoice(lang: string): SpeechSynthesisVoice | null {
   const synth = window.speechSynthesis;
   if (!synth) return null;
-  if (cached && cached.lang === lang && cached.voice) return cached.voice;
+  // Voix choisie dans les Paramètres, si elle existe sur cet appareil et parle la bonne langue.
+  const chosen = useStore.getState().voiceName;
+  if (chosen) {
+    const v = synth.getVoices().find((x) => x.name === chosen && x.lang.toLowerCase().startsWith(lang === 'fr' ? 'fr' : 'en'));
+    if (v) return v;
+  }
+  if (!chosen && cached && cached.lang === lang && cached.voice) return cached.voice;
   const code = lang === 'fr' ? 'fr' : 'en';
   const voices = synth.getVoices().filter((v) => v.lang.toLowerCase().startsWith(code));
   // Préférence régionale : France pour le français, puis tout autre français ; États-Unis / Royaume-Uni pour l'anglais.
@@ -125,7 +143,7 @@ function speakWithBrowser(text: string, lang: string, current: number, onEnd: ()
     if (token !== current) return;
     const voice = bestVoice(lang);
     // Seule eSpeak est installée : sa voix grince ; on garde les sous-titres sans la voix.
-    if (voice && /espeak|mbrola/i.test(voice.name)) {
+    if (voice && /espeak|mbrola/i.test(voice.name) && voice.name !== useStore.getState().voiceName) {
       // On laisse le temps de lire les sous-titres, comme si la voix parlait.
       window.setTimeout(() => token === current && onEnd(), Math.max(3000, text.length * 55));
       return;
@@ -140,7 +158,7 @@ function speakWithBrowser(text: string, lang: string, current: number, onEnd: ()
       const u = new SpeechSynthesisUtterance(queue[i]);
       u.lang = voice?.lang ?? (lang === 'fr' ? 'fr-FR' : 'en-US');
       if (voice) u.voice = voice;
-      u.rate = 0.97;
+      u.rate = useStore.getState().voiceRate;
       u.pitch = 1;
       u.volume = 1;
       u.onend = () => next(i + 1);
