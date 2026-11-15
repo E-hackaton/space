@@ -3,7 +3,6 @@ import { useTranslation } from 'react-i18next';
 import { AnimatePresence, motion } from 'motion/react';
 import { SpeechText } from '../guide/SpeechText';
 import { SankofaAvatar } from '../guide/SankofaAvatar';
-import { StatusPill } from '../story/StatusPill';
 import { VitalsPanel } from '../story/VitalsPanel';
 import { Quiz } from '../story/Quiz';
 import { formatDate, useMachine } from '../../lib/machines';
@@ -102,8 +101,6 @@ export function StoryPlayer({ slug, mode, onDone, nextLine }: Props) {
   if (!machine || !current) return <div className="story-shell animate-pulse text-slate-300">{t('chapter.loading')}</div>;
 
   const progress = outro ? 1 : step / Math.max(1, total - 1);
-  const ended = outro || current.phase === 'end';
-  const activeNow = ended ? machine.fate === 'active' : true;
 
   return (
     <>
@@ -112,7 +109,6 @@ export function StoryPlayer({ slug, mode, onDone, nextLine }: Props) {
         <p className="text-[11px] uppercase tracking-[0.3em] text-slate-300">{machine.mission}</p>
         <p className="font-display text-3xl font-extrabold uppercase leading-none tracking-wide sm:text-4xl">{machine.name}</p>
         <div className="mt-1.5 flex items-center gap-2">
-          <StatusPill active={activeNow} label={ended ? t(`mission.fates.${machine.fate}`) : undefined} />
           <button type="button" className="chip" onClick={() => (voiceOn ? (stopSpeaking(), setVoiceOn(false)) : setVoiceOn(true))} aria-pressed={voiceOn}>
             <Icon name={voiceOn ? 'sound' : 'mute'} />
             <span className="sr-only">{voiceOn ? t('guide.mute') : t('guide.unmute')}</span>
