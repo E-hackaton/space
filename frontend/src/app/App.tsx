@@ -1,5 +1,5 @@
 import { lazy, Suspense } from 'react';
-import { BrowserRouter, Route, Routes } from 'react-router-dom';
+import { BrowserRouter, Navigate, Route, Routes } from 'react-router-dom';
 import { Layout } from './Layout';
 import { Loading } from '../components/ui/Loading';
 import Home from '../pages/Home';
@@ -7,7 +7,6 @@ import Home from '../pages/Home';
 // Chaque écran lourd est chargé à la demande.
 const JourneyMap = lazy(() => import('../pages/JourneyMap'));
 const ChapterPage = lazy(() => import('../pages/ChapterPage'));
-const Tour = lazy(() => import('../pages/Tour'));
 const MissionPage = lazy(() => import('../pages/MissionPage'));
 const ExplorerPage = lazy(() => import('../pages/ExplorerPage'));
 const ModelLab = lazy(() => import('../pages/ModelLab'));
@@ -23,7 +22,7 @@ export default function App() {
           <Route path="/" element={<Home />} />
           <Route element={<Layout />}>
             <Route path="/carte" element={<JourneyMap />} />
-            <Route path="/visite" element={<Tour />} />
+            <Route path="/visite" element={<Navigate to="/explorer" replace />} />
             <Route path="/mission" element={<MissionPage />} />
             <Route path="/explorer" element={<ExplorerPage />} />
             {import.meta.env.DEV && <Route path="/labo" element={<ModelLab />} />}

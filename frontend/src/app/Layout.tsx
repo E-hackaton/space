@@ -50,7 +50,6 @@ export function Layout() {
           {link('/explorer', t('nav.explorer'))}
           {link('/mission', t('nav.mission'))}
           {link('/carte', t('nav.map'))}
-          {link('/visite', t('nav.tour'))}
           {link('/carnet', t('nav.logbook'))}
           {link('/sources', t('nav.sources'))}
           <button type="button" onClick={() => setSfxOn(!sfxOn)} aria-pressed={sfxOn} className="rounded-full p-1.5 text-slate-300 hover:text-white" title={t('app.sfx')}>
