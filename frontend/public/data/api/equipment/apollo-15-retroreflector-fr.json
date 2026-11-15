@@ -22,7 +22,7 @@
  "presentation": {
   "title": "Psst… regarde-moi bien, je suis peut-être en train de travailler en ce moment. Je suis le réflecteur laser d'Apollo 15.",
   "body": "Je suis un instrument scientifique de la mission Apollo 15. Je n'ai ni moteur ni batterie, et pourtant je travaille encore aujourd'hui.",
-  "audio": null
+  "audio": "/static-media/voices/apollo-15-retroreflector-intro-fr-8b58860e.mp3"
  },
  "chapters": [
   {
@@ -33,7 +33,7 @@
    "focus": "mirror",
    "title": "Un miroir très spécial",
    "body": "Je suis un panneau couvert de 300 « coins de cube » en verre. Leur forme renvoie la lumière exactement vers l'endroit d'où elle vient, quel que soit l'angle. Mes cousins d'Apollo 11 et 14 en ont 100 chacun.",
-   "audio": null
+   "audio": "/static-media/voices/apollo-15-retroreflector-1-fr-6c85d396.mp3"
   },
   {
    "order": 2,
@@ -43,7 +43,7 @@
    "focus": "mirror",
    "title": "Un ping-pong de lumière",
    "body": "Une impulsion laser part d'un télescope sur Terre, voyage jusqu'à moi, rebondit et revient : environ 2,5 secondes aller-retour. Comme on connaît la vitesse de la lumière, on en déduit la distance.",
-   "audio": null
+   "audio": "/static-media/voices/apollo-15-retroreflector-2-fr-d8ef648f.mp3"
   },
   {
    "order": 3,
@@ -53,7 +53,7 @@
    "focus": "overview",
    "title": "Pourquoi je suis toujours utile",
    "body": "Grâce à moi, les scientifiques ont confirmé que la Lune s'éloigne lentement de la Terre : environ 3,8 cm par an, à peu près la vitesse à laquelle poussent tes ongles. Mes mesures servent aussi à tester la théorie de la gravité d'Einstein.",
-   "audio": null
+   "audio": "/static-media/voices/apollo-15-retroreflector-3-fr-3c9fb013.mp3"
   }
  ],
  "quiz": [

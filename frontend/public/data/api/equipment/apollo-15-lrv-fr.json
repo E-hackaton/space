@@ -22,7 +22,7 @@
  "presentation": {
   "title": "Ni permis, ni bouchons, ni stationnement interdit : je suis le rover lunaire d'Apollo 15.",
   "body": "Je suis un rover de la mission Apollo 15. Je suis la première voiture électrique à avoir roulé sur la Lune.",
-  "audio": null
+  "audio": "/static-media/voices/apollo-15-lrv-intro-fr-bd32e8b4.mp3"
  },
  "chapters": [
   {
@@ -33,7 +33,7 @@
    "focus": "body",
    "title": "Plié comme un origami",
    "body": "Pour le voyage, on m'a plié et rangé sur le côté du module lunaire Falcon. Une fois sur place, les astronautes David Scott et James Irwin tirent sur des sangles et je me déplie.",
-   "audio": null
+   "audio": "/static-media/voices/apollo-15-lrv-1-fr-3b08f805.mp3"
   },
   {
    "order": 2,
@@ -43,7 +43,7 @@
    "focus": "wheels",
    "title": "Rouler sur la Lune",
    "body": "Chacune de mes quatre roues a son propre moteur électrique, alimenté par des batteries. Mes pneus sont en mailles de fil métallique : un pneu gonflé d'air n'aurait pas supporté le vide et les températures extrêmes. Je roule à un peu plus de 10 km/h dans la poussière.",
-   "audio": null
+   "audio": "/static-media/voices/apollo-15-lrv-2-fr-4f6013cc.mp3"
   },
   {
    "order": 3,
@@ -53,7 +53,7 @@
    "focus": "mast",
    "title": "Ma dernière mission : filmer le départ",
    "body": "Avant de partir, les astronautes me garent un peu à l'écart, caméra allumée. Depuis la Terre, les ingénieurs l'utilisent pour filmer le décollage de l'étage de remontée. Puis je reste là, garé pour toujours.",
-   "audio": null
+   "audio": "/static-media/voices/apollo-15-lrv-3-fr-af695fd1.mp3"
   }
  ],
  "quiz": [

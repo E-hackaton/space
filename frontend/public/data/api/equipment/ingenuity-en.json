@@ -22,7 +22,7 @@
  "presentation": {
   "title": "Wings? Who needs wings, I've got blades! I'm Ingenuity.",
   "body": "I'm a helicopter from the Mars 2020 mission. I was supposed to fly 5 times. I flew 72 times on Mars.",
-  "audio": null
+  "audio": "/static-media/voices/ingenuity-intro-en-261cf023.mp3"
  },
  "chapters": [
   {
@@ -33,7 +33,7 @@
    "focus": "rotor",
    "title": "A quiet passenger",
    "body": "I travelled to Mars tucked under the belly of the Perseverance rover. I weigh about 1.8 kg. My two rotors spin in opposite directions at more than 2,400 revolutions per minute to push against very thin air.",
-   "audio": null
+   "audio": "/static-media/voices/ingenuity-1-en-f99c0d3b.mp3"
   },
   {
    "order": 2,
@@ -43,7 +43,7 @@
    "focus": "rotor",
    "title": "The first flight",
    "body": "On 19 April 2021, I take off, climb to 3 metres, hover and land again. The flight lasts only 39 seconds, but it is the very first powered, controlled flight on another planet.",
-   "audio": null
+   "audio": "/static-media/voices/ingenuity-2-en-f27f7adb.mp3"
   },
   {
    "order": 3,
@@ -53,7 +53,7 @@
    "focus": "body",
    "title": "From demonstrator to scout",
    "body": "At first, I was only supposed to make 5 test flights. I worked so well that the team kept me for almost three years: 72 flights, more than 17 km covered and over two hours in the Martian sky.",
-   "audio": null
+   "audio": "/static-media/voices/ingenuity-3-en-7790f213.mp3"
   },
   {
    "order": 4,
@@ -63,7 +63,7 @@
    "focus": "rotor",
    "title": "A hard landing",
    "body": "On my 72nd flight, I fly over very smooth sand with no landmarks to guide my navigation camera. I land hard and my blades are damaged. My adventure in the sky ends there, but I paved the way for future flying machines, like Dragonfly, which is to explore Titan, a moon of Saturn.",
-   "audio": null
+   "audio": "/static-media/voices/ingenuity-4-en-09a06118.mp3"
   }
  ],
  "quiz": [

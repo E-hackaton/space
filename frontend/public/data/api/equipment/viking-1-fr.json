@@ -22,7 +22,7 @@
  "presentation": {
   "title": "Bien avant ta naissance, j'étais déjà là, à regarder le ciel rose de Mars. Je suis Viking 1.",
   "body": "Je suis un atterrisseur de la mission Viking 1. J'ai été le premier engin américain à travailler avec succès sur le sol de Mars.",
-  "audio": null
+  "audio": "/static-media/voices/viking-1-intro-fr-75961162.mp3"
  },
  "chapters": [
   {
@@ -33,7 +33,7 @@
    "focus": "legs",
    "title": "Trouver un endroit sûr",
    "body": "Je voyage accroché à un orbiteur. Arrivé près de Mars, il photographie le sol pendant un mois pour me trouver un endroit sûr, car le site prévu était trop accidenté. Le 20 juillet 1976, sept ans jour pour jour après Apollo 11, je me pose dans la plaine de Chryse.",
-   "audio": null
+   "audio": "/static-media/voices/viking-1-1-fr-14f07032.mp3"
   },
   {
    "order": 2,
@@ -43,7 +43,7 @@
    "focus": "mast",
    "title": "Ma première photo",
    "body": "Quelques minutes après l'atterrissage, je prends ma toute première photo : l'un de mes pieds posé sur des cailloux martiens. Les ingénieurs voulaient savoir tout de suite si je m'enfonçais dans le sol !",
-   "audio": null
+   "audio": "/static-media/voices/viking-1-2-fr-f7086a88.mp3"
   },
   {
    "order": 3,
@@ -53,7 +53,7 @@
    "focus": "arm",
    "title": "Mon laboratoire miniature",
    "body": "Mon bras ramasse de la terre et la verse dans trois expériences de biologie. Elles cherchent des microbes en leur donnant à « manger » et en observant les gaz produits. Les réponses ont surpris tout le monde, mais la plupart des scientifiques pensent aujourd'hui qu'elles s'expliquent par la chimie du sol, pas par la vie.",
-   "audio": null
+   "audio": "/static-media/voices/viking-1-3-fr-f8b83c9e.mp3"
   },
   {
    "order": 4,
@@ -63,7 +63,7 @@
    "focus": "antenna",
    "title": "Le silence",
    "body": "En novembre 1982, une commande envoyée par erreur depuis la Terre dérègle le pointage de mon antenne. Le contact est perdu pour toujours, après plus de six ans de travail.",
-   "audio": null
+   "audio": "/static-media/voices/viking-1-4-fr-dd35d8f8.mp3"
   }
  ],
  "quiz": [

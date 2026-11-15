@@ -22,7 +22,7 @@
  "presentation": {
   "title": "Ne sois pas triste de me voir immobile : j'ai une belle histoire à te raconter. Je m'appelle Opportunity.",
   "body": "Je suis un rover de la mission Mars Exploration Rover. Je devais vivre 90 jours. J'ai exploré Mars pendant près de 15 ans.",
-  "audio": null
+  "audio": "/static-media/voices/opportunity-intro-fr-8d8fe385.mp3"
  },
  "chapters": [
   {
@@ -33,7 +33,7 @@
    "focus": "wheels",
    "title": "Un trou en un",
    "body": "Le 25 janvier 2004, je rebondis sur Mars, emballé dans des airbags, puis je roule… droit dans un petit cratère. Les scientifiques n'en reviennent pas : juste devant moi, des couches de roches racontent l'histoire de la planète. Ce cratère s'appelle Eagle.",
-   "audio": null
+   "audio": "/static-media/voices/opportunity-1-fr-12db3c07.mp3"
   },
   {
    "order": 2,
@@ -43,7 +43,7 @@
    "focus": "arm",
    "title": "Les myrtilles de Mars",
    "body": "Dans ces roches, je découvre des milliers de petites billes grises. Mes instruments montrent qu'elles sont faites d'hématite, un minéral qui se forme souvent dans l'eau. Mars était donc autrefois bien plus humide qu'aujourd'hui.",
-   "audio": null
+   "audio": "/static-media/voices/opportunity-2-fr-a3c8987d.mp3"
   },
   {
    "order": 3,
@@ -53,7 +53,7 @@
    "focus": "wheels",
    "title": "Un marathon martien",
    "body": "Mes panneaux solaires devaient se couvrir de poussière en quelques mois. Mais des coups de vent martiens les ont régulièrement nettoyés ! Au total, j'ai roulé plus de 45 km : plus qu'un marathon.",
-   "audio": null
+   "audio": "/static-media/voices/opportunity-3-fr-56eff13f.mp3"
   },
   {
    "order": 4,
@@ -63,7 +63,7 @@
    "focus": "panels",
    "title": "La grande tempête",
    "body": "En juin 2018, une tempête de poussière couvre presque toute la planète. Le ciel devient si sombre que mes panneaux ne produisent plus assez d'énergie. Mon dernier message arrive le 10 juin 2018. Pendant des mois, les ingénieurs m'envoient plus de mille appels. Je ne réponds plus. Un journaliste a résumé mes dernières données par une phrase devenue célèbre : « Ma batterie est faible et il fait de plus en plus sombre. » Ce ne sont pas mes vrais mots, mais c'est bien ce que disaient mes mesures.",
-   "audio": null
+   "audio": "/static-media/voices/opportunity-4-fr-aa48beac.mp3"
   }
  ],
  "quiz": [

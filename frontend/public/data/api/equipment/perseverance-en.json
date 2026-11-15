@@ -22,7 +22,7 @@
  "presentation": {
   "title": "My name already says it all: I'm Perseverance.",
   "body": "I'm a rover from the Mars 2020 mission. I search for signs of ancient life and keep samples so they can one day be brought back to Earth.",
-  "audio": null
+  "audio": "/static-media/voices/perseverance-intro-en-71a37f4c.mp3"
  },
  "chapters": [
   {
@@ -33,7 +33,7 @@
    "focus": "arm",
    "title": "A sign seeker",
    "body": "I look like my big brother Curiosity, but my mission is different: to search for signs of ancient microbial life, and set aside the best rocks in sealed tubes.",
-   "audio": null
+   "audio": "/static-media/voices/perseverance-1-en-06c192f2.mp3"
   },
   {
    "order": 2,
@@ -43,7 +43,7 @@
    "focus": "overview",
    "title": "A passenger under my belly",
    "body": "On 30 July 2020, I lift off from Florida. Under my belly, I carry a passenger: the little Ingenuity helicopter.",
-   "audio": null
+   "audio": "/static-media/voices/perseverance-2-en-42e3a35e.mp3"
   },
   {
    "order": 3,
@@ -53,7 +53,7 @@
    "focus": "wheels",
    "title": "Landing in an ancient lake",
    "body": "On 18 February 2021, I land in Jezero crater. Billions of years ago, a river poured into it and built a delta: the perfect place to look for signs of life.",
-   "audio": null
+   "audio": "/static-media/voices/perseverance-3-en-eb2f4487.mp3"
   },
   {
    "order": 4,
@@ -63,7 +63,7 @@
    "focus": "body",
    "title": "Oxygen on Mars",
    "body": "On 20 April 2021, my MOXIE instrument turns some of the carbon dioxide in the Martian air into oxygen. A first! One day, this technology could help astronauts breathe or make fuel.",
-   "audio": null
+   "audio": "/static-media/voices/perseverance-4-en-4a8507de.mp3"
   },
   {
    "order": 5,
@@ -73,7 +73,7 @@
    "focus": "arm",
    "title": "A sample depot",
    "body": "In late 2022, I leave ten sample tubes on the ground at a place called Three Forks. It is a backup stash, waiting for a future mission to come and collect it.",
-   "audio": null
+   "audio": "/static-media/voices/perseverance-5-en-e80555d4.mp3"
   },
   {
    "order": 6,
@@ -83,7 +83,7 @@
    "focus": "mast",
    "title": "Still on the road",
    "body": "Today, I am exploring the crater rim. Every rock I study helps answer a huge question: has life ever existed beyond Earth?",
-   "audio": null
+   "audio": "/static-media/voices/perseverance-6-en-4f71e9a6.mp3"
   }
  ],
  "quiz": [

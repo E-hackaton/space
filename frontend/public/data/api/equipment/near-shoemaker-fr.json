@@ -22,7 +22,7 @@
  "presentation": {
   "title": "On m'avait dit : surtout, ne te pose pas. Je suis NEAR Shoemaker.",
   "body": "Je suis une sonde en orbite de la mission NEAR. Je n'étais pas fait pour atterrir… et pourtant je me suis posé sur un astéroïde.",
-  "audio": null
+  "audio": "/static-media/voices/near-shoemaker-intro-fr-f8ee9abb.mp3"
  },
  "chapters": [
   {
@@ -33,7 +33,7 @@
    "focus": "overview",
    "title": "Rendez-vous de la Saint-Valentin",
    "body": "Le 14 février 2000, jour de la Saint-Valentin, je me place en orbite autour d'Éros, un astéroïde en forme de cacahuète d'environ 34 km de long. Personne n'avait jamais tourné autour d'un astéroïde avant moi.",
-   "audio": null
+   "audio": "/static-media/voices/near-shoemaker-1-fr-ae2b485d.mp3"
   },
   {
    "order": 2,
@@ -43,7 +43,7 @@
    "focus": "panels",
    "title": "Un atterrissage bonus",
    "body": "Ma mission terminée, l'équipe tente quelque chose d'incroyable : me poser en douceur sur Éros, alors que je n'ai pas de pieds ! Le 12 février 2001, je touche le sol à peu près à la vitesse d'un piéton… et je continue d'envoyer des données depuis la surface pendant plus de deux semaines.",
-   "audio": null
+   "audio": "/static-media/voices/near-shoemaker-2-fr-31d00269.mp3"
   }
  ],
  "quiz": [

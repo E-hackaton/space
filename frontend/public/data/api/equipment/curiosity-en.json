@@ -22,7 +22,7 @@
  "presentation": {
   "title": "Sorry, I can't stop for long: I have a mountain to climb! I'm Curiosity.",
   "body": "I'm a rover from the Mars Science Laboratory mission. I'm the size of a car and I've been climbing a Martian mountain since 2014.",
-  "audio": null
+  "audio": "/static-media/voices/curiosity-intro-en-30b11ba8.mp3"
  },
  "chapters": [
   {
@@ -33,7 +33,7 @@
    "focus": "arm",
    "title": "A laboratory on wheels",
    "body": "I was designed to answer a big question: could Mars ever have supported life? I carry a real chemistry lab, a laser that vaporises rocks to analyse them, and a nuclear power source that does not depend on the Sun.",
-   "audio": null
+   "audio": "/static-media/voices/curiosity-1-en-b7d54dc7.mp3"
   },
   {
    "order": 2,
@@ -43,7 +43,7 @@
    "focus": "overview",
    "title": "Eight months in space",
    "body": "On 26 November 2011, I leave Earth on an Atlas V rocket. For more than eight months, I cross space, safely tucked inside my capsule.",
-   "audio": null
+   "audio": "/static-media/voices/curiosity-2-en-d839203e.mp3"
   },
   {
    "order": 3,
@@ -53,7 +53,7 @@
    "focus": "wheels",
    "title": "Seven minutes of terror",
    "body": "To land me, a rocket-powered \"sky crane\" lowers me on cables, then flies away. It is all automatic: signals take about 14 minutes to reach Earth, far too late to steer me.",
-   "audio": null
+   "audio": "/static-media/voices/curiosity-3-en-afc716be.mp3"
   },
   {
    "order": 4,
@@ -63,7 +63,7 @@
    "focus": "arm",
    "title": "An ancient lake",
    "body": "By drilling into a rock, I find clay: the trace of an ancient freshwater lake. Billions of years ago, microbes could have lived there.",
-   "audio": null
+   "audio": "/static-media/voices/curiosity-4-en-ffb6f6a9.mp3"
   },
   {
    "order": 5,
@@ -73,7 +73,7 @@
    "focus": "wheels",
    "title": "Climbing Mount Sharp",
    "body": "Since 2014, I have been climbing Mount Sharp, a mountain more than 5 km high in the middle of the crater. Each layer of rock is like a page in the history of Mars.",
-   "audio": null
+   "audio": "/static-media/voices/curiosity-5-en-c3318027.mp3"
   },
   {
    "order": 6,
@@ -83,7 +83,7 @@
    "focus": "mast",
    "title": "Still at work",
    "body": "My wheels are worn by sharp rocks, but I keep driving. Every day, my discoveries help prepare future missions, perhaps with humans.",
-   "audio": null
+   "audio": "/static-media/voices/curiosity-6-en-c79551a3.mp3"
   }
  ],
  "quiz": [

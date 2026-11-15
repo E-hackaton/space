@@ -22,7 +22,7 @@
  "presentation": {
   "title": "They told me: whatever you do, don't land. I'm NEAR Shoemaker.",
   "body": "I'm an orbiter from the NEAR mission. I wasn't designed to land… and yet I touched down on an asteroid.",
-  "audio": null
+  "audio": "/static-media/voices/near-shoemaker-intro-en-7e33f0fa.mp3"
  },
  "chapters": [
   {
@@ -33,7 +33,7 @@
    "focus": "overview",
    "title": "A Valentine's Day rendezvous",
    "body": "On 14 February 2000, Valentine's Day, I enter orbit around Eros, a peanut-shaped asteroid about 34 km long. No one had ever orbited an asteroid before me.",
-   "audio": null
+   "audio": "/static-media/voices/near-shoemaker-1-en-adc3d55a.mp3"
   },
   {
    "order": 2,
@@ -43,7 +43,7 @@
    "focus": "panels",
    "title": "A bonus landing",
    "body": "With my mission over, the team tries something incredible: landing me gently on Eros, even though I have no legs! On 12 February 2001, I touch the surface at about walking speed… and keep sending data from the surface for more than two weeks.",
-   "audio": null
+   "audio": "/static-media/voices/near-shoemaker-2-en-38420668.mp3"
   }
  ],
  "quiz": [

@@ -22,7 +22,7 @@
  "presentation": {
   "title": "Des ailes ? Pas besoin, j'ai des pales ! Je suis Ingenuity.",
   "body": "Je suis un hélicoptère de la mission Mars 2020. Je devais voler 5 fois. J'ai volé 72 fois sur Mars.",
-  "audio": null
+  "audio": "/static-media/voices/ingenuity-intro-fr-22e9ecab.mp3"
  },
  "chapters": [
   {
@@ -33,7 +33,7 @@
    "focus": "rotor",
    "title": "Un passager discret",
    "body": "J'ai voyagé jusqu'à Mars accroché sous le ventre du rover Perseverance. Je pèse environ 1,8 kg. Mes deux hélices tournent en sens inverse l'une de l'autre, à plus de 2 400 tours par minute, pour réussir à s'appuyer sur un air très peu dense.",
-   "audio": null
+   "audio": "/static-media/voices/ingenuity-1-fr-363ee3df.mp3"
   },
   {
    "order": 2,
@@ -43,7 +43,7 @@
    "focus": "rotor",
    "title": "Le premier vol",
    "body": "Le 19 avril 2021, je décolle, je monte à 3 mètres, je fais du surplace et je me repose. Le vol ne dure que 39 secondes, mais c'est le tout premier vol motorisé et contrôlé sur une autre planète.",
-   "audio": null
+   "audio": "/static-media/voices/ingenuity-2-fr-b351f427.mp3"
   },
   {
    "order": 3,
@@ -53,7 +53,7 @@
    "focus": "body",
    "title": "De démonstrateur à éclaireur",
    "body": "Au début, je ne devais faire que 5 vols d'essai. J'ai si bien marché que l'équipe m'a gardé presque trois ans : 72 vols, plus de 17 km parcourus et plus de deux heures dans le ciel martien.",
-   "audio": null
+   "audio": "/static-media/voices/ingenuity-3-fr-86dd741e.mp3"
   },
   {
    "order": 4,
@@ -63,7 +63,7 @@
    "focus": "rotor",
    "title": "Un atterrissage brutal",
    "body": "Lors de mon 72e vol, je survole un sable très lisse, sans repères pour guider ma caméra de navigation. J'atterris brutalement et mes pales sont abîmées. Mon aventure dans le ciel s'arrête là, mais j'ai ouvert la voie aux futurs engins volants, comme Dragonfly, qui doit explorer Titan, une lune de Saturne.",
-   "audio": null
+   "audio": "/static-media/voices/ingenuity-4-fr-0054670f.mp3"
   }
  ],
  "quiz": [

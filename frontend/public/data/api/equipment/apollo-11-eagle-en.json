@@ -22,7 +22,7 @@
  "presentation": {
   "title": "Come closer, and speak softly: you're standing before Eagle.",
   "body": "I'm a descent stage from the Apollo 11 mission. I carried the first humans to the Moon, then served as their launch pad.",
-  "audio": null
+  "audio": "/static-media/voices/apollo-11-eagle-intro-en-f4b20be5.mp3"
  },
  "chapters": [
   {
@@ -33,7 +33,7 @@
    "focus": "legs",
    "title": "A spacecraft in two pieces",
    "body": "I am the bottom half of the lunar module Eagle: the descent stage. On 20 July 1969, I land in the Sea of Tranquility with two astronauts on board. A few hours later, Neil Armstrong climbs down my ladder and sets foot on the Moon.",
-   "audio": null
+   "audio": "/static-media/voices/apollo-11-eagle-1-en-1b6e1a3e.mp3"
   },
   {
    "order": 2,
@@ -43,7 +43,7 @@
    "focus": "engine",
    "title": "A launch pad",
    "body": "To leave, the astronauts take only the top half of the module, the ascent stage. I stay on the ground and serve as a platform: the ascent stage lifts off from my back to rejoin the spacecraft waiting in orbit.",
-   "audio": null
+   "audio": "/static-media/voices/apollo-11-eagle-2-en-44ae6df5.mp3"
   },
   {
    "order": 3,
@@ -53,7 +53,7 @@
    "focus": "legs",
    "title": "The message I carry",
    "body": "On one of my legs, a plaque reads: \"Here men from the planet Earth first set foot upon the Moon, July 1969 A.D. We came in peace for all mankind.\"",
-   "audio": null
+   "audio": "/static-media/voices/apollo-11-eagle-3-en-3999ddc6.mp3"
   }
  ],
  "quiz": [

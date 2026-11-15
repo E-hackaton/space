@@ -22,7 +22,7 @@
  "presentation": {
   "title": "On dit que les vieux amis finissent toujours par revenir. Moi, c'est Surveyor 3.",
   "body": "Je suis un atterrisseur de la mission Surveyor 3. J'ai prouvé qu'on pouvait se poser sur la Lune… et deux astronautes sont venus me rendre visite.",
-  "audio": null
+  "audio": "/static-media/voices/surveyor-3-intro-fr-957cda77.mp3"
  },
  "chapters": [
   {
@@ -33,7 +33,7 @@
    "focus": "legs",
    "title": "Un atterrissage qui rebondit",
    "body": "Le 20 avril 1967, je descends vers l'Océan des Tempêtes. Mes moteurs devaient s'éteindre juste avant de toucher le sol… mais ils restent allumés ! Je rebondis deux fois avant de m'immobiliser. Ouf, je suis entier.",
-   "audio": null
+   "audio": "/static-media/voices/surveyor-3-1-fr-083d7755.mp3"
   },
   {
    "order": 2,
@@ -43,7 +43,7 @@
    "focus": "arm",
    "title": "Ma pelle et mes photos",
    "body": "J'ai une caméra et un petit bras terminé par une pelle. Pendant deux semaines, je creuse des tranchées et j'envoie des milliers de photos. Sur Terre, les ingénieurs découvrent comment le sol réagit quand on appuie dessus : exactement ce qu'il faut savoir pour poser un module avec des astronautes.",
-   "audio": null
+   "audio": "/static-media/voices/surveyor-3-2-fr-d0ede41b.mp3"
   },
   {
    "order": 3,
@@ -53,7 +53,7 @@
    "focus": "mast",
    "title": "La visite d'Apollo 12",
    "body": "Quand la longue nuit lunaire tombe, je m'endors pour toujours. Mais en novembre 1969, Apollo 12 se pose à environ 180 mètres de moi ! Les astronautes Pete Conrad et Alan Bean viennent à pied, découpent ma caméra et quelques pièces, puis les rapportent sur Terre. Les scientifiques ont ainsi pu étudier ce que 31 mois sur la Lune avaient fait à mes matériaux.",
-   "audio": null
+   "audio": "/static-media/voices/surveyor-3-3-fr-af5a27d7.mp3"
   }
  ],
  "quiz": [

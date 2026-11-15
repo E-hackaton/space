@@ -22,7 +22,7 @@
  "presentation": {
   "title": "Je suis petit, c'est vrai. Mais c'est moi qui ai ouvert la route. Je m'appelle Sojourner.",
   "body": "Je suis un rover de la mission Mars Pathfinder. Je suis le tout premier rover à avoir roulé sur Mars.",
-  "audio": null
+  "audio": "/static-media/voices/sojourner-intro-fr-0e9feb71.mp3"
  },
  "chapters": [
   {
@@ -33,7 +33,7 @@
    "focus": "body",
    "title": "Petit mais pionnier",
    "body": "Je pèse à peine 10,6 kg, à peu près comme un four à micro-ondes. On m'a construit pour prouver qu'un petit robot à roues pouvait explorer une autre planète.",
-   "audio": null
+   "audio": "/static-media/voices/sojourner-1-fr-3cad30ae.mp3"
   },
   {
    "order": 2,
@@ -43,7 +43,7 @@
    "focus": "overview",
    "title": "Le voyage",
    "body": "Le 4 décembre 1996, je décolle de Floride, rangé à l'intérieur de l'atterrisseur Mars Pathfinder.",
-   "audio": null
+   "audio": "/static-media/voices/sojourner-2-fr-06374e5e.mp3"
   },
   {
    "order": 3,
@@ -53,7 +53,7 @@
    "focus": "wheels",
    "title": "Un atterrissage rebondissant",
    "body": "Le 4 juillet 1997, Pathfinder arrive sur Mars protégé par de gros airbags. Il rebondit plusieurs fois avant de s'arrêter, puis s'ouvre comme une fleur. Je descends sur le sol par une petite rampe.",
-   "audio": null
+   "audio": "/static-media/voices/sojourner-3-fr-57f54d91.mp3"
   },
   {
    "order": 4,
@@ -63,7 +63,7 @@
    "focus": "arm",
    "title": "Des roches avec des surnoms",
    "body": "Je roule de roche en roche pour les analyser. L'équipe leur donne des noms amusants, comme Barnacle Bill ou Yogi.",
-   "audio": null
+   "audio": "/static-media/voices/sojourner-4-fr-248d4caf.mp3"
   },
   {
    "order": 5,
@@ -73,7 +73,7 @@
    "focus": "antenna",
    "title": "83 jours au lieu de 7",
    "body": "Ma mission devait durer 7 jours martiens. J'ai travaillé 83 jours ! Le 27 septembre 1997, la station Pathfinder envoie son dernier signal. Sans elle, je ne peux plus parler à la Terre.",
-   "audio": null
+   "audio": "/static-media/voices/sojourner-5-fr-9f35b91c.mp3"
   }
  ],
  "quiz": [

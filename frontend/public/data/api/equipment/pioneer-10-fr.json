@@ -22,7 +22,7 @@
  "presentation": {
   "title": "Si tu lèves les yeux ce soir, je suis quelque part là-haut, très, très loin. Je suis Pioneer 10.",
   "body": "Je suis une sonde interplanétaire de la mission Pioneer 10. J'ai été le premier à traverser la ceinture d'astéroïdes et à visiter Jupiter.",
-  "audio": null
+  "audio": "/static-media/voices/pioneer-10-intro-fr-edd2f244.mp3"
  },
  "chapters": [
   {
@@ -33,7 +33,7 @@
    "focus": "overview",
    "title": "Traverser la ceinture",
    "body": "En 1972, personne ne sait si un vaisseau peut traverser la ceinture d'astéroïdes sans être détruit. Je suis le premier à essayer… et je passe sans dommage !",
-   "audio": null
+   "audio": "/static-media/voices/pioneer-10-1-fr-249b325f.mp3"
   },
   {
    "order": 2,
@@ -43,7 +43,7 @@
    "focus": "antenna",
    "title": "Rencontre avec Jupiter",
    "body": "Le 3 décembre 1973, je passe tout près de Jupiter. Ses radiations sont si fortes qu'elles perturbent certains de mes instruments, mais j'envoie des centaines d'images de la planète géante.",
-   "audio": null
+   "audio": "/static-media/voices/pioneer-10-2-fr-669b05bc.mp3"
   },
   {
    "order": 3,
@@ -53,7 +53,7 @@
    "focus": "body",
    "title": "Un message pour qui me trouvera",
    "body": "Je transporte une plaque gravée qui montre un homme, une femme et la position de la Terre. Si quelqu'un me trouve un jour, il saura d'où je viens. Je me dirige vers l'étoile Aldébaran, que j'atteindrai dans environ 2 millions d'années.",
-   "audio": null
+   "audio": "/static-media/voices/pioneer-10-3-fr-88bf72b0.mp3"
   }
  ],
  "quiz": [

@@ -22,7 +22,7 @@
  "presentation": {
   "title": "Psst… look closely, I might be working right now. I'm Apollo 15's laser reflector.",
   "body": "I'm a science instrument from the Apollo 15 mission. I have no engine and no battery, yet I am still working today.",
-  "audio": null
+  "audio": "/static-media/voices/apollo-15-retroreflector-intro-en-1fdd3cff.mp3"
  },
  "chapters": [
   {
@@ -33,7 +33,7 @@
    "focus": "mirror",
    "title": "A very special mirror",
    "body": "I am a panel covered with 300 glass \"corner cubes\". Their shape sends light back exactly where it came from, whatever the angle. My cousins from Apollo 11 and 14 have 100 each.",
-   "audio": null
+   "audio": "/static-media/voices/apollo-15-retroreflector-1-en-81bd0f76.mp3"
   },
   {
    "order": 2,
@@ -43,7 +43,7 @@
    "focus": "mirror",
    "title": "Light ping-pong",
    "body": "A laser pulse leaves a telescope on Earth, travels to me, bounces off and comes back: about 2.5 seconds for the round trip. Since we know the speed of light, we can work out the distance.",
-   "audio": null
+   "audio": "/static-media/voices/apollo-15-retroreflector-2-en-37584995.mp3"
   },
   {
    "order": 3,
@@ -53,7 +53,7 @@
    "focus": "overview",
    "title": "Why I am still useful",
    "body": "Thanks to me, scientists confirmed that the Moon is slowly drifting away from Earth: about 3.8 cm per year, roughly as fast as your fingernails grow. My measurements are also used to test Einstein's theory of gravity.",
-   "audio": null
+   "audio": "/static-media/voices/apollo-15-retroreflector-3-en-25247333.mp3"
   }
  ],
  "quiz": [

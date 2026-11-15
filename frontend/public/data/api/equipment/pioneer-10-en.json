@@ -22,7 +22,7 @@
  "presentation": {
   "title": "If you look up tonight, I'm somewhere out there, very, very far away. I'm Pioneer 10.",
   "body": "I'm an interplanetary probe from the Pioneer 10 mission. I was the first to cross the asteroid belt and to visit Jupiter.",
-  "audio": null
+  "audio": "/static-media/voices/pioneer-10-intro-en-9e9b964d.mp3"
  },
  "chapters": [
   {
@@ -33,7 +33,7 @@
    "focus": "overview",
    "title": "Crossing the belt",
    "body": "In 1972, nobody knows whether a spacecraft can cross the asteroid belt without being destroyed. I am the first to try… and I get through unharmed!",
-   "audio": null
+   "audio": "/static-media/voices/pioneer-10-1-en-5f38d1d5.mp3"
   },
   {
    "order": 2,
@@ -43,7 +43,7 @@
    "focus": "antenna",
    "title": "Meeting Jupiter",
    "body": "On 3 December 1973, I pass very close to Jupiter. Its radiation is so strong that it disrupts some of my instruments, but I send back hundreds of pictures of the giant planet.",
-   "audio": null
+   "audio": "/static-media/voices/pioneer-10-2-en-04a4ecfa.mp3"
   },
   {
    "order": 3,
@@ -53,7 +53,7 @@
    "focus": "body",
    "title": "A message for whoever finds me",
    "body": "I carry an engraved plaque showing a man, a woman and the position of Earth. If someone finds me one day, they will know where I come from. I am heading toward the star Aldebaran, which I will reach in about 2 million years.",
-   "audio": null
+   "audio": "/static-media/voices/pioneer-10-3-en-cc93daf9.mp3"
   }
  ],
  "quiz": [

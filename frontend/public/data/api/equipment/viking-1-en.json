@@ -22,7 +22,7 @@
  "presentation": {
   "title": "Long before you were born, I was already here, watching the pink Martian sky. I'm Viking 1.",
   "body": "I'm a lander from the Viking 1 mission. I was the first U.S. spacecraft to successfully operate on the surface of Mars.",
-  "audio": null
+  "audio": "/static-media/voices/viking-1-intro-en-0f7ff698.mp3"
  },
  "chapters": [
   {
@@ -33,7 +33,7 @@
    "focus": "legs",
    "title": "Finding a safe spot",
    "body": "I travel attached to an orbiter. Once near Mars, it photographs the ground for a month to find me a safe place, because the planned site was too rough. On 20 July 1976, seven years to the day after Apollo 11, I land on the plain of Chryse.",
-   "audio": null
+   "audio": "/static-media/voices/viking-1-1-en-07803287.mp3"
   },
   {
    "order": 2,
@@ -43,7 +43,7 @@
    "focus": "mast",
    "title": "My first picture",
    "body": "A few minutes after landing, I take my very first picture: one of my feet resting on Martian pebbles. The engineers wanted to know right away whether I was sinking into the ground!",
-   "audio": null
+   "audio": "/static-media/voices/viking-1-2-en-399eda4d.mp3"
   },
   {
    "order": 3,
@@ -53,7 +53,7 @@
    "focus": "arm",
    "title": "My miniature laboratory",
    "body": "My arm scoops up soil and pours it into three biology experiments. They look for microbes by \"feeding\" them and watching for the gases they give off. The answers surprised everyone, but most scientists now think they are explained by the soil's chemistry, not by life.",
-   "audio": null
+   "audio": "/static-media/voices/viking-1-3-en-5ece4487.mp3"
   },
   {
    "order": 4,
@@ -63,7 +63,7 @@
    "focus": "antenna",
    "title": "Silence",
    "body": "In November 1982, a command sent by mistake from Earth upsets the pointing of my antenna. Contact is lost forever, after more than six years of work.",
-   "audio": null
+   "audio": "/static-media/voices/viking-1-4-en-b75c3170.mp3"
   }
  ],
  "quiz": [

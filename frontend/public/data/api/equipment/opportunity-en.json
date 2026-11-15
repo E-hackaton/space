@@ -22,7 +22,7 @@
  "presentation": {
   "title": "Don't be sad to see me standing still: I have a wonderful story to tell you. My name is Opportunity.",
   "body": "I'm a rover from the Mars Exploration Rover mission. I was built to last 90 days. I explored Mars for almost 15 years.",
-  "audio": null
+  "audio": "/static-media/voices/opportunity-intro-en-7be7dee6.mp3"
  },
  "chapters": [
   {
@@ -33,7 +33,7 @@
    "focus": "wheels",
    "title": "A hole in one",
    "body": "On 25 January 2004, I bounce onto Mars wrapped in airbags, then roll… straight into a small crater. Scientists can't believe their luck: right in front of me, layers of rock tell the planet's story. The crater is called Eagle.",
-   "audio": null
+   "audio": "/static-media/voices/opportunity-1-en-21650c1f.mp3"
   },
   {
    "order": 2,
@@ -43,7 +43,7 @@
    "focus": "arm",
    "title": "The blueberries of Mars",
    "body": "In those rocks, I find thousands of tiny grey spheres. My instruments show they are made of hematite, a mineral that often forms in water. So Mars was once much wetter than it is today.",
-   "audio": null
+   "audio": "/static-media/voices/opportunity-2-en-1eb677d7.mp3"
   },
   {
    "order": 3,
@@ -53,7 +53,7 @@
    "focus": "wheels",
    "title": "A Martian marathon",
    "body": "My solar panels were supposed to be covered in dust within a few months. But Martian gusts of wind cleaned them again and again! In all, I drove more than 45 km: farther than a marathon.",
-   "audio": null
+   "audio": "/static-media/voices/opportunity-3-en-ea6f16d6.mp3"
   },
   {
    "order": 4,
@@ -63,7 +63,7 @@
    "focus": "panels",
    "title": "The great storm",
    "body": "In June 2018, a dust storm covers almost the whole planet. The sky gets so dark that my panels no longer produce enough energy. My last message arrives on 10 June 2018. For months, engineers send me more than a thousand calls. I no longer answer. A journalist summed up my last data in a now-famous sentence: \"My battery is low and it's getting dark.\" Those were not my real words, but it is exactly what my measurements said.",
-   "audio": null
+   "audio": "/static-media/voices/opportunity-4-en-4ca6cb32.mp3"
   }
  ],
  "quiz": [

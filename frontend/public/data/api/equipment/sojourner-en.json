@@ -22,7 +22,7 @@
  "presentation": {
   "title": "I'm small, it's true. But I'm the one who opened the way. My name is Sojourner.",
   "body": "I'm a rover from the Mars Pathfinder mission. I am the very first rover to drive on Mars.",
-  "audio": null
+  "audio": "/static-media/voices/sojourner-intro-en-173b1de8.mp3"
  },
  "chapters": [
   {
@@ -33,7 +33,7 @@
    "focus": "body",
    "title": "Small but a pioneer",
    "body": "I weigh just 10.6 kg, about as much as a microwave oven. I was built to prove that a small wheeled robot could explore another planet.",
-   "audio": null
+   "audio": "/static-media/voices/sojourner-1-en-cf53987d.mp3"
   },
   {
    "order": 2,
@@ -43,7 +43,7 @@
    "focus": "overview",
    "title": "The journey",
    "body": "On 4 December 1996, I lift off from Florida, tucked inside the Mars Pathfinder lander.",
-   "audio": null
+   "audio": "/static-media/voices/sojourner-2-en-3344a1e0.mp3"
   },
   {
    "order": 3,
@@ -53,7 +53,7 @@
    "focus": "wheels",
    "title": "A bouncy landing",
    "body": "On 4 July 1997, Pathfinder reaches Mars wrapped in big airbags. It bounces several times before stopping, then opens like a flower. I roll down to the ground on a small ramp.",
-   "audio": null
+   "audio": "/static-media/voices/sojourner-3-en-b249619e.mp3"
   },
   {
    "order": 4,
@@ -63,7 +63,7 @@
    "focus": "arm",
    "title": "Rocks with nicknames",
    "body": "I drive from rock to rock to analyse them. The team gives them fun names, like Barnacle Bill and Yogi.",
-   "audio": null
+   "audio": "/static-media/voices/sojourner-4-en-b3b4e333.mp3"
   },
   {
    "order": 5,
@@ -73,7 +73,7 @@
    "focus": "antenna",
    "title": "83 days instead of 7",
    "body": "My mission was meant to last 7 Martian days. I worked for 83! On 27 September 1997, the Pathfinder station sends its last signal. Without it, I can no longer talk to Earth.",
-   "audio": null
+   "audio": "/static-media/voices/sojourner-5-en-4c181032.mp3"
   }
  ],
  "quiz": [

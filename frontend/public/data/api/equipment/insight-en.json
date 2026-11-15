@@ -22,7 +22,7 @@
  "presentation": {
   "title": "Shh… listen carefully. My name is InSight.",
   "body": "I'm a lander from the InSight mission. I pressed my ear against Mars to listen to it shake.",
-  "audio": null
+  "audio": "/static-media/voices/insight-intro-en-b6da2047.mp3"
  },
  "chapters": [
   {
@@ -33,7 +33,7 @@
    "focus": "arm",
    "title": "A geologist who stays put",
    "body": "Unlike rovers, I don't move. My job: to study the inside of Mars, all the way to its heart. With my robotic arm, I place my seismometer directly on the ground, under a dome that protects it from wind and cold.",
-   "audio": null
+   "audio": "/static-media/voices/insight-1-en-f0e84141.mp3"
   },
   {
    "order": 2,
@@ -43,7 +43,7 @@
    "focus": "body",
    "title": "Mars shakes",
    "body": "I feel tremors caused by faults in the ground, and even by meteorites crashing down. In May 2022, I record the strongest quake ever detected on another planet: about magnitude 5.",
-   "audio": null
+   "audio": "/static-media/voices/insight-2-en-dea946bd.mp3"
   },
   {
    "order": 3,
@@ -53,7 +53,7 @@
    "focus": "arm",
    "title": "The stubborn mole",
    "body": "I also had a probe nicknamed \"the mole\", meant to burrow 5 metres down to measure the heat of Mars. But the soil didn't grip it enough for it to move forward: it never managed to dig deep. In science, too, we learn from our failures.",
-   "audio": null
+   "audio": "/static-media/voices/insight-3-en-06262822.mp3"
   },
   {
    "order": 4,
@@ -63,7 +63,7 @@
    "focus": "panels",
    "title": "My last message",
    "body": "Little by little, dust covers my solar panels. In late 2022, my team posts in my name: \"My power's really low, so this may be the last image I can send.\" On 15 December 2022, I fall silent.",
-   "audio": null
+   "audio": "/static-media/voices/insight-4-en-8fdc7e5d.mp3"
   }
  ],
  "quiz": [
