@@ -1,0 +1,110 @@
+{
+ "slug": "sojourner",
+ "name": "Sojourner",
+ "mission": "Mars Pathfinder",
+ "body": "mars",
+ "kind": "rover",
+ "status": "silent",
+ "latitude": 19.13,
+ "longitude": -33.22,
+ "location": "Ares Vallis, next to the Pathfinder station",
+ "tagline": "I am the very first rover to drive on Mars.",
+ "image": null,
+ "image_credit": "",
+ "launch_date": "1996-12-04",
+ "arrival_date": "1997-07-04",
+ "last_contact_date": "1997-09-27",
+ "mission_end_date": null,
+ "nssdca_id": "",
+ "nssdca_url": "",
+ "discovery": "I analysed the make-up of Martian rocks with my spectrometer. The landscape of Ares Vallis, strewn with pebbles and boulders, showed that a huge flood once swept through.",
+ "status_note": "Silent since September 1997, when my base, the Pathfinder station, stopped communicating. I stayed close by.",
+ "presentation": {
+  "title": "Hello, I'm Sojourner.",
+  "body": "I'm a rover from the Mars Pathfinder mission. I am the very first rover to drive on Mars.",
+  "audio": null
+ },
+ "chapters": [
+  {
+   "order": 1,
+   "phase": "conception",
+   "date": null,
+   "date_precision": "day",
+   "focus": "body",
+   "title": "Small but a pioneer",
+   "body": "I weigh just 10.6 kg, about as much as a microwave oven. I was built to prove that a small wheeled robot could explore another planet.",
+   "audio": null
+  },
+  {
+   "order": 2,
+   "phase": "launch",
+   "date": "1996-12-04",
+   "date_precision": "day",
+   "focus": "overview",
+   "title": "The journey",
+   "body": "On 4 December 1996, I lift off from Florida, tucked inside the Mars Pathfinder lander.",
+   "audio": null
+  },
+  {
+   "order": 3,
+   "phase": "arrival",
+   "date": "1997-07-04",
+   "date_precision": "day",
+   "focus": "wheels",
+   "title": "A bouncy landing",
+   "body": "On 4 July 1997, Pathfinder reaches Mars wrapped in big airbags. It bounces several times before stopping, then opens like a flower. I roll down to the ground on a small ramp.",
+   "audio": null
+  },
+  {
+   "order": 4,
+   "phase": "exploration",
+   "date": "1997-07-06",
+   "date_precision": "month",
+   "focus": "arm",
+   "title": "Rocks with nicknames",
+   "body": "I drive from rock to rock to analyse them. The team gives them fun names, like Barnacle Bill and Yogi.",
+   "audio": null
+  },
+  {
+   "order": 5,
+   "phase": "legacy",
+   "date": "1997-09-27",
+   "date_precision": "day",
+   "focus": "antenna",
+   "title": "83 days instead of 7",
+   "body": "My mission was meant to last 7 Martian days. I worked for 83! On 27 September 1997, the Pathfinder station sends its last signal. Without it, I can no longer talk to Earth.",
+   "audio": null
+  }
+ ],
+ "quiz": [
+  {
+   "id": 21,
+   "question": "How many Martian days was Sojourner's mission supposed to last?",
+   "choices": [
+    "7",
+    "83",
+    "365"
+   ],
+   "answer_index": 0,
+   "explanation": "Planned for 7 Martian days, it lasted 83."
+  },
+  {
+   "id": 22,
+   "question": "How did Mars Pathfinder land on Mars?",
+   "choices": [
+    "With big bouncing airbags",
+    "On three legs, like Viking",
+    "Hanging under a flying crane"
+   ],
+   "answer_index": 0,
+   "explanation": "The airbags absorbed the impact: the lander bounced several times before coming to rest."
+  }
+ ],
+ "sources": [
+  {
+   "label": "NASA Science : Mars Pathfinder",
+   "url": "https://science.nasa.gov/mission/mars-pathfinder/",
+   "is_nasa": true
+  }
+ ]
+}

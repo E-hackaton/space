@@ -1,0 +1,90 @@
+{
+ "slug": "apollo-15-lrv",
+ "name": "Rover lunaire (LRV)",
+ "mission": "Apollo 15",
+ "body": "moon",
+ "kind": "rover",
+ "status": "silent",
+ "latitude": 26.1322,
+ "longitude": 3.6339,
+ "location": "Région Hadley-Apennin",
+ "tagline": "Je suis la première voiture électrique à avoir roulé sur la Lune.",
+ "image": null,
+ "image_credit": "",
+ "launch_date": "1971-07-26",
+ "arrival_date": "1971-07-30",
+ "last_contact_date": null,
+ "mission_end_date": "1971-08-02",
+ "nssdca_id": "1971-063C",
+ "nssdca_url": "https://nssdc.gsfc.nasa.gov/nmc/spacecraft/display.action?id=1971-063C",
+ "discovery": "En roulant environ 28 km, j'ai permis aux astronautes d'aller bien plus loin qu'à pied et de ramasser des roches très anciennes, dont la célèbre « Genesis Rock », vieille d'environ 4 milliards d'années.",
+ "status_note": "Garé pour toujours près du site d'atterrissage. Deux autres rovers comme moi sont garés sur la Lune (Apollo 16 et 17).",
+ "presentation": {
+  "title": "Bonjour, je suis Rover lunaire (LRV).",
+  "body": "Je suis un rover de la mission Apollo 15. Je suis la première voiture électrique à avoir roulé sur la Lune.",
+  "audio": null
+ },
+ "chapters": [
+  {
+   "order": 1,
+   "phase": "arrival",
+   "date": "1971-07-31",
+   "date_precision": "day",
+   "focus": "body",
+   "title": "Plié comme un origami",
+   "body": "Pour le voyage, on m'a plié et rangé sur le côté du module lunaire Falcon. Une fois sur place, les astronautes David Scott et James Irwin tirent sur des sangles et je me déplie.",
+   "audio": null
+  },
+  {
+   "order": 2,
+   "phase": "exploration",
+   "date": "1971-07-31",
+   "date_precision": "year",
+   "focus": "wheels",
+   "title": "Rouler sur la Lune",
+   "body": "Chacune de mes quatre roues a son propre moteur électrique, alimenté par des batteries. Mes pneus sont en mailles de fil métallique : un pneu gonflé d'air n'aurait pas supporté le vide et les températures extrêmes. Je roule à un peu plus de 10 km/h dans la poussière.",
+   "audio": null
+  },
+  {
+   "order": 3,
+   "phase": "legacy",
+   "date": "1971-08-02",
+   "date_precision": "day",
+   "focus": "mast",
+   "title": "Ma dernière mission : filmer le départ",
+   "body": "Avant de partir, les astronautes me garent un peu à l'écart, caméra allumée. Depuis la Terre, les ingénieurs l'utilisent pour filmer le décollage de l'étage de remontée. Puis je reste là, garé pour toujours.",
+   "audio": null
+  }
+ ],
+ "quiz": [
+  {
+   "id": 5,
+   "question": "Pourquoi les pneus du rover lunaire n'étaient-ils pas gonflés à l'air ?",
+   "choices": [
+    "Pour supporter le vide et les températures extrêmes",
+    "Parce que l'air coûtait trop cher",
+    "Pour rouler plus vite"
+   ],
+   "answer_index": 0,
+   "explanation": "Sur la Lune, il n'y a pas d'air et la température change énormément entre le jour et la nuit. Des mailles métalliques résistent mieux."
+  },
+  {
+   "id": 6,
+   "question": "Combien de rovers lunaires sont garés sur la Lune ?",
+   "choices": [
+    "Un",
+    "Trois",
+    "Dix"
+   ],
+   "answer_index": 1,
+   "explanation": "Un pour chacune des missions Apollo 15, 16 et 17."
+  }
+ ],
+ "sources": [
+  {
+   "label": "NSSDCA : Apollo 15 Lunar Module / LRV (1971-063C)",
+   "url": "https://nssdc.gsfc.nasa.gov/nmc/spacecraft/display.action?id=1971-063C",
+   "is_nasa": true
+  }
+ ]
+}

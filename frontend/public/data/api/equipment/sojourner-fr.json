@@ -1,0 +1,110 @@
+{
+ "slug": "sojourner",
+ "name": "Sojourner",
+ "mission": "Mars Pathfinder",
+ "body": "mars",
+ "kind": "rover",
+ "status": "silent",
+ "latitude": 19.13,
+ "longitude": -33.22,
+ "location": "Ares Vallis, près de la station Pathfinder",
+ "tagline": "Je suis le tout premier rover à avoir roulé sur Mars.",
+ "image": null,
+ "image_credit": "",
+ "launch_date": "1996-12-04",
+ "arrival_date": "1997-07-04",
+ "last_contact_date": "1997-09-27",
+ "mission_end_date": null,
+ "nssdca_id": "",
+ "nssdca_url": "",
+ "discovery": "J'ai analysé la composition de roches martiennes avec mon spectromètre. Le paysage d'Ares Vallis, couvert de galets et de rochers, montrait qu'une immense inondation était passée par là autrefois.",
+ "status_note": "Silencieux depuis septembre 1997, quand ma base, la station Pathfinder, a cessé de communiquer. Je suis resté tout près d'elle.",
+ "presentation": {
+  "title": "Bonjour, je suis Sojourner.",
+  "body": "Je suis un rover de la mission Mars Pathfinder. Je suis le tout premier rover à avoir roulé sur Mars.",
+  "audio": null
+ },
+ "chapters": [
+  {
+   "order": 1,
+   "phase": "conception",
+   "date": null,
+   "date_precision": "day",
+   "focus": "body",
+   "title": "Petit mais pionnier",
+   "body": "Je pèse à peine 10,6 kg, à peu près comme un four à micro-ondes. On m'a construit pour prouver qu'un petit robot à roues pouvait explorer une autre planète.",
+   "audio": null
+  },
+  {
+   "order": 2,
+   "phase": "launch",
+   "date": "1996-12-04",
+   "date_precision": "day",
+   "focus": "overview",
+   "title": "Le voyage",
+   "body": "Le 4 décembre 1996, je décolle de Floride, rangé à l'intérieur de l'atterrisseur Mars Pathfinder.",
+   "audio": null
+  },
+  {
+   "order": 3,
+   "phase": "arrival",
+   "date": "1997-07-04",
+   "date_precision": "day",
+   "focus": "wheels",
+   "title": "Un atterrissage rebondissant",
+   "body": "Le 4 juillet 1997, Pathfinder arrive sur Mars protégé par de gros airbags. Il rebondit plusieurs fois avant de s'arrêter, puis s'ouvre comme une fleur. Je descends sur le sol par une petite rampe.",
+   "audio": null
+  },
+  {
+   "order": 4,
+   "phase": "exploration",
+   "date": "1997-07-06",
+   "date_precision": "month",
+   "focus": "arm",
+   "title": "Des roches avec des surnoms",
+   "body": "Je roule de roche en roche pour les analyser. L'équipe leur donne des noms amusants, comme Barnacle Bill ou Yogi.",
+   "audio": null
+  },
+  {
+   "order": 5,
+   "phase": "legacy",
+   "date": "1997-09-27",
+   "date_precision": "day",
+   "focus": "antenna",
+   "title": "83 jours au lieu de 7",
+   "body": "Ma mission devait durer 7 jours martiens. J'ai travaillé 83 jours ! Le 27 septembre 1997, la station Pathfinder envoie son dernier signal. Sans elle, je ne peux plus parler à la Terre.",
+   "audio": null
+  }
+ ],
+ "quiz": [
+  {
+   "id": 21,
+   "question": "Combien de jours martiens la mission de Sojourner devait-elle durer ?",
+   "choices": [
+    "7",
+    "83",
+    "365"
+   ],
+   "answer_index": 0,
+   "explanation": "Prévue pour 7 jours martiens, elle en a duré 83."
+  },
+  {
+   "id": 22,
+   "question": "Comment Mars Pathfinder s'est-il posé sur Mars ?",
+   "choices": [
+    "Avec de gros airbags qui rebondissent",
+    "Sur trois pieds, comme Viking",
+    "Suspendu sous une grue volante"
+   ],
+   "answer_index": 0,
+   "explanation": "Les airbags ont amorti le choc : l'atterrisseur a rebondi plusieurs fois avant de s'immobiliser."
+  }
+ ],
+ "sources": [
+  {
+   "label": "NASA Science : Mars Pathfinder",
+   "url": "https://science.nasa.gov/mission/mars-pathfinder/",
+   "is_nasa": true
+  }
+ ]
+}

@@ -1,0 +1,105 @@
+{
+ "slug": "ingenuity",
+ "name": "Ingenuity",
+ "mission": "Mars 2020",
+ "body": "mars",
+ "kind": "helicopter",
+ "status": "silent",
+ "latitude": 18.4447,
+ "longitude": 77.4508,
+ "location": "\"Valinor Hills\", Neretva Vallis, Jezero crater (approximate position)",
+ "tagline": "I was supposed to fly 5 times. I flew 72 times on Mars.",
+ "image": null,
+ "image_credit": "",
+ "launch_date": "2020-07-30",
+ "arrival_date": "2021-02-18",
+ "last_contact_date": null,
+ "mission_end_date": "2024-01-25",
+ "nssdca_id": "",
+ "nssdca_url": "",
+ "discovery": "I proved that a vehicle could fly in the Martian air, about 100 times thinner than Earth's. I also scouted ahead for the Perseverance rover by photographing the terrain from the sky.",
+ "status_note": "After my 72nd flight in January 2024, one of my rotor blades was damaged. I can no longer fly, but I remain in Jezero crater.",
+ "presentation": {
+  "title": "Hello, I'm Ingenuity.",
+  "body": "I'm a helicopter from the Mars 2020 mission. I was supposed to fly 5 times. I flew 72 times on Mars.",
+  "audio": null
+ },
+ "chapters": [
+  {
+   "order": 1,
+   "phase": "arrival",
+   "date": "2021-02-18",
+   "date_precision": "day",
+   "focus": "rotor",
+   "title": "A quiet passenger",
+   "body": "I travelled to Mars tucked under the belly of the Perseverance rover. I weigh about 1.8 kg. My two rotors spin in opposite directions at more than 2,400 revolutions per minute to push against very thin air.",
+   "audio": null
+  },
+  {
+   "order": 2,
+   "phase": "exploration",
+   "date": "2021-04-19",
+   "date_precision": "day",
+   "focus": "rotor",
+   "title": "The first flight",
+   "body": "On 19 April 2021, I take off, climb to 3 metres, hover and land again. The flight lasts only 39 seconds, but it is the very first powered, controlled flight on another planet.",
+   "audio": null
+  },
+  {
+   "order": 3,
+   "phase": "exploration",
+   "date": "2022-01-01",
+   "date_precision": "year",
+   "focus": "body",
+   "title": "From demonstrator to scout",
+   "body": "At first, I was only supposed to make 5 test flights. I worked so well that the team kept me for almost three years: 72 flights, more than 17 km covered and over two hours in the Martian sky.",
+   "audio": null
+  },
+  {
+   "order": 4,
+   "phase": "legacy",
+   "date": "2024-01-18",
+   "date_precision": "day",
+   "focus": "rotor",
+   "title": "A hard landing",
+   "body": "On my 72nd flight, I fly over very smooth sand with no landmarks to guide my navigation camera. I land hard and my blades are damaged. My adventure in the sky ends there, but I paved the way for future flying machines, like Dragonfly, which is to explore Titan, a moon of Saturn.",
+   "audio": null
+  }
+ ],
+ "quiz": [
+  {
+   "id": 15,
+   "question": "How many flights was Ingenuity originally supposed to make?",
+   "choices": [
+    "5",
+    "72",
+    "500"
+   ],
+   "answer_index": 0,
+   "explanation": "It was meant to make 5 demonstration flights. It made 72!"
+  },
+  {
+   "id": 16,
+   "question": "Why is it hard to fly on Mars?",
+   "choices": [
+    "It is too hot",
+    "The air is about 100 times thinner than on Earth",
+    "There is no gravity"
+   ],
+   "answer_index": 1,
+   "explanation": "With so little air, the blades must be large, light and spin very fast."
+  }
+ ],
+ "sources": [
+  {
+   "label": "NASA Science : Ingenuity Mars Helicopter",
+   "url": "https://science.nasa.gov/mission/mars-2020-perseverance/ingenuity-mars-helicopter/",
+   "is_nasa": true
+  },
+  {
+   "label": "NASA Science : adieu à Ingenuity (blog de Perseverance)",
+   "url": "https://science.nasa.gov/missions/mars-2020-perseverance/farewell-to-our-flying-friend-and-closing-in-on-the-crater-rim/",
+   "is_nasa": true
+  }
+ ]
+}

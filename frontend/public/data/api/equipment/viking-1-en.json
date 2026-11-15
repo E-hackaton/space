@@ -1,0 +1,105 @@
+{
+ "slug": "viking-1",
+ "name": "Viking 1",
+ "mission": "Viking 1",
+ "body": "mars",
+ "kind": "lander",
+ "status": "silent",
+ "latitude": 22.27,
+ "longitude": -47.95,
+ "location": "Chryse Planitia",
+ "tagline": "I was the first U.S. spacecraft to successfully operate on the surface of Mars.",
+ "image": null,
+ "image_credit": "",
+ "launch_date": "1975-08-20",
+ "arrival_date": "1976-07-20",
+ "last_contact_date": "1982-11-11",
+ "mission_end_date": null,
+ "nssdca_id": "1975-075C",
+ "nssdca_url": "https://nssdc.gsfc.nasa.gov/nmc/spacecraft/display.action?id=1975-075C",
+ "discovery": "I sent the first pictures taken from the surface of Mars, recorded its weather for more than six years and searched the soil for signs of life. My results were not conclusive, but they guided every mission that followed.",
+ "status_note": "Silent since November 1982. I am still exactly where I landed.",
+ "presentation": {
+  "title": "Hello, I'm Viking 1.",
+  "body": "I'm a lander from the Viking 1 mission. I was the first U.S. spacecraft to successfully operate on the surface of Mars.",
+  "audio": null
+ },
+ "chapters": [
+  {
+   "order": 1,
+   "phase": "arrival",
+   "date": "1976-07-20",
+   "date_precision": "day",
+   "focus": "legs",
+   "title": "Finding a safe spot",
+   "body": "I travel attached to an orbiter. Once near Mars, it photographs the ground for a month to find me a safe place, because the planned site was too rough. On 20 July 1976, seven years to the day after Apollo 11, I land on the plain of Chryse.",
+   "audio": null
+  },
+  {
+   "order": 2,
+   "phase": "exploration",
+   "date": "1976-07-20",
+   "date_precision": "day",
+   "focus": "mast",
+   "title": "My first picture",
+   "body": "A few minutes after landing, I take my very first picture: one of my feet resting on Martian pebbles. The engineers wanted to know right away whether I was sinking into the ground!",
+   "audio": null
+  },
+  {
+   "order": 3,
+   "phase": "discovery",
+   "date": "1976-07-20",
+   "date_precision": "year",
+   "focus": "arm",
+   "title": "My miniature laboratory",
+   "body": "My arm scoops up soil and pours it into three biology experiments. They look for microbes by \"feeding\" them and watching for the gases they give off. The answers surprised everyone, but most scientists now think they are explained by the soil's chemistry, not by life.",
+   "audio": null
+  },
+  {
+   "order": 4,
+   "phase": "legacy",
+   "date": "1982-11-11",
+   "date_precision": "day",
+   "focus": "antenna",
+   "title": "Silence",
+   "body": "In November 1982, a command sent by mistake from Earth upsets the pointing of my antenna. Contact is lost forever, after more than six years of work.",
+   "audio": null
+  }
+ ],
+ "quiz": [
+  {
+   "id": 9,
+   "question": "What was Viking 1's very first picture on Mars?",
+   "choices": [
+    "A sunset",
+    "One of its own feet",
+    "A rover"
+   ],
+   "answer_index": 1,
+   "explanation": "Engineers wanted to check that the lander wasn't sinking into the ground."
+  },
+  {
+   "id": 10,
+   "question": "Why did Viking 1 lose contact with Earth?",
+   "choices": [
+    "A dust storm",
+    "A command sent by mistake",
+    "A meteorite"
+   ],
+   "answer_index": 1,
+   "explanation": "A faulty command changed the pointing of its antenna: it could no longer aim at Earth."
+  }
+ ],
+ "sources": [
+  {
+   "label": "NASA Science : Viking 1",
+   "url": "https://science.nasa.gov/mission/viking-1/",
+   "is_nasa": true
+  },
+  {
+   "label": "NSSDCA : Viking 1 Lander (1975-075C)",
+   "url": "https://nssdc.gsfc.nasa.gov/nmc/spacecraft/display.action?id=1975-075C",
+   "is_nasa": true
+  }
+ ]
+}

@@ -1,0 +1,95 @@
+{
+ "slug": "pioneer-10",
+ "name": "Pioneer 10",
+ "mission": "Pioneer 10",
+ "body": "elsewhere",
+ "kind": "probe",
+ "status": "lost",
+ "latitude": null,
+ "longitude": null,
+ "location": "En route hors du système solaire, vers l'étoile Aldébaran",
+ "tagline": "J'ai été le premier à traverser la ceinture d'astéroïdes et à visiter Jupiter.",
+ "image": null,
+ "image_credit": "",
+ "launch_date": "1972-03-03",
+ "arrival_date": "1973-12-03",
+ "last_contact_date": "2003-01-23",
+ "mission_end_date": null,
+ "nssdca_id": "1972-012A",
+ "nssdca_url": "https://nssdc.gsfc.nasa.gov/nmc/spacecraft/display.action?id=1972-012A",
+ "discovery": "J'ai pris les premières images rapprochées de Jupiter et mesuré ses ceintures de radiations, bien plus fortes que prévu. Ces mesures ont aidé à concevoir les sondes suivantes, comme Voyager.",
+ "status_note": "Perdu depuis janvier 2003 : mon signal est devenu trop faible pour être capté. Je continue ma route en silence.",
+ "presentation": {
+  "title": "Bonjour, je suis Pioneer 10.",
+  "body": "Je suis une sonde interplanétaire de la mission Pioneer 10. J'ai été le premier à traverser la ceinture d'astéroïdes et à visiter Jupiter.",
+  "audio": null
+ },
+ "chapters": [
+  {
+   "order": 1,
+   "phase": "exploration",
+   "date": "1972-07-15",
+   "date_precision": "year",
+   "focus": "overview",
+   "title": "Traverser la ceinture",
+   "body": "En 1972, personne ne sait si un vaisseau peut traverser la ceinture d'astéroïdes sans être détruit. Je suis le premier à essayer… et je passe sans dommage !",
+   "audio": null
+  },
+  {
+   "order": 2,
+   "phase": "discovery",
+   "date": "1973-12-03",
+   "date_precision": "day",
+   "focus": "antenna",
+   "title": "Rencontre avec Jupiter",
+   "body": "Le 3 décembre 1973, je passe tout près de Jupiter. Ses radiations sont si fortes qu'elles perturbent certains de mes instruments, mais j'envoie des centaines d'images de la planète géante.",
+   "audio": null
+  },
+  {
+   "order": 3,
+   "phase": "legacy",
+   "date": null,
+   "date_precision": "day",
+   "focus": "body",
+   "title": "Un message pour qui me trouvera",
+   "body": "Je transporte une plaque gravée qui montre un homme, une femme et la position de la Terre. Si quelqu'un me trouve un jour, il saura d'où je viens. Je me dirige vers l'étoile Aldébaran, que j'atteindrai dans environ 2 millions d'années.",
+   "audio": null
+  }
+ ],
+ "quiz": [
+  {
+   "id": 19,
+   "question": "Quelle zone Pioneer 10 a-t-il été le premier à traverser ?",
+   "choices": [
+    "La ceinture d'astéroïdes",
+    "Les anneaux de Saturne",
+    "La ceinture de Kuiper"
+   ],
+   "answer_index": 0,
+   "explanation": "Entre Mars et Jupiter, la ceinture d'astéroïdes inquiétait les ingénieurs. Pioneer 10 a prouvé qu'on pouvait la traverser."
+  },
+  {
+   "id": 20,
+   "question": "Que transporte Pioneer 10, au cas où quelqu'un le trouverait ?",
+   "choices": [
+    "Un disque de musique",
+    "Une plaque gravée",
+    "Une lettre manuscrite"
+   ],
+   "answer_index": 1,
+   "explanation": "La plaque montre deux humains et la position de la Terre. Le disque de musique, c'est Voyager !"
+  }
+ ],
+ "sources": [
+  {
+   "label": "NASA Science : Pioneer 10",
+   "url": "https://science.nasa.gov/mission/pioneer-10/",
+   "is_nasa": true
+  },
+  {
+   "label": "NSSDCA : Pioneer 10 (1972-012A)",
+   "url": "https://nssdc.gsfc.nasa.gov/nmc/spacecraft/display.action?id=1972-012A",
+   "is_nasa": true
+  }
+ ]
+}

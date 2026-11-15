@@ -1,0 +1,95 @@
+{
+ "slug": "surveyor-3",
+ "name": "Surveyor 3",
+ "mission": "Surveyor 3",
+ "body": "moon",
+ "kind": "lander",
+ "status": "silent",
+ "latitude": -3.0124,
+ "longitude": -23.4216,
+ "location": "Ocean of Storms (Oceanus Procellarum)",
+ "tagline": "I proved you could land on the Moon… and two astronauts came to visit me.",
+ "image": null,
+ "image_credit": "",
+ "launch_date": "1967-04-17",
+ "arrival_date": "1967-04-20",
+ "last_contact_date": "1967-05-04",
+ "mission_end_date": null,
+ "nssdca_id": "1967-035A",
+ "nssdca_url": "https://nssdc.gsfc.nasa.gov/nmc/spacecraft/display.action?id=1967-035A",
+ "discovery": "With my little scoop, I dug into the lunar soil and showed it was firm enough to hold a crewed spacecraft. My pictures helped prepare the Apollo missions.",
+ "status_note": "Silent since May 1967. My camera is missing: astronauts took it back to Earth!",
+ "presentation": {
+  "title": "Hello, I'm Surveyor 3.",
+  "body": "I'm a lander from the Surveyor 3 mission. I proved you could land on the Moon… and two astronauts came to visit me.",
+  "audio": null
+ },
+ "chapters": [
+  {
+   "order": 1,
+   "phase": "arrival",
+   "date": "1967-04-20",
+   "date_precision": "day",
+   "focus": "legs",
+   "title": "A bouncing landing",
+   "body": "On 20 April 1967, I descend toward the Ocean of Storms. My engines were supposed to shut off just before touchdown… but they stay on! I bounce twice before coming to a stop. Phew, I'm in one piece.",
+   "audio": null
+  },
+  {
+   "order": 2,
+   "phase": "exploration",
+   "date": "1967-04-20",
+   "date_precision": "month",
+   "focus": "arm",
+   "title": "My scoop and my pictures",
+   "body": "I have a camera and a small arm with a scoop. For two weeks, I dig trenches and send back thousands of pictures. On Earth, engineers learn how the soil reacts when you press on it: exactly what they need to know to land a module with astronauts.",
+   "audio": null
+  },
+  {
+   "order": 3,
+   "phase": "legacy",
+   "date": "1969-11-20",
+   "date_precision": "day",
+   "focus": "mast",
+   "title": "The Apollo 12 visit",
+   "body": "When the long lunar night falls, I go to sleep forever. But in November 1969, Apollo 12 lands about 180 metres from me! Astronauts Pete Conrad and Alan Bean walk over, cut off my camera and a few parts, and bring them back to Earth. Scientists could then study what 31 months on the Moon had done to my materials.",
+   "audio": null
+  }
+ ],
+ "quiz": [
+  {
+   "id": 1,
+   "question": "Why did Surveyor 3 bounce when it landed?",
+   "choices": [
+    "Its engines did not shut off in time",
+    "It fell into a crater",
+    "An astronaut pushed it"
+   ],
+   "answer_index": 0,
+   "explanation": "Its small braking engines stayed on all the way to the ground. It bounced twice before settling for good."
+  },
+  {
+   "id": 2,
+   "question": "Which crewed mission came to visit Surveyor 3?",
+   "choices": [
+    "Apollo 11",
+    "Apollo 12",
+    "Apollo 17"
+   ],
+   "answer_index": 1,
+   "explanation": "In 1969, the Apollo 12 crew landed nearby and brought its camera back to Earth."
+  }
+ ],
+ "sources": [
+  {
+   "label": "NASA Science : Surveyor 3",
+   "url": "https://science.nasa.gov/mission/surveyor-3/",
+   "is_nasa": true
+  },
+  {
+   "label": "NSSDCA : Surveyor 3 (1967-035A)",
+   "url": "https://nssdc.gsfc.nasa.gov/nmc/spacecraft/display.action?id=1967-035A",
+   "is_nasa": true
+  }
+ ]
+}

@@ -1,0 +1,85 @@
+{
+ "slug": "near-shoemaker",
+ "name": "NEAR Shoemaker",
+ "mission": "NEAR",
+ "body": "elsewhere",
+ "kind": "orbiter",
+ "status": "silent",
+ "latitude": null,
+ "longitude": null,
+ "location": "Resting on asteroid 433 Eros",
+ "tagline": "I wasn't designed to land… and yet I touched down on an asteroid.",
+ "image": null,
+ "image_credit": "",
+ "launch_date": "1996-02-17",
+ "arrival_date": "2000-02-14",
+ "last_contact_date": "2001-02-28",
+ "mission_end_date": null,
+ "nssdca_id": "1996-008A",
+ "nssdca_url": "https://nssdc.gsfc.nasa.gov/nmc/spacecraft/display.action?id=1996-008A",
+ "discovery": "During a year in orbit, I mapped asteroid Eros in detail: a rocky body covered with boulders and fine dust. I was the first spacecraft to orbit an asteroid, and then to land on one.",
+ "status_note": "Silent since 28 February 2001. I rest on Eros, which keeps circling the Sun.",
+ "presentation": {
+  "title": "Hello, I'm NEAR Shoemaker.",
+  "body": "I'm an orbiter from the NEAR mission. I wasn't designed to land… and yet I touched down on an asteroid.",
+  "audio": null
+ },
+ "chapters": [
+  {
+   "order": 1,
+   "phase": "arrival",
+   "date": "2000-02-14",
+   "date_precision": "day",
+   "focus": "overview",
+   "title": "A Valentine's Day rendezvous",
+   "body": "On 14 February 2000, Valentine's Day, I enter orbit around Eros, a peanut-shaped asteroid about 34 km long. No one had ever orbited an asteroid before me.",
+   "audio": null
+  },
+  {
+   "order": 2,
+   "phase": "legacy",
+   "date": "2001-02-12",
+   "date_precision": "day",
+   "focus": "panels",
+   "title": "A bonus landing",
+   "body": "With my mission over, the team tries something incredible: landing me gently on Eros, even though I have no legs! On 12 February 2001, I touch the surface at about walking speed… and keep sending data from the surface for more than two weeks.",
+   "audio": null
+  }
+ ],
+ "quiz": [
+  {
+   "id": 17,
+   "question": "On what day did NEAR Shoemaker enter orbit around Eros?",
+   "choices": [
+    "Christmas Day",
+    "Valentine's Day",
+    "New Year's Day"
+   ],
+   "answer_index": 1,
+   "explanation": "14 February 2000: a nod to Eros, the Greek god of love."
+  },
+  {
+   "id": 18,
+   "question": "What made NEAR Shoemaker's landing so surprising?",
+   "choices": [
+    "It wasn't designed to land",
+    "It landed on Mars",
+    "It had astronauts on board"
+   ],
+   "answer_index": 0,
+   "explanation": "It was an orbiter, with no legs or landing system. Yet it survived the touchdown."
+  }
+ ],
+ "sources": [
+  {
+   "label": "NASA Science : NEAR Shoemaker",
+   "url": "https://science.nasa.gov/mission/near-shoemaker/",
+   "is_nasa": true
+  },
+  {
+   "label": "NSSDCA : NEAR Shoemaker (1996-008A)",
+   "url": "https://nssdc.gsfc.nasa.gov/nmc/spacecraft/display.action?id=1996-008A",
+   "is_nasa": true
+  }
+ ]
+}

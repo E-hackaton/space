@@ -1,0 +1,90 @@
+{
+ "slug": "apollo-15-lrv",
+ "name": "Rover lunaire (LRV)",
+ "mission": "Apollo 15",
+ "body": "moon",
+ "kind": "rover",
+ "status": "silent",
+ "latitude": 26.1322,
+ "longitude": 3.6339,
+ "location": "Hadley–Apennine region",
+ "tagline": "I am the first electric car ever driven on the Moon.",
+ "image": null,
+ "image_credit": "",
+ "launch_date": "1971-07-26",
+ "arrival_date": "1971-07-30",
+ "last_contact_date": null,
+ "mission_end_date": "1971-08-02",
+ "nssdca_id": "1971-063C",
+ "nssdca_url": "https://nssdc.gsfc.nasa.gov/nmc/spacecraft/display.action?id=1971-063C",
+ "discovery": "By driving about 28 km, I let the astronauts travel much farther than on foot and collect very old rocks, including the famous \"Genesis Rock\", about 4 billion years old.",
+ "status_note": "Parked forever near the landing site. Two other rovers like me are parked on the Moon (Apollo 16 and 17).",
+ "presentation": {
+  "title": "Hello, I'm Rover lunaire (LRV).",
+  "body": "I'm a rover from the Apollo 15 mission. I am the first electric car ever driven on the Moon.",
+  "audio": null
+ },
+ "chapters": [
+  {
+   "order": 1,
+   "phase": "arrival",
+   "date": "1971-07-31",
+   "date_precision": "day",
+   "focus": "body",
+   "title": "Folded like origami",
+   "body": "For the trip, I was folded up and stowed on the side of the lunar module Falcon. Once there, astronauts David Scott and James Irwin pull on straps and I unfold.",
+   "audio": null
+  },
+  {
+   "order": 2,
+   "phase": "exploration",
+   "date": "1971-07-31",
+   "date_precision": "year",
+   "focus": "wheels",
+   "title": "Driving on the Moon",
+   "body": "Each of my four wheels has its own electric motor, powered by batteries. My tyres are made of woven wire mesh: an air-filled tyre would not have survived the vacuum and the extreme temperatures. I drive at a little over 10 km/h through the dust.",
+   "audio": null
+  },
+  {
+   "order": 3,
+   "phase": "legacy",
+   "date": "1971-08-02",
+   "date_precision": "day",
+   "focus": "mast",
+   "title": "My last job: filming the departure",
+   "body": "Before leaving, the astronauts park me a little way off with my camera on. From Earth, engineers use it to film the ascent stage lifting off. Then I stay there, parked forever.",
+   "audio": null
+  }
+ ],
+ "quiz": [
+  {
+   "id": 5,
+   "question": "Why were the lunar rover's tyres not filled with air?",
+   "choices": [
+    "To withstand the vacuum and extreme temperatures",
+    "Because air was too expensive",
+    "To drive faster"
+   ],
+   "answer_index": 0,
+   "explanation": "On the Moon there is no air, and the temperature changes enormously between day and night. Metal mesh holds up better."
+  },
+  {
+   "id": 6,
+   "question": "How many lunar rovers are parked on the Moon?",
+   "choices": [
+    "One",
+    "Three",
+    "Ten"
+   ],
+   "answer_index": 1,
+   "explanation": "One for each of the Apollo 15, 16 and 17 missions."
+  }
+ ],
+ "sources": [
+  {
+   "label": "NSSDCA : Apollo 15 Lunar Module / LRV (1971-063C)",
+   "url": "https://nssdc.gsfc.nasa.gov/nmc/spacecraft/display.action?id=1971-063C",
+   "is_nasa": true
+  }
+ ]
+}

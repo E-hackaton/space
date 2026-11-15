@@ -1,0 +1,110 @@
+{
+ "slug": "opportunity",
+ "name": "Opportunity",
+ "mission": "Mars Exploration Rover",
+ "body": "mars",
+ "kind": "rover",
+ "status": "silent",
+ "latitude": -2.28,
+ "longitude": -5.43,
+ "location": "Vallée Perseverance, bord ouest du cratère Endeavour (position approximative)",
+ "tagline": "Je devais vivre 90 jours. J'ai exploré Mars pendant près de 15 ans.",
+ "image": null,
+ "image_credit": "",
+ "launch_date": "2003-07-07",
+ "arrival_date": "2004-01-25",
+ "last_contact_date": "2018-06-10",
+ "mission_end_date": null,
+ "nssdca_id": "2003-032A",
+ "nssdca_url": "https://nssdc.gsfc.nasa.gov/nmc/spacecraft/display.action?id=2003-032A",
+ "discovery": "J'ai trouvé de petites billes d'hématite, surnommées « myrtilles », et des roches qui se forment en présence d'eau. C'était la preuve qu'il y avait autrefois de l'eau liquide à la surface de Mars.",
+ "status_note": "Silencieux depuis juin 2018 : une immense tempête de poussière a privé mes panneaux solaires de lumière. Ma mission a été déclarée terminée le 13 février 2019.",
+ "presentation": {
+  "title": "Bonjour, je suis Opportunity.",
+  "body": "Je suis un rover de la mission Mars Exploration Rover. Je devais vivre 90 jours. J'ai exploré Mars pendant près de 15 ans.",
+  "audio": null
+ },
+ "chapters": [
+  {
+   "order": 1,
+   "phase": "arrival",
+   "date": "2004-01-25",
+   "date_precision": "day",
+   "focus": "wheels",
+   "title": "Un trou en un",
+   "body": "Le 25 janvier 2004, je rebondis sur Mars, emballé dans des airbags, puis je roule… droit dans un petit cratère. Les scientifiques n'en reviennent pas : juste devant moi, des couches de roches racontent l'histoire de la planète. Ce cratère s'appelle Eagle.",
+   "audio": null
+  },
+  {
+   "order": 2,
+   "phase": "discovery",
+   "date": "2004-03-02",
+   "date_precision": "month",
+   "focus": "arm",
+   "title": "Les myrtilles de Mars",
+   "body": "Dans ces roches, je découvre des milliers de petites billes grises. Mes instruments montrent qu'elles sont faites d'hématite, un minéral qui se forme souvent dans l'eau. Mars était donc autrefois bien plus humide qu'aujourd'hui.",
+   "audio": null
+  },
+  {
+   "order": 3,
+   "phase": "exploration",
+   "date": "2015-03-24",
+   "date_precision": "day",
+   "focus": "wheels",
+   "title": "Un marathon martien",
+   "body": "Mes panneaux solaires devaient se couvrir de poussière en quelques mois. Mais des coups de vent martiens les ont régulièrement nettoyés ! Au total, j'ai roulé plus de 45 km : plus qu'un marathon.",
+   "audio": null
+  },
+  {
+   "order": 4,
+   "phase": "legacy",
+   "date": "2018-06-10",
+   "date_precision": "day",
+   "focus": "panels",
+   "title": "La grande tempête",
+   "body": "En juin 2018, une tempête de poussière couvre presque toute la planète. Le ciel devient si sombre que mes panneaux ne produisent plus assez d'énergie. Mon dernier message arrive le 10 juin 2018. Pendant des mois, les ingénieurs m'envoient plus de mille appels. Je ne réponds plus. Un journaliste a résumé mes dernières données par une phrase devenue célèbre : « Ma batterie est faible et il fait de plus en plus sombre. » Ce ne sont pas mes vrais mots, mais c'est bien ce que disaient mes mesures.",
+   "audio": null
+  }
+ ],
+ "quiz": [
+  {
+   "id": 11,
+   "question": "Combien de temps la mission d'Opportunity devait-elle durer au départ ?",
+   "choices": [
+    "90 jours martiens",
+    "5 ans",
+    "15 ans"
+   ],
+   "answer_index": 0,
+   "explanation": "Prévue pour 90 jours martiens, la mission a duré près de 15 ans."
+  },
+  {
+   "id": 12,
+   "question": "Que révèlent les « myrtilles » d'hématite trouvées par Opportunity ?",
+   "choices": [
+    "Qu'il y a des plantes sur Mars",
+    "Qu'il y avait autrefois de l'eau liquide",
+    "Que Mars est une planète très chaude"
+   ],
+   "answer_index": 1,
+   "explanation": "L'hématite de ce type se forme en présence d'eau : c'est une trace d'un passé plus humide."
+  }
+ ],
+ "sources": [
+  {
+   "label": "NASA Science : Spirit et Opportunity",
+   "url": "https://science.nasa.gov/mission/mars-exploration-rovers-spirit-and-opportunity/",
+   "is_nasa": true
+  },
+  {
+   "label": "NASA/JPL : carte du dernier trajet d'Opportunity (PIA23178)",
+   "url": "https://photojournal.jpl.nasa.gov/catalog/PIA23178",
+   "is_nasa": true
+  },
+  {
+   "label": "NSSDCA : Opportunity (2003-032A)",
+   "url": "https://nssdc.gsfc.nasa.gov/nmc/spacecraft/display.action?id=2003-032A",
+   "is_nasa": true
+  }
+ ]
+}

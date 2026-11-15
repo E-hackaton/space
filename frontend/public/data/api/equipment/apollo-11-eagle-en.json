@@ -1,0 +1,90 @@
+{
+ "slug": "apollo-11-eagle",
+ "name": "Eagle",
+ "mission": "Apollo 11",
+ "body": "moon",
+ "kind": "descent_stage",
+ "status": "silent",
+ "latitude": 0.6741,
+ "longitude": 23.473,
+ "location": "Sea of Tranquility",
+ "tagline": "I carried the first humans to the Moon, then served as their launch pad.",
+ "image": null,
+ "image_credit": "",
+ "launch_date": "1969-07-16",
+ "arrival_date": "1969-07-20",
+ "last_contact_date": null,
+ "mission_end_date": "1969-07-21",
+ "nssdca_id": "1969-059C",
+ "nssdca_url": "https://nssdc.gsfc.nasa.gov/nmc/spacecraft/display.action?id=1969-059C",
+ "discovery": "Thanks to me, Neil Armstrong and Buzz Aldrin walked on the Moon and brought back about 21.5 kg of lunar rocks and dust that scientists still study today.",
+ "status_note": "I am still exactly where I landed, surrounded by the astronauts' footprints.",
+ "presentation": {
+  "title": "Hello, I'm Eagle.",
+  "body": "I'm a descent stage from the Apollo 11 mission. I carried the first humans to the Moon, then served as their launch pad.",
+  "audio": null
+ },
+ "chapters": [
+  {
+   "order": 1,
+   "phase": "arrival",
+   "date": "1969-07-20",
+   "date_precision": "day",
+   "focus": "legs",
+   "title": "A spacecraft in two pieces",
+   "body": "I am the bottom half of the lunar module Eagle: the descent stage. On 20 July 1969, I land in the Sea of Tranquility with two astronauts on board. A few hours later, Neil Armstrong climbs down my ladder and sets foot on the Moon.",
+   "audio": null
+  },
+  {
+   "order": 2,
+   "phase": "exploration",
+   "date": "1969-07-21",
+   "date_precision": "day",
+   "focus": "engine",
+   "title": "A launch pad",
+   "body": "To leave, the astronauts take only the top half of the module, the ascent stage. I stay on the ground and serve as a platform: the ascent stage lifts off from my back to rejoin the spacecraft waiting in orbit.",
+   "audio": null
+  },
+  {
+   "order": 3,
+   "phase": "legacy",
+   "date": "1969-07-20",
+   "date_precision": "month",
+   "focus": "legs",
+   "title": "The message I carry",
+   "body": "On one of my legs, a plaque reads: \"Here men from the planet Earth first set foot upon the Moon, July 1969 A.D. We came in peace for all mankind.\"",
+   "audio": null
+  }
+ ],
+ "quiz": [
+  {
+   "id": 3,
+   "question": "Which part of the Apollo 11 lunar module stayed on the Moon?",
+   "choices": [
+    "The top half (ascent stage)",
+    "The bottom half (descent stage)",
+    "The whole module"
+   ],
+   "answer_index": 1,
+   "explanation": "The descent stage served as a launch pad: only the top half left."
+  },
+  {
+   "id": 4,
+   "question": "In which region of the Moon did Eagle land?",
+   "choices": [
+    "The Sea of Tranquility",
+    "The Ocean of Storms",
+    "Tycho crater"
+   ],
+   "answer_index": 0,
+   "explanation": "A fairly flat, safe plain, chosen thanks to pictures from earlier robotic missions."
+  }
+ ],
+ "sources": [
+  {
+   "label": "NSSDCA : Apollo 11 Lunar Module (1969-059C)",
+   "url": "https://nssdc.gsfc.nasa.gov/nmc/spacecraft/display.action?id=1969-059C",
+   "is_nasa": true
+  }
+ ]
+}

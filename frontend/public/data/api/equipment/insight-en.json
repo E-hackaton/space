@@ -1,0 +1,105 @@
+{
+ "slug": "insight",
+ "name": "InSight",
+ "mission": "InSight",
+ "body": "mars",
+ "kind": "lander",
+ "status": "silent",
+ "latitude": 4.5024,
+ "longitude": 135.6234,
+ "location": "Elysium Planitia",
+ "tagline": "I pressed my ear against Mars to listen to it shake.",
+ "image": null,
+ "image_credit": "",
+ "launch_date": "2018-05-05",
+ "arrival_date": "2018-11-26",
+ "last_contact_date": "2022-12-15",
+ "mission_end_date": null,
+ "nssdca_id": "2018-042A",
+ "nssdca_url": "https://nssdc.gsfc.nasa.gov/nmc/spacecraft/display.action?id=2018-042A",
+ "discovery": "My seismometer recorded more than 1,300 \"marsquakes\". By studying how these vibrations travel through the planet, scientists measured for the first time the thickness of its crust and mantle and the size of its core.",
+ "status_note": "Silent since December 2022: dust covered my solar panels.",
+ "presentation": {
+  "title": "Hello, I'm InSight.",
+  "body": "I'm a lander from the InSight mission. I pressed my ear against Mars to listen to it shake.",
+  "audio": null
+ },
+ "chapters": [
+  {
+   "order": 1,
+   "phase": "arrival",
+   "date": "2018-12-19",
+   "date_precision": "day",
+   "focus": "arm",
+   "title": "A geologist who stays put",
+   "body": "Unlike rovers, I don't move. My job: to study the inside of Mars, all the way to its heart. With my robotic arm, I place my seismometer directly on the ground, under a dome that protects it from wind and cold.",
+   "audio": null
+  },
+  {
+   "order": 2,
+   "phase": "discovery",
+   "date": "2022-05-04",
+   "date_precision": "day",
+   "focus": "body",
+   "title": "Mars shakes",
+   "body": "I feel tremors caused by faults in the ground, and even by meteorites crashing down. In May 2022, I record the strongest quake ever detected on another planet: about magnitude 5.",
+   "audio": null
+  },
+  {
+   "order": 3,
+   "phase": "exploration",
+   "date": "2021-01-14",
+   "date_precision": "month",
+   "focus": "arm",
+   "title": "The stubborn mole",
+   "body": "I also had a probe nicknamed \"the mole\", meant to burrow 5 metres down to measure the heat of Mars. But the soil didn't grip it enough for it to move forward: it never managed to dig deep. In science, too, we learn from our failures.",
+   "audio": null
+  },
+  {
+   "order": 4,
+   "phase": "legacy",
+   "date": "2022-12-15",
+   "date_precision": "day",
+   "focus": "panels",
+   "title": "My last message",
+   "body": "Little by little, dust covers my solar panels. In late 2022, my team posts in my name: \"My power's really low, so this may be the last image I can send.\" On 15 December 2022, I fall silent.",
+   "audio": null
+  }
+ ],
+ "quiz": [
+  {
+   "id": 13,
+   "question": "What was InSight listening to on Mars?",
+   "choices": [
+    "The wind",
+    "Marsquakes",
+    "Alien signals"
+   ],
+   "answer_index": 1,
+   "explanation": "Its seismometer recorded more than 1,300 marsquakes, which let scientists \"see\" inside the planet."
+  },
+  {
+   "id": 14,
+   "question": "Why couldn't InSight's \"mole\" dig deep?",
+   "choices": [
+    "The soil didn't grip it enough to move forward",
+    "It ran out of power",
+    "A rover crushed it"
+   ],
+   "answer_index": 0,
+   "explanation": "The mole needed the soil to rub against it to make progress. The Martian soil was different from what was expected."
+  }
+ ],
+ "sources": [
+  {
+   "label": "NASA Science : InSight",
+   "url": "https://science.nasa.gov/mission/insight/",
+   "is_nasa": true
+  },
+  {
+   "label": "NSSDCA : InSight (2018-042A)",
+   "url": "https://nssdc.gsfc.nasa.gov/nmc/spacecraft/display.action?id=2018-042A",
+   "is_nasa": true
+  }
+ ]
+}

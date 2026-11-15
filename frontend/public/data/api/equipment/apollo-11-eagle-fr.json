@@ -1,0 +1,90 @@
+{
+ "slug": "apollo-11-eagle",
+ "name": "Eagle",
+ "mission": "Apollo 11",
+ "body": "moon",
+ "kind": "descent_stage",
+ "status": "silent",
+ "latitude": 0.6741,
+ "longitude": 23.473,
+ "location": "Mer de la Tranquillité",
+ "tagline": "J'ai porté les premiers humains sur la Lune, puis je leur ai servi de rampe de lancement.",
+ "image": null,
+ "image_credit": "",
+ "launch_date": "1969-07-16",
+ "arrival_date": "1969-07-20",
+ "last_contact_date": null,
+ "mission_end_date": "1969-07-21",
+ "nssdca_id": "1969-059C",
+ "nssdca_url": "https://nssdc.gsfc.nasa.gov/nmc/spacecraft/display.action?id=1969-059C",
+ "discovery": "Grâce à moi, Neil Armstrong et Buzz Aldrin ont marché sur la Lune et rapporté environ 21,5 kg de roches et de poussière lunaires, étudiées encore aujourd'hui.",
+ "status_note": "Je suis resté exactement là où je me suis posé, entouré des traces de pas des astronautes.",
+ "presentation": {
+  "title": "Bonjour, je suis Eagle.",
+  "body": "Je suis un étage de descente de la mission Apollo 11. J'ai porté les premiers humains sur la Lune, puis je leur ai servi de rampe de lancement.",
+  "audio": null
+ },
+ "chapters": [
+  {
+   "order": 1,
+   "phase": "arrival",
+   "date": "1969-07-20",
+   "date_precision": "day",
+   "focus": "legs",
+   "title": "Un vaisseau en deux morceaux",
+   "body": "Je suis la moitié basse du module lunaire Eagle : l'étage de descente. Le 20 juillet 1969, je me pose dans la Mer de la Tranquillité avec deux astronautes à bord. Quelques heures plus tard, Neil Armstrong descend mon échelle et pose le pied sur la Lune.",
+   "audio": null
+  },
+  {
+   "order": 2,
+   "phase": "exploration",
+   "date": "1969-07-21",
+   "date_precision": "day",
+   "focus": "engine",
+   "title": "Une rampe de lancement",
+   "body": "Pour repartir, les astronautes n'emportent que la partie haute du module, l'étage de remontée. Moi, je reste au sol et je sers de plateforme : l'étage de remontée décolle depuis mon dos pour rejoindre le vaisseau qui attend en orbite.",
+   "audio": null
+  },
+  {
+   "order": 3,
+   "phase": "legacy",
+   "date": "1969-07-20",
+   "date_precision": "month",
+   "focus": "legs",
+   "title": "Le message que je porte",
+   "body": "Sur l'un de mes pieds, une plaque dit : « Ici, des hommes de la planète Terre ont posé le pied sur la Lune pour la première fois, juillet 1969 après J.-C. Nous sommes venus en paix au nom de toute l'humanité. »",
+   "audio": null
+  }
+ ],
+ "quiz": [
+  {
+   "id": 3,
+   "question": "Quelle partie du module lunaire d'Apollo 11 est restée sur la Lune ?",
+   "choices": [
+    "La partie haute (étage de remontée)",
+    "La partie basse (étage de descente)",
+    "Le module entier"
+   ],
+   "answer_index": 1,
+   "explanation": "L'étage de descente a servi de rampe de lancement : seule la partie haute est repartie."
+  },
+  {
+   "id": 4,
+   "question": "Dans quelle région de la Lune Eagle s'est-il posé ?",
+   "choices": [
+    "La Mer de la Tranquillité",
+    "L'Océan des Tempêtes",
+    "Le cratère Tycho"
+   ],
+   "answer_index": 0,
+   "explanation": "Une plaine assez plate et sûre, choisie grâce aux photos des missions robotiques précédentes."
+  }
+ ],
+ "sources": [
+  {
+   "label": "NSSDCA : Apollo 11 Lunar Module (1969-059C)",
+   "url": "https://nssdc.gsfc.nasa.gov/nmc/spacecraft/display.action?id=1969-059C",
+   "is_nasa": true
+  }
+ ]
+}

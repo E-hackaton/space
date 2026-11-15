@@ -1,0 +1,95 @@
+{
+ "slug": "surveyor-3",
+ "name": "Surveyor 3",
+ "mission": "Surveyor 3",
+ "body": "moon",
+ "kind": "lander",
+ "status": "silent",
+ "latitude": -3.0124,
+ "longitude": -23.4216,
+ "location": "Océan des Tempêtes (Oceanus Procellarum)",
+ "tagline": "J'ai prouvé qu'on pouvait se poser sur la Lune… et deux astronautes sont venus me rendre visite.",
+ "image": null,
+ "image_credit": "",
+ "launch_date": "1967-04-17",
+ "arrival_date": "1967-04-20",
+ "last_contact_date": "1967-05-04",
+ "mission_end_date": null,
+ "nssdca_id": "1967-035A",
+ "nssdca_url": "https://nssdc.gsfc.nasa.gov/nmc/spacecraft/display.action?id=1967-035A",
+ "discovery": "Avec ma petite pelle, j'ai creusé le sol lunaire et montré qu'il était assez solide pour porter un vaisseau habité. Mes photos ont aidé à préparer les missions Apollo.",
+ "status_note": "Silencieux depuis mai 1967. Il me manque ma caméra : des astronautes l'ont rapportée sur Terre !",
+ "presentation": {
+  "title": "Bonjour, je suis Surveyor 3.",
+  "body": "Je suis un atterrisseur de la mission Surveyor 3. J'ai prouvé qu'on pouvait se poser sur la Lune… et deux astronautes sont venus me rendre visite.",
+  "audio": null
+ },
+ "chapters": [
+  {
+   "order": 1,
+   "phase": "arrival",
+   "date": "1967-04-20",
+   "date_precision": "day",
+   "focus": "legs",
+   "title": "Un atterrissage qui rebondit",
+   "body": "Le 20 avril 1967, je descends vers l'Océan des Tempêtes. Mes moteurs devaient s'éteindre juste avant de toucher le sol… mais ils restent allumés ! Je rebondis deux fois avant de m'immobiliser. Ouf, je suis entier.",
+   "audio": null
+  },
+  {
+   "order": 2,
+   "phase": "exploration",
+   "date": "1967-04-20",
+   "date_precision": "month",
+   "focus": "arm",
+   "title": "Ma pelle et mes photos",
+   "body": "J'ai une caméra et un petit bras terminé par une pelle. Pendant deux semaines, je creuse des tranchées et j'envoie des milliers de photos. Sur Terre, les ingénieurs découvrent comment le sol réagit quand on appuie dessus : exactement ce qu'il faut savoir pour poser un module avec des astronautes.",
+   "audio": null
+  },
+  {
+   "order": 3,
+   "phase": "legacy",
+   "date": "1969-11-20",
+   "date_precision": "day",
+   "focus": "mast",
+   "title": "La visite d'Apollo 12",
+   "body": "Quand la longue nuit lunaire tombe, je m'endors pour toujours. Mais en novembre 1969, Apollo 12 se pose à environ 180 mètres de moi ! Les astronautes Pete Conrad et Alan Bean viennent à pied, découpent ma caméra et quelques pièces, puis les rapportent sur Terre. Les scientifiques ont ainsi pu étudier ce que 31 mois sur la Lune avaient fait à mes matériaux.",
+   "audio": null
+  }
+ ],
+ "quiz": [
+  {
+   "id": 1,
+   "question": "Pourquoi Surveyor 3 a-t-il rebondi en se posant ?",
+   "choices": [
+    "Ses moteurs ne se sont pas éteints à temps",
+    "Il est tombé dans un cratère",
+    "Un astronaute l'a poussé"
+   ],
+   "answer_index": 0,
+   "explanation": "Ses petits moteurs de freinage sont restés allumés jusqu'au sol. Il a rebondi deux fois avant de se poser pour de bon."
+  },
+  {
+   "id": 2,
+   "question": "Quelle mission habitée est venue rendre visite à Surveyor 3 ?",
+   "choices": [
+    "Apollo 11",
+    "Apollo 12",
+    "Apollo 17"
+   ],
+   "answer_index": 1,
+   "explanation": "En 1969, l'équipage d'Apollo 12 s'est posé tout près et a rapporté sa caméra sur Terre."
+  }
+ ],
+ "sources": [
+  {
+   "label": "NASA Science : Surveyor 3",
+   "url": "https://science.nasa.gov/mission/surveyor-3/",
+   "is_nasa": true
+  },
+  {
+   "label": "NSSDCA : Surveyor 3 (1967-035A)",
+   "url": "https://nssdc.gsfc.nasa.gov/nmc/spacecraft/display.action?id=1967-035A",
+   "is_nasa": true
+  }
+ ]
+}

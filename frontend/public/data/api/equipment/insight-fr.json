@@ -1,0 +1,105 @@
+{
+ "slug": "insight",
+ "name": "InSight",
+ "mission": "InSight",
+ "body": "mars",
+ "kind": "lander",
+ "status": "silent",
+ "latitude": 4.5024,
+ "longitude": 135.6234,
+ "location": "Plaine d'Elysium (Elysium Planitia)",
+ "tagline": "J'ai collé mon oreille contre Mars pour l'écouter trembler.",
+ "image": null,
+ "image_credit": "",
+ "launch_date": "2018-05-05",
+ "arrival_date": "2018-11-26",
+ "last_contact_date": "2022-12-15",
+ "mission_end_date": null,
+ "nssdca_id": "2018-042A",
+ "nssdca_url": "https://nssdc.gsfc.nasa.gov/nmc/spacecraft/display.action?id=2018-042A",
+ "discovery": "Mon sismomètre a enregistré plus de 1 300 « tremblements de Mars ». En étudiant comment ces vibrations traversent la planète, les scientifiques ont mesuré pour la première fois l'épaisseur de sa croûte et de son manteau, et la taille de son noyau.",
+ "status_note": "Silencieux depuis décembre 2022 : la poussière a recouvert mes panneaux solaires.",
+ "presentation": {
+  "title": "Bonjour, je suis InSight.",
+  "body": "Je suis un atterrisseur de la mission InSight. J'ai collé mon oreille contre Mars pour l'écouter trembler.",
+  "audio": null
+ },
+ "chapters": [
+  {
+   "order": 1,
+   "phase": "arrival",
+   "date": "2018-12-19",
+   "date_precision": "day",
+   "focus": "arm",
+   "title": "Un géologue immobile",
+   "body": "Contrairement aux rovers, je ne bouge pas. Mon travail : étudier l'intérieur de Mars, jusqu'à son cœur. Avec mon bras robotique, je pose mon sismomètre directement sur le sol, sous une cloche qui le protège du vent et du froid.",
+   "audio": null
+  },
+  {
+   "order": 2,
+   "phase": "discovery",
+   "date": "2022-05-04",
+   "date_precision": "day",
+   "focus": "body",
+   "title": "Mars tremble",
+   "body": "Je sens des secousses causées par des failles dans le sol, et même par des météorites qui s'écrasent. En mai 2022, j'enregistre le plus fort séisme jamais détecté sur une autre planète : une magnitude d'environ 5.",
+   "audio": null
+  },
+  {
+   "order": 3,
+   "phase": "exploration",
+   "date": "2021-01-14",
+   "date_precision": "month",
+   "focus": "arm",
+   "title": "La taupe têtue",
+   "body": "J'avais aussi une sonde surnommée « la taupe », qui devait s'enfoncer jusqu'à 5 mètres pour mesurer la chaleur de Mars. Mais le sol ne la retenait pas assez pour qu'elle avance : elle n'a jamais réussi à creuser profondément. En science aussi, on apprend de ses échecs.",
+   "audio": null
+  },
+  {
+   "order": 4,
+   "phase": "legacy",
+   "date": "2022-12-15",
+   "date_precision": "day",
+   "focus": "panels",
+   "title": "Mon dernier message",
+   "body": "Petit à petit, la poussière recouvre mes panneaux solaires. Fin 2022, mon équipe publie en mon nom : « Mon énergie est vraiment faible, alors ceci est peut-être la dernière image que je peux envoyer. » Le 15 décembre 2022, je me tais.",
+   "audio": null
+  }
+ ],
+ "quiz": [
+  {
+   "id": 13,
+   "question": "Qu'écoutait InSight sur Mars ?",
+   "choices": [
+    "Le vent",
+    "Les tremblements de Mars",
+    "Des signaux extraterrestres"
+   ],
+   "answer_index": 1,
+   "explanation": "Son sismomètre a enregistré plus de 1 300 séismes martiens, ce qui a permis de « voir » l'intérieur de la planète."
+  },
+  {
+   "id": 14,
+   "question": "Pourquoi la « taupe » d'InSight n'a-t-elle pas pu creuser profondément ?",
+   "choices": [
+    "Le sol ne la retenait pas assez pour qu'elle avance",
+    "Elle est tombée en panne d'électricité",
+    "Un rover l'a écrasée"
+   ],
+   "answer_index": 0,
+   "explanation": "La taupe avait besoin que le sol frotte contre elle pour progresser. Le sol martien était différent de ce que l'on attendait."
+  }
+ ],
+ "sources": [
+  {
+   "label": "NASA Science : InSight",
+   "url": "https://science.nasa.gov/mission/insight/",
+   "is_nasa": true
+  },
+  {
+   "label": "NSSDCA : InSight (2018-042A)",
+   "url": "https://nssdc.gsfc.nasa.gov/nmc/spacecraft/display.action?id=2018-042A",
+   "is_nasa": true
+  }
+ ]
+}

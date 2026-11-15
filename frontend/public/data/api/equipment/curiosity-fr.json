@@ -1,0 +1,125 @@
+{
+ "slug": "curiosity",
+ "name": "Curiosity",
+ "mission": "Mars Science Laboratory",
+ "body": "mars",
+ "kind": "rover",
+ "status": "active",
+ "latitude": -4.5895,
+ "longitude": 137.4417,
+ "location": "Mont Sharp, cratère Gale",
+ "tagline": "Je suis grand comme une voiture et je grimpe une montagne martienne depuis 2014.",
+ "image": null,
+ "image_credit": "",
+ "launch_date": "2011-11-26",
+ "arrival_date": "2012-08-06",
+ "last_contact_date": null,
+ "mission_end_date": null,
+ "nssdca_id": "2011-070A",
+ "nssdca_url": "https://nssdc.gsfc.nasa.gov/nmc/spacecraft/display.action?id=2011-070A",
+ "discovery": "J'ai montré que le cratère Gale abritait autrefois un lac d'eau douce, avec les ingrédients chimiques nécessaires à la vie microbienne. J'y ai aussi trouvé des molécules organiques, les briques de base de la chimie du vivant.",
+ "status_note": "Encore actif : je continue d'explorer les couches du mont Sharp, qui racontent comment Mars s'est asséchée.",
+ "presentation": {
+  "title": "Bonjour, je suis Curiosity.",
+  "body": "Je suis un rover de la mission Mars Science Laboratory. Je suis grand comme une voiture et je grimpe une montagne martienne depuis 2014.",
+  "audio": null
+ },
+ "chapters": [
+  {
+   "order": 1,
+   "phase": "conception",
+   "date": null,
+   "date_precision": "day",
+   "focus": "arm",
+   "title": "Un laboratoire sur roues",
+   "body": "On m'a conçu pour répondre à une grande question : Mars a-t-elle pu abriter la vie ? Je transporte un vrai laboratoire de chimie, un laser qui vaporise les roches pour les analyser, et une source d'énergie nucléaire qui ne dépend pas du Soleil.",
+   "audio": null
+  },
+  {
+   "order": 2,
+   "phase": "launch",
+   "date": "2011-11-26",
+   "date_precision": "day",
+   "focus": "overview",
+   "title": "Huit mois de voyage",
+   "body": "Le 26 novembre 2011, je quitte la Terre à bord d'une fusée Atlas V. Pendant plus de huit mois, je traverse l'espace, bien protégé dans ma capsule.",
+   "audio": null
+  },
+  {
+   "order": 3,
+   "phase": "arrival",
+   "date": "2012-08-06",
+   "date_precision": "day",
+   "focus": "wheels",
+   "title": "Les sept minutes de terreur",
+   "body": "Pour me poser, une « grue volante » à fusées me descend au bout de câbles, puis s'envole plus loin. Tout est automatique : les signaux mettent environ 14 minutes pour arriver sur Terre, bien trop tard pour me piloter.",
+   "audio": null
+  },
+  {
+   "order": 4,
+   "phase": "discovery",
+   "date": "2013-03-12",
+   "date_precision": "month",
+   "focus": "arm",
+   "title": "Un ancien lac",
+   "body": "En forant une roche, je découvre de l'argile : la trace d'un ancien lac d'eau douce. Il y a des milliards d'années, des microbes auraient pu y vivre.",
+   "audio": null
+  },
+  {
+   "order": 5,
+   "phase": "exploration",
+   "date": "2014-09-11",
+   "date_precision": "month",
+   "focus": "wheels",
+   "title": "L'ascension du mont Sharp",
+   "body": "Depuis 2014, je gravis le mont Sharp, une montagne de plus de 5 km de haut au centre du cratère. Chaque couche de roche est comme une page de l'histoire de Mars.",
+   "audio": null
+  },
+  {
+   "order": 6,
+   "phase": "legacy",
+   "date": null,
+   "date_precision": "day",
+   "focus": "mast",
+   "title": "Toujours au travail",
+   "body": "Mes roues sont abîmées par les roches pointues, mais je roule encore. Chaque jour, mes découvertes aident à préparer les futures missions, peut-être avec des humains.",
+   "audio": null
+  }
+ ],
+ "quiz": [
+  {
+   "id": 23,
+   "question": "Comment Curiosity s'est-il posé sur Mars ?",
+   "choices": [
+    "Avec des airbags",
+    "Suspendu sous une grue volante à fusées",
+    "Avec un parachute seulement"
+   ],
+   "answer_index": 1,
+   "explanation": "Trop lourd pour des airbags, il a été descendu au bout de câbles par une « grue volante » à fusées."
+  },
+  {
+   "id": 24,
+   "question": "Qu'a découvert Curiosity dans le cratère Gale ?",
+   "choices": [
+    "Les traces d'un ancien lac",
+    "Des fossiles de dinosaures",
+    "De la glace au sommet du mont Sharp"
+   ],
+   "answer_index": 0,
+   "explanation": "Les argiles trouvées en forant montrent qu'un lac d'eau douce existait là il y a des milliards d'années."
+  }
+ ],
+ "sources": [
+  {
+   "label": "NASA Science : Curiosity (Mars Science Laboratory)",
+   "url": "https://science.nasa.gov/mission/msl-curiosity/",
+   "is_nasa": true
+  },
+  {
+   "label": "NSSDCA : Curiosity (2011-070A)",
+   "url": "https://nssdc.gsfc.nasa.gov/nmc/spacecraft/display.action?id=2011-070A",
+   "is_nasa": true
+  }
+ ]
+}

@@ -1,0 +1,90 @@
+{
+ "slug": "apollo-15-retroreflector",
+ "name": "Réflecteur laser (LRRR)",
+ "mission": "Apollo 15",
+ "body": "moon",
+ "kind": "instrument",
+ "status": "useful",
+ "latitude": 26.1333,
+ "longitude": 3.6285,
+ "location": "Région Hadley-Apennin",
+ "tagline": "Je n'ai ni moteur ni batterie, et pourtant je travaille encore aujourd'hui.",
+ "image": null,
+ "image_credit": "",
+ "launch_date": "1971-07-26",
+ "arrival_date": "1971-07-30",
+ "last_contact_date": null,
+ "mission_end_date": null,
+ "nssdca_id": "",
+ "nssdca_url": "",
+ "discovery": "Des observatoires sur Terre envoient des lasers sur moi et chronomètrent le retour de la lumière. Résultat : on connaît la distance Terre-Lune à quelques millimètres près, et on sait que la Lune s'éloigne de nous d'environ 3,8 cm par an.",
+ "status_note": "Encore utile : plus de 50 ans après mon installation, des scientifiques visent toujours mes miroirs.",
+ "presentation": {
+  "title": "Bonjour, je suis Réflecteur laser (LRRR).",
+  "body": "Je suis un instrument scientifique de la mission Apollo 15. Je n'ai ni moteur ni batterie, et pourtant je travaille encore aujourd'hui.",
+  "audio": null
+ },
+ "chapters": [
+  {
+   "order": 1,
+   "phase": "conception",
+   "date": "1971-07-31",
+   "date_precision": "day",
+   "focus": "mirror",
+   "title": "Un miroir très spécial",
+   "body": "Je suis un panneau couvert de 300 « coins de cube » en verre. Leur forme renvoie la lumière exactement vers l'endroit d'où elle vient, quel que soit l'angle. Mes cousins d'Apollo 11 et 14 en ont 100 chacun.",
+   "audio": null
+  },
+  {
+   "order": 2,
+   "phase": "exploration",
+   "date": null,
+   "date_precision": "day",
+   "focus": "mirror",
+   "title": "Un ping-pong de lumière",
+   "body": "Une impulsion laser part d'un télescope sur Terre, voyage jusqu'à moi, rebondit et revient : environ 2,5 secondes aller-retour. Comme on connaît la vitesse de la lumière, on en déduit la distance.",
+   "audio": null
+  },
+  {
+   "order": 3,
+   "phase": "discovery",
+   "date": null,
+   "date_precision": "day",
+   "focus": "overview",
+   "title": "Pourquoi je suis toujours utile",
+   "body": "Grâce à moi, les scientifiques ont confirmé que la Lune s'éloigne lentement de la Terre : environ 3,8 cm par an, à peu près la vitesse à laquelle poussent tes ongles. Mes mesures servent aussi à tester la théorie de la gravité d'Einstein.",
+   "audio": null
+  }
+ ],
+ "quiz": [
+  {
+   "id": 7,
+   "question": "Comment les scientifiques mesurent-ils la distance Terre-Lune avec ce réflecteur ?",
+   "choices": [
+    "En envoyant un laser et en chronométrant son retour",
+    "Avec un très long mètre ruban",
+    "En comptant les cratères"
+   ],
+   "answer_index": 0,
+   "explanation": "La lumière fait l'aller-retour en environ 2,5 secondes. Connaissant sa vitesse, on calcule la distance."
+  },
+  {
+   "id": 8,
+   "question": "De combien la Lune s'éloigne-t-elle de la Terre chaque année ?",
+   "choices": [
+    "Environ 3,8 mm",
+    "Environ 3,8 cm",
+    "Environ 3,8 m"
+   ],
+   "answer_index": 1,
+   "explanation": "Environ 3,8 cm par an : à peu près la vitesse à laquelle poussent nos ongles."
+  }
+ ],
+ "sources": [
+  {
+   "label": "NSSDCA : ALSEP, Apollo Lunar Surface Experiments Package",
+   "url": "https://nssdc.gsfc.nasa.gov/nmc/spacecraft/display.action?id=1969-099C",
+   "is_nasa": true
+  }
+ ]
+}

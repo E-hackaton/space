@@ -34,7 +34,7 @@ export default defineConfig({
       workbox: {
         // Pré-cache : le code, les styles et les icônes. Les textures, modèles 3D et trajets (lourds)
         // sont mis en cache au premier usage seulement, pour ne pas consommer la data mobile d'avance.
-        globPatterns: ['**/*.{js,css,html,svg,png,woff2}'],
+        globPatterns: ['**/*.{js,css,html,svg,png,woff2}', 'data/api/**/*.json'],
         // Figures 3D interactives des engins (1 à 5 Mo chacune) : en cache seulement après la première ouverture.
         globIgnores: ['engins/**'],
         maximumFileSizeToCacheInBytes: 3 * 1024 * 1024,

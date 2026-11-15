@@ -1,0 +1,110 @@
+{
+ "slug": "opportunity",
+ "name": "Opportunity",
+ "mission": "Mars Exploration Rover",
+ "body": "mars",
+ "kind": "rover",
+ "status": "silent",
+ "latitude": -2.28,
+ "longitude": -5.43,
+ "location": "Perseverance Valley, western rim of Endeavour crater (approximate position)",
+ "tagline": "I was built to last 90 days. I explored Mars for almost 15 years.",
+ "image": null,
+ "image_credit": "",
+ "launch_date": "2003-07-07",
+ "arrival_date": "2004-01-25",
+ "last_contact_date": "2018-06-10",
+ "mission_end_date": null,
+ "nssdca_id": "2003-032A",
+ "nssdca_url": "https://nssdc.gsfc.nasa.gov/nmc/spacecraft/display.action?id=2003-032A",
+ "discovery": "I found tiny hematite spheres nicknamed \"blueberries\" and rocks that form in water. It was proof that liquid water once existed on the surface of Mars.",
+ "status_note": "Silent since June 2018: a huge dust storm blocked the sunlight from my solar panels. My mission was declared over on 13 February 2019.",
+ "presentation": {
+  "title": "Hello, I'm Opportunity.",
+  "body": "I'm a rover from the Mars Exploration Rover mission. I was built to last 90 days. I explored Mars for almost 15 years.",
+  "audio": null
+ },
+ "chapters": [
+  {
+   "order": 1,
+   "phase": "arrival",
+   "date": "2004-01-25",
+   "date_precision": "day",
+   "focus": "wheels",
+   "title": "A hole in one",
+   "body": "On 25 January 2004, I bounce onto Mars wrapped in airbags, then roll… straight into a small crater. Scientists can't believe their luck: right in front of me, layers of rock tell the planet's story. The crater is called Eagle.",
+   "audio": null
+  },
+  {
+   "order": 2,
+   "phase": "discovery",
+   "date": "2004-03-02",
+   "date_precision": "month",
+   "focus": "arm",
+   "title": "The blueberries of Mars",
+   "body": "In those rocks, I find thousands of tiny grey spheres. My instruments show they are made of hematite, a mineral that often forms in water. So Mars was once much wetter than it is today.",
+   "audio": null
+  },
+  {
+   "order": 3,
+   "phase": "exploration",
+   "date": "2015-03-24",
+   "date_precision": "day",
+   "focus": "wheels",
+   "title": "A Martian marathon",
+   "body": "My solar panels were supposed to be covered in dust within a few months. But Martian gusts of wind cleaned them again and again! In all, I drove more than 45 km: farther than a marathon.",
+   "audio": null
+  },
+  {
+   "order": 4,
+   "phase": "legacy",
+   "date": "2018-06-10",
+   "date_precision": "day",
+   "focus": "panels",
+   "title": "The great storm",
+   "body": "In June 2018, a dust storm covers almost the whole planet. The sky gets so dark that my panels no longer produce enough energy. My last message arrives on 10 June 2018. For months, engineers send me more than a thousand calls. I no longer answer. A journalist summed up my last data in a now-famous sentence: \"My battery is low and it's getting dark.\" Those were not my real words, but it is exactly what my measurements said.",
+   "audio": null
+  }
+ ],
+ "quiz": [
+  {
+   "id": 11,
+   "question": "How long was Opportunity's mission originally supposed to last?",
+   "choices": [
+    "90 Martian days",
+    "5 years",
+    "15 years"
+   ],
+   "answer_index": 0,
+   "explanation": "Planned for 90 Martian days, the mission lasted almost 15 years."
+  },
+  {
+   "id": 12,
+   "question": "What do the hematite \"blueberries\" found by Opportunity reveal?",
+   "choices": [
+    "That there are plants on Mars",
+    "That there was once liquid water",
+    "That Mars is a very hot planet"
+   ],
+   "answer_index": 1,
+   "explanation": "This kind of hematite forms in water: it is a trace of a wetter past."
+  }
+ ],
+ "sources": [
+  {
+   "label": "NASA Science : Spirit et Opportunity",
+   "url": "https://science.nasa.gov/mission/mars-exploration-rovers-spirit-and-opportunity/",
+   "is_nasa": true
+  },
+  {
+   "label": "NASA/JPL : carte du dernier trajet d'Opportunity (PIA23178)",
+   "url": "https://photojournal.jpl.nasa.gov/catalog/PIA23178",
+   "is_nasa": true
+  },
+  {
+   "label": "NSSDCA : Opportunity (2003-032A)",
+   "url": "https://nssdc.gsfc.nasa.gov/nmc/spacecraft/display.action?id=2003-032A",
+   "is_nasa": true
+  }
+ ]
+}

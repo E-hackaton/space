@@ -1,0 +1,105 @@
+{
+ "slug": "ingenuity",
+ "name": "Ingenuity",
+ "mission": "Mars 2020",
+ "body": "mars",
+ "kind": "helicopter",
+ "status": "silent",
+ "latitude": 18.4447,
+ "longitude": 77.4508,
+ "location": "« Valinor Hills », vallée Neretva, cratère Jezero (position approximative)",
+ "tagline": "Je devais voler 5 fois. J'ai volé 72 fois sur Mars.",
+ "image": null,
+ "image_credit": "",
+ "launch_date": "2020-07-30",
+ "arrival_date": "2021-02-18",
+ "last_contact_date": null,
+ "mission_end_date": "2024-01-25",
+ "nssdca_id": "",
+ "nssdca_url": "",
+ "discovery": "J'ai prouvé qu'un engin pouvait voler dans l'air de Mars, environ 100 fois moins dense que celui de la Terre. J'ai aussi servi d'éclaireur au rover Perseverance en photographiant le terrain depuis le ciel.",
+ "status_note": "Après mon 72e vol, en janvier 2024, l'une de mes pales a été abîmée. Je ne peux plus voler, mais je reste posé dans le cratère Jezero.",
+ "presentation": {
+  "title": "Bonjour, je suis Ingenuity.",
+  "body": "Je suis un hélicoptère de la mission Mars 2020. Je devais voler 5 fois. J'ai volé 72 fois sur Mars.",
+  "audio": null
+ },
+ "chapters": [
+  {
+   "order": 1,
+   "phase": "arrival",
+   "date": "2021-02-18",
+   "date_precision": "day",
+   "focus": "rotor",
+   "title": "Un passager discret",
+   "body": "J'ai voyagé jusqu'à Mars accroché sous le ventre du rover Perseverance. Je pèse environ 1,8 kg. Mes deux hélices tournent en sens inverse l'une de l'autre, à plus de 2 400 tours par minute, pour réussir à s'appuyer sur un air très peu dense.",
+   "audio": null
+  },
+  {
+   "order": 2,
+   "phase": "exploration",
+   "date": "2021-04-19",
+   "date_precision": "day",
+   "focus": "rotor",
+   "title": "Le premier vol",
+   "body": "Le 19 avril 2021, je décolle, je monte à 3 mètres, je fais du surplace et je me repose. Le vol ne dure que 39 secondes, mais c'est le tout premier vol motorisé et contrôlé sur une autre planète.",
+   "audio": null
+  },
+  {
+   "order": 3,
+   "phase": "exploration",
+   "date": "2022-01-01",
+   "date_precision": "year",
+   "focus": "body",
+   "title": "De démonstrateur à éclaireur",
+   "body": "Au début, je ne devais faire que 5 vols d'essai. J'ai si bien marché que l'équipe m'a gardé presque trois ans : 72 vols, plus de 17 km parcourus et plus de deux heures dans le ciel martien.",
+   "audio": null
+  },
+  {
+   "order": 4,
+   "phase": "legacy",
+   "date": "2024-01-18",
+   "date_precision": "day",
+   "focus": "rotor",
+   "title": "Un atterrissage brutal",
+   "body": "Lors de mon 72e vol, je survole un sable très lisse, sans repères pour guider ma caméra de navigation. J'atterris brutalement et mes pales sont abîmées. Mon aventure dans le ciel s'arrête là, mais j'ai ouvert la voie aux futurs engins volants, comme Dragonfly, qui doit explorer Titan, une lune de Saturne.",
+   "audio": null
+  }
+ ],
+ "quiz": [
+  {
+   "id": 15,
+   "question": "Combien de vols Ingenuity devait-il faire au départ ?",
+   "choices": [
+    "5",
+    "72",
+    "500"
+   ],
+   "answer_index": 0,
+   "explanation": "Il devait faire 5 vols de démonstration. Il en a fait 72 !"
+  },
+  {
+   "id": 16,
+   "question": "Pourquoi est-il difficile de voler sur Mars ?",
+   "choices": [
+    "Il y fait trop chaud",
+    "L'air y est environ 100 fois moins dense que sur Terre",
+    "Il n'y a pas de gravité"
+   ],
+   "answer_index": 1,
+   "explanation": "Avec si peu d'air, les hélices doivent être grandes, légères et tourner très vite."
+  }
+ ],
+ "sources": [
+  {
+   "label": "NASA Science : Ingenuity Mars Helicopter",
+   "url": "https://science.nasa.gov/mission/mars-2020-perseverance/ingenuity-mars-helicopter/",
+   "is_nasa": true
+  },
+  {
+   "label": "NASA Science : adieu à Ingenuity (blog de Perseverance)",
+   "url": "https://science.nasa.gov/missions/mars-2020-perseverance/farewell-to-our-flying-friend-and-closing-in-on-the-crater-rim/",
+   "is_nasa": true
+  }
+ ]
+}

@@ -1,0 +1,125 @@
+{
+ "slug": "curiosity",
+ "name": "Curiosity",
+ "mission": "Mars Science Laboratory",
+ "body": "mars",
+ "kind": "rover",
+ "status": "active",
+ "latitude": -4.5895,
+ "longitude": 137.4417,
+ "location": "Mount Sharp, Gale crater",
+ "tagline": "I'm the size of a car and I've been climbing a Martian mountain since 2014.",
+ "image": null,
+ "image_credit": "",
+ "launch_date": "2011-11-26",
+ "arrival_date": "2012-08-06",
+ "last_contact_date": null,
+ "mission_end_date": null,
+ "nssdca_id": "2011-070A",
+ "nssdca_url": "https://nssdc.gsfc.nasa.gov/nmc/spacecraft/display.action?id=2011-070A",
+ "discovery": "I showed that Gale crater once held a freshwater lake, with the chemical ingredients needed for microbial life. I also found organic molecules there, the building blocks of the chemistry of life.",
+ "status_note": "Still active: I keep exploring the layers of Mount Sharp, which tell how Mars dried out.",
+ "presentation": {
+  "title": "Hello, I'm Curiosity.",
+  "body": "I'm a rover from the Mars Science Laboratory mission. I'm the size of a car and I've been climbing a Martian mountain since 2014.",
+  "audio": null
+ },
+ "chapters": [
+  {
+   "order": 1,
+   "phase": "conception",
+   "date": null,
+   "date_precision": "day",
+   "focus": "arm",
+   "title": "A laboratory on wheels",
+   "body": "I was designed to answer a big question: could Mars ever have supported life? I carry a real chemistry lab, a laser that vaporises rocks to analyse them, and a nuclear power source that does not depend on the Sun.",
+   "audio": null
+  },
+  {
+   "order": 2,
+   "phase": "launch",
+   "date": "2011-11-26",
+   "date_precision": "day",
+   "focus": "overview",
+   "title": "Eight months in space",
+   "body": "On 26 November 2011, I leave Earth on an Atlas V rocket. For more than eight months, I cross space, safely tucked inside my capsule.",
+   "audio": null
+  },
+  {
+   "order": 3,
+   "phase": "arrival",
+   "date": "2012-08-06",
+   "date_precision": "day",
+   "focus": "wheels",
+   "title": "Seven minutes of terror",
+   "body": "To land me, a rocket-powered \"sky crane\" lowers me on cables, then flies away. It is all automatic: signals take about 14 minutes to reach Earth, far too late to steer me.",
+   "audio": null
+  },
+  {
+   "order": 4,
+   "phase": "discovery",
+   "date": "2013-03-12",
+   "date_precision": "month",
+   "focus": "arm",
+   "title": "An ancient lake",
+   "body": "By drilling into a rock, I find clay: the trace of an ancient freshwater lake. Billions of years ago, microbes could have lived there.",
+   "audio": null
+  },
+  {
+   "order": 5,
+   "phase": "exploration",
+   "date": "2014-09-11",
+   "date_precision": "month",
+   "focus": "wheels",
+   "title": "Climbing Mount Sharp",
+   "body": "Since 2014, I have been climbing Mount Sharp, a mountain more than 5 km high in the middle of the crater. Each layer of rock is like a page in the history of Mars.",
+   "audio": null
+  },
+  {
+   "order": 6,
+   "phase": "legacy",
+   "date": null,
+   "date_precision": "day",
+   "focus": "mast",
+   "title": "Still at work",
+   "body": "My wheels are worn by sharp rocks, but I keep driving. Every day, my discoveries help prepare future missions, perhaps with humans.",
+   "audio": null
+  }
+ ],
+ "quiz": [
+  {
+   "id": 23,
+   "question": "How did Curiosity land on Mars?",
+   "choices": [
+    "With airbags",
+    "Hanging under a rocket-powered sky crane",
+    "With a parachute only"
+   ],
+   "answer_index": 1,
+   "explanation": "Too heavy for airbags, it was lowered on cables by a rocket-powered \"sky crane\"."
+  },
+  {
+   "id": 24,
+   "question": "What did Curiosity discover in Gale crater?",
+   "choices": [
+    "Traces of an ancient lake",
+    "Dinosaur fossils",
+    "Ice on top of Mount Sharp"
+   ],
+   "answer_index": 0,
+   "explanation": "The clays found by drilling show a freshwater lake existed there billions of years ago."
+  }
+ ],
+ "sources": [
+  {
+   "label": "NASA Science : Curiosity (Mars Science Laboratory)",
+   "url": "https://science.nasa.gov/mission/msl-curiosity/",
+   "is_nasa": true
+  },
+  {
+   "label": "NSSDCA : Curiosity (2011-070A)",
+   "url": "https://nssdc.gsfc.nasa.gov/nmc/spacecraft/display.action?id=2011-070A",
+   "is_nasa": true
+  }
+ ]
+}

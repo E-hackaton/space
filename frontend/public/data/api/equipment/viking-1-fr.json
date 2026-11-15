@@ -1,0 +1,105 @@
+{
+ "slug": "viking-1",
+ "name": "Viking 1",
+ "mission": "Viking 1",
+ "body": "mars",
+ "kind": "lander",
+ "status": "silent",
+ "latitude": 22.27,
+ "longitude": -47.95,
+ "location": "Plaine de Chryse (Chryse Planitia)",
+ "tagline": "J'ai été le premier engin américain à travailler avec succès sur le sol de Mars.",
+ "image": null,
+ "image_credit": "",
+ "launch_date": "1975-08-20",
+ "arrival_date": "1976-07-20",
+ "last_contact_date": "1982-11-11",
+ "mission_end_date": null,
+ "nssdca_id": "1975-075C",
+ "nssdca_url": "https://nssdc.gsfc.nasa.gov/nmc/spacecraft/display.action?id=1975-075C",
+ "discovery": "J'ai envoyé les premières photos prises depuis le sol de Mars, mesuré sa météo pendant plus de six ans et cherché des traces de vie dans le sol. Mes résultats n'ont pas permis de conclure, mais ils ont guidé toutes les missions suivantes.",
+ "status_note": "Silencieux depuis novembre 1982. Je suis resté exactement là où je me suis posé.",
+ "presentation": {
+  "title": "Bonjour, je suis Viking 1.",
+  "body": "Je suis un atterrisseur de la mission Viking 1. J'ai été le premier engin américain à travailler avec succès sur le sol de Mars.",
+  "audio": null
+ },
+ "chapters": [
+  {
+   "order": 1,
+   "phase": "arrival",
+   "date": "1976-07-20",
+   "date_precision": "day",
+   "focus": "legs",
+   "title": "Trouver un endroit sûr",
+   "body": "Je voyage accroché à un orbiteur. Arrivé près de Mars, il photographie le sol pendant un mois pour me trouver un endroit sûr, car le site prévu était trop accidenté. Le 20 juillet 1976, sept ans jour pour jour après Apollo 11, je me pose dans la plaine de Chryse.",
+   "audio": null
+  },
+  {
+   "order": 2,
+   "phase": "exploration",
+   "date": "1976-07-20",
+   "date_precision": "day",
+   "focus": "mast",
+   "title": "Ma première photo",
+   "body": "Quelques minutes après l'atterrissage, je prends ma toute première photo : l'un de mes pieds posé sur des cailloux martiens. Les ingénieurs voulaient savoir tout de suite si je m'enfonçais dans le sol !",
+   "audio": null
+  },
+  {
+   "order": 3,
+   "phase": "discovery",
+   "date": "1976-07-20",
+   "date_precision": "year",
+   "focus": "arm",
+   "title": "Mon laboratoire miniature",
+   "body": "Mon bras ramasse de la terre et la verse dans trois expériences de biologie. Elles cherchent des microbes en leur donnant à « manger » et en observant les gaz produits. Les réponses ont surpris tout le monde, mais la plupart des scientifiques pensent aujourd'hui qu'elles s'expliquent par la chimie du sol, pas par la vie.",
+   "audio": null
+  },
+  {
+   "order": 4,
+   "phase": "legacy",
+   "date": "1982-11-11",
+   "date_precision": "day",
+   "focus": "antenna",
+   "title": "Le silence",
+   "body": "En novembre 1982, une commande envoyée par erreur depuis la Terre dérègle le pointage de mon antenne. Le contact est perdu pour toujours, après plus de six ans de travail.",
+   "audio": null
+  }
+ ],
+ "quiz": [
+  {
+   "id": 9,
+   "question": "Quelle a été la toute première photo de Viking 1 sur Mars ?",
+   "choices": [
+    "Un coucher de soleil",
+    "L'un de ses propres pieds",
+    "Un rover"
+   ],
+   "answer_index": 1,
+   "explanation": "Les ingénieurs voulaient vérifier que l'atterrisseur ne s'enfonçait pas dans le sol."
+  },
+  {
+   "id": 10,
+   "question": "Pourquoi Viking 1 a-t-il perdu le contact avec la Terre ?",
+   "choices": [
+    "Une tempête de poussière",
+    "Une commande envoyée par erreur",
+    "Une météorite"
+   ],
+   "answer_index": 1,
+   "explanation": "Une commande erronée a modifié le pointage de son antenne : il ne pouvait plus viser la Terre."
+  }
+ ],
+ "sources": [
+  {
+   "label": "NASA Science : Viking 1",
+   "url": "https://science.nasa.gov/mission/viking-1/",
+   "is_nasa": true
+  },
+  {
+   "label": "NSSDCA : Viking 1 Lander (1975-075C)",
+   "url": "https://nssdc.gsfc.nasa.gov/nmc/spacecraft/display.action?id=1975-075C",
+   "is_nasa": true
+  }
+ ]
+}

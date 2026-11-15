@@ -1,0 +1,125 @@
+{
+ "slug": "perseverance",
+ "name": "Perseverance",
+ "mission": "Mars 2020",
+ "body": "mars",
+ "kind": "rover",
+ "status": "active",
+ "latitude": 18.4447,
+ "longitude": 77.4508,
+ "location": "Jezero crater (now on its rim)",
+ "tagline": "I search for signs of ancient life and keep samples so they can one day be brought back to Earth.",
+ "image": null,
+ "image_credit": "",
+ "launch_date": "2020-07-30",
+ "arrival_date": "2021-02-18",
+ "last_contact_date": null,
+ "mission_end_date": null,
+ "nssdca_id": "2020-052A",
+ "nssdca_url": "https://nssdc.gsfc.nasa.gov/nmc/spacecraft/display.action?id=2020-052A",
+ "discovery": "I explored the delta of an ancient lake in Jezero crater and filled tubes with rock samples, some of them left on the ground awaiting a future return to Earth. My MOXIE instrument even made oxygen from the Martian air, a first.",
+ "status_note": "Still active: I am exploring the rim of Jezero crater, looking for the oldest rocks.",
+ "presentation": {
+  "title": "Hello, I'm Perseverance.",
+  "body": "I'm a rover from the Mars 2020 mission. I search for signs of ancient life and keep samples so they can one day be brought back to Earth.",
+  "audio": null
+ },
+ "chapters": [
+  {
+   "order": 1,
+   "phase": "conception",
+   "date": null,
+   "date_precision": "day",
+   "focus": "arm",
+   "title": "A sign seeker",
+   "body": "I look like my big brother Curiosity, but my mission is different: to search for signs of ancient microbial life, and set aside the best rocks in sealed tubes.",
+   "audio": null
+  },
+  {
+   "order": 2,
+   "phase": "launch",
+   "date": "2020-07-30",
+   "date_precision": "day",
+   "focus": "overview",
+   "title": "A passenger under my belly",
+   "body": "On 30 July 2020, I lift off from Florida. Under my belly, I carry a passenger: the little Ingenuity helicopter.",
+   "audio": null
+  },
+  {
+   "order": 3,
+   "phase": "arrival",
+   "date": "2021-02-18",
+   "date_precision": "day",
+   "focus": "wheels",
+   "title": "Landing in an ancient lake",
+   "body": "On 18 February 2021, I land in Jezero crater. Billions of years ago, a river poured into it and built a delta: the perfect place to look for signs of life.",
+   "audio": null
+  },
+  {
+   "order": 4,
+   "phase": "exploration",
+   "date": "2021-04-20",
+   "date_precision": "day",
+   "focus": "body",
+   "title": "Oxygen on Mars",
+   "body": "On 20 April 2021, my MOXIE instrument turns some of the carbon dioxide in the Martian air into oxygen. A first! One day, this technology could help astronauts breathe or make fuel.",
+   "audio": null
+  },
+  {
+   "order": 5,
+   "phase": "discovery",
+   "date": "2022-12-21",
+   "date_precision": "month",
+   "focus": "arm",
+   "title": "A sample depot",
+   "body": "In late 2022, I leave ten sample tubes on the ground at a place called Three Forks. It is a backup stash, waiting for a future mission to come and collect it.",
+   "audio": null
+  },
+  {
+   "order": 6,
+   "phase": "legacy",
+   "date": null,
+   "date_precision": "day",
+   "focus": "mast",
+   "title": "Still on the road",
+   "body": "Today, I am exploring the crater rim. Every rock I study helps answer a huge question: has life ever existed beyond Earth?",
+   "audio": null
+  }
+ ],
+ "quiz": [
+  {
+   "id": 25,
+   "question": "Which passenger did Perseverance take to Mars?",
+   "choices": [
+    "A small helicopter",
+    "An astronaut",
+    "A robot dog"
+   ],
+   "answer_index": 0,
+   "explanation": "Ingenuity travelled under its belly. It became the first aircraft to fly on another planet."
+  },
+  {
+   "id": 26,
+   "question": "What did the MOXIE instrument make on Mars?",
+   "choices": [
+    "Water",
+    "Oxygen",
+    "Ice"
+   ],
+   "answer_index": 1,
+   "explanation": "MOXIE turned carbon dioxide from the Martian air into oxygen: a first on another planet."
+  }
+ ],
+ "sources": [
+  {
+   "label": "NASA Science : Mars 2020 Perseverance",
+   "url": "https://science.nasa.gov/mission/mars-2020-perseverance/",
+   "is_nasa": true
+  },
+  {
+   "label": "NSSDCA : Perseverance (2020-052A)",
+   "url": "https://nssdc.gsfc.nasa.gov/nmc/spacecraft/display.action?id=2020-052A",
+   "is_nasa": true
+  }
+ ]
+}

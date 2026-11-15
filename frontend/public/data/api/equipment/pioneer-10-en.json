@@ -1,0 +1,95 @@
+{
+ "slug": "pioneer-10",
+ "name": "Pioneer 10",
+ "mission": "Pioneer 10",
+ "body": "elsewhere",
+ "kind": "probe",
+ "status": "lost",
+ "latitude": null,
+ "longitude": null,
+ "location": "Leaving the solar system, heading toward the star Aldebaran",
+ "tagline": "I was the first to cross the asteroid belt and to visit Jupiter.",
+ "image": null,
+ "image_credit": "",
+ "launch_date": "1972-03-03",
+ "arrival_date": "1973-12-03",
+ "last_contact_date": "2003-01-23",
+ "mission_end_date": null,
+ "nssdca_id": "1972-012A",
+ "nssdca_url": "https://nssdc.gsfc.nasa.gov/nmc/spacecraft/display.action?id=1972-012A",
+ "discovery": "I took the first close-up pictures of Jupiter and measured its radiation belts, which were far stronger than expected. These measurements helped design the probes that followed, such as Voyager.",
+ "status_note": "Lost since January 2003: my signal became too weak to detect. I keep travelling in silence.",
+ "presentation": {
+  "title": "Hello, I'm Pioneer 10.",
+  "body": "I'm an interplanetary probe from the Pioneer 10 mission. I was the first to cross the asteroid belt and to visit Jupiter.",
+  "audio": null
+ },
+ "chapters": [
+  {
+   "order": 1,
+   "phase": "exploration",
+   "date": "1972-07-15",
+   "date_precision": "year",
+   "focus": "overview",
+   "title": "Crossing the belt",
+   "body": "In 1972, nobody knows whether a spacecraft can cross the asteroid belt without being destroyed. I am the first to try… and I get through unharmed!",
+   "audio": null
+  },
+  {
+   "order": 2,
+   "phase": "discovery",
+   "date": "1973-12-03",
+   "date_precision": "day",
+   "focus": "antenna",
+   "title": "Meeting Jupiter",
+   "body": "On 3 December 1973, I pass very close to Jupiter. Its radiation is so strong that it disrupts some of my instruments, but I send back hundreds of pictures of the giant planet.",
+   "audio": null
+  },
+  {
+   "order": 3,
+   "phase": "legacy",
+   "date": null,
+   "date_precision": "day",
+   "focus": "body",
+   "title": "A message for whoever finds me",
+   "body": "I carry an engraved plaque showing a man, a woman and the position of Earth. If someone finds me one day, they will know where I come from. I am heading toward the star Aldebaran, which I will reach in about 2 million years.",
+   "audio": null
+  }
+ ],
+ "quiz": [
+  {
+   "id": 19,
+   "question": "Which region was Pioneer 10 the first to cross?",
+   "choices": [
+    "The asteroid belt",
+    "Saturn's rings",
+    "The Kuiper belt"
+   ],
+   "answer_index": 0,
+   "explanation": "Between Mars and Jupiter, the asteroid belt worried engineers. Pioneer 10 proved it could be crossed."
+  },
+  {
+   "id": 20,
+   "question": "What does Pioneer 10 carry in case someone finds it?",
+   "choices": [
+    "A music record",
+    "An engraved plaque",
+    "A handwritten letter"
+   ],
+   "answer_index": 1,
+   "explanation": "The plaque shows two humans and the position of Earth. The music record is Voyager!"
+  }
+ ],
+ "sources": [
+  {
+   "label": "NASA Science : Pioneer 10",
+   "url": "https://science.nasa.gov/mission/pioneer-10/",
+   "is_nasa": true
+  },
+  {
+   "label": "NSSDCA : Pioneer 10 (1972-012A)",
+   "url": "https://nssdc.gsfc.nasa.gov/nmc/spacecraft/display.action?id=1972-012A",
+   "is_nasa": true
+  }
+ ]
+}

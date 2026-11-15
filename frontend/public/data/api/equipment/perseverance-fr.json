@@ -1,0 +1,125 @@
+{
+ "slug": "perseverance",
+ "name": "Perseverance",
+ "mission": "Mars 2020",
+ "body": "mars",
+ "kind": "rover",
+ "status": "active",
+ "latitude": 18.4447,
+ "longitude": 77.4508,
+ "location": "Cratère Jezero (aujourd'hui sur son bord)",
+ "tagline": "Je cherche des traces de vie ancienne et je garde des échantillons pour qu'on les rapporte un jour sur Terre.",
+ "image": null,
+ "image_credit": "",
+ "launch_date": "2020-07-30",
+ "arrival_date": "2021-02-18",
+ "last_contact_date": null,
+ "mission_end_date": null,
+ "nssdca_id": "2020-052A",
+ "nssdca_url": "https://nssdc.gsfc.nasa.gov/nmc/spacecraft/display.action?id=2020-052A",
+ "discovery": "J'ai exploré le delta d'un ancien lac dans le cratère Jezero et rempli des tubes d'échantillons de roches, dont certains sont déposés au sol en attendant un futur retour sur Terre. Mon instrument MOXIE a même fabriqué de l'oxygène à partir de l'air de Mars, une première.",
+ "status_note": "Encore actif : j'explore le bord du cratère Jezero, à la recherche des roches les plus anciennes.",
+ "presentation": {
+  "title": "Bonjour, je suis Perseverance.",
+  "body": "Je suis un rover de la mission Mars 2020. Je cherche des traces de vie ancienne et je garde des échantillons pour qu'on les rapporte un jour sur Terre.",
+  "audio": null
+ },
+ "chapters": [
+  {
+   "order": 1,
+   "phase": "conception",
+   "date": null,
+   "date_precision": "day",
+   "focus": "arm",
+   "title": "Un chercheur de traces",
+   "body": "Je ressemble à mon grand frère Curiosity, mais ma mission est différente : chercher des signes de vie microbienne ancienne, et mettre de côté les meilleures roches dans des tubes scellés.",
+   "audio": null
+  },
+  {
+   "order": 2,
+   "phase": "launch",
+   "date": "2020-07-30",
+   "date_precision": "day",
+   "focus": "overview",
+   "title": "Un passager sous le ventre",
+   "body": "Le 30 juillet 2020, je décolle de Floride. Sous mon ventre, je transporte un passager : le petit hélicoptère Ingenuity.",
+   "audio": null
+  },
+  {
+   "order": 3,
+   "phase": "arrival",
+   "date": "2021-02-18",
+   "date_precision": "day",
+   "focus": "wheels",
+   "title": "Atterrissage dans un ancien lac",
+   "body": "Le 18 février 2021, je me pose dans le cratère Jezero. Il y a des milliards d'années, une rivière y déversait son eau et formait un delta : l'endroit idéal pour chercher des traces de vie.",
+   "audio": null
+  },
+  {
+   "order": 4,
+   "phase": "exploration",
+   "date": "2021-04-20",
+   "date_precision": "day",
+   "focus": "body",
+   "title": "De l'oxygène sur Mars",
+   "body": "Le 20 avril 2021, mon instrument MOXIE transforme un peu du gaz carbonique de l'air martien en oxygène. Une première ! Un jour, cette technologie pourrait aider des astronautes à respirer ou à fabriquer du carburant.",
+   "audio": null
+  },
+  {
+   "order": 5,
+   "phase": "discovery",
+   "date": "2022-12-21",
+   "date_precision": "month",
+   "focus": "arm",
+   "title": "Un dépôt d'échantillons",
+   "body": "Fin 2022, je dépose dix tubes d'échantillons sur le sol, à un endroit nommé Three Forks. C'est une réserve de secours, en attendant qu'une future mission vienne les chercher.",
+   "audio": null
+  },
+  {
+   "order": 6,
+   "phase": "legacy",
+   "date": null,
+   "date_precision": "day",
+   "focus": "mast",
+   "title": "Toujours en route",
+   "body": "Aujourd'hui, j'explore le bord du cratère. Chaque roche que j'étudie aide à répondre à une question immense : la vie a-t-elle existé ailleurs que sur Terre ?",
+   "audio": null
+  }
+ ],
+ "quiz": [
+  {
+   "id": 25,
+   "question": "Quel passager Perseverance a-t-il emmené sur Mars ?",
+   "choices": [
+    "Un petit hélicoptère",
+    "Un astronaute",
+    "Un chien robot"
+   ],
+   "answer_index": 0,
+   "explanation": "Ingenuity voyageait sous son ventre. Il est devenu le premier engin à voler sur une autre planète."
+  },
+  {
+   "id": 26,
+   "question": "Qu'a fabriqué l'instrument MOXIE sur Mars ?",
+   "choices": [
+    "De l'eau",
+    "De l'oxygène",
+    "De la glace"
+   ],
+   "answer_index": 1,
+   "explanation": "MOXIE a transformé du gaz carbonique de l'air martien en oxygène : une première sur une autre planète."
+  }
+ ],
+ "sources": [
+  {
+   "label": "NASA Science : Mars 2020 Perseverance",
+   "url": "https://science.nasa.gov/mission/mars-2020-perseverance/",
+   "is_nasa": true
+  },
+  {
+   "label": "NSSDCA : Perseverance (2020-052A)",
+   "url": "https://nssdc.gsfc.nasa.gov/nmc/spacecraft/display.action?id=2020-052A",
+   "is_nasa": true
+  }
+ ]
+}

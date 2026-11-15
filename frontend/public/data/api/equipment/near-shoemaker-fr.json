@@ -1,0 +1,85 @@
+{
+ "slug": "near-shoemaker",
+ "name": "NEAR Shoemaker",
+ "mission": "NEAR",
+ "body": "elsewhere",
+ "kind": "orbiter",
+ "status": "silent",
+ "latitude": null,
+ "longitude": null,
+ "location": "Posé sur l'astéroïde 433 Éros",
+ "tagline": "Je n'étais pas fait pour atterrir… et pourtant je me suis posé sur un astéroïde.",
+ "image": null,
+ "image_credit": "",
+ "launch_date": "1996-02-17",
+ "arrival_date": "2000-02-14",
+ "last_contact_date": "2001-02-28",
+ "mission_end_date": null,
+ "nssdca_id": "1996-008A",
+ "nssdca_url": "https://nssdc.gsfc.nasa.gov/nmc/spacecraft/display.action?id=1996-008A",
+ "discovery": "Pendant un an en orbite, j'ai cartographié en détail l'astéroïde Éros : un bloc rocheux couvert de rochers et de poussière fine. J'ai été le premier engin à tourner autour d'un astéroïde, puis à s'y poser.",
+ "status_note": "Silencieux depuis le 28 février 2001. Je repose sur Éros, qui continue de tourner autour du Soleil.",
+ "presentation": {
+  "title": "Bonjour, je suis NEAR Shoemaker.",
+  "body": "Je suis une sonde en orbite de la mission NEAR. Je n'étais pas fait pour atterrir… et pourtant je me suis posé sur un astéroïde.",
+  "audio": null
+ },
+ "chapters": [
+  {
+   "order": 1,
+   "phase": "arrival",
+   "date": "2000-02-14",
+   "date_precision": "day",
+   "focus": "overview",
+   "title": "Rendez-vous de la Saint-Valentin",
+   "body": "Le 14 février 2000, jour de la Saint-Valentin, je me place en orbite autour d'Éros, un astéroïde en forme de cacahuète d'environ 34 km de long. Personne n'avait jamais tourné autour d'un astéroïde avant moi.",
+   "audio": null
+  },
+  {
+   "order": 2,
+   "phase": "legacy",
+   "date": "2001-02-12",
+   "date_precision": "day",
+   "focus": "panels",
+   "title": "Un atterrissage bonus",
+   "body": "Ma mission terminée, l'équipe tente quelque chose d'incroyable : me poser en douceur sur Éros, alors que je n'ai pas de pieds ! Le 12 février 2001, je touche le sol à peu près à la vitesse d'un piéton… et je continue d'envoyer des données depuis la surface pendant plus de deux semaines.",
+   "audio": null
+  }
+ ],
+ "quiz": [
+  {
+   "id": 17,
+   "question": "Quel jour NEAR Shoemaker s'est-il mis en orbite autour d'Éros ?",
+   "choices": [
+    "Le jour de Noël",
+    "Le jour de la Saint-Valentin",
+    "Le jour de l'An"
+   ],
+   "answer_index": 1,
+   "explanation": "Le 14 février 2000 : un clin d'œil, car Éros est le dieu grec de l'amour."
+  },
+  {
+   "id": 18,
+   "question": "Qu'est-ce qui rendait l'atterrissage de NEAR Shoemaker si surprenant ?",
+   "choices": [
+    "Il n'avait pas été conçu pour atterrir",
+    "Il s'est posé sur Mars",
+    "Il avait des astronautes à bord"
+   ],
+   "answer_index": 0,
+   "explanation": "C'était une sonde d'orbite, sans pieds ni système d'atterrissage. Elle a pourtant survécu au contact."
+  }
+ ],
+ "sources": [
+  {
+   "label": "NASA Science : NEAR Shoemaker",
+   "url": "https://science.nasa.gov/mission/near-shoemaker/",
+   "is_nasa": true
+  },
+  {
+   "label": "NSSDCA : NEAR Shoemaker (1996-008A)",
+   "url": "https://nssdc.gsfc.nasa.gov/nmc/spacecraft/display.action?id=1996-008A",
+   "is_nasa": true
+  }
+ ]
+}
