@@ -1,8 +1,7 @@
 import { useEffect, useState, type ReactNode } from 'react';
 import { useTranslation } from 'react-i18next';
 import { LanguageSwitch } from '../components/ui/LanguageSwitch';
-import { Icon } from '../components/ui/Glyphs';
-import { listVoices, speak, stopSpeaking } from '../audio/speech';
+import { stopSpeaking } from '../audio/speech';
 import { playDetect, unlockSfx } from '../audio/sfx';
 import { ROVER_COLORS, useStore, type Motion, type Quality, type RoverColor, type SubtitleSize, type Theme } from '../store/useStore';
 
@@ -59,18 +58,9 @@ function Toggle({ on, onChange, label }: { on: boolean; onChange: (v: boolean) =
 
 /** Paramètres : thème, langue, voix, sons, couleur du rover, sous-titres, animations, qualité, progression. */
 export default function Settings() {
-  const { t, i18n } = useTranslation();
+  const { t } = useTranslation();
   const st = useStore();
-  const [voices, setVoices] = useState<SpeechSynthesisVoice[]>(() => listVoices(i18n.language));
   const [confirm, setConfirm] = useState(false);
-
-  // Les voix du navigateur arrivent en différé.
-  useEffect(() => {
-    const update = () => setVoices(listVoices(i18n.language));
-    update();
-    window.speechSynthesis?.addEventListener('voiceschanged', update);
-    return () => window.speechSynthesis?.removeEventListener('voiceschanged', update);
-  }, [i18n.language]);
   useEffect(() => () => stopSpeaking(), []);
 
   const set = st.setPrefs;
@@ -100,27 +90,6 @@ export default function Settings() {
         <Section title={t('settings.narration')}>
           <Row label={t('settings.voiceOn')}>
             <Toggle label={t('settings.voiceOn')} on={st.voiceOn} onChange={(v) => (v ? st.setVoiceOn(true) : (stopSpeaking(), st.setVoiceOn(false)))} />
-          </Row>
-          <Row label={t('settings.voice')} hint={t('settings.voiceHint')}>
-            <select
-              value={st.voiceName ?? ''}
-              onChange={(e) => set({ voiceName: e.target.value || null })}
-              className="max-w-64 rounded-[4px] bg-white px-2 py-1.5 text-sm ring-1 ring-slate-300 dark:bg-space dark:ring-white/20"
-              aria-label={t('settings.voice')}
-            >
-              <option value="">{t('settings.voiceAuto')}</option>
-              {voices.map((v) => (
-                <option key={v.name} value={v.name}>
-                  {v.name} ({v.lang})
-                </option>
-              ))}
-            </select>
-            <button type="button" className="btn-ghost !py-1.5 !text-slate-900 dark:!text-white" onClick={() => speak(t('settings.sample'), i18n.language)}>
-              <Icon name="sound" /> {t('settings.listen')}
-            </button>
-          </Row>
-          <Row label={t('settings.rate')} hint={`× ${st.voiceRate.toFixed(2)}`}>
-            <input type="range" min={0.7} max={1.3} step={0.05} value={st.voiceRate} onChange={(e) => set({ voiceRate: Number(e.target.value) })} className="w-48 accent-[#4BE08A]" aria-label={t('settings.rate')} />
           </Row>
           <Row label={t('settings.subtitles')}>
             <Choice<SubtitleSize> label={t('settings.subtitles')} value={st.subtitleSize} onChange={(subtitleSize) => set({ subtitleSize })} options={[{ v: 'normal', label: t('settings.normal') }, { v: 'large', label: t('settings.large') }]} />

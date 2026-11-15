@@ -12,6 +12,4 @@ export function unlockAudio(): void {
     const ctx = new Ctx();
     void ctx.resume().then(() => ctx.close());
   }
-  // Prépare la synthèse vocale (certains navigateurs chargent les voix en différé).
-  window.speechSynthesis?.getVoices();
 }
