@@ -63,7 +63,7 @@ export default function Home() {
     }
     // Saut : les étoiles s'étirent, la caméra fonce, puis on entre dans le jeu.
     playLiftoff('space');
-    gsap.to(warp, { value: 1, duration: 1.6, ease: 'power3.in', onComplete: () => navigate('/mission') });
+    gsap.to(warp, { value: 1, duration: 3.2, ease: 'power2.in', onComplete: () => navigate('/mission') });
   };
 
   const title = t('app.title');
