@@ -168,3 +168,8 @@
 .pin-left .pin-card { left: auto; right: 14px; }
 .pin-name { display: block; font-size: 13px; font-weight: 700; }
 .pin-desc { display: block; margin-top: 2px; font-size: 12px; line-height: 1.35; color: #475069; }
+
+/* Chargement : anneau qui tourne */
+.loader-ring { width: 2.75rem; height: 2.75rem; border-radius: 9999px; border: 3px solid rgba(255,255,255,.15); border-top-color: var(--color-active); border-right-color: var(--color-active); animation: loader-spin .9s linear infinite; }
+@keyframes loader-spin { to { transform: rotate(360deg); } }
+@media (prefers-reduced-motion: reduce) { .loader-ring { animation: none; } }

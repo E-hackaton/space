@@ -97,7 +97,15 @@ export function StoryPlayer({ slug, mode, onDone, nextLine }: Props) {
       </div>
     );
   }
-  if (!machine || !current) return <div className="story-shell animate-pulse text-slate-300">{t('chapter.loading')}</div>;
+  if (!machine || !current)
+    return (
+      <div className="story-shell" role="status">
+        <div className="flex items-center justify-center gap-3 text-slate-200">
+          <span className="loader-ring !h-7 !w-7" aria-hidden="true" />
+          <span className="font-display text-xl tracking-wide">{t('chapter.loading')}</span>
+        </div>
+      </div>
+    );
 
 
   return (

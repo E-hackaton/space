@@ -49,7 +49,7 @@
   },
   "chapter": {
     "soon": "Ce chapitre est en construction. Les histoires arrivent bientôt.",
-    "loading": "Calcul de la trajectoire…"
+    "loading": "Chargement…"
   },
   "status": {
     "active": "Actif",

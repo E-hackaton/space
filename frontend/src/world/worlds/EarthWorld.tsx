@@ -11,6 +11,7 @@ import { PALETTES } from '../toon';
 import { smooth } from '../materials';
 import { Grass, Trees } from '../props/Nature';
 import { AdoBridge } from '../props/AdoBridge';
+import { Sun3D } from '../props/Sun3D';
 import { Atmosphere } from '../../components/3d/Atmosphere';
 import { ship, useWorld, type WorldId } from '../state';
 
@@ -119,7 +120,7 @@ export default function EarthWorld({ animate, onPickPlanet }: { animate: boolean
       <Stars radius={300} depth={60} count={3000} factor={5} fade speed={animate ? 0.5 : 0} />
       <fog attach="fog" args={['#3a3f8a', 100, 280]} />
       <hemisphereLight args={['#a9c4ff', '#2a4a2a', 0.8]} />
-      <SunLight color="#ffe2b8" intensity={2.6} dir={[0.5, 0.8, 0.6]} />
+      <SunLight color="#ffe2b8" intensity={2.6} dir={[SEA_DIR.x, 0.75, SEA_DIR.y]} />
 
       <TerrainMesh field={field} colors={PALETTES.earth.ground} segments={160} />
       <mesh rotation={[-Math.PI / 2, 0, 0]} position={[0, -0.6, 0]} receiveShadow material={smooth(PALETTES.earth.sand, { rough: 0.9 })}>
@@ -128,6 +129,11 @@ export default function EarthWorld({ animate, onPickPlanet }: { animate: boolean
       <mesh ref={water} rotation={[-Math.PI / 2, 0, 0]} position={[0, -1.2, 0]} material={smooth('#2a7fd6', { rough: 0.12, clearcoat: 1, opacity: 0.92 })}>
         <circleGeometry args={[400, 96]} />
       </mesh>
+
+      {/* Le Soleil, au large derrière le pont (vu depuis le pas de tir) */}
+      <group position={[EARTH_PAD[0] + SEA_DIR.x * 430, 150, EARTH_PAD[1] + SEA_DIR.y * 430]}>
+        <Sun3D radius={20} />
+      </group>
 
       {/* Le pont Alassane-Ouattara (Abidjan), au large dans l'axe du pas de tir, vu de profil */}
       <group position={[BRIDGE.x, -1.2, BRIDGE.z]} rotation={[0, BRIDGE_YAW, 0]}>
@@ -156,7 +162,7 @@ export default function EarthWorld({ animate, onPickPlanet }: { animate: boolean
 
       {/* L'univers au-dessus de l'île : la Lune et Mars, cliquables */}
       <SkyPlanet texture="/textures/moon_color.jpg" position={[-70, 70, -150]} radius={18} glow="#cfd8ff" target="moon" onPick={onPickPlanet} />
-      <SkyPlanet texture="/textures/mars_color.jpg" position={[90, 55, -170]} radius={14} glow="#ff9a6a" target="jezero" onPick={onPickPlanet} />
+      <SkyPlanet texture="/textures/mars_color.jpg" position={[-165, 70, 95]} radius={14} glow="#ff9a6a" target="jezero" onPick={onPickPlanet} />
 
       <Player field={field} start={EARTH_START} startHeading={0.8} obstacles={obstacles} enabled={phase === 'drive'} followCamera={phase === 'drive' && !onPad} animate={animate} visible={phase === 'drive'} />
       {phase === 'drive' && onPad && <PadCamera padY={padY} animate={animate} />}

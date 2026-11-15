@@ -9,6 +9,7 @@ import { ToonRocket } from '../world/props/Vehicles';
 import { Retroreflector } from '../world/props/Retroreflector';
 import { AdoBridge } from '../world/props/AdoBridge';
 import { Sojourner } from '../world/props/Sojourner';
+import { Sun3D } from '../world/props/Sun3D';
 
 const NO_FLAME = { current: 0 };
 import { earthField } from '../world/terrain';
@@ -45,6 +46,11 @@ export default function ModelLab() {
           );
         })}
         {params.has('rocket') && <ToonRocket flame={NO_FLAME} />}
+        {params.has('sun') && (
+          <group position={[0, 1.4, 0]}>
+            <Sun3D radius={1} />
+          </group>
+        )}
         {params.has('sojourner') && (
           <group scale={4}>
             <Sojourner annotated />
