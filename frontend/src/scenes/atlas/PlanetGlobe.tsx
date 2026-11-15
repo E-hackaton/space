@@ -4,6 +4,7 @@ import { Html, useTexture } from '@react-three/drei';
 import * as THREE from 'three';
 import { Atmosphere } from '../../components/3d/Atmosphere';
 import { GLOBE_R, SURFACES, type AtlasPoint, type SurfaceBody } from '../../lib/atlas';
+import { Reticle } from './Reticle';
 
 /** Direction du Soleil dans les scènes d'atlas (éclairage latéral). */
 export const ATLAS_SUN = new THREE.Vector3(0.75, 0.35, 0.55).normalize();
@@ -58,7 +59,6 @@ interface MarkerProps {
 export function Marker({ point, radius = GLOBE_R, selected, discovered, label = true, scale = 1, onSelect, animate }: MarkerProps) {
   const active = point.machine.status === 'active';
   const color = active ? ACTIVE : DORMANT;
-  const ring = useRef<THREE.Mesh>(null!);
   const beam = useRef<THREE.Mesh>(null!);
   const tag = useRef<HTMLButtonElement>(null);
   const group = useRef<THREE.Group>(null!);
@@ -72,8 +72,6 @@ export function Marker({ point, radius = GLOBE_R, selected, discovered, label = 
   useFrame(({ clock }) => {
     const t = clock.elapsedTime + phase;
     const pulse = active && animate ? 0.5 + 0.5 * Math.sin(t * 3) : 0.7;
-    ring.current.scale.setScalar((selected ? 1.6 : 1) * (1 + (active && animate ? (t * 0.8) % 1 : 0) * 0.8));
-    (ring.current.material as THREE.MeshBasicMaterial).opacity = active && animate ? 0.9 * (1 - ((t * 0.8) % 1)) : 0.8;
     (beam.current.material as THREE.MeshBasicMaterial).opacity = 0.18 + 0.25 * pulse + (selected ? 0.3 : 0);
     // Étiquette : visible seulement sur la face tournée vers la caméra.
     if (tag.current) {
@@ -88,10 +86,7 @@ export function Marker({ point, radius = GLOBE_R, selected, discovered, label = 
 
   return (
     <group ref={group} position={point.shown.clone().multiplyScalar(radius)} quaternion={q} scale={scale}>
-      <mesh ref={ring} rotation={[-Math.PI / 2, 0, 0]} position={[0, 0.01, 0]}>
-        <ringGeometry args={[0.1, 0.13, 40]} />
-        <meshBasicMaterial color={color} transparent depthWrite={false} toneMapped={false} side={THREE.DoubleSide} />
-      </mesh>
+      <Reticle active={active} selected={selected} size={0.2} animate={animate} />
       <mesh ref={beam} position={[0, 0.35, 0]}>
         <cylinderGeometry args={[0.012, 0.03, 0.7, 10, 1, true]} />
         <meshBasicMaterial color={color} transparent depthWrite={false} toneMapped={false} blending={THREE.AdditiveBlending} />

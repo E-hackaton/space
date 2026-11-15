@@ -5,7 +5,7 @@ import { AnimatePresence, motion } from 'motion/react';
 import { Loading } from '../components/ui/Loading';
 import { PlanetGlyph } from '../components/ui/Glyphs';
 import { StatusPill } from '../components/story/StatusPill';
-import { AtlasMap } from '../components/expedition/AtlasMap';
+import { MiniGlobe } from '../components/expedition/MiniGlobe';
 import { atlasPoints, isSurfaceBody, SURFACE_BODIES, type SurfaceBody } from '../lib/atlas';
 import { formatDate, useCatalog } from '../lib/machines';
 import { webglAvailable } from '../lib/device';
@@ -82,8 +82,8 @@ export default function JourneyMap() {
         </AnimatePresence>
 
         {/* Carte plate : aussi la liste accessible de tous les objets */}
-        <div className="absolute bottom-3 left-3 z-30 w-[min(20rem,calc(100%-1.5rem))]">
-          <AtlasMap body={body} points={points} found={found} target={selected} onPick={select} />
+        <div className="absolute bottom-3 left-3 z-30 w-[min(16rem,calc(100%-1.5rem))]">
+          <MiniGlobe body={body} points={points} found={found} target={selected} onPick={select} />
         </div>
         {status === 'error' && (
           <p role="alert" className="absolute inset-x-0 top-24 z-40 mx-auto w-fit rounded-xl bg-red-500/90 px-4 py-2 text-sm">
